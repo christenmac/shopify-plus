@@ -201,6 +201,25 @@
     .doc-hr { height: 1px; background: var(--border); margin: 18px 0; }
     .doc-footer { background: var(--dark); color: rgba(255,255,255,.7); text-align: center; padding: 15px; font-size: 11px; }
 
+    /* ── Section Manager ── */
+    #section-list { display: flex; flex-direction: column; gap: 3px; }
+    .sec-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 7px; border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: grab; user-select: none;
+      transition: background .1s, border-color .1s;
+      font-size: 11.5px; color: var(--text);
+    }
+    .sec-item:hover { background: #F9FAFB; border-color: var(--border); }
+    .sec-item.dragging { opacity: .4; }
+    .sec-item.drag-over { border-color: var(--green); background: var(--light); }
+    .drag-handle { color: var(--lite-t); font-size: 13px; line-height: 1; cursor: grab; flex-shrink: 0; }
+    .sec-item input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+    .sec-item-label { flex: 1; font-size: 11.5px; color: var(--text); cursor: grab; }
+    .sec-item.hidden-sec .sec-item-label { color: var(--lite-t); text-decoration: line-through; }
+    .sec-hidden { display: none !important; }
+
     /* ── Store name print span (hidden on screen, visible in print) ── */
     .header-store-print {
       display: none;
@@ -279,7 +298,100 @@
   </div>
 
   <div class="panel-hr"></div>
-  <div class="panel-tip">Click any text in the document to edit it directly.</div>
+
+  <div>
+    <div class="section-lbl">Sections — drag to reorder · uncheck to hide</div>
+    <div id="section-list">
+      <div class="sec-item" draggable="true" data-key="expansion">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('expansion',this.checked)">
+        <span class="sec-item-label">Expansion Stores</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="checkout">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('checkout',this.checked)">
+        <span class="sec-item-label">Customized Checkout</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="audiences">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('audiences',this.checked)">
+        <span class="sec-item-label">Shopify Audiences</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="b2b">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('b2b',this.checked)">
+        <span class="sec-item-label">B2B Functionality</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="pos">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('pos',this.checked)">
+        <span class="sec-item-label">Free POS Pro</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="flow">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('flow',this.checked)">
+        <span class="sec-item-label">Shopify Flow</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="devperf">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('devperf',this.checked)">
+        <span class="sec-item-label">Custom Dev &amp; Performance</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="api">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('api',this.checked)">
+        <span class="sec-item-label">Exclusive API Access</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="botprotect">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('botprotect',this.checked)">
+        <span class="sec-item-label">Bot Protection</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="fraud">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('fraud',this.checked)">
+        <span class="sec-item-label">Fraud Analysis</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="launchpad">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('launchpad',this.checked)">
+        <span class="sec-item-label">Launchpad</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="combined">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('combined',this.checked)">
+        <span class="sec-item-label">Combined Listings</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="shipping">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('shipping',this.checked)">
+        <span class="sec-item-label">Shopify Shipping</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="tax">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('tax',this.checked)">
+        <span class="sec-item-label">Shopify Tax</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="support">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('support',this.checked)">
+        <span class="sec-item-label">Priority Support 24/7</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="academy">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('academy',this.checked)">
+        <span class="sec-item-label">Plus Academy</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="additional">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('additional',this.checked)">
+        <span class="sec-item-label">Additional Benefits</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-hr"></div>
+  <div class="panel-tip">Drag sections to reorder · uncheck to hide · click any doc text to edit.</div>
 </aside>
 
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
@@ -340,8 +452,9 @@
       </div>
     </div>
 
-    <div class="features-grid">
+    <div id="sections-container">
     <!-- Expansion Stores -->
+    <div class="sec-wrap" data-key="expansion">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Expansion Stores</div></div>
       <div class="feat-body">
@@ -355,10 +468,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Customized Checkout -->
+    <div class="sec-wrap" data-key="checkout">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Customized Checkout</div></div>
       <div class="feat-body">
@@ -406,10 +520,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Audiences -->
+    <div class="sec-wrap" data-key="audiences">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div>
         <div>
@@ -431,10 +546,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- B2B -->
+    <div class="sec-wrap" data-key="b2b">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">B2B Functionality</div></div>
       <div class="feat-body">
@@ -446,10 +562,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- POS Pro -->
+    <div class="sec-wrap" data-key="pos">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Free POS Pro Subscription(s)</div></div>
       <div class="feat-body">
@@ -462,10 +579,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Flow -->
+    <div class="sec-wrap" data-key="flow">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Flow</div></div>
       <div class="feat-body">
@@ -479,10 +597,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Custom Dev -->
+    <div class="sec-wrap" data-key="devperf">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Custom Development &amp; Better Site Performance</div></div>
       <div class="feat-body">
@@ -495,10 +614,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- API -->
+    <div class="sec-wrap" data-key="api">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Exclusive API Access &amp; Endpoints</div></div>
       <div class="feat-body">
@@ -510,10 +630,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Bot Protection -->
+    <div class="sec-wrap" data-key="botprotect">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Bot Protection</div></div>
       <div class="feat-body">
@@ -525,20 +646,22 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Fraud -->
+    <div class="sec-wrap" data-key="fraud">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Fraud Analysis</div></div>
       <div class="feat-body">
         <p contenteditable="true">Sophisticated tools that automatically scan orders for potential fraud indicators.</p>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Launchpad -->
+    <div class="sec-wrap" data-key="launchpad">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Launchpad <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
       <div class="feat-body">
@@ -550,10 +673,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Combined Listings -->
+    <div class="sec-wrap" data-key="combined">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Combined Listings <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
       <div class="feat-body">
@@ -565,10 +689,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Shipping -->
+    <div class="sec-wrap" data-key="shipping">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Shipping</div></div>
       <div class="feat-body">
@@ -581,10 +706,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Tax -->
+    <div class="sec-wrap" data-key="tax">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Tax</div></div>
       <div class="feat-body">
@@ -596,10 +722,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Support -->
+    <div class="sec-wrap" data-key="support">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Priority Support 24/7</div></div>
       <div class="feat-body">
@@ -614,10 +741,11 @@
         </div>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Academy -->
+    <div class="sec-wrap" data-key="academy">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Plus Academy</div></div>
       <div class="feat-body">
@@ -628,10 +756,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Additional -->
+    <div class="sec-wrap" data-key="additional">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Additional Benefits</div></div>
       <div class="feat-body">
@@ -644,7 +773,9 @@
         </div>
       </div>
     </div>
-    </div><!-- /features-grid -->
+    </div>
+
+    </div><!-- /sections-container -->
 
   </div>
 
@@ -678,6 +809,72 @@
       ? `Currently spending ${val}/mo on marketing — reduce ad spend with Audiences`
       : 'Currently spending on marketing — reduce ad spend with Audiences';
   }
+
+  // ── Divider management ──
+  function updateDividers() {
+    const wraps = [...document.querySelectorAll('#sections-container .sec-wrap')];
+    const visible = wraps.filter(w => !w.classList.contains('sec-hidden'));
+    wraps.forEach(w => {
+      const hr = w.querySelector('.doc-hr');
+      if (!hr) return;
+      hr.style.display = (w === visible[visible.length - 1]) ? 'none' : '';
+    });
+  }
+  updateDividers();
+
+  // ── Toggle visibility ──
+  function toggleSection(key, visible) {
+    const docWrap = document.querySelector(`#sections-container .sec-wrap[data-key="${key}"]`);
+    const panelItem = document.querySelector(`#section-list .sec-item[data-key="${key}"]`);
+    if (docWrap) docWrap.classList.toggle('sec-hidden', !visible);
+    if (panelItem) panelItem.classList.toggle('hidden-sec', !visible);
+    updateDividers();
+  }
+
+  // ── Drag & Drop ──
+  let dragSrcPanel = null;
+  let dragSrcDoc   = null;
+
+  document.querySelectorAll('.sec-item').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      dragSrcPanel = item;
+      dragSrcDoc   = document.querySelector(`#sections-container .sec-wrap[data-key="${item.dataset.key}"]`);
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      document.querySelectorAll('.sec-item').forEach(i => i.classList.remove('drag-over'));
+      updateDividers();
+    });
+    item.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      document.querySelectorAll('.sec-item').forEach(i => i.classList.remove('drag-over'));
+      if (item !== dragSrcPanel) item.classList.add('drag-over');
+    });
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      if (!dragSrcPanel || item === dragSrcPanel) return;
+      item.classList.remove('drag-over');
+      const panelList = document.getElementById('section-list');
+      const docContainer = document.getElementById('sections-container');
+      const allPanel = [...panelList.querySelectorAll('.sec-item')];
+      const srcIdx = allPanel.indexOf(dragSrcPanel);
+      const tgtIdx = allPanel.indexOf(item);
+      if (srcIdx < tgtIdx) {
+        panelList.insertBefore(dragSrcPanel, item.nextSibling);
+      } else {
+        panelList.insertBefore(dragSrcPanel, item);
+      }
+      const newOrder = [...panelList.querySelectorAll('.sec-item')].map(i => i.dataset.key);
+      newOrder.forEach(key => {
+        const wrap = docContainer.querySelector(`.sec-wrap[data-key="${key}"]`);
+        if (wrap) docContainer.appendChild(wrap);
+      });
+      updateDividers();
+    });
+  });
 
   function copyFileLink() {
     const url = location.href;
