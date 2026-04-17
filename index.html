@@ -281,8 +281,9 @@
 
 <!-- ═══════════════ PANEL ═══════════════ -->
 <aside class="panel">
-  <div class="panel-logo">🛍 Plus Overview</div>
+  <div class="panel-logo" id="panel-logo">🛍 Plus Overview</div>
 
+  <div id="plus-panel" style="display:flex;flex-direction:column;gap:18px;">
   <div>
     <div class="section-lbl">Shopify Plus Rates</div>
     <div class="field"><label>Online</label><input id="r-online" placeholder="2.25% + $0.30" oninput="set('rate-online',this.value)"></div>
@@ -404,6 +405,23 @@
 
   <div class="panel-hr"></div>
   <div class="panel-tip">Drag sections to reorder · uncheck to hide · click any doc text to edit.</div>
+  </div><!-- /plus-panel -->
+
+  <div id="retail-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">POS Rates</div>
+      <div class="field"><label>In Person</label><input placeholder="e.g. 2.6% + $0.10" oninput="set('retail-rate-inperson',this.value)"></div>
+      <div class="field"><label>3rd Party Processors</label><input placeholder="e.g. 0% Fee" oninput="set('retail-rate-3p',this.value)"></div>
+      <div class="field"><label>POS Pro (standalone)</label><input placeholder="$89/mo" oninput="set('retail-rate-pos',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Store Details</div>
+      <div class="field"><label>Number of Locations</label><input placeholder="e.g. 3" oninput="set('retail-locations',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Click any doc text to edit.</div>
+  </div><!-- /retail-panel -->
 </aside>
 
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
@@ -834,6 +852,17 @@
 
   <div class="doc-body">
 
+    <!-- Retail Rates -->
+    <div class="rates-card">
+      <div class="rates-hdg">💳 POS Rates</div>
+      <div class="rates-grid">
+        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="retail-rate-inperson" class="rate-val" contenteditable="true">2.6% + $0.10</span></div>
+        <div class="rate-box"><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span id="retail-rate-3p" class="rate-val" contenteditable="true">0% Fee</span></div>
+        <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="retail-rate-pos" class="rate-val" contenteditable="true">$89/mo</span></div>
+        <div class="rate-box"><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span id="retail-locations" class="rate-val" contenteditable="true">–</span></div>
+      </div>
+    </div>
+
     <!-- Resources -->
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">POS Overview &amp; Resources</div></div>
@@ -962,6 +991,18 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
     btn.classList.add('active');
+    const plusPanel = document.getElementById('plus-panel');
+    const retailPanel = document.getElementById('retail-panel');
+    const logo = document.getElementById('panel-logo');
+    if (tab === 'retail') {
+      plusPanel.style.display = 'none';
+      retailPanel.style.display = 'flex';
+      if (logo) logo.textContent = '🏪 Retail / POS';
+    } else {
+      plusPanel.style.display = 'flex';
+      retailPanel.style.display = 'none';
+      if (logo) logo.textContent = '🛍 Plus Overview';
+    }
   }
 
   function set(id, val) {
@@ -1070,6 +1111,7 @@
 
   function exportMerchantPage() {
     const storeName = document.getElementById('header-store').value.trim();
+    const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
 
     // Clone the whole document
     const clone = document.documentElement.cloneNode(true);
@@ -1085,26 +1127,47 @@
       const el = clone.querySelector(sel); if (el) el.remove();
     });
 
-    // Remove all contenteditable attributes
+    // Remove all contenteditable attributes (links inside contenteditable don't navigate)
     clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
 
-    // Fix main layout (no sidebar)
+    // Keep only the active tab — remove inactive tabs, unwrap the active one
+    clone.querySelectorAll('.tab-content').forEach(tc => {
+      if (tc.id !== activeTabId) {
+        tc.remove();
+      } else {
+        const parent = tc.parentNode;
+        while (tc.firstChild) parent.insertBefore(tc.firstChild, tc);
+        tc.remove();
+      }
+    });
+
+    // Ensure every link opens in a new tab (works when opened as a local file)
+    clone.querySelectorAll('a[href]').forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
+
+    // Fix main layout (no sidebar, no tab wrapper)
     const main = clone.querySelector('.main');
     if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
 
     // Remove the script block entirely (no interactivity needed)
     clone.querySelectorAll('script').forEach(s => s.remove());
 
+    // Determine filename based on active tab
+    const isRetail = activeTabId === 'tab-retail';
+    const prefix = isRetail ? 'Shopify Retail' : 'Shopify Plus';
+    const filename = storeName ? `${prefix} - ${storeName}.html` : `${prefix} Overview.html`;
+
     // Download
     const html = '<!DOCTYPE html>\n' + clone.outerHTML;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    a.download = storeName ? `Shopify Plus - ${storeName}.html` : 'Shopify Plus Overview.html';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(a.href);
-
   }
 </script>
 </body>
