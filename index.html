@@ -79,6 +79,18 @@
       display: flex; align-items: center; gap: 6px; transition: background .15s;
     }
     .btn-share:hover { background: #006b50; }
+
+    /* ── Tabs ── */
+    .tab-bar { display: flex; align-items: center; gap: 4px; }
+    .tab-btn {
+      padding: 6px 16px; border-radius: 6px; font-size: 12.5px; font-weight: 600;
+      border: 1.5px solid transparent; cursor: pointer; background: none;
+      color: var(--lite-t); transition: all .15s;
+    }
+    .tab-btn:hover { background: #F3F4F6; color: var(--text); }
+    .tab-btn.active { background: var(--light); border-color: var(--mid); color: var(--dark); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
     .btn-copy {
       background: #fff; color: var(--dark); border: 1.5px solid var(--border); border-radius: 7px;
       padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
@@ -397,7 +409,10 @@
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
 <div class="toolbar">
   <div class="toolbar-left">
-    <span class="toolbar-title">Shopify Plus Feature Overview</span>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('plus',this)">Shopify Plus</button>
+      <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
+    </div>
     <span class="edit-badge">✏ Click any text to edit</span>
   </div>
   <button class="btn-share" onclick="exportMerchantPage()">
@@ -408,6 +423,9 @@
 
 <!-- ═══════════════ DOCUMENT ═══════════════ -->
 <div class="main">
+
+<!-- ══ PLUS TAB ══ -->
+<div id="tab-plus" class="tab-content active">
 <div class="doc-wrap">
 
   <div class="doc-header">
@@ -790,8 +808,162 @@
 
 </div>
 </div>
+</div><!-- /tab-plus -->
+
+<!-- ══ RETAIL TAB ══ -->
+<div id="tab-retail" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <svg width="40" height="46" viewBox="0 0 44 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 19 L9 11.5 C9 5 11.8 1.5 15.5 1.5 C19.2 1.5 22 5 22 11.5 L22 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 19 L22 11.5 C22 5 24.8 1.5 28.5 1.5 C32.2 1.5 35 5 35 11.5 L35 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2.5 19 L0 48 L44 48 L41.5 19 Z" fill="white"/>
+        <text x="22" y="37.5" text-anchor="middle" fill="#004C3F" font-size="17" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
+      </svg>
+      <span class="d-logo-text">shopify</span>
+    </div>
+    <div class="d-header-r">
+      <h1 contenteditable="true">Shopify Retail / POS</h1>
+      <p contenteditable="true">Overview &amp; Resources</p>
+      <input class="header-store-input" id="retail-store" placeholder="Store Name" autocomplete="off">
+      <span class="header-store-print" id="retail-store-print"></span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- Resources -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">POS Overview &amp; Resources</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><a href="https://www.shopify.com/pos" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-faq" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">FAQ ↗</a></li>
+          <li><a href="https://www.shopify.com/pos/features" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Features ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Inventory -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Inventory Management</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Manage stock across all locations in real time — track, transfer, and adjust inventory directly from the POS.</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-inventory-management" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li>Real-time inventory sync across all locations</li>
+          <li>Low stock alerts and inventory counts</li>
+          <li>Inventory transfers between locations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Reporting -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">POS Reporting</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Get a unified view of in-person and online sales with built-in retail analytics.</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-analytics" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li>Sales by location, staff, and product</li>
+          <li>End-of-day reports and cash tracking</li>
+          <li>Unified online + in-store reporting dashboard</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- QuickBooks -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Accounting | QuickBooks Online</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Sync Shopify sales, fees, and payouts directly into QuickBooks Online — no manual data entry.</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/apps/apps-by-category/accounting/quickbooks" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li>Automatic transaction sync</li>
+          <li>Reconcile in-store and online revenue in one place</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Demos -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Demos</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><a href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS — 5 Minute Demo ↗</a></li>
+          <li><a href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Unified Commerce (D2C / POS) — 20 Minute Demo ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Hardware -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Hardware</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><a href="https://hardware.shopify.com" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Products for Purchase ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/hardware/ipad" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Compatible with Tablet / iPad ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/hardware" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Supported Shopify Hardware ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Fun Features -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Fun Features to Note</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-features/gift-cards" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Gift Cards ↗</a> — sell, redeem, and reload gift cards in-store and online</li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-features/buy-online-pickup-in-store" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">BOPIS (Buy Online, Pick Up In Store) ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-features/buy-in-store-ship-to-customer" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">BISTC (Buy In Store, Ship to Customer) ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/sell-in-person/pos-features/loyalty" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Loyalty ↗</a> — reward customers across in-store and online channels</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Other -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Additional Resources</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><a href="https://www.shopify.com/retail" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Case Studies ↗</a></li>
+          <li><a href="https://www.shopify.com/editions/retail" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify 2025 Retail Editions ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="doc-footer" contenteditable="true">Shopify Retail &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
+
+</div>
+</div>
+</div><!-- /tab-retail -->
 
 <script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
   function set(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val || '–';
