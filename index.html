@@ -302,11 +302,6 @@
   <div>
     <div class="section-lbl">Sections — drag to reorder · uncheck to hide</div>
     <div id="section-list">
-      <div class="sec-item" draggable="true" data-key="expansion">
-        <span class="drag-handle">⠿</span>
-        <input type="checkbox" checked onchange="toggleSection('expansion',this.checked)">
-        <span class="sec-item-label">Expansion Stores</span>
-      </div>
       <div class="sec-item" draggable="true" data-key="checkout">
         <span class="drag-handle">⠿</span>
         <input type="checkbox" checked onchange="toggleSection('checkout',this.checked)">
@@ -322,15 +317,25 @@
         <input type="checkbox" checked onchange="toggleSection('b2b',this.checked)">
         <span class="sec-item-label">B2B Functionality</span>
       </div>
+      <div class="sec-item" draggable="true" data-key="expansion">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('expansion',this.checked)">
+        <span class="sec-item-label">Expansion Stores</span>
+      </div>
       <div class="sec-item" draggable="true" data-key="pos">
         <span class="drag-handle">⠿</span>
         <input type="checkbox" checked onchange="toggleSection('pos',this.checked)">
         <span class="sec-item-label">Free POS Pro</span>
       </div>
-      <div class="sec-item" draggable="true" data-key="flow">
+      <div class="sec-item" draggable="true" data-key="launchpad">
         <span class="drag-handle">⠿</span>
-        <input type="checkbox" checked onchange="toggleSection('flow',this.checked)">
-        <span class="sec-item-label">Shopify Flow</span>
+        <input type="checkbox" checked onchange="toggleSection('launchpad',this.checked)">
+        <span class="sec-item-label">Launchpad</span>
+      </div>
+      <div class="sec-item" draggable="true" data-key="combined">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('combined',this.checked)">
+        <span class="sec-item-label">Combined Listings</span>
       </div>
       <div class="sec-item" draggable="true" data-key="devperf">
         <span class="drag-handle">⠿</span>
@@ -342,6 +347,11 @@
         <input type="checkbox" checked onchange="toggleSection('api',this.checked)">
         <span class="sec-item-label">Exclusive API Access</span>
       </div>
+      <div class="sec-item" draggable="true" data-key="flow">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('flow',this.checked)">
+        <span class="sec-item-label">Shopify Flow</span>
+      </div>
       <div class="sec-item" draggable="true" data-key="botprotect">
         <span class="drag-handle">⠿</span>
         <input type="checkbox" checked onchange="toggleSection('botprotect',this.checked)">
@@ -351,16 +361,6 @@
         <span class="drag-handle">⠿</span>
         <input type="checkbox" checked onchange="toggleSection('fraud',this.checked)">
         <span class="sec-item-label">Fraud Analysis</span>
-      </div>
-      <div class="sec-item" draggable="true" data-key="launchpad">
-        <span class="drag-handle">⠿</span>
-        <input type="checkbox" checked onchange="toggleSection('launchpad',this.checked)">
-        <span class="sec-item-label">Launchpad</span>
-      </div>
-      <div class="sec-item" draggable="true" data-key="combined">
-        <span class="drag-handle">⠿</span>
-        <input type="checkbox" checked onchange="toggleSection('combined',this.checked)">
-        <span class="sec-item-label">Combined Listings</span>
       </div>
       <div class="sec-item" draggable="true" data-key="shipping">
         <span class="drag-handle">⠿</span>
@@ -453,24 +453,6 @@
     </div>
 
     <div id="sections-container">
-    <!-- Expansion Stores -->
-    <div class="sec-wrap" data-key="expansion">
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Expansion Stores</div></div>
-      <div class="feat-body">
-        <p contenteditable="true">Additional .myshopify.com stores under the same org &amp; contract. <strong>1 Main Store + 9 Expansion Stores.</strong></p>
-        <ul contenteditable="true">
-          <li><strong>International</strong> — same brand in a different language, region, or currency</li>
-          <li><strong>Product Line</strong> — same brand, different products (e.g. tents → coolers)</li>
-          <li><strong>B2B</strong> — wholesale store with identical products</li>
-          <li><strong>Employee / VIP</strong> — member-only or employee swag stores</li>
-          <li><strong>Physical Retail</strong> — 100% in-store, no online transactions</li>
-        </ul>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-    </div>
-
     <!-- Customized Checkout -->
     <div class="sec-wrap" data-key="checkout">
     <div class="feature">
@@ -570,6 +552,24 @@
     <div class="doc-hr"></div>
     </div>
 
+    <!-- Expansion Stores -->
+    <div class="sec-wrap" data-key="expansion">
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Expansion Stores</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Additional .myshopify.com stores under the same org &amp; contract. <strong>1 Main Store + 9 Expansion Stores.</strong></p>
+        <ul contenteditable="true">
+          <li><strong>International</strong> — same brand in a different language, region, or currency</li>
+          <li><strong>Product Line</strong> — same brand, different products (e.g. tents → coolers)</li>
+          <li><strong>B2B</strong> — wholesale store with identical products</li>
+          <li><strong>Employee / VIP</strong> — member-only or employee swag stores</li>
+          <li><strong>Physical Retail</strong> — 100% in-store, no online transactions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+    </div>
+
     <!-- POS Pro -->
     <div class="sec-wrap" data-key="pos">
     <div class="feature">
@@ -587,19 +587,35 @@
     <div class="doc-hr"></div>
     </div>
 
-    <!-- Flow -->
-    <div class="sec-wrap" data-key="flow">
+    <!-- Launchpad -->
+    <div class="sec-wrap" data-key="launchpad">
     <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Flow</div></div>
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Launchpad <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
       <div class="feat-body">
-        <p contenteditable="true">Extensive automation access with Plus — custom triggers, actions, and integrations.</p>
-        <div class="badges" style="margin-top:6px">
-          <span class="badge" contenteditable="true">Order Management</span>
-          <span class="badge" contenteditable="true">Marketing Automation</span>
-          <span class="badge" contenteditable="true">Inventory Management</span>
-          <span class="badge" contenteditable="true">B2B Features</span>
-          <span class="badge" contenteditable="true">Shipping Profiles</span>
-        </div>
+        <p contenteditable="true">Manages product launches, events, promotions, and sales campaigns seamlessly.</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/promoting-marketing/create-marketing/launchpad" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li>Pre-schedule theme changes, discounts, and banners</li>
+          <li>Intuitive interface for limited-time events</li>
+          <li>Publish and revert campaign assets on a precise schedule</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+    </div>
+
+    <!-- Combined Listings -->
+    <div class="sec-wrap" data-key="combined">
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Combined Listings <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Group separate products into a single enhanced listing (color, model, dimension, etc.).</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/products/combined-listings-app" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
+          <li>Distinct, descriptive URLs per variation — <strong>SEO boost</strong></li>
+          <li>Unique titles, descriptions, and rich media per variation</li>
+          <li>Cohesive buyer experience from a single product details page</li>
+        </ul>
       </div>
     </div>
     <div class="doc-hr"></div>
@@ -638,6 +654,24 @@
     <div class="doc-hr"></div>
     </div>
 
+    <!-- Flow -->
+    <div class="sec-wrap" data-key="flow">
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Flow</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Extensive automation access with Plus — custom triggers, actions, and integrations.</p>
+        <div class="badges" style="margin-top:6px">
+          <span class="badge" contenteditable="true">Order Management</span>
+          <span class="badge" contenteditable="true">Marketing Automation</span>
+          <span class="badge" contenteditable="true">Inventory Management</span>
+          <span class="badge" contenteditable="true">B2B Features</span>
+          <span class="badge" contenteditable="true">Shipping Profiles</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+    </div>
+
     <!-- Bot Protection -->
     <div class="sec-wrap" data-key="botprotect">
     <div class="feature">
@@ -660,40 +694,6 @@
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Fraud Analysis</div></div>
       <div class="feat-body">
         <p contenteditable="true">Sophisticated tools that automatically scan orders for potential fraud indicators.</p>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-    </div>
-
-    <!-- Launchpad -->
-    <div class="sec-wrap" data-key="launchpad">
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Launchpad <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
-      <div class="feat-body">
-        <p contenteditable="true">Manages product launches, events, promotions, and sales campaigns seamlessly.</p>
-        <ul contenteditable="true">
-          <li><a href="https://help.shopify.com/en/manual/promoting-marketing/create-marketing/launchpad" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
-          <li>Pre-schedule theme changes, discounts, and banners</li>
-          <li>Intuitive interface for limited-time events</li>
-          <li>Publish and revert campaign assets on a precise schedule</li>
-        </ul>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-    </div>
-
-    <!-- Combined Listings -->
-    <div class="sec-wrap" data-key="combined">
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Combined Listings <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
-      <div class="feat-body">
-        <p contenteditable="true">Group separate products into a single enhanced listing (color, model, dimension, etc.).</p>
-        <ul contenteditable="true">
-          <li><a href="https://help.shopify.com/en/manual/products/combined-listings-app" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></li>
-          <li>Distinct, descriptive URLs per variation — <strong>SEO boost</strong></li>
-          <li>Unique titles, descriptions, and rich media per variation</li>
-          <li>Cohesive buyer experience from a single product details page</li>
-        </ul>
       </div>
     </div>
     <div class="doc-hr"></div>
