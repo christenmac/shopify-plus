@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopify Plus Overview</title>
+  <style>
+    :root {
+      --green:  #008060;
+      --dark:   #004C3F;
+      --light:  #F0FDF9;
+      --mid:    #C6F0E0;
+      --text:   #1A1A1A;
+      --mid-t:  #4B5563;
+      --lite-t: #6B7280;
+      --border: #E5E7EB;
+      --red:    #EF4444;
+      --panel:  270px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F3F4F6;
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Panel ── */
+    .panel {
+      width: var(--panel);
+      min-height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border);
+      padding: 18px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 10;
+    }
+    .panel-logo { font-size: 15px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+    .section-lbl { font-size: 10px; font-weight: 700; color: var(--lite-t); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+    .field { margin-bottom: 9px; }
+    .field label { display: block; font-size: 11px; font-weight: 600; color: var(--mid-t); margin-bottom: 3px; }
+    .field input {
+      width: 100%; border: 1px solid var(--border); border-radius: 6px;
+      padding: 7px 9px; font-size: 12.5px; color: var(--text);
+      transition: border-color .15s;
+    }
+    .field input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 2px rgba(0,128,96,.12); }
+    .panel-hr { height: 1px; background: var(--border); }
+    .panel-tip { font-size: 11px; color: var(--lite-t); line-height: 1.5; }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      position: fixed; top: 0;
+      left: var(--panel); right: 0; height: 50px;
+      background: #fff; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; z-index: 9;
+    }
+    .toolbar-left { display: flex; align-items: center; gap: 10px; }
+    .toolbar-title { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .edit-badge {
+      font-size: 10.5px; background: #FEF3C7; color: #92400E;
+      border: 1px solid #FDE68A; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+    }
+    .btn-print {
+      background: var(--dark); color: #fff; border: none; border-radius: 7px;
+      padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-print:hover { background: #003830; }
+    .btn-share {
+      background: var(--green); color: #fff; border: none; border-radius: 7px;
+      padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px; transition: background .15s;
+    }
+    .btn-share:hover { background: #006b50; }
+    .btn-copy {
+      background: #fff; color: var(--dark); border: 1.5px solid var(--border); border-radius: 7px;
+      padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px; transition: all .15s;
+    }
+    .btn-copy:hover { border-color: var(--green); color: var(--green); }
+    .btn-copy.copied { background: #F0FDF9; border-color: var(--green); color: var(--green); }
+
+    /* ── Share modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 14px; padding: 32px 28px;
+      max-width: 400px; width: 92%; box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    }
+    .modal-box h2 { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .modal-box p  { font-size: 12px; color: var(--lite-t); margin-bottom: 20px; }
+    .modal-steps  { list-style: none; counter-reset: steps; margin-bottom: 22px; }
+    .modal-steps li {
+      counter-increment: steps; display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13px; color: var(--text); margin-bottom: 12px; line-height: 1.5;
+    }
+    .modal-steps li::before {
+      content: counter(steps); background: var(--dark); color: #fff;
+      font-size: 10px; font-weight: 800; width: 20px; height: 20px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .modal-steps strong { color: var(--dark); }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-btn-primary {
+      flex: 1; background: var(--dark); color: #fff; text-align: center;
+      padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 13px;
+      text-decoration: none; display: block;
+    }
+    .modal-btn-secondary {
+      flex: 1; background: #F3F4F6; color: var(--text); border: none;
+      border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; padding: 10px;
+    }
+
+    /* ── Main scroll ── */
+    .main { margin-left: var(--panel); padding-top: 50px; flex: 1; display: flex; justify-content: center; padding-bottom: 60px; }
+    .doc-wrap { width: 800px; margin: 28px auto 0; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.1); border-radius: 10px; overflow: hidden; }
+
+    /* contenteditable hint */
+    [contenteditable="true"]:hover:not(:focus) { outline: 1px dashed rgba(0,128,96,.4); outline-offset: 2px; border-radius: 3px; }
+    [contenteditable="true"]:focus { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 3px; }
+
+    /* ── Doc Header ── */
+    .doc-header {
+      background: linear-gradient(135deg, var(--dark) 0%, #006b50 100%);
+      color: #fff; padding: 32px 46px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .d-logo { display: flex; align-items: center; gap: 12px; }
+    .d-logo-text { font-size: 26px; font-weight: 800; letter-spacing: -.5px; font-style: italic; }
+    .d-header-r { text-align: right; }
+    .d-header-r h1 { font-size: 19px; font-weight: 700; }
+    .d-header-r p  { font-size: 11.5px; opacity: .75; margin-top: 3px; }
+    .header-store-input {
+      display: block; margin-top: 10px; margin-left: auto;
+      background: transparent; border: none;
+      border-bottom: 1px solid rgba(255,255,255,.45);
+      color: white; font-size: 13.5px; font-weight: 700;
+      text-align: right; outline: none; width: 180px;
+      padding: 3px 0; letter-spacing: .2px;
+    }
+    .header-store-input::placeholder { color: rgba(255,255,255,.45); font-weight: 400; }
+
+    /* ── Doc Body ── */
+    .doc-body { padding: 30px 46px; }
+
+    /* Rates card */
+    .rates-card {
+      background: var(--light); border: 1.5px solid var(--mid);
+      border-radius: 12px; padding: 20px 24px 16px; margin-bottom: 28px;
+    }
+    .rates-hdg { font-size: 14px; font-weight: 800; color: var(--dark); margin-bottom: 13px; }
+    .rates-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rate-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .rate-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; }
+    .rate-sep { font-size: 10px; color: var(--border); }
+    .rate-val { font-size: 13px; font-weight: 800; color: var(--dark); }
+    .rates-note { font-size: 10.5px; color: var(--lite-t); font-style: italic; margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+    /* Feature */
+    .feature { border-left: 3px solid var(--green); padding-left: 18px; margin-bottom: 22px; page-break-inside: avoid; }
+    .feat-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+    .check {
+      background: var(--green); color: #fff;
+      width: 17px; height: 17px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 900; flex-shrink: 0; margin-top: 2px;
+    }
+    .feat-title { font-size: 13px; font-weight: 800; color: var(--dark); }
+    .feat-note  { font-size: 10.5px; color: var(--lite-t); font-style: italic; margin-top: 2px; }
+    .feat-body  { font-size: 11.5px; color: var(--mid-t); line-height: 1.65; }
+    .feat-body p { margin-bottom: 5px; }
+    .feat-body ul { padding-left: 16px; margin: 4px 0; }
+    .feat-body li { margin-bottom: 3px; }
+
+    .sub-box { background: #F9FAFB; border: 1px solid var(--border); border-radius: 7px; padding: 10px 13px; margin: 7px 0; }
+    .sub-title { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+    .badge { background: var(--light); border: 1px solid var(--mid); color: var(--dark); padding: 3px 9px; border-radius: 20px; font-size: 10.5px; font-weight: 600; }
+
+    .l365-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top: 8px; }
+    .stat-box { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 9px 6px; text-align: center; }
+    .stat-num { font-size: 15px; font-weight: 900; color: var(--green); line-height: 1.2; min-height: 20px; }
+    .stat-num.red { color: var(--red); }
+    .stat-lbl { font-size: 9.5px; color: var(--lite-t); margin-top: 2px; }
+
+    .perf-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top: 8px; }
+
+    .doc-hr { height: 1px; background: var(--border); margin: 18px 0; }
+    .doc-footer { background: var(--dark); color: rgba(255,255,255,.7); text-align: center; padding: 15px; font-size: 11px; }
+
+    /* ── Store name print span (hidden on screen, visible in print) ── */
+    .header-store-print {
+      display: none;
+      color: white; font-size: 13px; font-weight: 700;
+      text-align: right; margin-top: 7px; letter-spacing: .2px;
+    }
+
+    /* ── Print ── */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
+      @page { size: 8.5in 40in; margin: 0; }
+
+      .panel, .toolbar { display: none !important; }
+
+      .main {
+        margin: 0 !important;
+        padding: 16px !important;
+        display: block !important;
+      }
+
+      .doc-wrap {
+        width: 100% !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+      }
+
+      .header-store-input { display: none !important; }
+      .header-store-print { display: block !important; }
+
+      .feature    { break-inside: avoid; page-break-inside: avoid; }
+      .feat-head  { break-after:   avoid; page-break-after:  avoid; }
+      .rates-card { break-inside: avoid; page-break-inside: avoid; }
+      .sub-box    { break-inside: avoid; page-break-inside: avoid; }
+
+      [contenteditable], [contenteditable]:hover, [contenteditable]:focus {
+        outline: none !important; box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ PANEL ═══════════════ -->
+<aside class="panel">
+  <div class="panel-logo">🛍 Plus Overview</div>
+
+  <div>
+    <div class="section-lbl">Shopify Plus Rates</div>
+    <div class="field"><label>Online</label><input id="r-online" placeholder="2.25% + $0.30" oninput="set('rate-online',this.value)"></div>
+    <div class="field"><label>In Person</label><input id="r-inperson" placeholder="2.3% + $0.10" oninput="set('rate-inperson',this.value)"></div>
+    <div class="field"><label>3rd Party Processors</label><input id="r-3p" placeholder="0% Fee" oninput="set('rate-3p',this.value)"></div>
+    <div class="field"><label>Shop Pay Installments</label><input id="r-spi" placeholder="5% + $0.30" oninput="set('rate-spi',this.value)"></div>
+    <div class="field"><label>POS Pro</label><input id="r-pos" placeholder="Free" oninput="set('rate-pos',this.value)"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+
+  <div>
+    <div class="section-lbl">L365 Conversion Data</div>
+    <div class="field"><label>Sessions</label><input id="s-sessions" placeholder="e.g. 425,728" oninput="setNum('stat-sessions',this.value)"></div>
+    <div class="field"><label>Reached Checkout</label><input id="s-reach" placeholder="e.g. 17,034" oninput="setNum('stat-reach',this.value)"></div>
+    <div class="field"><label>Completed Checkout</label><input id="s-orders" placeholder="e.g. 12,044" oninput="setNum('stat-orders',this.value)"></div>
+    <div class="field"><label>Abandoned Cart Value</label><input id="s-abandoned" placeholder="e.g. $249,500" oninput="set('stat-abandoned',this.value)"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+
+  <div>
+    <div class="section-lbl">Store Details</div>
+    <div class="field"><label>Marketing Spend / Month</label><input id="s-mktg" placeholder="e.g. $3,500/mo" oninput="updateMktg(this.value)"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+  <div class="panel-tip">Click any text in the document to edit it directly.</div>
+</aside>
+
+<!-- ═══════════════ TOOLBAR ═══════════════ -->
+<div class="toolbar">
+  <div class="toolbar-left">
+    <span class="toolbar-title">Shopify Plus Feature Overview</span>
+    <span class="edit-badge">✏ Click any text to edit</span>
+  </div>
+  <button class="btn-share" onclick="exportMerchantPage()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    Export for Merchant
+  </button>
+</div>
+
+<!-- ═══════════════ DOCUMENT ═══════════════ -->
+<div class="main">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <!-- Shopify bag logo (white version) -->
+      <svg width="40" height="46" viewBox="0 0 44 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Left handle -->
+        <path d="M9 19 L9 11.5 C9 5 11.8 1.5 15.5 1.5 C19.2 1.5 22 5 22 11.5 L22 19"
+              stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Right handle -->
+        <path d="M22 19 L22 11.5 C22 5 24.8 1.5 28.5 1.5 C32.2 1.5 35 5 35 11.5 L35 19"
+              stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Bag body -->
+        <path d="M2.5 19 L0 48 L44 48 L41.5 19 Z" fill="white"/>
+        <!-- s on bag -->
+        <text x="22" y="37.5" text-anchor="middle" fill="#004C3F"
+              font-size="17" font-weight="900"
+              font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
+      </svg>
+      <span class="d-logo-text">shopify</span>
+    </div>
+    <div class="d-header-r">
+      <h1 contenteditable="true">Shopify Plus</h1>
+      <p contenteditable="true">Feature Overview &amp; Benefits</p>
+      <input class="header-store-input" id="header-store" placeholder="Store Name" autocomplete="off"
+             oninput="document.getElementById('header-store-print').textContent=this.value">
+      <span class="header-store-print" id="header-store-print"></span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- Rates -->
+    <div class="rates-card">
+      <div class="rates-hdg">💳 Plus Rates</div>
+      <div class="rates-grid">
+        <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="rate-online" class="rate-val" contenteditable="true">2.25% + $0.30</span></div>
+        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="rate-inperson" class="rate-val" contenteditable="true">2.3% + $0.10</span></div>
+        <div class="rate-box"><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span id="rate-3p" class="rate-val" contenteditable="true">0% Fee</span></div>
+        <div class="rate-box"><span class="rate-lbl">Shop Pay Installments</span><span class="rate-sep">·</span><span id="rate-spi" class="rate-val" contenteditable="true">5% + $0.30</span></div>
+        <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="rate-pos" class="rate-val" contenteditable="true">Free</span></div>
+      </div>
+    </div>
+
+    <div class="features-grid">
+    <!-- Expansion Stores -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Expansion Stores</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Additional .myshopify.com stores under the same org &amp; contract. <strong>1 Main Store + 9 Expansion Stores.</strong></p>
+        <ul contenteditable="true">
+          <li><strong>International</strong> — same brand in a different language, region, or currency</li>
+          <li><strong>Product Line</strong> — same brand, different products (e.g. tents → coolers)</li>
+          <li><strong>B2B</strong> — wholesale store with identical products</li>
+          <li><strong>Employee / VIP</strong> — member-only or employee swag stores</li>
+          <li><strong>Physical Retail</strong> — 100% in-store, no online transactions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Customized Checkout -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Customized Checkout</div></div>
+      <div class="feat-body">
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Increase Conversion</div>
+          <p contenteditable="true">Trust Badges · Reviews · Shipping &amp; Return Policies · Free Gifts · Rewards Program · Bundles · Discounted Rates on Orders Above X</p>
+          <div class="badges"><span class="badge" contenteditable="true">📈 6–9% conversion increase on average</span></div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Increase AOV</div>
+          <p contenteditable="true">Upsells · Add-Ons · Subscribe &amp; Save · Warranty Protection</p>
+          <div class="badges"><span class="badge" contenteditable="true">💰 9–12% AOV increase on average</span></div>
+        </div>
+        <p style="margin-top:8px" contenteditable="true">Free access to <strong>ReBuy</strong> and <strong>AfterSell</strong> for checkout customization on Plus.</p>
+
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">L365 Conversion Insights</div>
+          <div class="l365-grid">
+            <div class="stat-box">
+              <div class="stat-num" id="stat-sessions" contenteditable="true">–</div>
+              <div class="stat-lbl">Sessions</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" id="stat-reach" contenteditable="true">–</div>
+              <div class="stat-lbl">Reached Checkout</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" id="stat-orders" contenteditable="true">–</div>
+              <div class="stat-lbl">Completed Checkout</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num red" id="stat-abandoned" contenteditable="true">–</div>
+              <div class="stat-lbl">Abandoned Cart Opportunity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Audiences -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div>
+        <div>
+          <div class="feat-title" contenteditable="true">Shopify Audiences</div>
+          <div class="feat-note" contenteditable="true" id="doc-mktg">Currently spending on marketing — reduce ad spend with Audiences</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">Data-driven insights to enhance marketing and reduce customer acquisition costs.</p>
+        <ul contenteditable="true">
+          <li>Up to <strong>50% reduction</strong> in customer acquisition costs</li>
+          <li>Improved ad performance &amp; enhanced retargeting</li>
+          <li>Privacy-compliant targeting</li>
+        </ul>
+        <div class="badges" style="margin-top:7px">
+          <span class="badge" contenteditable="true">Happy Hippo: 4X ROAS · 86% new customers</span>
+          <span class="badge" contenteditable="true">BlenderBottle: 6X ROAS</span>
+          <span class="badge" contenteditable="true">SIMKHAI: 6X ROAS · 54% lower CPA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- B2B -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">B2B Functionality</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Run wholesale and DTC on a single platform. Companies &amp; Customers, Catalogs &amp; Pricing, Checkout UI, Storefront API, Draft Order API.</p>
+        <div class="badges" style="margin-top:7px">
+          <span class="badge" contenteditable="true">AMR Hair &amp; Beauty: 200% sales increase</span>
+          <span class="badge" contenteditable="true">WHO IS ELIJAH: 50% intl. sales increase</span>
+          <span class="badge" contenteditable="true">Kulani Kinis: 300% B2B revenue increase</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- POS Pro -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Free POS Pro Subscription(s)</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li>First <strong>20 locations FREE</strong> (or 200 with Shopify Payments)</li>
+          <li>Unlimited POS Staff</li>
+          <li>Returns &amp; Exchanges at any location</li>
+          <li>Retail Inventory Management + Reporting</li>
+          <li>Omnichannel: Trade Shows · Pop-Ups · Conferences · Brick &amp; Mortar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Flow -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Flow</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Extensive automation access with Plus — custom triggers, actions, and integrations.</p>
+        <div class="badges" style="margin-top:6px">
+          <span class="badge" contenteditable="true">Order Management</span>
+          <span class="badge" contenteditable="true">Marketing Automation</span>
+          <span class="badge" contenteditable="true">Inventory Management</span>
+          <span class="badge" contenteditable="true">B2B Features</span>
+          <span class="badge" contenteditable="true">Shipping Profiles</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Custom Dev -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Custom Development &amp; Better Site Performance</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">API Rate-Limit increased <strong>5X</strong> — all systems and 3rd-party apps communicate 5X faster.</p>
+        <div class="perf-grid">
+          <div class="stat-box"><div class="stat-num">1,000</div><div class="stat-lbl">Rate Limit pts/sec</div></div>
+          <div class="stat-box"><div class="stat-num">54,600</div><div class="stat-lbl">Payments App pts/sec</div></div>
+          <div class="stat-box"><div class="stat-num">120</div><div class="stat-lbl">Metaobject Definitions</div></div>
+          <div class="stat-box"><div class="stat-num">128K</div><div class="stat-lbl">Metaobject Entries</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- API -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Exclusive API Access &amp; Endpoints</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Additional API calls and integration capabilities unavailable outside Plus.</p>
+        <div class="badges" style="margin-top:6px">
+          <span class="badge" contenteditable="true">REST: GiftCard · Multipass · User</span>
+          <span class="badge" contenteditable="true">GraphQL: publishablePublish · publishableUnpublish</span>
+          <span class="badge" contenteditable="true">Bulk Operations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Bot Protection -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Bot Protection</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Prevent auto-checkout bots from dominating inventory during flash sales and limited drops.</p>
+        <ul contenteditable="true">
+          <li>Block known bots from completing checkout</li>
+          <li>Slow down automated purchasing systems</li>
+          <li>Checkpoint challenges to verify human buyers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Fraud -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Fraud Analysis</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Sophisticated tools that automatically scan orders for potential fraud indicators.</p>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Launchpad -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Launchpad <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Manages product launches, events, promotions, and sales campaigns seamlessly.</p>
+        <ul contenteditable="true">
+          <li>Pre-schedule theme changes, discounts, and banners</li>
+          <li>Intuitive interface for limited-time events</li>
+          <li>Publish and revert campaign assets on a precise schedule</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Combined Listings -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Combined Listings <span style="font-size:10px;font-weight:500;color:var(--lite-t)">(Plus Exclusive)</span></div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Group separate products into a single enhanced listing (color, model, dimension, etc.).</p>
+        <ul contenteditable="true">
+          <li>Distinct, descriptive URLs per variation — <strong>SEO boost</strong></li>
+          <li>Unique titles, descriptions, and rich media per variation</li>
+          <li>Cohesive buyer experience from a single product details page</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Shipping -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Shipping</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li>Discounted rates up to <strong>88%</strong></li>
+          <li>Carrier-calculated shipping</li>
+          <li>Custom Shipping Discounts + Functions</li>
+          <li>Automatic shipping insurance up to $200</li>
+          <li>Multiple shipping profiles for different product categories</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Tax -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Tax</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li>First <strong>$100K free</strong>, 0.25% after</li>
+          <li>Avalara AvaTax Integration</li>
+          <li>Advanced Tax Reporting</li>
+          <li>VAT Number Validation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Support -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Priority Support 24/7</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Growth and technical support by phone, email, or live chat — exclusively for Plus Merchants.</p>
+        <div class="badges" style="margin-top:6px">
+          <span class="badge" contenteditable="true">Acquisition</span>
+          <span class="badge" contenteditable="true">Retention</span>
+          <span class="badge" contenteditable="true">Conversion</span>
+          <span class="badge" contenteditable="true">Business Operations</span>
+          <span class="badge" contenteditable="true">Technical Integrations</span>
+          <span class="badge" contenteditable="true">Branding</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Academy -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Plus Academy</div></div>
+      <div class="feat-body">
+        <ul contenteditable="true">
+          <li><strong>In-Depth Courses</strong> — comprehensive learning paths</li>
+          <li><strong>Live Online Workshops</strong> — taught by leading industry experts</li>
+          <li><strong>Short-Form Lessons</strong> — practical tips in under 30 minutes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Additional -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Additional Benefits</div></div>
+      <div class="feat-body">
+        <div class="badges">
+          <span class="badge" contenteditable="true">Unlimited Staff Accounts</span>
+          <span class="badge" contenteditable="true">Feature Test Drives</span>
+          <span class="badge" contenteditable="true">Custom User Groups</span>
+          <span class="badge" contenteditable="true">Advanced Coding &amp; RFPs</span>
+          <span class="badge" contenteditable="true">Shopify Scripts &amp; Functions</span>
+        </div>
+      </div>
+    </div>
+    </div><!-- /features-grid -->
+
+  </div>
+
+  <div class="doc-footer" contenteditable="true">Shopify Plus &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
+
+</div>
+</div>
+
+<script>
+  function set(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val || '–';
+  }
+
+  function setNum(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (!val.trim()) { el.textContent = '–'; return; }
+    const hasDollar = val.includes('$');
+    const num = parseFloat(val.replace(/[$,]/g, ''));
+    if (!isNaN(num)) {
+      el.textContent = hasDollar ? '$' + num.toLocaleString() : num.toLocaleString();
+    } else {
+      el.textContent = val;
+    }
+  }
+
+  function updateMktg(val) {
+    const el = document.getElementById('doc-mktg');
+    if (el) el.textContent = val
+      ? `Currently spending ${val}/mo on marketing — reduce ad spend with Audiences`
+      : 'Currently spending on marketing — reduce ad spend with Audiences';
+  }
+
+  function copyFileLink() {
+    const url = location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('btn-copy');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Link`;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function exportMerchantPage() {
+    const storeName = document.getElementById('header-store').value.trim();
+
+    // Clone the whole document
+    const clone = document.documentElement.cloneNode(true);
+
+    // Bake in the store name
+    const printSpan = clone.querySelector('#header-store-print');
+    const storeInput = clone.querySelector('#header-store');
+    if (printSpan) { printSpan.textContent = storeName; printSpan.style.display = storeName ? 'block' : 'none'; }
+    if (storeInput) storeInput.remove();
+
+    // Remove editing UI — panel, toolbar, modal, edit badge
+    ['#share-modal', '.panel', '.toolbar', '.edit-badge'].forEach(sel => {
+      const el = clone.querySelector(sel); if (el) el.remove();
+    });
+
+    // Remove all contenteditable attributes
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+
+    // Fix main layout (no sidebar)
+    const main = clone.querySelector('.main');
+    if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
+
+    // Remove the script block entirely (no interactivity needed)
+    clone.querySelectorAll('script').forEach(s => s.remove());
+
+    // Download
+    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    a.download = storeName ? `Shopify Plus - ${storeName}.html` : 'Shopify Plus Overview.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+
+  }
+</script>
+</body>
+</html>
