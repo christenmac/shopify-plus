@@ -313,6 +313,16 @@
   <div class="panel-hr"></div>
 
   <div>
+    <div class="section-lbl">Checkout Examples</div>
+    <div class="field"><label>Example 1 Label</label><input id="cx-1-label" placeholder="e.g. German Car Zone" oninput="updateCheckoutExample(1)"></div>
+    <div class="field"><label>Example 1 URL</label><input id="cx-1-url" placeholder="https://..." oninput="updateCheckoutExample(1)"></div>
+    <div class="field" style="margin-top:6px"><label>Example 2 Label</label><input id="cx-2-label" placeholder="e.g. Your Brand" oninput="updateCheckoutExample(2)"></div>
+    <div class="field"><label>Example 2 URL</label><input id="cx-2-url" placeholder="https://..." oninput="updateCheckoutExample(2)"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+
+  <div>
     <div class="section-lbl">Sections — drag to reorder · uncheck to hide</div>
     <div id="section-list">
       <div class="sec-item" draggable="true" data-key="checkout">
@@ -511,6 +521,8 @@
             <li style="font-size:12.5px;"><a href="https://sanabulsports.com/checkouts/cn/Z2NwLXVzLWVhc3QxOjAxSlRUWkJWQ01BMjJBTTI3NTQyVzJGWUpN?auto_redirect=false&edge_redirect=true&locale=en-US&skip_shop_pay=true" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Paddle North ↗</a></li>
             <li style="font-size:12.5px;"><a href="https://shop.app/checkout/5079565/cn/Z2NwLXVzLWVhc3QxOjAxSlgwRUZaMDc0UUEwMzVNSlJSNTdIWEZR/shoppay?redirect_source=checkout_automatic_redirect&tracking_unique=5F52AF2F-8119-4A1A-97d2-ea8f7d25cf53&tracking_visit=B72EF3F9-b450-4023-8898-9099614c48d9" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Promix ↗</a></li>
             <li style="font-size:12.5px;"><a href="https://sockwellusa.com/checkouts/cn/hWN9gyUPIzDnqYOlkcoZzq6r/en-us?_r=AQAB61ecRHEciJgufXSuzs19NcryLaagB-fBDFipcc4kkc0&skip_shop_pay=true&checkout_queue_token=A6jXBTBb2tf9vj-PNO64pHnlRcRx-YPh0ywS9AUurh5NK1z4iZQKhq5Oanki7cCDRKroBN_q0F8_0rY6tNHfD6ldD_tTgDop_lGLPvmZq0kZq1oVhahCRCAd2GIGZn0i&shop_pay_checkout_as_guest=true&_cs=3.AMPS" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Sockwell ↗</a></li>
+            <li id="custom-ex-1" style="font-size:12.5px;display:none;"><a id="custom-ex-1-link" href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;"> ↗</a></li>
+            <li id="custom-ex-2" style="font-size:12.5px;display:none;"><a id="custom-ex-2-link" href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;"> ↗</a></li>
           </ul>
         </div>
         <p style="margin-top:8px" contenteditable="true">Free access to <strong>ReBuy</strong> and <strong>AfterSell</strong> for checkout customization on Plus.</p>
@@ -1047,6 +1059,21 @@
     if (el) el.textContent = val
       ? `Currently spending ${val}/mo on marketing — reduce ad spend with Audiences`
       : 'Currently spending on marketing — reduce ad spend with Audiences';
+  }
+
+  function updateCheckoutExample(num) {
+    const label = document.getElementById(`cx-${num}-label`)?.value.trim();
+    const url   = document.getElementById(`cx-${num}-url`)?.value.trim();
+    const li    = document.getElementById(`custom-ex-${num}`);
+    const a     = document.getElementById(`custom-ex-${num}-link`);
+    if (!li || !a) return;
+    if (label || url) {
+      a.textContent = (label || url) + ' ↗';
+      a.href = url || '#';
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
   }
 
   // ── Divider management ──
