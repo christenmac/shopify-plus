@@ -411,7 +411,6 @@
     <div>
       <div class="section-lbl">POS Rates</div>
       <div class="field"><label>In Person</label><input placeholder="e.g. 2.6% + $0.10" oninput="set('retail-rate-inperson',this.value)"></div>
-      <div class="field"><label>3rd Party Processors</label><input placeholder="e.g. 0% Fee" oninput="set('retail-rate-3p',this.value)"></div>
       <div class="field"><label>POS Pro (standalone)</label><input placeholder="$89/mo" oninput="set('retail-rate-pos',this.value)"></div>
     </div>
     <div class="panel-hr"></div>
@@ -830,7 +829,7 @@
 
 <!-- ══ RETAIL TAB ══ -->
 <div id="tab-retail" class="tab-content">
-<div class="doc-wrap">
+<div class="doc-wrap" style="margin-top:32px">
 
   <div class="doc-header">
     <div class="d-logo">
@@ -857,7 +856,6 @@
       <div class="rates-hdg">💳 POS Rates</div>
       <div class="rates-grid">
         <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="retail-rate-inperson" class="rate-val" contenteditable="true">2.6% + $0.10</span></div>
-        <div class="rate-box"><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span id="retail-rate-3p" class="rate-val" contenteditable="true">0% Fee</span></div>
         <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="retail-rate-pos" class="rate-val" contenteditable="true">$89/mo</span></div>
         <div class="rate-box"><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span id="retail-locations" class="rate-val" contenteditable="true">–</span></div>
       </div>
@@ -1096,6 +1094,15 @@
     });
   });
 
+  // ── Make links inside contenteditable elements clickable ──
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (a && a.closest('[contenteditable]')) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }
+  });
+
   function copyFileLink() {
     const url = location.href;
     navigator.clipboard.writeText(url).then(() => {
@@ -1141,10 +1148,11 @@
       }
     });
 
-    // Ensure every link opens in a new tab (works when opened as a local file)
+    // Ensure every link opens in a new tab and is visibly underlined for the merchant
     clone.querySelectorAll('a[href]').forEach(a => {
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener');
+      a.style.textDecoration = 'underline';
     });
 
     // Fix main layout (no sidebar, no tab wrapper)
