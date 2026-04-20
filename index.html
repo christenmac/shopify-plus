@@ -5,10 +5,10 @@
   <title>Shopify Plus Overview</title>
   <style>
     :root {
-      --green:  #008060;
-      --dark:   #004C3F;
-      --light:  #F0FDF9;
-      --mid:    #C6F0E0;
+      --green:  #95BF47;
+      --dark:   #5E8E3E;
+      --light:  #F4F8EC;
+      --mid:    #C8E07A;
       --text:   #1A1A1A;
       --mid-t:  #4B5563;
       --lite-t: #6B7280;
@@ -49,7 +49,7 @@
       padding: 7px 9px; font-size: 12.5px; color: var(--text);
       transition: border-color .15s;
     }
-    .field input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 2px rgba(0,128,96,.12); }
+    .field input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 2px rgba(149,191,71,.25); }
     .panel-hr { height: 1px; background: var(--border); }
     .panel-tip { font-size: 11px; color: var(--lite-t); line-height: 1.5; }
 
@@ -72,13 +72,13 @@
       padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
       display: flex; align-items: center; gap: 6px;
     }
-    .btn-print:hover { background: #003830; }
+    .btn-print:hover { background: #3d6128; }
     .btn-share {
       background: var(--green); color: #fff; border: none; border-radius: 7px;
       padding: 8px 18px; font-size: 12.5px; font-weight: 700; cursor: pointer;
       display: flex; align-items: center; gap: 6px; transition: background .15s;
     }
-    .btn-share:hover { background: #006b50; }
+    .btn-share:hover { background: #7aaa34; }
 
     /* ── Tabs ── */
     .tab-bar { display: flex; align-items: center; gap: 4px; }
@@ -97,7 +97,7 @@
       display: flex; align-items: center; gap: 6px; transition: all .15s;
     }
     .btn-copy:hover { border-color: var(--green); color: var(--green); }
-    .btn-copy.copied { background: #F0FDF9; border-color: var(--green); color: var(--green); }
+    .btn-copy.copied { background: #F4F8EC; border-color: var(--green); color: var(--dark); }
 
     /* ── Share modal ── */
     .modal-overlay {
@@ -145,7 +145,7 @@
 
     /* ── Doc Header ── */
     .doc-header {
-      background: linear-gradient(135deg, var(--dark) 0%, #006b50 100%);
+      background: linear-gradient(135deg, var(--dark) 0%, #6da343 100%);
       color: #fff; padding: 32px 46px;
       display: flex; align-items: center; justify-content: space-between;
     }
@@ -184,7 +184,7 @@
     .feature { border-left: 3px solid var(--green); padding-left: 18px; margin-bottom: 22px; page-break-inside: avoid; }
     .feat-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
     .check {
-      background: var(--green); color: #fff;
+      background: var(--dark); color: #fff;
       width: 17px; height: 17px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 9px; font-weight: 900; flex-shrink: 0; margin-top: 2px;
@@ -204,7 +204,7 @@
 
     .l365-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top: 8px; }
     .stat-box { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 9px 6px; text-align: center; }
-    .stat-num { font-size: 15px; font-weight: 900; color: var(--green); line-height: 1.2; min-height: 20px; }
+    .stat-num { font-size: 15px; font-weight: 900; color: var(--dark); line-height: 1.2; min-height: 20px; }
     .stat-num.red { color: var(--red); }
     .stat-lbl { font-size: 9.5px; color: var(--lite-t); margin-top: 2px; }
 
@@ -458,7 +458,7 @@
         <!-- Bag body -->
         <path d="M2.5 19 L0 48 L44 48 L41.5 19 Z" fill="white"/>
         <!-- s on bag -->
-        <text x="22" y="37.5" text-anchor="middle" fill="#004C3F"
+        <text x="22" y="37.5" text-anchor="middle" fill="#5E8E3E"
               font-size="17" font-weight="900"
               font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
       </svg>
@@ -834,7 +834,7 @@
         <path d="M9 19 L9 11.5 C9 5 11.8 1.5 15.5 1.5 C19.2 1.5 22 5 22 11.5 L22 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M22 19 L22 11.5 C22 5 24.8 1.5 28.5 1.5 C32.2 1.5 35 5 35 11.5 L35 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M2.5 19 L0 48 L44 48 L41.5 19 Z" fill="white"/>
-        <text x="22" y="37.5" text-anchor="middle" fill="#004C3F" font-size="17" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
+        <text x="22" y="37.5" text-anchor="middle" fill="#5E8E3E" font-size="17" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
       </svg>
       <span class="d-logo-text">shopify</span>
     </div>
