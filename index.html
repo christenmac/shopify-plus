@@ -240,7 +240,7 @@
       text-align: right; margin-top: 7px; letter-spacing: .2px;
     }
 
-    /* ── Print ── */
+    /* ── Print / PDF Export ── */
     @media print {
       * {
         -webkit-print-color-adjust: exact !important;
@@ -248,20 +248,29 @@
         color-adjust: exact !important;
       }
 
-      @page { size: 8.5in 40in; margin: 0; }
+      @page { size: letter; margin: 0.5in; }
 
-      .panel, .toolbar { display: none !important; }
+      /* Hide all UI chrome */
+      .panel, .toolbar, .tab-bar, .edit-badge, .btn-share, .btn-copy { display: none !important; }
+
+      /* Hide inactive tabs, show active tab as block */
+      .tab-content:not(.active) { display: none !important; }
+      .tab-content.active { display: block !important; width: 100% !important; }
 
       .main {
         margin: 0 !important;
-        padding: 16px !important;
+        padding: 0 !important;
         display: block !important;
       }
 
       .doc-wrap {
         width: 100% !important;
+        max-width: 100% !important;
         box-shadow: none !important;
+        border-radius: 0 !important;
         overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
 
       .header-store-input { display: none !important; }
@@ -444,8 +453,8 @@
     <span class="edit-badge">✏ Click any text to edit</span>
   </div>
   <button class="btn-share" onclick="exportMerchantPage()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-    Export for Merchant
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    Export as PDF
   </button>
 </div>
 
@@ -1167,79 +1176,15 @@
   }
 
   function exportMerchantPage() {
-    const btn = document.querySelector('.btn-share');
-    const btnOriginal = btn ? btn.innerHTML : '';
-    if (btn) { btn.textContent = 'Preparing…'; btn.disabled = true; }
-
-    const done = () => {
-      if (btn) { btn.innerHTML = btnOriginal; btn.disabled = false; }
-    };
-
-    try {
-      const storeInput = document.getElementById('header-store');
-      const storeName = storeInput ? storeInput.value.trim() : '';
-      const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
-
-      const clone = document.documentElement.cloneNode(true);
-
-      const printSpan = clone.querySelector('#header-store-print');
-      const cloneInput = clone.querySelector('#header-store');
-      if (printSpan) { printSpan.textContent = storeName; printSpan.style.display = storeName ? 'block' : 'none'; }
-      if (cloneInput) cloneInput.remove();
-
-      ['#share-modal', '.panel', '.toolbar', '.edit-badge'].forEach(sel => {
-        const el = clone.querySelector(sel); if (el) el.remove();
-      });
-
-      clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-
-      clone.querySelectorAll('.tab-content').forEach(tc => {
-        if (tc.id !== activeTabId) {
-          tc.remove();
-        } else {
-          const parent = tc.parentNode;
-          while (tc.firstChild) parent.insertBefore(tc.firstChild, tc);
-          tc.remove();
-        }
-      });
-
-      clone.querySelectorAll('a[href]').forEach(a => {
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener');
-        a.style.textDecoration = 'underline';
-      });
-
-      const main = clone.querySelector('.main');
-      if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
-
-      clone.querySelectorAll('script').forEach(s => s.remove());
-
-      const titleEl = clone.querySelector('title');
-      if (titleEl) titleEl.textContent = storeName ? `Shopify Overview - ${storeName}` : 'Shopify Overview';
-
-      const filename = storeName ? `Shopify Overview - ${storeName}.html` : 'Shopify Overview.html';
-      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-      const blobUrl = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.style.position = 'fixed';
-      a.style.top = '-9999px';
-      a.href = blobUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(blobUrl);
-        done();
-      }, 3000);
-
-    } catch (err) {
-      alert('Export failed: ' + err.message);
-      done();
+    // Bake the store name into the print span before printing
+    const storeInput = document.getElementById('header-store');
+    const storeName = storeInput ? storeInput.value.trim() : '';
+    const printSpan = document.getElementById('header-store-print');
+    if (printSpan) {
+      printSpan.textContent = storeName;
+      printSpan.style.display = storeName ? 'block' : 'none';
     }
+    window.print();
   }
 </script>
 </body>
