@@ -1155,18 +1155,15 @@
     // Remove the script block entirely (no interactivity needed)
     clone.querySelectorAll('script').forEach(s => s.remove());
 
-    // Determine filename based on active tab
-    const filename = storeName ? `Shopify Overview - ${storeName}.html` : `Shopify Overview.html`;
+    // Set a clean tab title
+    const titleEl = clone.querySelector('title');
+    if (titleEl) titleEl.textContent = storeName ? `Shopify Overview — ${storeName}` : 'Shopify Overview';
 
-    // Download
+    // Open in a new tab — URL bar shows blob:https://... instead of a local file path
     const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(a.href);
+    const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    window.open(blobUrl, '_blank');
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
   }
 </script>
 </body>
