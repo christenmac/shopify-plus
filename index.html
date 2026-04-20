@@ -1215,10 +1215,15 @@
     const titleEl = clone.querySelector('title');
     if (titleEl) titleEl.textContent = storeName ? `Shopify Overview — ${storeName}` : 'Shopify Overview';
 
-    // Open in a new tab — URL bar shows blob:https://... instead of a local file path
+    // Download as a standalone HTML file
     const html = '<!DOCTYPE html>\n' + clone.outerHTML;
     const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    window.open(blobUrl, '_blank');
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = storeName ? `Shopify Overview — ${storeName}.html` : 'Shopify Overview.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
   }
 </script>
