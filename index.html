@@ -1167,70 +1167,79 @@
   }
 
   function exportMerchantPage() {
-    const storeName = document.getElementById('header-store').value.trim();
-    const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
+    const btn = document.querySelector('.btn-share');
+    const btnOriginal = btn ? btn.innerHTML : '';
+    if (btn) { btn.textContent = 'Preparing…'; btn.disabled = true; }
 
-    // Clone the whole document
-    const clone = document.documentElement.cloneNode(true);
+    const done = () => {
+      if (btn) { btn.innerHTML = btnOriginal; btn.disabled = false; }
+    };
 
-    // Bake in the store name
-    const printSpan = clone.querySelector('#header-store-print');
-    const storeInput = clone.querySelector('#header-store');
-    if (printSpan) { printSpan.textContent = storeName; printSpan.style.display = storeName ? 'block' : 'none'; }
-    if (storeInput) storeInput.remove();
+    try {
+      const storeInput = document.getElementById('header-store');
+      const storeName = storeInput ? storeInput.value.trim() : '';
+      const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
 
-    // Remove editing UI — panel, toolbar, modal, edit badge
-    ['#share-modal', '.panel', '.toolbar', '.edit-badge'].forEach(sel => {
-      const el = clone.querySelector(sel); if (el) el.remove();
-    });
+      const clone = document.documentElement.cloneNode(true);
 
-    // Remove all contenteditable attributes (links inside contenteditable don't navigate)
-    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+      const printSpan = clone.querySelector('#header-store-print');
+      const cloneInput = clone.querySelector('#header-store');
+      if (printSpan) { printSpan.textContent = storeName; printSpan.style.display = storeName ? 'block' : 'none'; }
+      if (cloneInput) cloneInput.remove();
 
-    // Keep only the active tab — remove inactive tabs, unwrap the active one
-    clone.querySelectorAll('.tab-content').forEach(tc => {
-      if (tc.id !== activeTabId) {
-        tc.remove();
-      } else {
-        const parent = tc.parentNode;
-        while (tc.firstChild) parent.insertBefore(tc.firstChild, tc);
-        tc.remove();
-      }
-    });
+      ['#share-modal', '.panel', '.toolbar', '.edit-badge'].forEach(sel => {
+        const el = clone.querySelector(sel); if (el) el.remove();
+      });
 
-    // Ensure every link opens in a new tab and is visibly underlined for the merchant
-    clone.querySelectorAll('a[href]').forEach(a => {
-      a.setAttribute('target', '_blank');
-      a.setAttribute('rel', 'noopener');
-      a.style.textDecoration = 'underline';
-    });
+      clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
 
-    // Fix main layout (no sidebar, no tab wrapper)
-    const main = clone.querySelector('.main');
-    if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
+      clone.querySelectorAll('.tab-content').forEach(tc => {
+        if (tc.id !== activeTabId) {
+          tc.remove();
+        } else {
+          const parent = tc.parentNode;
+          while (tc.firstChild) parent.insertBefore(tc.firstChild, tc);
+          tc.remove();
+        }
+      });
 
-    // Remove the script block entirely (no interactivity needed)
-    clone.querySelectorAll('script').forEach(s => s.remove());
+      clone.querySelectorAll('a[href]').forEach(a => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+        a.style.textDecoration = 'underline';
+      });
 
-    // Set a clean tab title
-    const titleEl = clone.querySelector('title');
-    if (titleEl) titleEl.textContent = storeName ? `Shopify Overview — ${storeName}` : 'Shopify Overview';
+      const main = clone.querySelector('.main');
+      if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
 
-    // Download as a standalone HTML file (works across Chrome, Firefox, Safari)
-    const filename = storeName ? `Shopify Overview — ${storeName}.html` : 'Shopify Overview.html';
-    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const blobUrl = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = blobUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
-    }, 2000);
+      clone.querySelectorAll('script').forEach(s => s.remove());
+
+      const titleEl = clone.querySelector('title');
+      if (titleEl) titleEl.textContent = storeName ? `Shopify Overview - ${storeName}` : 'Shopify Overview';
+
+      const filename = storeName ? `Shopify Overview - ${storeName}.html` : 'Shopify Overview.html';
+      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const blobUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.style.position = 'fixed';
+      a.style.top = '-9999px';
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+        done();
+      }, 3000);
+
+    } catch (err) {
+      alert('Export failed: ' + err.message);
+      done();
+    }
   }
 </script>
 </body>
