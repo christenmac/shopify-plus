@@ -1156,9 +1156,7 @@
     clone.querySelectorAll('script').forEach(s => s.remove());
 
     // Determine filename based on active tab
-    const isRetail = activeTabId === 'tab-retail';
-    const prefix = isRetail ? 'Shopify Retail' : 'Shopify Plus';
-    const filename = storeName ? `${prefix} - ${storeName}.html` : `${prefix} Overview.html`;
+    const filename = storeName ? `Shopify Overview - ${storeName}.html` : `Shopify Overview.html`;
 
     // Download
     const html = '<!DOCTYPE html>\n' + clone.outerHTML;
