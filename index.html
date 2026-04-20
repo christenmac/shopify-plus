@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Shopify Plus Overview</title>
   <style>
     :root {
@@ -1215,16 +1216,21 @@
     const titleEl = clone.querySelector('title');
     if (titleEl) titleEl.textContent = storeName ? `Shopify Overview — ${storeName}` : 'Shopify Overview';
 
-    // Download as a standalone HTML file
+    // Download as a standalone HTML file (works across Chrome, Firefox, Safari)
+    const filename = storeName ? `Shopify Overview — ${storeName}.html` : 'Shopify Overview.html';
     const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-    const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
+    a.style.display = 'none';
     a.href = blobUrl;
-    a.download = storeName ? `Shopify Overview — ${storeName}.html` : 'Shopify Overview.html';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    }, 2000);
   }
 </script>
 </body>
