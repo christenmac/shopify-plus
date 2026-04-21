@@ -181,6 +181,16 @@
     .rate-sep { font-size: 10px; color: var(--border); }
     .rate-val { font-size: 13px; font-weight: 800; color: var(--dark); }
     .rates-note { font-size: 10.5px; color: var(--lite-t); font-style: italic; margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--border); }
+    .savings-card {
+      background: #fff; border: 1.5px solid var(--mid);
+      border-radius: 12px; padding: 20px 24px 18px; margin-bottom: 28px;
+    }
+    .savings-hdg { font-size: 14px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+    .savings-body {
+      min-height: 80px; font-size: 13px; line-height: 1.65; color: var(--text);
+      outline: none; white-space: pre-wrap;
+    }
+    .savings-body:empty::before { content: 'Add savings notes here — rate comparisons, estimated savings, ROI calculations…'; color: var(--lite-t); font-style: italic; pointer-events: none; }
 
     /* Feature */
     .feature { border-left: 3px solid var(--green); padding-left: 18px; margin-bottom: 22px; page-break-inside: avoid; }
@@ -665,6 +675,11 @@
         <div class="rate-box"><span class="rate-lbl">Shop Pay Installments</span><span class="rate-sep">·</span><span id="rate-spi" class="rate-val" contenteditable="true">5% + $0.30</span></div>
         <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="rate-pos" class="rate-val" contenteditable="true">Free</span></div>
       </div>
+    </div>
+
+    <div class="savings-card">
+      <div class="savings-hdg">💰 Savings</div>
+      <div class="savings-body" contenteditable="true"></div>
     </div>
 
     <div id="sections-container">
