@@ -256,6 +256,29 @@
     .sec-item.hidden-sec .sec-item-label { color: var(--lite-t); text-decoration: line-through; }
     .sec-hidden { display: none !important; }
 
+    /* ══ Shopify Payments Tab ══ */
+    .sp-fee-card {
+      background: #FFF7ED; border: 1.5px solid #FED7AA;
+      border-radius: 12px; padding: 20px 24px 16px; margin-bottom: 28px;
+    }
+    .sp-fee-hdg { font-size: 14px; font-weight: 800; color: #C2410C; margin-bottom: 13px; }
+    .sp-fee-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sp-fee-box { background: #fff; border: 1px solid #FED7AA; border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .sp-fee-lbl { font-size: 10px; color: #9A3412; text-transform: uppercase; letter-spacing: .5px; }
+    .sp-fee-val { font-size: 13px; font-weight: 800; color: #C2410C; }
+    .sp-insight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 8px; }
+    .sp-insight-wide { grid-column: span 2; }
+    .sp-insight-box { background: #F9FAFB; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+    .sp-insight-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+    .sp-insight-val { font-size: 15px; font-weight: 900; color: var(--dark); line-height: 1.2; }
+    .sp-insight-val.red { color: var(--red); }
+    .sp-insight-val.amber { color: #D97706; }
+    .sp-hidden-cost { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 8px; padding: 12px 16px; margin: 8px 0; font-size: 12px; color: #991B1B; line-height: 1.65; }
+    .sp-q-item { border-left: 3px solid var(--mid); padding: 8px 14px; margin-bottom: 8px; background: var(--light); border-radius: 0 6px 6px 0; font-size: 12px; color: var(--mid-t); line-height: 1.6; }
+    .sp-q-item strong { color: var(--dark); }
+    .sp-callout { background: var(--dark); color: #fff; border-radius: 10px; padding: 14px 20px; margin: 18px 0; font-size: 13px; font-weight: 700; line-height: 1.6; text-align: center; }
+    .sp-callout span { opacity: .8; font-weight: 400; }
+
     /* ══ Custom Checkout Preview — Mobile style ══ */
     .co-preview-wrap { max-width: 460px; width: 100%; margin: 0 auto; padding: 0 16px 32px; }
     .co-preview { background: #f8f9fa; border-radius: 18px; box-shadow: 0 6px 40px rgba(0,0,0,.14); overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; border: 1px solid #e5e7eb; }
@@ -676,6 +699,27 @@
     <div class="panel-hr"></div>
     <div class="panel-tip">Drag blocks to reorder · uncheck to hide.</div>
   </div><!-- /checkout-panel -->
+
+  <div id="payments-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">3rd Party Fee</div>
+      <div class="field"><label>Current Gateway</label><input id="sp-gateway" placeholder="e.g. Stripe, Braintree" oninput="setSpText('sp-gateway-name',this.value)"></div>
+      <div class="field"><label>3rd Party Fee Rate</label><input id="sp-fee" placeholder="e.g. 0.5%" oninput="setSpText('sp-fee-val',this.value)"></div>
+      <div class="field"><label>Est. Annual Fee Cost</label><input id="sp-fee-cost" placeholder="e.g. $18,000/yr" oninput="setSpText('sp-fee-cost-val',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Last 365 — Conversion Data</div>
+      <div class="field"><label>Sessions</label><input id="sp-sessions" placeholder="e.g. 271,706" oninput="setSpNum('sp-stat-sessions',this.value)"></div>
+      <div class="field"><label>Added to Cart</label><input id="sp-atc" placeholder="e.g. 21,699" oninput="setSpNum('sp-stat-atc',this.value)"></div>
+      <div class="field"><label>Reached Checkout</label><input id="sp-reach" placeholder="e.g. 16,233" oninput="setSpNum('sp-stat-reach',this.value)"></div>
+      <div class="field"><label>Completed Checkout</label><input id="sp-orders" placeholder="e.g. 2,518" oninput="setSpNum('sp-stat-orders',this.value)"></div>
+      <div class="field"><label>Abandoned Cart $</label><input id="sp-abandoned" placeholder="e.g. $7,553,948" oninput="setSpMoney('sp-stat-abandoned',this.value)"></div>
+      <div class="field"><label>.01% Lift Value</label><input id="sp-lift" placeholder="e.g. $75k" oninput="setSpText('sp-stat-lift',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Click any doc text to edit.</div>
+  </div><!-- /payments-panel -->
 </aside>
 
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
@@ -685,6 +729,7 @@
       <button class="tab-btn active" onclick="switchTab('plus',this)">Shopify Plus</button>
       <button class="tab-btn" onclick="switchTab('checkout',this)">Custom Checkout</button>
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
+      <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
     </div>
     <span class="edit-badge">✏ Click any text to edit</span>
   </div>
@@ -1474,6 +1519,193 @@
 </div>
 </div><!-- /tab-retail -->
 
+<!-- ══ SHOPIFY PAYMENTS TAB ══ -->
+<div id="tab-payments" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <svg width="40" height="46" viewBox="0 0 44 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 19 L9 11.5 C9 5 11.8 1.5 15.5 1.5 C19.2 1.5 22 5 22 11.5 L22 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 19 L22 11.5 C22 5 24.8 1.5 28.5 1.5 C32.2 1.5 35 5 35 11.5 L35 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2.5 19 L0 48 L44 48 L41.5 19 Z" fill="white"/>
+        <text x="22" y="37.5" text-anchor="middle" fill="#5E8E3E" font-size="17" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">s</text>
+      </svg>
+      <span class="d-logo-text">shopify</span>
+    </div>
+    <div class="d-header-r">
+      <h1>Shopify Payments</h1>
+      <p contenteditable="true">Why Native Payments Wins</p>
+      <input class="header-store-input" placeholder="Store Name" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- 3rd Party Fee Card -->
+    <div class="sp-fee-card">
+      <div class="sp-fee-hdg">Current 3rd Party Gateway Cost</div>
+      <div class="sp-fee-grid">
+        <div class="sp-fee-box">
+          <span class="sp-fee-lbl">Gateway</span>
+          <span class="sp-fee-sep" style="font-size:10px;color:#FED7AA">|</span>
+          <span class="sp-fee-val" id="sp-gateway-name" contenteditable="true">–</span>
+        </div>
+        <div class="sp-fee-box">
+          <span class="sp-fee-lbl">3rd Party Fee</span>
+          <span class="sp-fee-sep" style="font-size:10px;color:#FED7AA">|</span>
+          <span class="sp-fee-val" id="sp-fee-val" contenteditable="true">–</span>
+        </div>
+        <div class="sp-fee-box">
+          <span class="sp-fee-lbl">Est. Annual Cost</span>
+          <span class="sp-fee-sep" style="font-size:10px;color:#FED7AA">|</span>
+          <span class="sp-fee-val" id="sp-fee-cost-val" contenteditable="true">–</span>
+        </div>
+      </div>
+      <div class="rates-note" style="border-color:#FED7AA;color:#9A3412;margin-top:11px;">With Shopify Payments, this fee is <strong>$0</strong>. The savings alone often cover the cost of upgrading.</div>
+    </div>
+
+    <!-- What You're Buying -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div class="feat-title" contenteditable="true">What You're Buying with Shopify Payments</div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">When you use Shopify Payments, you're not just processing cards — you're buying the entire Shopify commerce engine:</p>
+        <ul contenteditable="true">
+          <li><strong>Shop Pay</strong> — 150M+ customers with saved payment info, 1-click checkout, up to 50% higher conversion vs. guest checkout</li>
+          <li><strong>Shop Pay Installments</strong> — BNPL that increases AOV by 30–50% and conversion by 20%+</li>
+          <li><strong>Digital Wallets</strong> — Native support for Apple Pay, Google Pay, and Shop Pay right out of the box, meeting customers exactly where they want to pay with zero additional integration work</li>
+          <li><strong>Dynamic Checkout Optimization</strong> — Shopify constantly A/B tests and improves its checkout. Every merchant benefits automatically.</li>
+          <li><strong>Unified Financial Reports</strong> — Payouts, revenue, refunds, and reconciliation all live in one dashboard, eliminating the back-and-forth between systems</li>
+          <li><strong>Chargeback Automation</strong> — Shopify Payments automatically handles dispute submissions using order data, saving your team hours of manual work</li>
+          <li><strong>Real-Time Fraud Analysis</strong> — Every order is automatically scored for risk, providing specific recommendations that protect you from fulfilling fraudulent orders before they become chargebacks</li>
+          <li><strong>70+ Local Payment Methods</strong> — iDEAL, Klarna, Afterpay = 20–30% international conversion increase</li>
+          <li><strong>ACH Bank Transfers</strong> — High-value or wholesale orders</li>
+          <li>+ More</li>
+        </ul>
+        <p contenteditable="true" style="margin-top:8px;font-style:italic;">None of this exists with Authorize.net, Braintree, Stripe, or any other third-party gateway.</p>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Questions to Consider -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">?</div>
+        <div class="feat-title" contenteditable="true">Questions to Consider Before Staying on 3rd Party</div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">I understand cost is important and don't want to dismiss that, but there are other questions that should be considered:</p>
+      </div>
+    </div>
+    <div class="sp-q-item" contenteditable="true"><strong>What's your mobile conversion rate?</strong> Shop Pay will increase that.</div>
+    <div class="sp-q-item" contenteditable="true"><strong>What percentage of customers abandon at the payment step?</strong> Accelerated checkout buttons reduce this by 50%+.</div>
+    <div class="sp-q-item" contenteditable="true"><strong>What's your AOV?</strong> BNPL options increase this by 30–50%.</div>
+    <div class="sp-q-item" contenteditable="true"><strong>Are you selling internationally?</strong> Local payment methods = 20–30% conversion lift.</div>
+    <div class="sp-q-item" contenteditable="true"><strong>How much time does your finance team spend reconciling payments from multiple sources?</strong> Unified dashboard = hours saved per week.</div>
+    <div class="doc-hr"></div>
+
+    <!-- The Hidden Cost -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">!</div>
+        <div class="feat-title" contenteditable="true">The Cost of NOT Using Shopify Payments</div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">The cost of Shopify Payments is definitive. The cost of NOT using it is hidden.</p>
+      </div>
+    </div>
+    <div class="sp-hidden-cost" contenteditable="true">Every customer who abandons at checkout because they don't see Shop Pay? <strong>Hidden cost.</strong></div>
+    <div class="sp-hidden-cost" contenteditable="true">Every mobile user who bounces because your third-party checkout is slow? <strong>Hidden cost.</strong></div>
+    <div class="sp-hidden-cost" contenteditable="true">Every international customer who doesn't buy because you don't offer their preferred payment method? <strong>Hidden cost.</strong></div>
+    <div class="sp-hidden-cost" contenteditable="true">Every hour your finance team spends manually reconciling payouts from three different sources? <strong>Hidden cost.</strong></div>
+    <div class="doc-hr"></div>
+
+    <!-- Last 365 Insights -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">↗</div>
+        <div class="feat-title" contenteditable="true">Last 365 — Conversion Insights</div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">See below for more information &amp; insights to share with the team.</p>
+      </div>
+    </div>
+    <div class="sp-insight-grid">
+      <div class="sp-insight-box">
+        <div class="sp-insight-lbl">Sessions</div>
+        <div class="sp-insight-val" id="sp-stat-sessions" contenteditable="true">–</div>
+      </div>
+      <div class="sp-insight-box">
+        <div class="sp-insight-lbl">Added to Cart</div>
+        <div class="sp-insight-val" id="sp-stat-atc" contenteditable="true">–</div>
+      </div>
+      <div class="sp-insight-box">
+        <div class="sp-insight-lbl">Reached Checkout</div>
+        <div class="sp-insight-val" id="sp-stat-reach" contenteditable="true">–</div>
+      </div>
+      <div class="sp-insight-box">
+        <div class="sp-insight-lbl">Completed Checkout</div>
+        <div class="sp-insight-val" id="sp-stat-orders" contenteditable="true">–</div>
+      </div>
+      <div class="sp-insight-box sp-insight-wide">
+        <div class="sp-insight-lbl">Abandoned Cart Value</div>
+        <div class="sp-insight-val red" id="sp-stat-abandoned" contenteditable="true">–</div>
+      </div>
+      <div class="sp-insight-box">
+        <div class="sp-insight-lbl">.01% Conversion Lift</div>
+        <div class="sp-insight-val amber" id="sp-stat-lift" contenteditable="true">–</div>
+      </div>
+    </div>
+    <div class="sp-callout" contenteditable="true">
+      I want to reiterate that Shop Pay's baseline lift, alone, is 5%.<br>
+      <span>If we fix checkout friction, give your customers a way to split a large purchase into manageable payments, and ensure every wallet and accelerated option is active — I'd expect your conversion rate to move significantly more than any shipping promotion would.</span>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Resources -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">↗</div>
+        <div class="feat-title" contenteditable="true">Resources &amp; Further Reading</div>
+      </div>
+      <div class="feat-body">
+
+        <p style="font-weight:700;color:var(--dark);margin-bottom:6px;">Shopify Payments</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments" target="_blank" rel="noopener">Overview ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments/onboarding" target="_blank" rel="noopener">Setting up Shopify Payments ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments/payouts" target="_blank" rel="noopener">Configuring Shopify Payments ↗</a></li>
+          <li>Case Studies</li>
+          <li>Activating Additional Payment Methods</li>
+        </ul>
+
+        <p style="font-weight:700;color:var(--dark);margin:12px 0 6px;">Shop Pay</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/payments/shop-pay" target="_blank" rel="noopener">Overview ↗</a></li>
+          <li>Activating Shop Pay</li>
+          <li>Case Studies</li>
+        </ul>
+
+        <p style="font-weight:700;color:var(--dark);margin:12px 0 6px;">Shop Pay Installments</p>
+        <ul contenteditable="true">
+          <li><a href="https://help.shopify.com/en/manual/payments/shop-pay-installments" target="_blank" rel="noopener">Overview ↗</a></li>
+          <li>Activating Shop Pay Installments</li>
+          <li>BNPL Statistics</li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="doc-footer" contenteditable="true">Shopify Payments &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
+
+</div><!-- /doc-wrap -->
+</div><!-- /tab-payments -->
+
 <script>
   function switchTab(tab, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -1483,11 +1715,13 @@
     const plusPanel     = document.getElementById('plus-panel');
     const retailPanel   = document.getElementById('retail-panel');
     const checkoutPanel = document.getElementById('checkout-panel');
+    const paymentsPanel = document.getElementById('payments-panel');
     const logo = document.getElementById('panel-logo');
     plusPanel.style.display     = tab === 'plus'     ? 'flex' : 'none';
     retailPanel.style.display   = tab === 'retail'   ? 'flex' : 'none';
     if (checkoutPanel) checkoutPanel.style.display = tab === 'checkout' ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : '🛍 Plus Overview';
+    if (paymentsPanel) paymentsPanel.style.display = tab === 'payments' ? 'flex' : 'none';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : '🛍 Plus Overview';
   }
 
   function set(id, val) {
@@ -1853,6 +2087,34 @@
     const wrap = document.querySelector(`#retail-sections-container .sec-wrap[data-rkey="${key}"]`);
     if (wrap) wrap.classList.toggle('sec-hidden', !visible);
     updateRetailDividers();
+  }
+
+  // ── Shopify Payments — panel helpers ──
+  function setSpText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val.trim() || '–';
+  }
+  function setSpNum(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (!val.trim()) { el.textContent = '–'; return; }
+    const num = parseFloat(val.replace(/[$,]/g, ''));
+    if (!isNaN(num)) {
+      el.textContent = num.toLocaleString();
+    } else {
+      el.textContent = val;
+    }
+  }
+  function setSpMoney(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (!val.trim()) { el.textContent = '–'; return; }
+    const num = parseFloat(val.replace(/[$,]/g, ''));
+    if (!isNaN(num)) {
+      el.textContent = '$' + num.toLocaleString();
+    } else {
+      el.textContent = val;
+    }
   }
 
 </script>
