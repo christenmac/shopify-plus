@@ -734,7 +734,7 @@
       <span class="d-logo-text">shopify</span>
     </div>
     <div class="d-header-r">
-      <h1 contenteditable="true">Shopify Plus</h1>
+      <h1><a href="https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-plus-plan" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify Plus</a></h1>
       <p contenteditable="true">Feature Overview &amp; Benefits</p>
       <input class="header-store-input" id="header-store" placeholder="Store Name" autocomplete="off"
              oninput="document.getElementById('header-store-print').textContent=this.value">
@@ -1760,6 +1760,9 @@
       const el = clone.querySelector(sel); if (el) el.remove();
     });
 
+    // Remove hidden sections (unchecked in sidebar)
+    clone.querySelectorAll('.sec-hidden').forEach(el => el.remove());
+
     // Remove contenteditable
     clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
 
@@ -1812,7 +1815,7 @@
   //  Paste APPS_SCRIPT_URL below after deploying the companion script.
   //  See the Apps Script code at the bottom of this comment block.
   // ─────────────────────────────────────────────────────────────────
-  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_DEPLOYMENT_URL';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzDpI3ukC-AH0Est17Vzv99oCPZqP9t7suK3GFdWvjRUGadptX3LWxft46hOXQ2nJjgg/exec';
 
   function _appsSetStatus(msg) {
     const el = document.getElementById('apps-auth-status');
