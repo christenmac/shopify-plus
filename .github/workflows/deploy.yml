@@ -2,7 +2,7 @@ name: Deploy to Quick
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
 
 permissions:
   contents: read
