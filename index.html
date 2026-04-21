@@ -407,6 +407,19 @@
       [contenteditable], [contenteditable]:hover, [contenteditable]:focus {
         outline: none !important; box-shadow: none !important;
       }
+
+      /* ── Checkout PDF print ── */
+      .co-preview-wrap {
+        max-width: 420px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+      }
+      .co-preview {
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+      }
+      .co-print-hint { display: none !important; }
+      .sav-box-x, .sav-dismiss { display: none !important; }
     }
   </style>
 </head>
@@ -1245,7 +1258,7 @@
     </div>
 
   </div><!-- /co-preview -->
-  <div style="text-align:center;margin-top:10px;font-size:11px;color:#9ca3af;">✏ Drag blocks to reorder &nbsp;·&nbsp; Use sidebar to add/remove blocks and set brand colors</div>
+  <div class="co-print-hint" style="text-align:center;margin-top:10px;font-size:11px;color:#9ca3af;">✏ Drag blocks to reorder &nbsp;·&nbsp; Use sidebar to add/remove blocks and set brand colors</div>
 </div><!-- /co-preview-wrap -->
 </div><!-- /tab-checkout -->
 
@@ -1672,6 +1685,12 @@
     const storeInput = document.getElementById('header-store');
     const storeName = storeInput ? storeInput.value.trim() : '';
     const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
+
+    // Custom Checkout tab → print to PDF
+    if (activeTabId === 'tab-checkout') {
+      window.print();
+      return;
+    }
 
     const clone = document.documentElement.cloneNode(true);
 
