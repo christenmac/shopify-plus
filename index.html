@@ -181,24 +181,13 @@
     .rate-sep { font-size: 10px; color: var(--border); }
     .rate-val { font-size: 13px; font-weight: 800; color: var(--dark); }
     .rates-note { font-size: 10.5px; color: var(--lite-t); font-style: italic; margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--border); }
-    .savings-card {
-      background: var(--light); border: 1.5px solid var(--mid);
-      border-radius: 12px; padding: 20px 24px 18px; margin-bottom: 28px;
-    }
-    .savings-hdg { font-size: 14px; font-weight: 800; color: var(--dark); margin-bottom: 13px; }
-    .savings-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-    .savings-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; }
-    .savings-row-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
-    .savings-row-sep { font-size: 10px; color: var(--border); }
-    .savings-row-val { font-size: 13px; font-weight: 800; color: var(--dark); flex: 1; outline: none; min-width: 0; }
-    .savings-row-val:empty::before { content: attr(data-ph); color: var(--border); font-weight: 400; font-style: italic; pointer-events: none; }
-    .savings-notes-wrap { border-top: 1px solid var(--mid); padding-top: 11px; margin-top: 2px; }
-    .savings-notes-lbl { font-size: 10px; font-weight: 700; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
     .savings-notes {
-      min-height: 52px; font-size: 12.5px; line-height: 1.65; color: var(--text);
-      outline: none; white-space: pre-wrap;
+      min-height: 44px; font-size: 12.5px; line-height: 1.65; color: var(--text);
+      outline: none; white-space: pre-wrap; margin-top: 11px;
+      padding-top: 10px; border-top: 1px solid var(--border);
     }
-    .savings-notes:empty::before { content: 'Add context, calculation notes, or talking points…'; color: var(--lite-t); font-style: italic; pointer-events: none; }
+    .savings-notes:empty::before { content: 'Add notes, context, or talking points…'; color: var(--lite-t); font-style: italic; pointer-events: none; }
+    .rate-val[data-placeholder]:empty::before { content: attr(data-placeholder); color: var(--border); font-weight: 400; pointer-events: none; }
 
     /* Feature */
     .feature { border-left: 3px solid var(--green); padding-left: 18px; margin-bottom: 22px; page-break-inside: avoid; }
@@ -423,6 +412,16 @@
     <div class="field"><label>3rd Party Processors</label><input id="r-3p" placeholder="0% Fee" oninput="set('rate-3p',this.value)"></div>
     <div class="field"><label>Shop Pay Installments</label><input id="r-spi" placeholder="5% + $0.30" oninput="set('rate-spi',this.value)"></div>
     <div class="field"><label>POS Pro</label><input id="r-pos" placeholder="Free" oninput="set('rate-pos',this.value)"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+
+  <div>
+    <div class="section-lbl">Savings</div>
+    <div class="sec-item" style="margin-bottom:0">
+      <input type="checkbox" checked onchange="document.getElementById('savings-card').classList.toggle('sec-hidden',!this.checked)" style="width:14px;height:14px;accent-color:var(--green);cursor:pointer;flex-shrink:0;">
+      <span class="sec-item-label" style="cursor:default">💰 Show Savings section</span>
+    </div>
   </div>
 
   <div class="panel-hr"></div>
@@ -685,34 +684,17 @@
       </div>
     </div>
 
-    <div class="savings-card">
-      <div class="savings-hdg">💰 Savings</div>
-      <div class="savings-rows">
-        <div class="savings-row">
-          <span class="savings-row-lbl">Current Rate</span>
-          <span class="savings-row-sep">·</span>
-          <span class="savings-row-val" contenteditable="true" data-ph="e.g. 2.9% + $0.30"></span>
-        </div>
-        <div class="savings-row">
-          <span class="savings-row-lbl">Plus Rate</span>
-          <span class="savings-row-sep">·</span>
-          <span class="savings-row-val" contenteditable="true" data-ph="e.g. 2.25% + $0.30"></span>
-        </div>
-        <div class="savings-row">
-          <span class="savings-row-lbl">Monthly Volume</span>
-          <span class="savings-row-sep">·</span>
-          <span class="savings-row-val" contenteditable="true" data-ph="e.g. $500,000"></span>
-        </div>
-        <div class="savings-row">
-          <span class="savings-row-lbl">Est. Annual Savings</span>
-          <span class="savings-row-sep">·</span>
-          <span class="savings-row-val" contenteditable="true" data-ph="e.g. $36,000 / yr"></span>
-        </div>
+    <div class="rates-card" id="savings-card">
+      <div class="rates-hdg">💰 Savings</div>
+      <div class="rates-grid">
+        <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-online" data-placeholder="e.g. $X,XXX/yr"></span></div>
+        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-inperson" data-placeholder="e.g. $X,XXX/yr"></span></div>
+        <div class="rate-box"><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-3p" data-placeholder="e.g. $0 fee"></span></div>
+        <div class="rate-box"><span class="rate-lbl">Shop Pay Installments</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-spi" data-placeholder="e.g. $X/yr"></span></div>
+        <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-pos" data-placeholder="Included"></span></div>
+        <div class="rate-box"><span class="rate-lbl">Est. Annual Total</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-total" data-placeholder="e.g. $XX,XXX/yr"></span></div>
       </div>
-      <div class="savings-notes-wrap">
-        <div class="savings-notes-lbl">Notes</div>
-        <div class="savings-notes" contenteditable="true"></div>
-      </div>
+      <div class="savings-notes" contenteditable="true"></div>
     </div>
 
     <div id="sections-container">
