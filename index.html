@@ -244,38 +244,49 @@
     .co-store-name { font-size: 14px; font-weight: 700; color: #111; }
     .co-shopify-badge { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #6b7280; }
     .co-body { display: flex; min-height: 480px; }
-    .co-form-col { flex: 1; padding: 22px; border-right: 1px solid #e5e7eb; }
+    .co-form-col { flex: 1; padding: 22px; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; }
     .co-section-label { font-size: 12.5px; font-weight: 600; color: #111; margin: 14px 0 7px; }
     .co-section-label:first-child { margin-top: 0; }
     .co-input { background: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px 11px; font-size: 12px; color: #9ca3af; width: 100%; margin-bottom: 5px; }
     .co-input-row { display: flex; gap: 5px; }
     .co-input-row .co-input { flex: 1; }
-    .co-pay-btn { width: 100%; padding: 10px; margin-top: 14px; background: var(--co-accent); color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; letter-spacing: .3px; cursor: default; }
+    .co-pay-btn { width: 100%; padding: 10px; margin-top: 6px; background: var(--co-accent); color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; letter-spacing: .3px; cursor: default; }
     .co-card-icons { display: flex; gap: 4px; margin-bottom: 7px; }
     .co-card-icon { width: 34px; height: 22px; border-radius: 3px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: #374151; }
     .co-summary-col { width: 300px; flex-shrink: 0; background: #f9fafb; padding: 18px; display: flex; flex-direction: column; }
-    .co-line-item { display: flex; gap: 10px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb; margin-bottom: 8px; }
-    .co-item-img { width: 46px; height: 46px; border-radius: 6px; background: #e5e7eb; flex-shrink: 0; position: relative; }
-    .co-item-qty { position: absolute; top: -6px; right: -6px; background: #6b7280; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .co-line-item { display: flex; gap: 10px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb; margin-bottom: 6px; }
+    .co-item-img { width: 46px; height: 46px; border-radius: 6px; background: #e5e7eb; flex-shrink: 0; position: relative; overflow: hidden; }
+    .co-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .co-item-qty { position: absolute; top: -6px; right: -6px; background: #6b7280; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 1; }
     .co-item-details { flex: 1; }
     .co-item-name { font-size: 12px; font-weight: 600; color: #111; }
     .co-item-variant { font-size: 11px; color: #6b7280; margin-top: 2px; }
     .co-item-price { font-size: 12px; font-weight: 600; color: #111; white-space: nowrap; }
-    #co-blocks-container { display: flex; flex-direction: column; gap: 5px; margin: 4px 0 8px; }
+    /* Drop zones */
+    .co-drop-zone { display: flex; flex-direction: column; gap: 5px; border-radius: 7px; transition: all .15s; }
+    .co-drop-zone-banner { border-radius: 0; }
+    .co-preview.co-dragging .co-drop-zone { min-height: 42px; border: 2px dashed #d1d5db; padding: 5px; margin: 4px 0; position: relative; }
+    .co-preview.co-dragging .co-drop-zone-banner { margin: 0; border-left: none; border-right: none; border-radius: 0; }
+    .co-preview.co-dragging .co-drop-zone:not(.co-has-blocks)::after { content: attr(data-label); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 10px; color: #9ca3af; white-space: nowrap; pointer-events: none; }
+    .co-drop-zone.co-drop-hover { border-color: var(--co-accent) !important; background: #f4f8ec; }
+    .co-drop-zone.co-drop-hover::after { color: var(--co-accent) !important; }
+    .co-drop-zone.co-has-blocks { padding: 0 0 4px; }
+    .co-preview.co-dragging .co-drop-zone.co-has-blocks { padding: 5px; }
+    /* Blocks */
     .co-block { background: white; border: 1px solid #e5e7eb; border-radius: 7px; padding: 9px 11px; cursor: grab; font-size: 12px; transition: box-shadow .15s; user-select: none; }
     .co-block:hover { box-shadow: 0 2px 8px rgba(0,0,0,.09); }
-    .co-block.co-drag-over { border-color: var(--co-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--co-accent) 30%, transparent); }
+    .co-block.co-drag-over { outline: 2px dashed var(--co-accent); outline-offset: 2px; }
     .co-block.co-hidden { display: none; }
-    .co-block-label { font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: var(--co-accent); margin-bottom: 4px; }
     .co-block-title { font-size: 12px; font-weight: 600; color: #111; margin-bottom: 3px; }
     .co-block-sub { font-size: 11px; color: #6b7280; line-height: 1.4; }
     .co-progress-bar { height: 5px; background: #e5e7eb; border-radius: 3px; margin-top: 5px; overflow: hidden; }
     .co-progress-fill { height: 100%; background: var(--co-accent); border-radius: 3px; width: 65%; }
     .co-stars { color: #f59e0b; }
-    .co-badge-row { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+    .co-badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .co-badge { font-size: 10px; background: #f3f4f6; border-radius: 4px; padding: 3px 7px; color: #374151; }
     .co-upsell-row { display: flex; gap: 8px; align-items: center; margin-top: 5px; }
-    .co-upsell-img { width: 30px; height: 30px; border-radius: 4px; background: #e5e7eb; flex-shrink: 0; }
+    .co-upsell-img { width: 32px; height: 32px; border-radius: 5px; background: #e5e7eb; flex-shrink: 0; overflow: hidden; }
+    .co-upsell-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .co-upsell-add { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--co-accent); border: 1px solid var(--co-accent); border-radius: 4px; padding: 3px 8px; white-space: nowrap; }
     .co-radio-row { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
     .co-radio-option { display: flex; align-items: center; gap: 7px; font-size: 11px; padding: 5px 8px; border-radius: 5px; border: 1px solid #e5e7eb; }
@@ -1001,13 +1012,17 @@
       </div>
     </div>
 
+    <!-- Full-width banner drop zone (below header) -->
+    <div class="co-drop-zone co-drop-zone-banner" id="co-drop-banner" data-label="Drop here → full-width banner"></div>
+
     <!-- Body -->
     <div class="co-body">
 
-      <!-- LEFT: Checkout form (static mockup) -->
+      <!-- LEFT: Checkout form -->
       <div class="co-form-col">
         <div class="co-section-label">Contact</div>
         <div class="co-input">Email or phone number</div>
+        <div class="co-drop-zone" data-label="Drop here"></div>
 
         <div class="co-section-label">Delivery</div>
         <div class="co-input-row">
@@ -1020,6 +1035,7 @@
           <div class="co-input" style="flex:1">State</div>
           <div class="co-input" style="flex:1">ZIP</div>
         </div>
+        <div class="co-drop-zone" data-label="Drop here"></div>
 
         <div class="co-section-label">Payment</div>
         <div class="co-card-icons">
@@ -1031,14 +1047,18 @@
           <div class="co-card-icon" style="background:#000;color:white;font-size:7px;font-weight:800;">GPay</div>
         </div>
         <div class="co-input">4242 4242 4242 4242 &nbsp;·&nbsp; MM/YY &nbsp;·&nbsp; CVV</div>
+        <div class="co-drop-zone" data-label="Drop here"></div>
 
         <button class="co-pay-btn" id="co-pay-btn">Pay now</button>
       </div>
 
-      <!-- RIGHT: Order summary + draggable blocks -->
+      <!-- RIGHT: Order summary + blocks -->
       <div class="co-summary-col">
         <div class="co-line-item">
-          <div class="co-item-img"><span class="co-item-qty">1</span></div>
+          <div class="co-item-img">
+            <span class="co-item-qty">1</span>
+            <img src="https://picsum.photos/seed/tshirt88/46/46" alt="Product" onerror="this.style.display='none'">
+          </div>
           <div class="co-item-details">
             <div class="co-item-name" id="co-product-name-display">Classic Tee — Black / M</div>
             <div class="co-item-variant">Standard Shipping</div>
@@ -1046,24 +1066,21 @@
           <div class="co-item-price">$<span id="co-price-display">149.00</span></div>
         </div>
 
-        <!-- Draggable checkout extension blocks -->
-        <div id="co-blocks-container">
+        <!-- Main draggable blocks zone -->
+        <div id="co-blocks-container" class="co-drop-zone co-has-blocks" data-label="Drop here">
 
           <div class="co-block" draggable="true" data-coblock="shipping-bar">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">📦 You're $35 away from free shipping!</div>
             <div class="co-progress-bar"><div class="co-progress-fill"></div></div>
             <div class="co-block-sub" style="margin-top:4px">$65 of $100 threshold reached</div>
           </div>
 
           <div class="co-block" draggable="true" data-coblock="reviews">
-            <div class="co-block-label">Checkout Extension</div>
             <div><span class="co-stars">★★★★★</span> <strong style="font-size:12px;">4.8</strong> <span class="co-block-sub" style="display:inline">· 2,847 reviews</span></div>
             <div class="co-block-sub" style="margin-top:3px;font-style:italic;">"Amazing quality, arrived in 2 days!" — Sarah M.</div>
           </div>
 
           <div class="co-block" draggable="true" data-coblock="trust">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-badge-row">
               <div class="co-badge">🔒 SSL Secure</div>
               <div class="co-badge">↩ Free Returns</div>
@@ -1073,17 +1090,15 @@
           </div>
 
           <div class="co-block" draggable="true" data-coblock="upsell">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">➕ Customers also bought</div>
             <div class="co-upsell-row">
-              <div class="co-upsell-img"></div>
+              <div class="co-upsell-img"><img src="https://picsum.photos/seed/cap44/32/32" alt="Hat" onerror="this.style.display='none'"></div>
               <div><div style="font-size:11px;font-weight:600;color:#111;">Matching Hat</div><div style="font-size:11px;color:#6b7280;">$24.00</div></div>
               <div class="co-upsell-add">+ Add</div>
             </div>
           </div>
 
           <div class="co-block" draggable="true" data-coblock="subscribe">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">🔄 Subscribe &amp; Save 15%</div>
             <div class="co-radio-row">
               <div class="co-radio-option"><div class="co-radio-dot"></div><span>One-time &nbsp;<strong>$149.00</strong></span></div>
@@ -1092,20 +1107,17 @@
           </div>
 
           <div class="co-block" draggable="true" data-coblock="gift-wrap">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">🎁 Gift Wrapping</div>
             <div class="co-check-row"><div class="co-checkbox"></div><span>Add gift wrapping (+$5.00)</span></div>
             <div class="co-check-row"><div class="co-checkbox"></div><span>Include a personal message</span></div>
           </div>
 
           <div class="co-block" draggable="true" data-coblock="loyalty">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">💎 Earn 149 Loyalty Points</div>
             <div class="co-block-sub">Redeem on your next order · Current balance: 850 pts</div>
           </div>
 
           <div class="co-block" draggable="true" data-coblock="guarantee">
-            <div class="co-block-label">Checkout Extension</div>
             <div class="co-block-title">✅ 30-Day Money-Back Guarantee</div>
             <div class="co-block-sub">Not satisfied? We'll make it right — no questions asked.</div>
           </div>
@@ -1449,70 +1461,92 @@
     if (panelItem) panelItem.classList.toggle('hidden-sec', !visible);
   }
 
-  // ── Checkout block drag-to-reorder ──
+  // ── Checkout block drag — free-form across all drop zones ──
   let coDragSrc = null;
-  let coPanelSrc = null;
 
-  document.querySelectorAll('#co-blocks-container .co-block').forEach(block => {
+  function coAllZones() { return [...document.querySelectorAll('#tab-checkout .co-drop-zone')]; }
+  function coAllBlocks() { return [...document.querySelectorAll('#tab-checkout .co-block')]; }
+  function coClearHighlights() {
+    coAllZones().forEach(z => z.classList.remove('co-drop-hover'));
+    coAllBlocks().forEach(b => b.classList.remove('co-drag-over'));
+  }
+  function coUpdateZoneState() {
+    coAllZones().forEach(z => {
+      z.classList.toggle('co-has-blocks', z.querySelectorAll(':scope > .co-block').length > 0);
+    });
+  }
+
+  // Blocks: dragstart / dragend / dragover (insert before/after) / drop
+  coAllBlocks().forEach(block => {
     block.addEventListener('dragstart', e => {
-      coDragSrc = block; block.style.opacity = '.4'; e.dataTransfer.effectAllowed = 'move';
+      coDragSrc = block;
+      block.style.opacity = '.35';
+      e.dataTransfer.effectAllowed = 'move';
+      document.querySelector('.co-preview').classList.add('co-dragging');
     });
     block.addEventListener('dragend', () => {
       block.style.opacity = '';
-      document.querySelectorAll('.co-block').forEach(b => b.classList.remove('co-drag-over'));
       coDragSrc = null;
+      coClearHighlights();
+      document.querySelector('.co-preview').classList.remove('co-dragging');
     });
     block.addEventListener('dragover', e => {
       if (!coDragSrc || block === coDragSrc) return;
-      e.preventDefault();
-      document.querySelectorAll('.co-block').forEach(b => b.classList.remove('co-drag-over'));
+      e.preventDefault(); e.stopPropagation();
+      coClearHighlights();
       block.classList.add('co-drag-over');
     });
     block.addEventListener('drop', e => {
-      e.preventDefault();
+      e.preventDefault(); e.stopPropagation();
       if (!coDragSrc || block === coDragSrc) return;
       block.classList.remove('co-drag-over');
-      const container = document.getElementById('co-blocks-container');
-      const all = [...container.querySelectorAll('.co-block')];
-      if (all.indexOf(coDragSrc) < all.indexOf(block)) {
-        container.insertBefore(coDragSrc, block.nextSibling);
+      const zone = block.parentElement;
+      const siblings = [...zone.querySelectorAll(':scope > .co-block')];
+      const srcInZone = siblings.includes(coDragSrc);
+      if (srcInZone && siblings.indexOf(coDragSrc) < siblings.indexOf(block)) {
+        zone.insertBefore(coDragSrc, block.nextSibling);
       } else {
-        container.insertBefore(coDragSrc, block);
+        zone.insertBefore(coDragSrc, block);
       }
-      // Sync panel list order
-      const newOrder = [...container.querySelectorAll('.co-block')].map(b => b.dataset.coblock);
-      const panelList = document.getElementById('co-block-list');
-      newOrder.forEach(key => {
-        const pi = panelList?.querySelector(`.sec-item[data-coblock="${key}"]`);
-        if (pi) panelList.appendChild(pi);
-      });
+      coUpdateZoneState();
     });
   });
 
+  // Drop zones: accept blocks dropped onto open space
+  coAllZones().forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      if (!coDragSrc) return;
+      e.preventDefault();
+      coClearHighlights();
+      zone.classList.add('co-drop-hover');
+    });
+    zone.addEventListener('dragleave', e => {
+      if (!e.relatedTarget || !zone.contains(e.relatedTarget)) zone.classList.remove('co-drop-hover');
+    });
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      if (!coDragSrc) return;
+      zone.classList.remove('co-drop-hover');
+      zone.appendChild(coDragSrc);
+      coUpdateZoneState();
+    });
+  });
+
+  // Panel list reorders the main #co-blocks-container only
+  let coPanelSrc = null;
   document.querySelectorAll('#co-block-list .sec-item[data-coblock]').forEach(item => {
-    item.addEventListener('dragstart', e => {
-      coPanelSrc = item; item.style.opacity = '.4'; e.dataTransfer.effectAllowed = 'move';
-    });
-    item.addEventListener('dragend', () => {
-      item.style.opacity = ''; coPanelSrc = null;
-    });
-    item.addEventListener('dragover', e => {
-      if (!coPanelSrc || item === coPanelSrc) return; e.preventDefault();
-    });
+    item.addEventListener('dragstart', e => { coPanelSrc = item; item.style.opacity = '.4'; e.dataTransfer.effectAllowed = 'move'; });
+    item.addEventListener('dragend', () => { item.style.opacity = ''; coPanelSrc = null; });
+    item.addEventListener('dragover', e => { if (!coPanelSrc || item === coPanelSrc) return; e.preventDefault(); });
     item.addEventListener('drop', e => {
       e.preventDefault();
       if (!coPanelSrc || item === coPanelSrc) return;
-      const panelList = document.getElementById('co-block-list');
-      const all = [...panelList.querySelectorAll('.sec-item')];
-      if (all.indexOf(coPanelSrc) < all.indexOf(item)) {
-        panelList.insertBefore(coPanelSrc, item.nextSibling);
-      } else {
-        panelList.insertBefore(coPanelSrc, item);
-      }
-      // Sync preview block order
+      const list = document.getElementById('co-block-list');
+      const all = [...list.querySelectorAll('.sec-item')];
+      if (all.indexOf(coPanelSrc) < all.indexOf(item)) list.insertBefore(coPanelSrc, item.nextSibling);
+      else list.insertBefore(coPanelSrc, item);
       const container = document.getElementById('co-blocks-container');
-      const newOrder = [...panelList.querySelectorAll('.sec-item')].map(i => i.dataset.coblock);
-      newOrder.forEach(key => {
+      [...list.querySelectorAll('.sec-item')].map(i => i.dataset.coblock).forEach(key => {
         const bl = container?.querySelector(`.co-block[data-coblock="${key}"]`);
         if (bl) container.appendChild(bl);
       });
