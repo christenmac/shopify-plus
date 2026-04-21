@@ -371,7 +371,7 @@
         color-adjust: exact !important;
       }
 
-      @page { size: letter; margin: 0.5in; }
+      @page { size: letter portrait; margin: 0.2in; }
 
       /* Hide all UI chrome */
       .panel, .toolbar, .tab-bar, .edit-badge, .btn-share, .btn-copy { display: none !important; }
@@ -409,10 +409,11 @@
       }
 
       /* ── Checkout PDF print ── */
-      .co-preview-wrap {
-        max-width: 420px !important;
+      body.co-printing .co-preview-wrap {
+        max-width: 100% !important;
         margin: 0 auto !important;
         padding: 0 !important;
+        zoom: 0.68 !important;
       }
       .co-preview {
         box-shadow: none !important;
@@ -1686,9 +1687,11 @@
     const storeName = storeInput ? storeInput.value.trim() : '';
     const activeTabId = (document.querySelector('.tab-content.active') || {}).id || 'tab-plus';
 
-    // Custom Checkout tab → print to PDF
+    // Custom Checkout tab → print to PDF (scaled to fit one page)
     if (activeTabId === 'tab-checkout') {
+      document.body.classList.add('co-printing');
       window.print();
+      document.body.classList.remove('co-printing');
       return;
     }
 
