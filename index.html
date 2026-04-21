@@ -197,6 +197,7 @@
     .rate-box { position: relative; }
     .sav-box-x { display: none; position: absolute; top: -7px; right: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 11px; line-height: 18px; text-align: center; cursor: pointer; padding: 0; font-weight: 700; }
     #savings-card .rate-box:hover .sav-box-x { display: block; }
+    #retail-rates-card .rate-box:hover .sav-box-x { display: block; }
     /* "Add Savings" re-show link */
     #savings-add-btn { display: none; text-align: center; margin-bottom: 20px; }
     #savings-add-btn button { background: none; border: 1.5px dashed var(--mid); border-radius: 8px; color: var(--dark); font-size: 12px; font-weight: 700; padding: 7px 18px; cursor: pointer; width: 100%; }
@@ -593,7 +594,30 @@
       <div class="field"><label>Number of Locations</label><input placeholder="e.g. 3" oninput="set('retail-locations',this.value)"></div>
     </div>
     <div class="panel-hr"></div>
-    <div class="panel-tip">Click any doc text to edit.</div>
+    <div>
+      <div class="section-lbl">Rates — uncheck to hide</div>
+      <div id="retail-rate-list">
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked data-rrate="inperson" onchange="toggleRetailRate('inperson',this.checked)"><span class="sec-item-label">In Person</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked data-rrate="pos" onchange="toggleRetailRate('pos',this.checked)"><span class="sec-item-label">POS Pro</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked data-rrate="locations" onchange="toggleRetailRate('locations',this.checked)"><span class="sec-item-label">Locations</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="retail-section-list">
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('resources',this.checked)"><span class="sec-item-label">POS Overview &amp; Resources</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('inventory',this.checked)"><span class="sec-item-label">Inventory Management</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('reporting',this.checked)"><span class="sec-item-label">POS Reporting</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('quickbooks',this.checked)"><span class="sec-item-label">QuickBooks</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('demos',this.checked)"><span class="sec-item-label">Demos</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('hardware',this.checked)"><span class="sec-item-label">Hardware</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('fun-features',this.checked)"><span class="sec-item-label">Fun Features</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('additional',this.checked)"><span class="sec-item-label">Additional Resources</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit.</div>
   </div><!-- /retail-panel -->
 
   <div id="checkout-panel" style="display:none;flex-direction:column;gap:18px;">
@@ -1293,26 +1317,30 @@
   <div class="doc-body">
 
     <!-- Retail Rates -->
-    <div class="rates-card">
+    <div class="rates-card" id="retail-rates-card">
       <div class="rates-hdg">💳 POS Rates</div>
       <div class="rates-grid">
-        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="retail-rate-inperson" class="rate-val" contenteditable="true">2.6% + $0.10</span></div>
-        <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="retail-rate-pos" class="rate-val" contenteditable="true">$89/mo</span></div>
-        <div class="rate-box"><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span id="retail-locations" class="rate-val" contenteditable="true">–</span></div>
+        <div class="rate-box" data-rrate="inperson"><button class="sav-box-x" onclick="toggleRetailRate('inperson',false)" title="Remove">×</button><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="retail-rate-inperson" class="rate-val" contenteditable="true">2.6% + $0.10</span></div>
+        <div class="rate-box" data-rrate="pos"><button class="sav-box-x" onclick="toggleRetailRate('pos',false)" title="Remove">×</button><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="retail-rate-pos" class="rate-val" contenteditable="true">$89/mo</span></div>
+        <div class="rate-box" data-rrate="locations"><button class="sav-box-x" onclick="toggleRetailRate('locations',false)" title="Remove">×</button><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span id="retail-locations" class="rate-val" contenteditable="true">–</span></div>
       </div>
     </div>
 
+    <div id="retail-sections-container">
+
     <!-- Resources -->
+    <div class="sec-wrap" data-rkey="resources">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">POS Overview &amp; Resources</div></div>
       <div class="feat-body">
         <p><a href="https://www.shopify.com/pos/features" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">POS Overview ↗</a> &nbsp;·&nbsp; <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">In Person Selling ↗</a> &nbsp;·&nbsp; <a href="https://help.shopify.com/en/manual/sell-in-person/shopify-pos/faq" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">FAQ ↗</a> &nbsp;·&nbsp; <a href="https://shopify-2.wistia.com/medias/nacng5vjo9" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS — 5 Minute Demo ↗</a></p>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Inventory -->
+    <div class="sec-wrap" data-rkey="inventory">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Inventory Management</div></div>
       <div class="feat-body">
@@ -1325,10 +1353,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Reporting -->
+    <div class="sec-wrap" data-rkey="reporting">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">POS Reporting</div></div>
       <div class="feat-body">
@@ -1341,10 +1370,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- QuickBooks -->
+    <div class="sec-wrap" data-rkey="quickbooks">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Accounting | QuickBooks Online</div></div>
       <div class="feat-body">
@@ -1356,23 +1386,25 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Demos -->
+    <div class="sec-wrap" data-rkey="demos">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Demos</div></div>
       <div class="feat-body">
         <ul contenteditable="true">
-          <li><a href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS — 5 Minute Demo ↗</a></li>
+          <li><a href="https://shopify-2.wistia.com/medias/nacng5vjo9" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS — 5 Minute Demo ↗</a></li>
           <li><a href="https://share.vidyard.com/watch/o2MwWXW1nrJXAkbiFVXe2U?noTrack=true" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Unified Commerce (D2C / POS) — 20 Minute Demo ↗</a></li>
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Hardware -->
+    <div class="sec-wrap" data-rkey="hardware">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Hardware</div></div>
       <div class="feat-body">
@@ -1383,10 +1415,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Fun Features -->
+    <div class="sec-wrap" data-rkey="fun-features">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Fun Features to Note</div></div>
       <div class="feat-body">
@@ -1398,10 +1431,11 @@
         </ul>
       </div>
     </div>
-
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Other -->
+    <div class="sec-wrap" data-rkey="additional">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Additional Resources</div></div>
       <div class="feat-body">
@@ -1411,6 +1445,9 @@
         </ul>
       </div>
     </div>
+    </div>
+
+    </div><!-- /retail-sections-container -->
 
   </div>
 
@@ -1760,6 +1797,32 @@
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 3000);
+  }
+
+  // ── Retail / POS — rate box toggle ──
+  function toggleRetailRate(key, visible) {
+    const box = document.querySelector(`#retail-rates-card .rate-box[data-rrate="${key}"]`);
+    if (box) box.classList.toggle('sec-hidden', !visible);
+    const cb = document.querySelector(`#retail-rate-list input[data-rrate="${key}"]`);
+    if (cb) cb.checked = visible;
+  }
+
+  // ── Retail / POS — section toggle ──
+  function updateRetailDividers() {
+    const wraps = [...document.querySelectorAll('#retail-sections-container .sec-wrap')];
+    const visible = wraps.filter(w => !w.classList.contains('sec-hidden'));
+    wraps.forEach(w => {
+      const hr = w.querySelector('.doc-hr');
+      if (!hr) return;
+      hr.style.display = (visible[visible.length - 1] === w) ? 'none' : '';
+    });
+  }
+  updateRetailDividers();
+
+  function toggleRetailSection(key, visible) {
+    const wrap = document.querySelector(`#retail-sections-container .sec-wrap[data-rkey="${key}"]`);
+    if (wrap) wrap.classList.toggle('sec-hidden', !visible);
+    updateRetailDividers();
   }
 
 </script>
