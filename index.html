@@ -1794,7 +1794,14 @@
 
     // Fix layout — no sidebar
     const main = clone.querySelector('.main');
-    if (main) { main.style.marginLeft = '0'; main.style.paddingTop = '28px'; }
+    if (main) {
+      main.style.marginLeft = '0';
+      main.style.paddingTop = '28px';
+      main.style.display = 'block';
+      main.style.width = '100%';
+    }
+    const bodyEl = clone.querySelector('body');
+    if (bodyEl) { bodyEl.style.display = 'block'; }
 
     // Remove scripts
     clone.querySelectorAll('script').forEach(s => s.remove());
