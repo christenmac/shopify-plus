@@ -264,7 +264,7 @@
       border-radius: 12px; padding: 20px 24px 16px; margin-bottom: 28px;
     }
     .sp-fee-hdg { font-size: 14px; font-weight: 800; color: var(--dark); margin-bottom: 13px; }
-    .sp-fee-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sp-fee-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
     .sp-fee-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
     .sp-fee-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; }
     .sp-fee-val { font-size: 13px; font-weight: 800; color: var(--dark); }
@@ -1589,6 +1589,8 @@
         </div>
         <p style="margin-top:10px"><a href="https://help.shopify.com/en/manual/payments/shopify-payments" target="_blank" rel="noopener">Overview ↗</a></p>
         <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/payments/shopify-payments/onboarding" target="_blank" rel="noopener">Setting Up Shopify Payments ↗</a></p>
+        <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/payments/shopify-payments/payouts" target="_blank" rel="noopener">Configuring Shopify Payments ↗</a></p>
+        <p style="margin-top:6px"><a href="https://www.shopify.com/case-studies?products=shopify-payments" target="_blank" rel="noopener">Case Studies ↗</a></p>
       </div>
     </div>
     <div class="doc-hr"></div>
@@ -1661,39 +1663,6 @@
     </div>
     <div class="doc-hr"></div>
 
-    <!-- Questions to Consider -->
-    <div class="feature">
-      <div class="feat-head">
-        <div class="check">?</div>
-        <div class="feat-title" contenteditable="true">Questions to Consider Before Staying on 3rd Party</div>
-      </div>
-      <div class="feat-body">
-        <p contenteditable="true">I understand cost is important and don't want to dismiss that, but there are other questions that should be considered:</p>
-      </div>
-    </div>
-    <div class="sp-q-item" contenteditable="true"><strong>What's your mobile conversion rate?</strong> Shop Pay will increase that.</div>
-    <div class="sp-q-item" contenteditable="true"><strong>What percentage of customers abandon at the payment step?</strong> Accelerated checkout buttons reduce this by 50%+.</div>
-    <div class="sp-q-item" contenteditable="true"><strong>What's your AOV?</strong> BNPL options increase this by 30–50%.</div>
-    <div class="sp-q-item" contenteditable="true"><strong>Are you selling internationally?</strong> Local payment methods = 20–30% conversion lift.</div>
-    <div class="sp-q-item" contenteditable="true"><strong>How much time does your finance team spend reconciling payments from multiple sources?</strong> Unified dashboard = hours saved per week.</div>
-    <div class="doc-hr"></div>
-
-    <!-- The Hidden Cost -->
-    <div class="feature">
-      <div class="feat-head">
-        <div class="check">!</div>
-        <div class="feat-title" contenteditable="true">The Cost of NOT Using Shopify Payments</div>
-      </div>
-      <div class="feat-body">
-        <p contenteditable="true">The cost of Shopify Payments is definitive. The cost of NOT using it is hidden.</p>
-      </div>
-    </div>
-    <div class="sp-hidden-cost" contenteditable="true">Every customer who abandons at checkout because they don't see Shop Pay? <strong>Hidden cost.</strong></div>
-    <div class="sp-hidden-cost" contenteditable="true">Every mobile user who bounces because your third-party checkout is slow? <strong>Hidden cost.</strong></div>
-    <div class="sp-hidden-cost" contenteditable="true">Every international customer who doesn't buy because you don't offer their preferred payment method? <strong>Hidden cost.</strong></div>
-    <div class="sp-hidden-cost" contenteditable="true">Every hour your finance team spends manually reconciling payouts from three different sources? <strong>Hidden cost.</strong></div>
-    <div class="doc-hr"></div>
-
     <!-- Last 365 Insights -->
     <div class="feature">
       <div class="feat-head">
@@ -1732,52 +1701,37 @@
     </div>
     <div class="doc-hr"></div>
 
-    <!-- Resources: Shopify Payments -->
+    <!-- Shop Pay -->
     <div class="feature">
       <div class="feat-head">
-        <div class="check">↗</div>
-        <div class="feat-title" contenteditable="true">Shopify Payments</div>
-      </div>
-      <div class="feat-body">
-        <ul contenteditable="true">
-          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments" target="_blank" rel="noopener">Overview ↗</a></li>
-          <li><a href="https://www.shopify.com/case-studies?products=shopify-payments" target="_blank" rel="noopener">Case Studies ↗</a></li>
-          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments/onboarding" target="_blank" rel="noopener">Setting up Shopify Payments ↗</a></li>
-          <li><a href="https://help.shopify.com/en/manual/payments/shopify-payments/payouts" target="_blank" rel="noopener">Configuring Shopify Payments ↗</a></li>
-          <li>Activating Additional Payment Methods</li>
-        </ul>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-
-    <!-- Resources: Shop Pay -->
-    <div class="feature">
-      <div class="feat-head">
-        <div class="check">↗</div>
+        <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Shop Pay</div>
       </div>
       <div class="feat-body">
-        <ul contenteditable="true">
-          <li><a href="https://help.shopify.com/en/manual/payments/shop-pay" target="_blank" rel="noopener">Overview ↗</a></li>
-          <li>Activating Shop Pay</li>
-          <li><a href="https://www.shopify.com/case-studies?products=shop-pay" target="_blank" rel="noopener">Case Studies ↗</a></li>
-        </ul>
+        <p contenteditable="true">Shop Pay is Shopify's accelerated checkout — the fastest on the internet. With 150M+ buyers who already have their info saved, Shop Pay delivers a 1-click checkout experience that drives up to 50% higher conversion compared to guest checkout. It's the single highest-converting checkout on the market, and it's only available to merchants on Shopify Payments.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Key Stats</div>
+          <p contenteditable="true">50% higher conversion vs. guest checkout · 5% baseline conversion lift · fastest checkout speed on the internet · 150M+ saved buyer accounts</p>
+        </div>
+        <p style="margin-top:10px"><a href="https://help.shopify.com/en/manual/payments/shop-pay" target="_blank" rel="noopener">Overview ↗</a></p>
+        <p style="margin-top:6px"><a href="https://www.shopify.com/case-studies?products=shop-pay" target="_blank" rel="noopener">Case Studies ↗</a></p>
       </div>
     </div>
     <div class="doc-hr"></div>
 
-    <!-- Resources: Shop Pay Installments -->
+    <!-- Shop Pay Installments -->
     <div class="feature">
       <div class="feat-head">
-        <div class="check">↗</div>
+        <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Shop Pay Installments</div>
       </div>
       <div class="feat-body">
-        <ul contenteditable="true">
-          <li><a href="https://help.shopify.com/en/manual/payments/shop-pay-installments" target="_blank" rel="noopener">Overview ↗</a></li>
-          <li>Activating Shop Pay Installments</li>
-          <li>BNPL Statistics</li>
-        </ul>
+        <p contenteditable="true">Shop Pay Installments is Shopify's built-in BNPL (Buy Now, Pay Later) solution. It lets customers split purchases into 4 interest-free payments or monthly installments — at no cost to them and no extra integration work for you. It increases AOV by 30–50% and conversion by 20%+, particularly for higher-ticket items.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Key Stats</div>
+          <p contenteditable="true">AOV increase: 30–50% · conversion increase: 20%+ · no interest for buyers · available on orders $50–$17,500 · no additional integration required</p>
+        </div>
+        <p style="margin-top:10px"><a href="https://help.shopify.com/en/manual/payments/shop-pay-installments" target="_blank" rel="noopener">Overview ↗</a></p>
       </div>
     </div>
 
