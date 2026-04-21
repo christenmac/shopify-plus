@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Shopify Plus Overview</title>
+
   <style>
     :root {
       --green:  #95BF47;
@@ -234,6 +235,26 @@
     .doc-hr { height: 1px; background: var(--border); margin: 18px 0; }
     .doc-footer { background: var(--dark); color: rgba(255,255,255,.7); text-align: center; padding: 15px; font-size: 11px; }
 
+    /* ── Paid Apps Section ── */
+    .app-row { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
+    .app-row:last-of-type { border-bottom:none; }
+    .app-rank { font-size:10.5px; font-weight:700; color:var(--lite-t); width:18px; flex-shrink:0; padding-top:2px; }
+    .app-info { flex:1; min-width:0; }
+    .app-name-lbl { font-size:12.5px; font-weight:700; color:var(--text); }
+    .app-desc-lbl { font-size:11px; color:var(--mid-t); margin-top:2px; line-height:1.5; }
+    .app-plan-lbl { font-size:10px; color:var(--lite-t); margin-top:2px; }
+    .app-price-lbl { font-size:13px; font-weight:800; color:var(--dark); white-space:nowrap; padding-top:2px; }
+    .app-price-unit { font-size:9px; font-weight:400; color:var(--lite-t); }
+    .apps-loading { text-align:center; padding:18px 0; color:var(--lite-t); font-size:12px; font-style:italic; }
+    .apps-empty { font-size:11.5px; color:var(--lite-t); font-style:italic; }
+    .apps-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:8px; margin-top:4px; border-top:2px solid var(--border); }
+    .apps-total-lbl { font-size:11px; font-weight:700; color:var(--mid-t); }
+    .apps-total-val { font-size:13px; font-weight:800; color:var(--dark); }
+    .btn-load-apps { width:100%; background:var(--dark); color:#fff; border:none; border-radius:6px; padding:8px 12px; font-size:12px; font-weight:700; cursor:pointer; margin-top:6px; transition:background .15s; }
+    .btn-load-apps:hover { background:#3d6128; }
+    .btn-load-apps:disabled { opacity:.55; cursor:not-allowed; }
+    #apps-auth-status { font-size:10px; color:var(--lite-t); margin-top:5px; min-height:14px; }
+
     /* ── Section Manager ── */
     #section-list { display: flex; flex-direction: column; gap: 3px; }
     .sec-item {
@@ -407,6 +428,8 @@
       [contenteditable], [contenteditable]:hover, [contenteditable]:focus {
         outline: none !important; box-shadow: none !important;
       }
+      .btn-load-apps { display: none !important; }
+      #apps-auth-status { display: none !important; }
 
       /* ── Checkout PDF print ── */
       body.co-printing .co-preview-wrap {
@@ -475,6 +498,18 @@
   <div class="panel-hr"></div>
 
   <div>
+    <div class="section-lbl">Paid Apps Lookup</div>
+    <div class="field">
+      <label>Shop ID</label>
+      <input id="shop-id-input" placeholder="e.g. 66917433577" type="text" inputmode="numeric">
+    </div>
+    <button class="btn-load-apps" onclick="loadApps()">Load Paid Apps</button>
+    <div id="apps-auth-status"></div>
+  </div>
+
+  <div class="panel-hr"></div>
+
+  <div>
     <div class="section-lbl">Checkout Examples</div>
     <div class="field"><label>Example 1 Label</label><input id="cx-1-label" placeholder="e.g. German Car Zone" oninput="updateCheckoutExample(1)"></div>
     <div class="field"><label>Example 1 URL</label><input id="cx-1-url" placeholder="https://..." oninput="updateCheckoutExample(1)"></div>
@@ -487,6 +522,11 @@
   <div>
     <div class="section-lbl">Sections — drag to reorder · uncheck to hide</div>
     <div id="section-list">
+      <div class="sec-item" draggable="true" data-key="apps">
+        <span class="drag-handle">⠿</span>
+        <input type="checkbox" checked onchange="toggleSection('apps',this.checked)">
+        <span class="sec-item-label">Paid Apps</span>
+      </div>
       <div class="sec-item" draggable="true" data-key="checkout">
         <span class="drag-handle">⠿</span>
         <input type="checkbox" checked onchange="toggleSection('checkout',this.checked)">
@@ -735,6 +775,18 @@
     </div>
 
     <div id="sections-container">
+
+    <!-- Paid Apps -->
+    <div class="sec-wrap" data-key="apps">
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Current Paid Apps</div></div>
+      <div class="feat-body">
+        <div id="apps-list"><p class="apps-empty">Enter a Shop ID in the panel and click <strong>Load Paid Apps</strong> →</p></div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+    </div>
+
     <!-- Customized Checkout -->
     <div class="sec-wrap" data-key="checkout">
     <div class="feature">
@@ -754,10 +806,10 @@
         <div class="sub-box">
           <div class="sub-title" contenteditable="true">Customized Checkout Examples:</div>
           <ul style="margin-top:8px;padding-left:16px;display:flex;flex-direction:column;gap:4px;">
-            <li style="font-size:12.5px;"><a href="https://german-car-accessories.com/checkouts/cn/Z2NwLXVzLWNlbnRyYWwxOjAxSlFDS1NKVFZHNUVLTlMzS1EwOFdCUkJB?auto_redirect=false&edge_redirect=true&locale=en-US&skip_shop_pay=true" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">German Car Zone ↗</a></li>
-            <li style="font-size:12.5px;"><a href="https://sanabulsports.com/checkouts/cn/Z2NwLXVzLWVhc3QxOjAxSlRUWkJWQ01BMjJBTTI3NTQyVzJGWUpN?auto_redirect=false&edge_redirect=true&locale=en-US&skip_shop_pay=true" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Paddle North ↗</a></li>
-            <li style="font-size:12.5px;"><a href="https://shop.app/checkout/5079565/cn/Z2NwLXVzLWVhc3QxOjAxSlgwRUZaMDc0UUEwMzVNSlJSNTdIWEZR/shoppay?redirect_source=checkout_automatic_redirect&tracking_unique=5F52AF2F-8119-4A1A-97d2-ea8f7d25cf53&tracking_visit=B72EF3F9-b450-4023-8898-9099614c48d9" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Promix ↗</a></li>
-            <li style="font-size:12.5px;"><a href="https://sockwellusa.com/checkouts/cn/hWN9gyUPIzDnqYOlkcoZzq6r/en-us?_r=AQAB61ecRHEciJgufXSuzs19NcryLaagB-fBDFipcc4kkc0&skip_shop_pay=true&checkout_queue_token=A6jXBTBb2tf9vj-PNO64pHnlRcRx-YPh0ywS9AUurh5NK1z4iZQKhq5Oanki7cCDRKroBN_q0F8_0rY6tNHfD6ldD_tTgDop_lGLPvmZq0kZq1oVhahCRCAd2GIGZn0i&shop_pay_checkout_as_guest=true&_cs=3.AMPS" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Sockwell ↗</a></li>
+            <li style="font-size:12.5px;"><a href="https://german-car-accessories.com/cart" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">German Car Zone ↗</a></li>
+            <li style="font-size:12.5px;"><a href="https://paddlenorth.com/cart" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Paddle North ↗</a></li>
+            <li style="font-size:12.5px;"><a href="https://promixnutrition.com/cart" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Promix ↗</a></li>
+            <li style="font-size:12.5px;"><a href="https://sockwellusa.com/cart" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Sockwell ↗</a></li>
             <li id="custom-ex-1" style="font-size:12.5px;display:none;"><a id="custom-ex-1-link" href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;"> ↗</a></li>
             <li id="custom-ex-2" style="font-size:12.5px;display:none;"><a id="custom-ex-2-link" href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;"> ↗</a></li>
           </ul>
@@ -1752,6 +1804,102 @@
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 3000);
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  //  PAID APPS — fetches via Google Apps Script (JSONP, no CORS issues)
+  //
+  //  Paste APPS_SCRIPT_URL below after deploying the companion script.
+  //  See the Apps Script code at the bottom of this comment block.
+  // ─────────────────────────────────────────────────────────────────
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_DEPLOYMENT_URL';
+
+  function _appsSetStatus(msg) {
+    const el = document.getElementById('apps-auth-status');
+    if (el) el.textContent = msg;
+  }
+
+  function loadApps() {
+    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_DEPLOYMENT_URL') {
+      alert('Paste the Apps Script deployment URL into APPS_SCRIPT_URL in the script block.');
+      return;
+    }
+    const raw = document.getElementById('shop-id-input').value.trim();
+    if (!raw || isNaN(parseInt(raw, 10))) { alert('Enter a valid numeric Shop ID.'); return; }
+
+    document.getElementById('apps-list').innerHTML = '<div class="apps-loading">Loading apps…</div>';
+    document.querySelector('.btn-load-apps').disabled = true;
+    _appsSetStatus('Fetching…');
+    _runAppsQuery(parseInt(raw, 10));
+  }
+
+  function _runAppsQuery(shopId) {
+    // Clean up any previous JSONP script tag
+    const prev = document.getElementById('_appsJsonp');
+    if (prev) prev.remove();
+
+    const cbName = '_appsJsonpCb_' + Date.now();
+    window[cbName] = function(data) {
+      delete window[cbName];
+      const tag = document.getElementById('_appsJsonp');
+      if (tag) tag.remove();
+      document.querySelector('.btn-load-apps').disabled = false;
+      if (data.error) { _appsError(data.error); return; }
+      _appsSetStatus('✓ Loaded');
+      _renderApps(data.rows || []);
+    };
+
+    const script = document.createElement('script');
+    script.id = '_appsJsonp';
+    script.onerror = () => {
+      delete window[cbName];
+      document.querySelector('.btn-load-apps').disabled = false;
+      _appsError('Failed to reach Apps Script. Check the URL and deployment settings.');
+    };
+    script.src = `${APPS_SCRIPT_URL}?shop_id=${shopId}&callback=${cbName}`;
+    document.head.appendChild(script);
+  }
+
+  function _renderApps(rows) {
+    const container = document.getElementById('apps-list');
+
+    if (!rows.length) {
+      container.innerHTML = '<p class="apps-empty">No paid apps found for this shop.</p>';
+      return;
+    }
+
+    let total = 0;
+    const html = rows.map((r, i) => {
+      const c = parseFloat(r.monthly_cost) || 0;
+      total += c;
+      return `<div class="app-row">
+        <span class="app-rank">#${i + 1}</span>
+        <div class="app-info">
+          <div class="app-name-lbl">${_esc(r.app_name || r.plan_name || 'Unknown App')}</div>
+          ${r.description ? `<div class="app-desc-lbl">${_esc(r.description)}</div>` : ''}
+          <div class="app-plan-lbl">${_esc(r.plan_name || '')}</div>
+        </div>
+        <div class="app-price-lbl">$${c.toFixed(2)}<span class="app-price-unit">/mo</span></div>
+      </div>`;
+    }).join('');
+
+    container.innerHTML = html + `
+      <div class="apps-total-row">
+        <span class="apps-total-lbl">Total</span>
+        <span class="apps-total-val">$${total.toFixed(2)}<span class="app-price-unit">/mo</span></span>
+      </div>`;
+  }
+
+  function _appsError(msg) {
+    document.getElementById('apps-list').innerHTML =
+      `<p style="color:var(--red);font-size:12px;">Error: ${_esc(msg)}</p>`;
+    _appsSetStatus('⚠ ' + msg);
+  }
+
+  function _esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 </script>
 </body>
