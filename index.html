@@ -606,6 +606,7 @@
     <div>
       <div class="section-lbl">Sections — uncheck to hide</div>
       <div id="retail-section-list">
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailRatesCard(this.checked)"><span class="sec-item-label">💳 POS Rates</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('resources',this.checked)"><span class="sec-item-label">POS Overview &amp; Resources</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('inventory',this.checked)"><span class="sec-item-label">Inventory Management</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('reporting',this.checked)"><span class="sec-item-label">POS Reporting</span></div>
@@ -613,6 +614,7 @@
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('demos',this.checked)"><span class="sec-item-label">Demos</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('hardware',this.checked)"><span class="sec-item-label">Hardware</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('fun-features',this.checked)"><span class="sec-item-label">Fun Features</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('academy',this.checked)"><span class="sec-item-label">Shopify Academy</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('additional',this.checked)"><span class="sec-item-label">Additional Resources</span></div>
       </div>
     </div>
@@ -1434,6 +1436,22 @@
     <div class="doc-hr"></div>
     </div>
 
+    <!-- Shopify Academy -->
+    <div class="sec-wrap" data-rkey="academy">
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Academy</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Free courses and learning paths to help merchants and their teams launch, operate, and grow with Shopify POS.</p>
+        <ul contenteditable="true">
+          <li><a href="https://www.shopifyacademy.com/path/shopify-pos-launch-and-operations" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS Launch ↗</a></li>
+          <li><a href="https://www.shopifyacademy.com/path/shopify-pos-launch-and-operations/pos-operations" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Shopify POS Operations ↗</a></li>
+          <li><a href="https://www.shopifyacademy.com/path/shopify-pos-launch-and-operations/optimization-and-growth-with-pos" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Optimization and Growth with Shopify POS ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+    </div>
+
     <!-- Other -->
     <div class="sec-wrap" data-rkey="additional">
     <div class="feature">
@@ -1797,6 +1815,12 @@
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 3000);
+  }
+
+  // ── Retail / POS — rates card (whole card) toggle ──
+  function toggleRetailRatesCard(visible) {
+    const card = document.getElementById('retail-rates-card');
+    if (card) card.classList.toggle('sec-hidden', !visible);
   }
 
   // ── Retail / POS — rate box toggle ──
