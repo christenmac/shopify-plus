@@ -729,6 +729,15 @@
     <div class="panel-tip">Click any doc text to edit.</div>
   </div><!-- /payments-panel -->
 
+  <div id="b2b-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">Store Details</div>
+      <div class="field"><label>Store Name</label><input placeholder="e.g. Acme Wholesale" oninput="document.querySelectorAll('.b2b-store-name').forEach(el=>el.textContent=this.value||'Store Name')"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Click any doc text to edit.</div>
+  </div><!-- /b2b-panel -->
+
   <div id="shipping-panel" style="display:none;flex-direction:column;gap:18px;">
     <div>
       <div class="section-lbl">Merchant Details</div>
@@ -750,6 +759,7 @@
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
       <button class="tab-btn" onclick="switchTab('shipping',this)">Shopify Shipping</button>
+      <button class="tab-btn" onclick="switchTab('b2b',this)">Shopify B2B</button>
     </div>
     <span class="edit-badge">✏ Click any text to edit</span>
   </div>
@@ -900,77 +910,39 @@
     <!-- B2B -->
     <div class="sec-wrap" data-key="b2b">
     <div class="feature">
-      <div class="feat-head"><div class="check">✓</div>
-        <div>
-          <div class="feat-title" contenteditable="true">B2B Functionality</div>
-          <div class="feat-note" contenteditable="true">Native wholesale on Shopify Plus — sell B2B and DTC from one platform</div>
-        </div>
-      </div>
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">B2B Functionality</div></div>
       <div class="feat-body">
-        <p contenteditable="true">Shopify B2B is a suite of <strong>native features</strong> built directly into the Shopify admin — no third-party app required. Sell wholesale alongside DTC on one storefront, or launch a dedicated B2B-only storefront. Everything is managed from the same backend your team already knows.</p>
-        <p style="margin:6px 0 2px"><a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">B2B Overview ↗</a>&nbsp;&nbsp;<a href="https://help.shopify.com/en/manual/b2b/companies-and-customers" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Companies &amp; Customers ↗</a>&nbsp;&nbsp;<a href="https://help.shopify.com/en/manual/b2b/catalogs" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Catalogs ↗</a></p>
-
+        <p contenteditable="true">Run wholesale and DTC on a single platform — or a dedicated B2B-only storefront.</p>
+        <p style="margin-top:5px"><a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></p>
         <div class="sub-box" style="margin-top:9px">
           <div class="sub-title">Companies &amp; Customers</div>
           <ul contenteditable="true">
-            <li><strong>Company</strong> = parent organization with one or more <strong>company locations</strong> — each location is the entity you're transacting with</li>
-            <li>Each location maintains its own: pricing &amp; catalog access, tax ID &amp; exemption status, payment terms, shipping &amp; billing addresses</li>
-            <li>Up to <strong>50 contacts per location</strong> — assign <strong>ordering-only</strong> or <strong>location admin</strong> roles</li>
-            <li>Customers place orders on behalf of their company through a <strong>self-serve B2B portal</strong> (no rep required)</li>
-            <li>New buyer <strong>account request workflows</strong> — prospects apply and get approved before gaining access</li>
-            <li>Bulk management via Shopify admin or third-party integrations (e.g. Matrixify)</li>
-            <li>Metafields for custom data — filter, organize, and segment your B2B customer base</li>
+            <li>Company = parent org supporting up to <strong>10,000 locations</strong> &amp; <strong>10,000 customers</strong></li>
+            <li>Up to 50 contacts per location — assign <strong>ordering-only</strong> or <strong>location admin</strong> permissions</li>
+            <li>Location-specific pricing, payment terms, tax IDs &amp; exemption settings</li>
+            <li>Custom billing &amp; shipping address per location</li>
+            <li>Draft order review workflow before submission</li>
           </ul>
         </div>
-
         <div class="sub-box">
           <div class="sub-title">Catalogs &amp; Pricing</div>
           <ul contenteditable="true">
-            <li><strong>Unlimited catalogs</strong> on Plus (Basic/Grow/Advanced: max 3) — assign up to <strong>25 per company location</strong></li>
-            <li>Include or exclude specific products per catalog — control what each buyer can see and purchase</li>
-            <li>Pricing options: <strong>fixed prices</strong>, <strong>% discount off retail</strong>, or <strong>volume/tiered pricing</strong> based on quantity</li>
-            <li><strong>Quantity rules</strong> — set minimums, maximums, and increments per product</li>
-            <li>When multiple catalogs apply, <strong>customers always see the lowest price</strong> automatically</li>
-            <li>Multi-currency pricing via <strong>Shopify Markets</strong></li>
-            <li>B2B-specific discount codes separate from DTC promotions</li>
+            <li><strong>Unlimited catalogs</strong> on Plus — assign up to 25 per company location</li>
+            <li>Fixed prices, percentage discounts, or volume/tiered pricing</li>
+            <li>Quantity rules &amp; purchase restrictions per catalog</li>
+            <li>Customers always see the lowest price when multiple catalogs apply</li>
+            <li>Multi-currency support via Shopify Markets</li>
           </ul>
         </div>
-
         <div class="sub-box">
-          <div class="sub-title">B2B Storefront &amp; Authentication</div>
+          <div class="sub-title">Checkout &amp; Integrations</div>
           <ul contenteditable="true">
-            <li>Dedicated B2B login — customers authenticate to access their company-specific pricing &amp; catalog</li>
-            <li>Option to run B2B and DTC on the <strong>same storefront</strong> — logged-in B2B buyers see their pricing automatically</li>
-            <li>Or use a <strong>separate expansion store</strong> as a password-protected wholesale-only channel</li>
-            <li>Customize storefront content, banners, and product pages for B2B vs. DTC audiences</li>
-            <li>Full Shopify theme customization applies to B2B storefronts</li>
+            <li>Flexible payment terms configured per company location</li>
+            <li>One-time shipping addresses at checkout</li>
+            <li>Storefront API &amp; Draft Order API for custom dev &amp; ERP integrations</li>
+            <li>Shopify Flow automation for B2B workflows &amp; order management</li>
           </ul>
         </div>
-
-        <div class="sub-box">
-          <div class="sub-title">Checkout, Orders &amp; Payment Terms</div>
-          <ul contenteditable="true">
-            <li>Flexible <strong>payment terms</strong> configured per company location (e.g. Net 30, Net 60, due on fulfillment)</li>
-            <li>One-time shipping addresses — buyers can enter a new delivery address without it being saved to their account</li>
-            <li><strong>Draft order workflow</strong> — reps create orders on behalf of buyers; buyers can review and approve before submission</li>
-            <li>Purchase order (PO) number support at checkout</li>
-            <li>Tax-exempt orders — per-location tax ID storage and exemption configuration</li>
-            <li>Order management and fulfillment handled natively in the Shopify admin</li>
-          </ul>
-        </div>
-
-        <div class="sub-box">
-          <div class="sub-title">Automation, APIs &amp; ERP Integrations</div>
-          <ul contenteditable="true">
-            <li><strong>Shopify Flow</strong> — automate B2B workflows: order routing, notifications, customer onboarding, tagging</li>
-            <li><strong>GraphQL Admin API</strong> — <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">companyCreate</code>, <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">catalogCreate</code>, <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">draftOrderCreate</code> — full programmatic control</li>
-            <li><strong>Storefront API</strong> for custom B2B storefronts and headless builds</li>
-            <li>Native ERP/system integrations — connect NetSuite, SAP, and other platforms via API or pre-built connectors</li>
-            <li>Built-in <strong>reporting &amp; analytics</strong> for B2B order volume, revenue, and customer performance</li>
-            <li>Shopify Academy: <em>B2B Launch and Customization Path</em> for merchant onboarding</li>
-          </ul>
-        </div>
-
         <div class="badges" style="margin-top:8px">
           <span class="badge"><a href="https://www.shopify.com/case-studies/amr-hair-and-beauty" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">AMR Hair &amp; Beauty: 200% sales increase ↗</a></span>
           <span class="badge"><a href="https://www.shopify.com/case-studies/who-is-elijah" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">WHO IS ELIJAH: 50% intl. sales increase ↗</a></span>
@@ -1950,6 +1922,233 @@
 </div><!-- /doc-wrap -->
 </div><!-- /tab-shipping -->
 
+<!-- ══ SHOPIFY B2B TAB ══ -->
+<div id="tab-b2b" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <img src="logo.png" alt="Shopify">
+    </div>
+    <div class="d-header-r">
+      <h1><a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify B2B</a></h1>
+      <p contenteditable="true"><em>Native Wholesale on Shopify Plus</em></p>
+      <input class="header-store-input" placeholder="Store Name" autocomplete="off"
+             oninput="document.querySelectorAll('.b2b-store-name').forEach(el=>el.textContent=this.value)">
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- Overview -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify B2B Overview</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify B2B is a suite of <strong>native features</strong> built directly into the Shopify admin and included with Shopify Plus — no third-party wholesale app required. Merchants can sell wholesale alongside DTC on a single storefront, or launch a dedicated B2B-only store. Everything is managed from the same backend your team already knows, with purpose-built tools for the way businesses actually buy.</p>
+        <ul style="margin-top:8px">
+          <li><a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">B2B Overview ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/b2b/companies-and-customers" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Companies &amp; Customers ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/b2b/catalogs" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Catalogs &amp; Pricing ↗</a></li>
+          <li><a href="https://shopify.dev/docs/apps/build/b2b/start-building" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Developer Docs ↗</a></li>
+        </ul>
+        <div class="badges" style="margin-top:10px">
+          <span class="badge" contenteditable="true">Plus Exclusive Feature</span>
+          <span class="badge" contenteditable="true">No 3rd-Party App Required</span>
+          <span class="badge" contenteditable="true">B2B + DTC on One Platform</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Companies & Customers -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Companies &amp; Customers</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify B2B organizes wholesale buyers around a three-tier hierarchy: <strong>Companies</strong> (the parent organization), <strong>Company Locations</strong> (the individual buying entities), and <strong>Customers</strong> (the contacts who place orders). This mirrors how real businesses operate — a single corporate account with multiple warehouses, offices, or retail branches, each with its own terms.</p>
+        <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/b2b/companies-and-customers" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Full Guide ↗</a></p>
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">Companies</div>
+          <ul contenteditable="true">
+            <li>The <strong>parent organization</strong> — umbrella account for a buyer with multiple locations or branches</li>
+            <li>Supports up to <strong>10,000 locations</strong> and <strong>10,000 customers</strong> per company</li>
+            <li>Manage all locations from one company record in the Shopify admin</li>
+            <li>Metafields for custom data — filter, tag, and segment your B2B account base</li>
+            <li>Bulk creation and management via Shopify admin or third-party tools (e.g. Matrixify)</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Company Locations</div>
+          <ul contenteditable="true">
+            <li>Each location = the <strong>actual entity you're transacting with</strong> (warehouse, retail branch, regional office)</li>
+            <li>Location-specific: catalog access, pricing, payment terms, tax ID &amp; exemption status</li>
+            <li>Separate billing and shipping addresses per location</li>
+            <li>Up to <strong>50 contacts per location</strong> — each with individual login credentials</li>
+            <li>One-time shipping addresses at checkout — buyers can ship to new addresses without saving them</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Customers &amp; Access Control</div>
+          <ul contenteditable="true">
+            <li>Contacts place orders on behalf of their company through a <strong>self-serve B2B portal</strong></li>
+            <li>Two permission levels: <strong>ordering-only</strong> (can purchase) or <strong>location admin</strong> (can manage other contacts)</li>
+            <li>New buyer <strong>account request workflow</strong> — prospects apply, you approve before they gain access</li>
+            <li>Customers authenticate to see their company-specific pricing and product catalog</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Catalogs & Pricing -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Catalogs &amp; Pricing</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">B2B catalogs are the engine behind personalized wholesale pricing. Each catalog defines which products a buyer can access and at what price — giving merchants precise control over what every customer sees and what they pay.</p>
+        <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/b2b/catalogs" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Full Guide ↗</a></p>
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">Catalog Access</div>
+          <ul contenteditable="true">
+            <li><strong>Unlimited catalogs on Plus</strong> (Basic / Grow / Advanced plans: max 3 catalogs total)</li>
+            <li>Assign up to <strong>25 catalogs per company location</strong></li>
+            <li>Include or exclude specific products — control exactly what each buyer can purchase</li>
+            <li>When multiple catalogs apply to the same customer, <strong>they always see the lowest price</strong> automatically</li>
+            <li>Direct assignment to companies and locations (Plus only)</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Pricing Options</div>
+          <ul contenteditable="true">
+            <li><strong>Fixed prices</strong> — set a specific wholesale price per product per catalog</li>
+            <li><strong>Percentage discount off retail</strong> — e.g. 20% off list price for all items in catalog</li>
+            <li><strong>Volume / tiered pricing</strong> — price breaks based on quantity ordered (e.g. 1–9 units: $50, 10–49: $42, 50+: $35)</li>
+            <li><strong>Quantity rules</strong> — set minimum order quantities, maximum limits, and order increments per product</li>
+            <li>B2B-specific discount codes, separate from DTC promotions</li>
+            <li>Multi-currency pricing via <strong>Shopify Markets</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Storefront & Authentication -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">B2B Storefront &amp; Authentication</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify B2B gives merchants full flexibility in how they surface the wholesale experience — keeping it tucked inside the main store or building a fully separate wholesale channel.</p>
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">Combined Store (B2B + DTC)</div>
+          <ul contenteditable="true">
+            <li>B2B buyers log in to the same storefront as retail customers</li>
+            <li>Logged-in B2B buyers automatically see their catalog and pricing — retail customers see standard pricing</li>
+            <li>One store, one theme, one backend — no duplicate content or split admin</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Dedicated B2B-Only Store</div>
+          <ul contenteditable="true">
+            <li>Use a <strong>Plus Expansion Store</strong> as a password-protected wholesale-only channel</li>
+            <li>Completely separate storefront with its own theme, URL, and branding</li>
+            <li>No retail noise — buyers see only what's relevant to their account</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Storefront Customization</div>
+          <ul contenteditable="true">
+            <li>Full Shopify theme customization — tailor content, banners, and page layouts for B2B audiences</li>
+            <li>Hide retail pricing, promotional messaging, or DTC-specific sections from B2B buyers</li>
+            <li>Custom page templates and metaobjects for B2B-specific content</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Checkout, Orders & Payment Terms -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Checkout, Orders &amp; Payment Terms</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">B2B purchasing workflows are fundamentally different from DTC — larger orders, longer approval cycles, invoicing requirements. Shopify B2B handles all of it natively.</p>
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">Payment Terms</div>
+          <ul contenteditable="true">
+            <li>Configure payment terms <strong>per company location</strong> — e.g. Net 15, Net 30, Net 60, due on fulfillment</li>
+            <li>Buyers can complete checkout without paying upfront — invoiced according to their terms</li>
+            <li>Purchase order (PO) number support at checkout</li>
+            <li>Tax-exempt checkout — per-location tax ID and exemption status stored and applied automatically</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Draft Orders &amp; Rep-Assisted Buying</div>
+          <ul contenteditable="true">
+            <li>Sales reps create <strong>draft orders</strong> on behalf of buyers from the Shopify admin</li>
+            <li>Buyers receive a link to review, confirm, and submit the order — no back-and-forth spreadsheets</li>
+            <li>Draft orders support custom line items, discounts, and notes</li>
+            <li>Full order history visible to buyers in their B2B portal</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Fulfillment &amp; Order Management</div>
+          <ul contenteditable="true">
+            <li>All B2B orders managed in the same Shopify admin as DTC — no separate system</li>
+            <li>One-time shipping addresses — buyers can ship to new locations without saving them</li>
+            <li>Full returns, refunds, and exchange workflows for wholesale orders</li>
+            <li>Shopify Shipping discounted rates apply to B2B fulfillment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Automation, APIs & Integrations -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Automation, APIs &amp; ERP Integrations</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify B2B is built on the same extensible infrastructure as the rest of Shopify — meaning every B2B workflow can be automated, every B2B record can be programmatically managed, and any external system can be connected.</p>
+        <div class="sub-box" style="margin-top:9px">
+          <div class="sub-title" contenteditable="true">Shopify Flow Automation</div>
+          <ul contenteditable="true">
+            <li>Trigger automated workflows based on B2B events — new company created, order placed, payment due</li>
+            <li>Auto-tag companies, send Slack/email alerts, update metafields, route orders to specific warehouses</li>
+            <li>Build approval workflows, onboarding sequences, and reorder reminders without code</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">GraphQL Admin API</div>
+          <ul contenteditable="true">
+            <li>Full programmatic control over every B2B object: companies, locations, contacts, catalogs, draft orders</li>
+            <li>Key mutations: <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">companyCreate</code> · <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">catalogCreate</code> · <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">catalogUpdate</code> · <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">draftOrderCreate</code></li>
+            <li>Sync B2B data in real time between Shopify and any external system</li>
+            <li><a href="https://shopify.dev/docs/apps/build/b2b/start-building" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Developer Docs ↗</a></li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">ERP &amp; System Integrations</div>
+          <ul contenteditable="true">
+            <li>Connect NetSuite, SAP, Microsoft Dynamics, and other ERPs via API or pre-built connectors</li>
+            <li>Storefront API for headless B2B storefronts and custom buyer portals</li>
+            <li>Bulk data management via tools like Matrixify for large account migrations</li>
+            <li>Built-in <strong>reporting &amp; analytics</strong> — B2B order volume, revenue, and customer performance in the Shopify admin</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Reporting &amp; Learning</div>
+          <ul contenteditable="true">
+            <li>B2B orders, revenue, and performance tracked natively alongside DTC in Shopify Reports</li>
+            <li>Shopify Academy: <em>B2B Launch and Customization Path</em> — structured onboarding for merchants going live</li>
+            <li><a href="https://www.shopify.com/case-studies/amr-hair-and-beauty" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Case Study: AMR Hair &amp; Beauty — 200% sales increase ↗</a></li>
+            <li><a href="https://www.shopify.com/cz/case-studies/kulani-kinis" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Case Study: Kulani Kinis — 300% B2B revenue increase ↗</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="doc-footer" contenteditable="true">Shopify B2B &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
+
+</div><!-- /doc-wrap -->
+</div><!-- /tab-b2b -->
+
 </div><!-- /main -->
 
 <script>
@@ -1963,13 +2162,15 @@
     const checkoutPanel = document.getElementById('checkout-panel');
     const paymentsPanel = document.getElementById('payments-panel');
     const shippingPanel = document.getElementById('shipping-panel');
+    const b2bPanel      = document.getElementById('b2b-panel');
     const logo = document.getElementById('panel-logo');
     plusPanel.style.display     = tab === 'plus'     ? 'flex' : 'none';
     retailPanel.style.display   = tab === 'retail'   ? 'flex' : 'none';
     if (checkoutPanel) checkoutPanel.style.display = tab === 'checkout' ? 'flex' : 'none';
     if (paymentsPanel) paymentsPanel.style.display = tab === 'payments' ? 'flex' : 'none';
     if (shippingPanel) shippingPanel.style.display = tab === 'shipping' ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : '🛍 Plus Overview';
+    if (b2bPanel)      b2bPanel.style.display      = tab === 'b2b'      ? 'flex' : 'none';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : '🛍 Plus Overview';
   }
 
   function set(id, val) {
