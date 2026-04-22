@@ -728,6 +728,17 @@
     <div class="panel-hr"></div>
     <div class="panel-tip">Click any doc text to edit.</div>
   </div><!-- /payments-panel -->
+
+  <div id="shipping-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">Merchant Details</div>
+      <div class="field"><label>Store Name</label><input id="sh-store" placeholder="e.g. Acme Co." oninput="document.getElementById('sh-store-print').textContent=this.value"></div>
+      <div class="field"><label>Current Carrier</label><input id="sh-carrier" placeholder="e.g. FedEx, USPS" oninput="setShText('sh-carrier-val',this.value)"></div>
+      <div class="field"><label>Monthly Shipments</label><input id="sh-volume" placeholder="e.g. 500/mo" oninput="setShText('sh-volume-val',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Click any doc text to edit.</div>
+  </div><!-- /shipping-panel -->
 </aside>
 
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
@@ -738,6 +749,7 @@
       <button class="tab-btn" onclick="switchTab('checkout',this)">Custom Checkout</button>
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
+      <button class="tab-btn" onclick="switchTab('shipping',this)">Shopify Shipping</button>
     </div>
     <span class="edit-badge">✏ Click any text to edit</span>
   </div>
@@ -1744,6 +1756,164 @@
 </div><!-- /doc-wrap -->
 </div><!-- /tab-payments -->
 
+<!-- ══ SHOPIFY SHIPPING TAB ══ -->
+<div id="tab-shipping" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <img src="logo.png" alt="Shopify">
+    </div>
+    <div class="d-header-r">
+      <h1><a href="https://www.shopify.com/shipping" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify Shipping</a></h1>
+      <p contenteditable="true"><em>Built-In Fulfillment, Discounted Rates</em></p>
+      <input class="header-store-input" id="sh-store-input" placeholder="Store Name" autocomplete="off"
+             oninput="document.getElementById('sh-store-print').textContent=this.value">
+      <span class="header-store-print" id="sh-store-print" style="display:none;font-size:13px;font-weight:600;color:#fff;margin-top:4px;"></span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- Overview -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Shipping Overview</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Shipping is a fully built-in fulfillment suite — no third-party apps, no separate accounts. From a single admin dashboard, merchants manage every order across all sales channels, print discounted labels, track shipments, and handle returns. It's included on all Shopify plans and scales from a single-location store to multi-warehouse enterprise operations.</p>
+        <ul>
+          <li><a href="https://www.shopify.com/shipping" target="_blank" rel="noopener">Overview ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/fulfillment/features-overview" target="_blank" rel="noopener">Features Overview ↗</a></li>
+          <li><a href="https://help.shopify.com/en/manual/fulfillment/getting-started" target="_blank" rel="noopener">Getting Started ↗</a></li>
+          <li><a href="https://www.shopify.com/blog/shopify-shipping-services" target="_blank" rel="noopener">Shipping Services Guide ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Discounted Rates -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Discounted Carrier Rates</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify negotiates bulk carrier rates and passes the savings directly to merchants — no volume minimums, no contracts. Available instantly the moment you activate Shopify Shipping.</p>
+        <ul contenteditable="true">
+          <li>Up to <strong>88% off</strong> USPS, UPS, and DHL Express rates (US)</li>
+          <li>Up to <strong>58% off</strong> Canada Post rates</li>
+          <li>Up to <strong>44% off</strong> Sendle rates (Australia)</li>
+          <li>Up to <strong>3% cashback</strong> on eligible shipping via Shopify Credit</li>
+          <li>Shopify-exclusive pricing with no volume minimums required</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Carrier Integrations -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Carrier Integrations</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Pre-built integrations with major domestic and international carriers — all managed from one place. Merchants can also connect existing carrier accounts to maintain negotiated rates.</p>
+        <ul contenteditable="true">
+          <li><strong>US:</strong> USPS, UPS, DHL Express, FedEx</li>
+          <li><strong>Canada:</strong> Canada Post</li>
+          <li><strong>Australia:</strong> Sendle</li>
+          <li><strong>Europe:</strong> DPD, Colissimo (France), Poste Italiane (Italy), Correos (Spain)</li>
+          <li>International shipping to <strong>180+ countries</strong></li>
+          <li>Connect existing carrier accounts for consolidated workflows</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Label & Fulfillment Tools -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Label & Fulfillment Tools</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Everything needed to pick, pack, and ship efficiently — built directly into the Shopify admin.</p>
+        <ul contenteditable="true">
+          <li>Batch print up to <strong>250 labels</strong> simultaneously</li>
+          <li>Smart carrier recommendations that learn from order history</li>
+          <li>Pick list generation with bin locations to speed up packing</li>
+          <li>Address validation and standardization pre-shipment</li>
+          <li>Carrier pickup scheduling and manifest generation</li>
+          <li>Label voiding with automatic account credit</li>
+          <li>Up to <strong>$200 USD automatic insurance</strong> on eligible labels</li>
+          <li>Customs forms, HS codes, and Delivered Duty Paid (DDP) for international labels</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Tracking & Customer Experience -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Tracking & Customer Experience</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Keep customers informed and reduce support tickets with real-time tracking and proactive delivery updates.</p>
+        <ul contenteditable="true">
+          <li>Real-time delivery tracking via the Shop app with live mapping</li>
+          <li>Automated email and push notifications through Shop app</li>
+          <li><strong>Shop Promise</strong> — displays estimated delivery dates at checkout to boost conversion</li>
+          <li>Automatic order routing based on inventory, cost, or proximity to buyer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Returns -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Returns Management</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">A self-serve returns experience that saves your team time and keeps customers happy — fully managed inside Shopify.</p>
+        <ul contenteditable="true">
+          <li>Self-serve customer returns portal</li>
+          <li>Configurable return rules and policies</li>
+          <li>RMA (Return Merchandise Authorization) processing</li>
+          <li>Prepaid return shipping label generation</li>
+          <li>Full and partial refunds with automatic inventory updates</li>
+        </ul>
+        <ul>
+          <li><a href="https://help.shopify.com/en/manual/fulfillment/features-overview" target="_blank" rel="noopener">Returns Overview ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Shopify Fulfillment Network -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Fulfillment Network (SFN)</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">For merchants ready to hand off warehousing and fulfillment entirely — the Shopify Fulfillment Network connects you to vetted 3PL partners, all managed from within the Shopify admin. No separate logins, no disconnected data.</p>
+        <ul contenteditable="true">
+          <li><strong>Flexport</strong> — global freight and logistics</li>
+          <li><strong>Amazon Multi-Channel Fulfillment</strong> — leverage Amazon's warehouse network</li>
+          <li><strong>ShipBob</strong> — distributed fulfillment centers across the US</li>
+          <li><strong>ShipMonk</strong> — DTC and subscription fulfillment</li>
+        </ul>
+        <p contenteditable="true" style="margin-top:8px;">Supports custom workflows for dropshipping and print-on-demand. Unified inventory management across all 3PL partners.</p>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Advanced / Plus Features -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Advanced & Plus Features</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Certain shipping capabilities unlock at higher plan tiers, giving Plus and Advanced merchants more automation and global reach.</p>
+        <ul contenteditable="true">
+          <li><strong>Full $200 label insurance</strong> — requires Shopify Payments on Grow, Advanced, or Plus</li>
+          <li><strong>Shopify Flow</strong> — advanced fulfillment automation (Advanced + Plus)</li>
+          <li><strong>Managed Markets</strong> — international duty, tax, and logistics management for global scale</li>
+          <li><strong>Multi-location order routing</strong> — automatic routing across warehouses based on cost or proximity</li>
+          <li><strong>Carrier-calculated shipping rates</strong> — real-time rates at checkout (Advanced + Plus)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="doc-footer" contenteditable="true">Shopify Shipping &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
+
+</div><!-- /doc-wrap -->
+</div><!-- /tab-shipping -->
+
 </div><!-- /main -->
 
 <script>
@@ -1756,12 +1926,14 @@
     const retailPanel   = document.getElementById('retail-panel');
     const checkoutPanel = document.getElementById('checkout-panel');
     const paymentsPanel = document.getElementById('payments-panel');
+    const shippingPanel = document.getElementById('shipping-panel');
     const logo = document.getElementById('panel-logo');
     plusPanel.style.display     = tab === 'plus'     ? 'flex' : 'none';
     retailPanel.style.display   = tab === 'retail'   ? 'flex' : 'none';
     if (checkoutPanel) checkoutPanel.style.display = tab === 'checkout' ? 'flex' : 'none';
     if (paymentsPanel) paymentsPanel.style.display = tab === 'payments' ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : '🛍 Plus Overview';
+    if (shippingPanel) shippingPanel.style.display = tab === 'shipping' ? 'flex' : 'none';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : '🛍 Plus Overview';
   }
 
   function set(id, val) {
@@ -2130,6 +2302,11 @@
   }
 
   // ── Shopify Payments — panel helpers ──
+  function setShText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val.trim() || '–';
+  }
+
   function setSpText(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val.trim() || '–';
