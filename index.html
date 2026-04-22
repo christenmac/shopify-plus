@@ -268,9 +268,8 @@
     .sp-fee-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
     .sp-fee-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; }
     .sp-fee-val { font-size: 13px; font-weight: 800; color: var(--dark); }
-    .sp-insight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 8px; }
-    .sp-insight-wide { grid-column: span 2; }
-    .sp-insight-box { background: #F9FAFB; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+    .sp-insight-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .sp-insight-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; }
     .sp-insight-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
     .sp-insight-val { font-size: 15px; font-weight: 900; color: var(--dark); line-height: 1.2; }
     .sp-insight-val.red { color: var(--red); }
@@ -1705,22 +1704,24 @@
         <p contenteditable="true">See below for more information &amp; insights to share with the team.</p>
       </div>
     </div>
-    <div class="sp-insight-grid">
-      <div class="sp-insight-box">
-        <div class="sp-insight-lbl">Sessions</div>
-        <div class="sp-insight-val" id="sp-stat-sessions" contenteditable="true">–</div>
-      </div>
-      <div class="sp-insight-box">
-        <div class="sp-insight-lbl">Added to Cart</div>
-        <div class="sp-insight-val" id="sp-stat-atc" contenteditable="true">–</div>
-      </div>
-      <div class="sp-insight-box">
-        <div class="sp-insight-lbl">Completed Checkout</div>
-        <div class="sp-insight-val" id="sp-stat-orders" contenteditable="true">–</div>
-      </div>
-      <div class="sp-insight-box sp-insight-wide">
-        <div class="sp-insight-lbl">Abandoned Cart Value</div>
-        <div class="sp-insight-val red" id="sp-stat-abandoned" contenteditable="true">–</div>
+    <div class="sp-fee-card">
+      <div class="sp-insight-grid">
+        <div class="sp-insight-box">
+          <div class="sp-insight-lbl">Sessions</div>
+          <div class="sp-insight-val" id="sp-stat-sessions" contenteditable="true">–</div>
+        </div>
+        <div class="sp-insight-box">
+          <div class="sp-insight-lbl">Added to Cart</div>
+          <div class="sp-insight-val" id="sp-stat-atc" contenteditable="true">–</div>
+        </div>
+        <div class="sp-insight-box">
+          <div class="sp-insight-lbl">Completed Checkout</div>
+          <div class="sp-insight-val" id="sp-stat-orders" contenteditable="true">–</div>
+        </div>
+        <div class="sp-insight-box">
+          <div class="sp-insight-lbl">Abandoned Cart Value</div>
+          <div class="sp-insight-val red" id="sp-stat-abandoned" contenteditable="true">–</div>
+        </div>
       </div>
     </div>
 
