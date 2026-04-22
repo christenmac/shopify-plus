@@ -398,7 +398,7 @@
         color-adjust: exact !important;
       }
 
-      @page { size: letter portrait; margin: 0.2in; }
+      @page { size: letter portrait; margin: 0.3in; }
 
       /* Hide all UI chrome */
       .panel, .toolbar, .tab-bar, .edit-badge, .btn-share, .btn-copy { display: none !important; }
@@ -421,15 +421,24 @@
         overflow: visible !important;
         margin: 0 !important;
         padding: 0 !important;
+        zoom: 0.72 !important;
+      }
+
+      .doc-body {
+        padding: 24px 36px !important;
       }
 
       .header-store-input { display: none !important; }
       .header-store-print { display: block !important; }
 
-      .feature    { break-inside: avoid; page-break-inside: avoid; }
-      .feat-head  { break-after:   avoid; page-break-after:  avoid; }
-      .rates-card { break-inside: avoid; page-break-inside: avoid; }
-      .sub-box    { break-inside: avoid; page-break-inside: avoid; }
+      .feature      { break-inside: avoid; page-break-inside: avoid; }
+      .feat-head    { break-after:   avoid; page-break-after:  avoid; }
+      .rates-card   { break-inside: avoid; page-break-inside: avoid; }
+      .sub-box      { break-inside: avoid; page-break-inside: avoid; }
+      .sp-fee-card  { break-inside: avoid; page-break-inside: avoid; }
+      .sp-fee-box   { break-inside: avoid; page-break-inside: avoid; }
+      .sp-insight-box { break-inside: avoid; page-break-inside: avoid; }
+      .rate-box     { break-inside: avoid; page-break-inside: avoid; }
 
       [contenteditable], [contenteditable]:hover, [contenteditable]:focus {
         outline: none !important; box-shadow: none !important;
