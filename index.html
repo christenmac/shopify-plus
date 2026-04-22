@@ -225,8 +225,8 @@
     .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
     .badge { background: var(--light); border: 1px solid var(--mid); color: var(--dark); padding: 3px 9px; border-radius: 20px; font-size: 10.5px; font-weight: 600; }
 
-    .l365-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top: 8px; }
-    .stat-box { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 9px 6px; text-align: center; }
+    .l365-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; justify-content: center; }
+    .stat-box { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 9px 6px; text-align: center; min-width: 120px; }
     .stat-num { font-size: 15px; font-weight: 900; color: var(--dark); line-height: 1.2; min-height: 20px; }
     .stat-num.red { color: var(--red); }
     .stat-lbl { font-size: 9.5px; color: var(--lite-t); margin-top: 2px; }
@@ -1498,12 +1498,11 @@
   <div class="doc-footer" contenteditable="true">Shopify Retail &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For client use only</div>
 
 </div>
-</div>
 </div><!-- /tab-retail -->
 
 <!-- ══ SHOPIFY PAYMENTS TAB ══ -->
 <div id="tab-payments" class="tab-content">
-<div class="doc-wrap" style="margin-top: 28px;">
+<div class="doc-wrap">
 
   <div class="doc-header">
     <div class="d-logo">
@@ -1722,6 +1721,8 @@
 
 </div><!-- /doc-wrap -->
 </div><!-- /tab-payments -->
+
+</div><!-- /main -->
 
 <script>
   function switchTab(tab, btn) {
