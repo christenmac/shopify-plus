@@ -714,8 +714,8 @@
     <div>
       <div class="section-lbl">3rd Party Fee</div>
       <div class="field"><label>Current Gateway</label><input id="sp-gateway" placeholder="e.g. Stripe, Braintree" oninput="setSpText('sp-gateway-name',this.value)"></div>
+      <div class="field"><label>Current Rates</label><input id="sp-rates" placeholder="e.g. 2.9% + $0.30" oninput="setSpText('sp-rates-val',this.value)"></div>
       <div class="field"><label>3rd Party Fee Rate</label><input id="sp-fee" placeholder="e.g. 0.5%" oninput="setSpText('sp-fee-val',this.value)"></div>
-      <div class="field"><label>Est. Annual Fee Cost</label><input id="sp-fee-cost" placeholder="e.g. $18,000/yr" oninput="setSpText('sp-fee-cost-val',this.value)"></div>
     </div>
     <div class="panel-hr"></div>
     <div>
@@ -1562,14 +1562,14 @@
           <span class="sp-fee-val" id="sp-gateway-name" contenteditable="true">–</span>
         </div>
         <div class="sp-fee-box">
+          <span class="sp-fee-lbl">Current Rates</span>
+          <span class="rate-sep">|</span>
+          <span class="sp-fee-val" id="sp-rates-val" contenteditable="true">–</span>
+        </div>
+        <div class="sp-fee-box">
           <span class="sp-fee-lbl">3rd Party Fee</span>
           <span class="rate-sep">|</span>
           <span class="sp-fee-val" id="sp-fee-val" contenteditable="true">–</span>
-        </div>
-        <div class="sp-fee-box">
-          <span class="sp-fee-lbl">Est. Annual Cost</span>
-          <span class="rate-sep">|</span>
-          <span class="sp-fee-val" id="sp-fee-cost-val" contenteditable="true">–</span>
         </div>
       </div>
     </div>
