@@ -2263,7 +2263,7 @@
   // ── Savings card & box toggles ──
   function setSavingsCard(visible) {
     document.getElementById('savings-card').classList.toggle('sec-hidden', !visible);
-    document.getElementById('savings-add-btn').style.display = visible ? 'none' : 'block';
+    document.getElementById('savings-add-btn').style.display = 'none';
     const cb = document.querySelector('#savings-box-list input[data-savbox="card"]');
     if (cb) cb.checked = visible;
   }
