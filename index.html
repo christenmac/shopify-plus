@@ -268,6 +268,8 @@
     .sp-fee-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
     .sp-fee-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; }
     .sp-fee-val { font-size: 13px; font-weight: 800; color: var(--dark); }
+    .sp-fee-val.green { color: var(--green); }
+    .sp-savings-box { border-color: var(--green); background: #F4F8EC; }
     .sp-insight-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
     .sp-insight-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; }
     .sp-insight-lbl { font-size: 10px; color: var(--lite-t); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
@@ -716,6 +718,22 @@
       <div class="field"><label>Current Gateway</label><input id="sp-gateway" placeholder="e.g. Stripe, Braintree" oninput="setSpText('sp-gateway-name',this.value)"></div>
       <div class="field"><label>Current Rates</label><input id="sp-rates" placeholder="e.g. 2.9% + $0.30" oninput="setSpText('sp-rates-val',this.value)"></div>
       <div class="field"><label>3rd Party Fee Rate</label><input id="sp-fee" placeholder="e.g. 0.5%" oninput="setSpText('sp-fee-val',this.value)"></div>
+      <div class="field"><label>Est. Savings</label><input id="sp-savings" placeholder="e.g. $24,000/yr" oninput="setSpText('sp-savings-val',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="sp-section-list">
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-feecard',this.checked)"><span class="sec-item-label">3rd Party Fee Card</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-overview',this.checked)"><span class="sec-item-label">Shopify Payments</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-conversion',this.checked)"><span class="sec-item-label">Conversion Features</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-shoppay',this.checked)"><span class="sec-item-label">Shop Pay</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-spi',this.checked)"><span class="sec-item-label">Shop Pay Installments</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-reporting',this.checked)"><span class="sec-item-label">Unified Financial Reports</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-fraud',this.checked)"><span class="sec-item-label">Fraud Analysis</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-chargeback',this.checked)"><span class="sec-item-label">Chargeback Automation</span></div>
+        <div class="sec-item"><input type="checkbox" checked onchange="toggleSpSection('sp-insights',this.checked)"><span class="sec-item-label">Last 365 Insights</span></div>
+      </div>
     </div>
     <div class="panel-hr"></div>
     <div>
@@ -1553,7 +1571,7 @@
   <div class="doc-body">
 
     <!-- 3rd Party Fee Card -->
-    <div class="sp-fee-card">
+    <div class="sp-fee-card" data-sp-key="sp-feecard">
       <div class="sp-fee-hdg">Current 3rd Party Gateway Cost</div>
       <div class="sp-fee-grid">
         <div class="sp-fee-box">
@@ -1571,11 +1589,16 @@
           <span class="rate-sep">|</span>
           <span class="sp-fee-val" id="sp-fee-val" contenteditable="true">–</span>
         </div>
+        <div class="sp-fee-box sp-savings-box">
+          <span class="sp-fee-lbl">Est. Savings</span>
+          <span class="rate-sep">|</span>
+          <span class="sp-fee-val green" id="sp-savings-val" contenteditable="true">–</span>
+        </div>
       </div>
     </div>
 
     <!-- Overview -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-overview">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Shopify Payments</div>
@@ -1589,10 +1612,10 @@
         <p style="margin-top:6px"><a href="https://www.shopify.com/case-studies?products=shopify-payments" target="_blank" rel="noopener">Case Studies ↗</a></p>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-overview"></div>
 
     <!-- Conversion Features -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-conversion">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Conversion Features</div>
@@ -1635,10 +1658,10 @@
         </div>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-conversion"></div>
 
     <!-- Shop Pay -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-shoppay">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Shop Pay</div>
@@ -1658,10 +1681,10 @@
         </div>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-shoppay"></div>
 
     <!-- Shop Pay Installments -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-spi">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Shop Pay Installments</div>
@@ -1681,10 +1704,10 @@
         </div>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-spi"></div>
 
     <!-- Unified Reporting -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-reporting">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Unified Financial Reports</div>
@@ -1694,10 +1717,10 @@
         <p style="margin-top:10px"><a href="https://help.shopify.com/en/manual/reports-and-analytics/shopify-reports/report-types/default-reports/finances-report" target="_blank" rel="noopener">Overview ↗</a></p>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-reporting"></div>
 
     <!-- Fraud Analysis -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-fraud">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Real-Time Fraud Analysis</div>
@@ -1710,10 +1733,10 @@
         </ul>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-fraud"></div>
 
     <!-- Chargeback Automation -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-chargeback">
       <div class="feat-head">
         <div class="check">✓</div>
         <div class="feat-title" contenteditable="true">Chargeback Automation</div>
@@ -1725,10 +1748,10 @@
         </ul>
       </div>
     </div>
-    <div class="doc-hr"></div>
+    <div class="doc-hr" data-sp-key="sp-chargeback"></div>
 
     <!-- Last 365 Insights -->
-    <div class="feature">
+    <div class="feature" data-sp-key="sp-insights">
       <div class="feat-head">
         <div class="check">↗</div>
         <div class="feat-title" contenteditable="true">Last 365 — Conversion Insights</div>
@@ -1736,7 +1759,7 @@
       <div class="feat-body">
       </div>
     </div>
-    <div class="sp-fee-card">
+    <div class="sp-fee-card" data-sp-key="sp-insights">
       <div class="sp-insight-grid">
         <div class="sp-insight-box">
           <div class="sp-insight-lbl">Sessions</div>
@@ -2229,6 +2252,12 @@
     if (docWrap) docWrap.classList.toggle('sec-hidden', !visible);
     if (panelItem) panelItem.classList.toggle('hidden-sec', !visible);
     updateDividers();
+  }
+
+  function toggleSpSection(key, visible) {
+    document.querySelectorAll(`#tab-payments [data-sp-key="${key}"]`).forEach(el => {
+      el.classList.toggle('sec-hidden', !visible);
+    });
   }
 
   // ── Savings card & box toggles ──
