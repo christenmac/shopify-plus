@@ -239,6 +239,17 @@
     .doc-footer { background: var(--dark); color: rgba(255,255,255,.7); text-align: center; padding: 15px; font-size: 11px; }
 
 
+    /* ── Formatting toolbar ── */
+    .fmt-btn {
+      background: #F9FAFB; border: 1px solid var(--border); border-radius: 5px;
+      padding: 5px 8px; font-size: 12px; cursor: pointer; color: var(--text);
+      transition: all .12s; line-height: 1; position: relative;
+    }
+    .fmt-btn:hover { background: var(--light); border-color: var(--green); color: var(--dark); }
+    .fmt-btn:active { background: var(--mid); }
+    .fmt-btn-wide { padding: 5px 10px; font-size: 11.5px; font-weight: 700; }
+    .fmt-color-btn { display: flex; align-items: center; cursor: pointer; }
+
     /* ── Section Manager ── */
     #section-list { display: flex; flex-direction: column; gap: 3px; }
     .sec-item {
@@ -467,6 +478,27 @@
 <!-- ═══════════════ PANEL ═══════════════ -->
 <aside class="panel">
   <div class="panel-logo" id="panel-logo">🛍 Plus Overview</div>
+
+  <!-- Text Formatting -->
+  <div>
+    <div class="section-lbl">Text Formatting</div>
+    <div class="panel-tip" style="margin-bottom:7px;">Select text in the doc, then apply:</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center;">
+      <button class="fmt-btn" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+      <button class="fmt-btn" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+      <button class="fmt-btn" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+      <button class="fmt-btn fmt-btn-wide" onclick="fmtSize(1)" title="Increase size">A+</button>
+      <button class="fmt-btn fmt-btn-wide" onclick="fmtSize(-1)" title="Decrease size">A−</button>
+      <label class="fmt-btn fmt-color-btn" title="Text color">
+        <span id="fmt-color-swatch" style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ef4444;border:1px solid rgba(0,0,0,.15);vertical-align:middle;"></span>
+        <span style="margin-left:3px;">Color</span>
+        <input type="color" id="fmt-color-input" value="#ef4444" oninput="fmtColor(this.value)" style="position:absolute;opacity:0;width:0;height:0;">
+      </label>
+      <button class="fmt-btn fmt-btn-wide" onclick="fmtClear()" title="Clear formatting">Clear</button>
+    </div>
+  </div>
+
+  <div class="panel-hr"></div>
 
   <div id="plus-panel" style="display:flex;flex-direction:column;gap:18px;">
   <div>
@@ -2413,6 +2445,59 @@
 </div><!-- /main -->
 
 <script>
+  // ── Text formatting ──
+  let savedRange = null;
+
+  document.addEventListener('mouseup', e => {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return;
+    const range = sel.getRangeAt(0);
+    const ancestor = range.commonAncestorContainer;
+    const el = ancestor.nodeType === Node.TEXT_NODE ? ancestor.parentElement : ancestor;
+    if (el && el.closest('[contenteditable]')) {
+      savedRange = range.cloneRange();
+    }
+  });
+
+  function restoreSelection() {
+    if (!savedRange) return false;
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+    return true;
+  }
+
+  function fmt(cmd) {
+    restoreSelection();
+    document.execCommand(cmd, false, null);
+  }
+
+  function fmtSize(dir) {
+    if (!restoreSelection()) return;
+    const sel = window.getSelection();
+    if (!sel.rangeCount || sel.isCollapsed) return;
+    const range = sel.getRangeAt(0);
+    const ancestor = range.commonAncestorContainer;
+    const parentEl = ancestor.nodeType === Node.TEXT_NODE ? ancestor.parentElement : ancestor;
+    const base = parseFloat(getComputedStyle(parentEl).fontSize) || 12;
+    const next = Math.max(8, Math.min(36, base + dir * 2));
+    const span = document.createElement('span');
+    span.style.fontSize = next + 'px';
+    try { range.surroundContents(span); } catch(e) { document.execCommand('fontSize', false, dir > 0 ? '5' : '2'); }
+    savedRange = null;
+  }
+
+  function fmtColor(color) {
+    document.getElementById('fmt-color-swatch').style.background = color;
+    restoreSelection();
+    document.execCommand('foreColor', false, color);
+  }
+
+  function fmtClear() {
+    restoreSelection();
+    document.execCommand('removeFormat', false, null);
+  }
+
   function switchTab(tab, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
