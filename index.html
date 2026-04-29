@@ -774,6 +774,7 @@
     <div class="tab-bar">
       <button class="tab-btn active" onclick="switchTab('plus',this)">Shopify Plus</button>
       <button class="tab-btn" onclick="switchTab('checkout',this)">Custom Checkout</button>
+      <button class="tab-btn" onclick="switchTab('action',this)">Plus Action Items</button>
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
       <button class="tab-btn" onclick="switchTab('shipping',this)">Shopify Shipping</button>
@@ -2174,6 +2175,241 @@
 </div><!-- /doc-wrap -->
 </div><!-- /tab-b2b -->
 
+<!-- ══ PLUS ACTION ITEMS TAB ══ -->
+<div id="tab-action" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <img src="logo.png" alt="Shopify">
+    </div>
+    <div class="d-header-r">
+      <h1>Plus Action Items</h1>
+      <p><em>Quick-Wins &amp; Next Steps</em></p>
+      <input class="header-store-input" id="action-store" placeholder="Store Name" autocomplete="off"
+             oninput="document.getElementById('action-store-print').textContent=this.value">
+      <span class="header-store-print" id="action-store-print"></span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <p style="font-size:13.5px;line-height:1.7;color:var(--mid-t);margin-bottom:24px;" contenteditable="true">Great speaking with you today.<br><br>See below for the quick-wins that you can take advantage of immediately on Plus, while you plan your larger operational rollout.</p>
+
+    <!-- Custom Checkout -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Custom Checkout</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p contenteditable="true">Connect with Ifayabi from Rebuy to implement trust badges, reviews, shipping policies, incentives, add-ons/recommendations (need to schedule)</p>
+        <div class="sub-box" style="margin-top:10px;">
+          <div class="sub-title">Rebuy Engine</div>
+          <p>Calendar Link: <a href="#" target="_blank" rel="noopener">Here</a></p>
+          <p>Email: <a href="mailto:ifabiyi.adaran@rebuyengine.com">ifabiyi.adaran@rebuyengine.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Shopify Audiences -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Shopify Audiences</div>
+          <div class="feat-note">Easy steps to ensure you're properly set-up on the marketing front!</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p><a href="https://www.shopify.com/plus/audiences" target="_blank" rel="noopener">Demo</a> | <a href="https://apps.shopify.com/audiences" target="_blank" rel="noopener">Interactive</a></p>
+        <div class="sub-box" style="margin-top:8px;">
+          <div class="sub-title">Shopify Audiences Install</div>
+          <p><a href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences" target="_blank" rel="noopener">Guide</a> | <a href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences/use-shopify-audiences" target="_blank" rel="noopener">Using Audiences</a></p>
+          <ul style="margin-top:6px;">
+            <li><a href="https://apps.shopify.com/audiences" target="_blank" rel="noopener">Download the Audiences App</a></li>
+            <li contenteditable="true">Enter your Ad Account Details</li>
+            <li contenteditable="true">Click to export new, high intent customers to those platforms</li>
+            <li><a href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences/audience-types" target="_blank" rel="noopener">Audience types that will appear in your ads manager — click here</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Launchpad -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Launchpad</div>
+          <div class="feat-note">Free app — manage and execute product launches, events, promotions, and sales campaigns.</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p><a href="https://help.shopify.com/en/manual/apps/apps-by-shopify/launchpad" target="_blank" rel="noopener">Overview</a> &nbsp;|&nbsp; <a href="https://apps.shopify.com/launchpad" target="_blank" rel="noopener">Download Shopify's Launchpad</a></p>
+        <p style="margin-top:6px;" contenteditable="true">Use the intuitive interface to pre-schedule any theme changes, discounts, banners or special offers any time you run a special event or limited-time customization.</p>
+        <div class="sub-box" style="margin-top:8px;">
+          <div class="sub-title">Key Features</div>
+          <p style="font-size:11px;font-weight:700;color:var(--dark);margin:6px 0 2px;">Product &amp; Inventory Management</p>
+          <ul>
+            <li contenteditable="true">Change product pricing at the start and end of events</li>
+            <li contenteditable="true">Make selected products available to sales channels at scheduled times</li>
+            <li contenteditable="true">Increase inventory levels automatically when events begin</li>
+            <li contenteditable="true">Manage product releases across multiple sales channels</li>
+          </ul>
+          <p style="font-size:11px;font-weight:700;color:var(--dark);margin:8px 0 2px;">Marketing &amp; Design Automation</p>
+          <ul>
+            <li contenteditable="true">Schedule creative and theme customizations to highlight event products</li>
+            <li contenteditable="true">Schedule line item and shipping scripts for checkout price changes and discounts</li>
+            <li contenteditable="true">Password protect your online store before events to build anticipation</li>
+            <li contenteditable="true">Coordinate marketing campaigns with automated timing</li>
+          </ul>
+          <p style="font-size:11px;font-weight:700;color:var(--dark);margin:8px 0 2px;">Analytics &amp; Monitoring</p>
+          <ul>
+            <li contenteditable="true">Real-time analytics dashboard to track event success</li>
+            <li contenteditable="true">Monitor event progress with detailed status updates</li>
+            <li contenteditable="true">Gather comprehensive data about event performance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Shopify Combined Listings -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Shopify Combined Listings</div>
+          <div class="feat-note">Plus-exclusive — group separate products into a single enhanced listing (color, model, dimension, etc).</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p><a href="https://help.shopify.com/en/manual/products/combined-listings-app" target="_blank" rel="noopener">Overview</a> &nbsp;|&nbsp; <a href="https://www.shopify.com/plus/combined-listings" target="_blank" rel="noopener">Demo</a> &nbsp;|&nbsp; <a href="https://apps.shopify.com/combined-listings" target="_blank" rel="noopener">SCL Install</a></p>
+        <ul style="margin-top:8px;">
+          <li contenteditable="true">Easily create combined listings directly from the Shopify admin</li>
+          <li contenteditable="true">Maximize SEO with distinct and descriptive URLs for each variation</li>
+          <li contenteditable="true">Showcase unique titles, descriptions and rich media galleries for each variation</li>
+          <li contenteditable="true">Simply un-publish and re-publish variations as needed</li>
+          <li contenteditable="true">Offer a cohesive buyer experience from a single product details page</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Foundation for Operational Expansion -->
+    <div style="background:var(--light);border:1.5px solid var(--mid);border-radius:10px;padding:16px 20px;margin-bottom:24px;">
+      <p style="font-size:12.5px;line-height:1.7;color:var(--mid-t);" contenteditable="true">Because you will already be on Plus, the foundation is already in place when you're ready to implement other operational strategies such as:</p>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+
+        <div>
+          <p style="font-size:12px;font-weight:800;color:var(--dark);">B2B Functionality</p>
+          <p><a href="https://www.shopify.com/plus/b2b" target="_blank" rel="noopener">Demo | Interactive on Back-end</a> &nbsp;|&nbsp; <a href="https://www.shopify.com/plus/b2b/buyer" target="_blank" rel="noopener">Demo | Interactive on Front-end</a></p>
+          <ul style="margin-top:4px;">
+            <li><a href="https://help.shopify.com/en/manual/b2b/catalogs" target="_blank" rel="noopener">Catalogs</a></li>
+            <li contenteditable="true">Quantity Rules &amp; Pricing</li>
+            <li><a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener">Overview</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p style="font-size:12px;font-weight:800;color:var(--dark);">Shopify Flow</p>
+          <p style="font-size:11.5px;color:var(--mid-t);" contenteditable="true">Automation platform that enables you to automate tasks and processes within your store and across your apps (Extensive with Plus).</p>
+          <p style="margin-top:4px;"><a href="https://help.shopify.com/en/manual/apps/apps-by-shopify/flow" target="_blank" rel="noopener">Overview</a> &nbsp;|&nbsp; <a href="https://shopify.dev/docs/apps/build/flow" target="_blank" rel="noopener">Developer Information</a> &nbsp;|&nbsp; <a href="https://shopify.dev/docs/apps/build/flow/triggers" target="_blank" rel="noopener">Triggers Guide</a> &nbsp;|&nbsp; <a href="https://shopify.dev/docs/apps/build/flow/actions" target="_blank" rel="noopener">Actions Guide</a> &nbsp;|&nbsp; <a href="https://shopify.dev/docs/apps/build/flow/templates" target="_blank" rel="noopener">Templates Guide</a></p>
+          <p style="margin-top:4px;"><a href="https://apps.shopify.com/flow" target="_blank" rel="noopener">Shopify Flow Install</a> — In Shopify Admin &gt; Apps &gt; Flow</p>
+          <p style="margin-top:4px;" contenteditable="true">Create First Workflow</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Top APIs -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Top APIs</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <ul>
+          <li contenteditable="true"><strong>Multipass API</strong> — SSO / unified login across multiple storefronts and properties</li>
+          <li contenteditable="true"><strong>Gift Card API</strong> — Programmatic gift card creation and management via private/custom apps</li>
+          <li contenteditable="true"><strong>Users API</strong> — Programmatic staff account creation, updates, and permission management</li>
+          <li contenteditable="true"><strong>Checkout Branding API</strong> — Deep visual customization of checkout (fonts, colors, layouts)</li>
+          <li contenteditable="true"><strong>B2B GraphQL APIs</strong> — Full wholesale suite: unlimited catalogs, payment terms, company management</li>
+          <li contenteditable="true"><strong>Shopify Functions (Custom Apps)</strong> — Custom backend logic for discounts, shipping, payment filtering in private apps</li>
+          <li contenteditable="true"><strong>Organization Admin API</strong> — Centralized management of users and settings across all expansion stores</li>
+          <li contenteditable="true"><strong>Storefront API (Hydrogen)</strong> — Headless commerce with 25 storefronts and free Oxygen hosting</li>
+          <li contenteditable="true"><strong>Higher API Rate Limits</strong> — Up to 10x higher rate limits on public apps; up to 500% on private/custom apps</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Shopify Plus Academy -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Shopify Plus Academy</div>
+          <div class="feat-note">In-depth ecommerce strategies in key business areas.</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <p><a href="https://academy.shopify.com/plus" target="_blank" rel="noopener">Free Courses</a></p>
+        <p style="margin-top:6px;" contenteditable="true">Highly recommend taking the getting started courses on Plus Academy to get you moving in your first months on Plus!</p>
+      </div>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- More Details -->
+    <div class="sub-box">
+      <div class="sub-title">Click here for more details on the above as well as other features to take advantage of:</div>
+      <ul style="margin-top:6px;">
+        <li contenteditable="true"><a href="https://help.shopify.com/en/manual/intro-to-shopify/initial-setup/increase-your-api-call-limits-and-add-enterprise-level-integrations" target="_blank" rel="noopener">Power your store with API call increases and enterprise-level integrations</a></li>
+        <li contenteditable="true"><a href="https://help.shopify.com/en/manual/your-account/staff-accounts/manage-multi-store" target="_blank" rel="noopener">Manage users and multiple stores all from your admin</a></li>
+        <li>Check out our <a href="https://www.shopify.com/plus/partners" target="_blank" rel="noopener">Partner Directory</a> and <a href="https://community.shopify.com/c/shopify-plus/bd-p/shopify-plus" target="_blank" rel="noopener">Shopify Community</a></li>
+      </ul>
+    </div>
+
+    <div class="doc-hr"></div>
+
+    <!-- Support -->
+    <div class="feature">
+      <div class="feat-head">
+        <div class="check">✓</div>
+        <div>
+          <div class="feat-title">Priority Support</div>
+          <div class="feat-note">If you have any questions or need assistance, you will have access to your new priority support team once onboarded.</div>
+        </div>
+      </div>
+      <div class="feat-body">
+        <ul>
+          <li contenteditable="true">Use the "Contact Shopify Plus Support" option in your admin (top right)</li>
+          <li contenteditable="true">Phone: 1-855-221-7587</li>
+          <li>You can also visit our <a href="https://help.shopify.com" target="_blank" rel="noopener">Shopify Help Center</a>.</li>
+        </ul>
+        <p style="margin-top:10px;" contenteditable="true">Let me know if you have any questions!</p>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="doc-footer">Shopify Plus — Confidential &amp; Proprietary</div>
+</div><!-- /doc-wrap -->
+</div><!-- /tab-action -->
+
 </div><!-- /main -->
 
 <script>
@@ -2195,7 +2431,7 @@
     if (paymentsPanel) paymentsPanel.style.display = tab === 'payments' ? 'flex' : 'none';
     if (shippingPanel) shippingPanel.style.display = tab === 'shipping' ? 'flex' : 'none';
     if (b2bPanel)      b2bPanel.style.display      = tab === 'b2b'      ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : '🛍 Plus Overview';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : '🛍 Plus Overview';
   }
 
   function set(id, val) {
