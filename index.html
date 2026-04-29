@@ -869,7 +869,10 @@
         <div class="rate-box" data-savbox="pos"><button class="sav-box-x" onclick="toggleSavBox('pos',false)" title="Remove">×</button><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-pos" data-placeholder="Included"></span></div>
         <div class="rate-box" data-savbox="total"><button class="sav-box-x" onclick="toggleSavBox('total',false)" title="Remove">×</button><span class="rate-lbl">Est. Annual Total</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true" id="sav-total" data-placeholder="e.g. $XX,XXX/yr"></span></div>
       </div>
-      <div class="savings-notes" contenteditable="true"></div>
+      <div style="position:relative;">
+        <div class="savings-notes" id="savings-notes" contenteditable="true"></div>
+        <button onclick="document.getElementById('savings-notes').innerHTML=''" title="Clear notes" style="position:absolute;top:4px;right:0;background:none;border:none;font-size:13px;color:var(--lite-t);cursor:pointer;line-height:1;padding:0;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--lite-t)'">×</button>
+      </div>
     </div>
 
     <div id="sections-container">
