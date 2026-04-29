@@ -871,7 +871,7 @@
       </div>
       <div style="position:relative;">
         <div class="savings-notes" id="savings-notes" contenteditable="true"></div>
-        <button onclick="document.getElementById('savings-notes').innerHTML=''" title="Clear notes" style="position:absolute;top:4px;right:0;background:none;border:none;font-size:13px;color:var(--lite-t);cursor:pointer;line-height:1;padding:0;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--lite-t)'">×</button>
+        <button onclick="var n=document.getElementById('savings-notes');n.innerHTML='';n.blur();" title="Clear notes" style="position:absolute;top:4px;right:0;background:none;border:none;font-size:13px;color:var(--lite-t);cursor:pointer;line-height:1;padding:0;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--lite-t)'">×</button>
       </div>
     </div>
 
