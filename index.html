@@ -1628,7 +1628,10 @@
 
     <!-- 3rd Party Fee Card -->
     <div class="sp-fee-card" data-sp-key="sp-feecard">
-      <div class="sp-fee-hdg">Current 3rd Party Gateway Cost</div>
+      <div class="savings-hdg-row" style="margin-bottom:13px">
+      <span class="sp-fee-hdg" style="margin-bottom:0">Current 3rd Party Gateway Cost</span>
+      <button class="sav-dismiss" title="Hide section" onclick="dismissSpSection('sp-feecard')">✕</button>
+    </div>
       <div class="sp-fee-grid">
         <div class="sp-fee-box">
           <span class="sp-fee-lbl">Gateway</span>
@@ -1811,6 +1814,7 @@
       <div class="feat-head">
         <div class="check">↗</div>
         <div class="feat-title" contenteditable="true">Last 365 — Conversion Insights</div>
+        <button class="sav-dismiss" style="margin-left:auto" title="Hide section" onclick="dismissSpSection('sp-insights')">✕</button>
       </div>
       <div class="feat-body">
       </div>
@@ -2704,6 +2708,12 @@
     document.querySelectorAll(`#tab-payments [data-sp-key="${key}"]`).forEach(el => {
       el.classList.toggle('sec-hidden', !visible);
     });
+  }
+
+  function dismissSpSection(key) {
+    toggleSpSection(key, false);
+    const cb = document.querySelector(`#sp-section-list input[onchange*="'${key}'"]`);
+    if (cb) cb.checked = false;
   }
 
   // ── Savings card & box toggles ──
