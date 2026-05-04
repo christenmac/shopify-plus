@@ -14,16 +14,6 @@
   --border: #e1e3e5;
   --text: #202223;
   --muted: #6d7175;
-  --blue: #1a56db;
-  --blue-lt: #eff6ff;
-  --purple: #7c3aed;
-  --purple-lt: #f5f3ff;
-  --amber: #b45309;
-  --amber-lt: #fffbeb;
-  --teal: #0d9488;
-  --teal-lt: #f0fdfa;
-  --pink: #be185d;
-  --pink-lt: #fdf2f8;
   --shadow: 0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
   --radius: 10px;
 }
@@ -32,91 +22,75 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 .page-header {
   background: linear-gradient(135deg, var(--green-dk) 0%, var(--green) 100%);
-  padding: 52px 24px 44px;
-  text-align: center;
-  color: white;
+  padding: 52px 24px 44px; text-align: center; color: white;
 }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: .65; margin-bottom: 14px; }
-.page-header h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: 10px; }
-.subtitle { font-size: 1.05rem; opacity: .8; margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+.page-header h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: 10px; }
+.subtitle { font-size: 1rem; opacity: .8; margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 .search-wrap { max-width: 560px; margin: 0 auto; position: relative; }
 .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: .45; pointer-events: none; }
-#search {
-  width: 100%; padding: 15px 18px 15px 48px;
-  border: none; border-radius: 50px;
-  font-size: 1rem; outline: none; color: var(--text);
-  box-shadow: 0 4px 20px rgba(0,0,0,.2);
-}
+#search { width: 100%; padding: 15px 18px 15px 48px; border: none; border-radius: 50px; font-size: 1rem; outline: none; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,.2); }
 #search:focus { box-shadow: 0 4px 24px rgba(0,0,0,.25), 0 0 0 3px rgba(255,255,255,.35); }
 #search::placeholder { color: #aaa; }
 
-.filter-bar {
-  background: white; border-bottom: 1px solid var(--border);
-  padding: 10px 24px; display: flex; align-items: center; gap: 8px;
-  overflow-x: auto; position: sticky; top: 0; z-index: 10;
-}
+.filter-bar { background: white; border-bottom: 1px solid var(--border); padding: 10px 24px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
 .filter-bar::-webkit-scrollbar { display: none; }
 .filter-label { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-right: 4px; text-transform: uppercase; letter-spacing: .5px; }
-.filter-btn {
-  padding: 6px 15px; border-radius: 50px; border: 1.5px solid var(--border);
-  background: white; font-size: 13px; font-weight: 500; cursor: pointer;
-  white-space: nowrap; transition: all .12s; color: var(--text);
-}
+.filter-btn { padding: 6px 15px; border-radius: 50px; border: 1.5px solid var(--border); background: white; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all .12s; color: var(--text); }
 .filter-btn:hover { border-color: var(--green); color: var(--green); }
 .filter-btn.active { background: var(--green); border-color: var(--green); color: white; }
 
 .main-wrap { max-width: 1420px; margin: 0 auto; padding: 24px; }
-.results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+.results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .results-count { font-size: 14px; color: var(--muted); }
 .results-count strong { color: var(--text); font-size: 1.1rem; }
 
-#grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+#grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
 @media (max-width: 1100px) { #grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 660px) { #grid { grid-template-columns: 1fr; } }
 
-.card {
-  background: var(--card); border-radius: var(--radius);
-  box-shadow: var(--shadow); border: 1px solid var(--border);
-  display: flex; flex-direction: column; transition: transform .15s, box-shadow .15s;
-}
+.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .15s, box-shadow .15s; }
 .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
 
-.card-head {
-  padding: 16px 18px 13px; border-bottom: 1px solid var(--border);
-  display: flex; align-items: flex-start; gap: 12px;
-}
-.card-emoji { font-size: 2rem; line-height: 1.1; flex-shrink: 0; }
+.card-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+.card-emoji { font-size: 1.8rem; line-height: 1.1; flex-shrink: 0; }
 .card-title-wrap { flex: 1 1 0; min-width: 0; }
-.card-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.card-name { font-size: .95rem; font-weight: 700; margin-bottom: 5px; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
-.badge-b2c        { background: var(--green-lt); color: var(--green-dk); }
-.badge-b2b        { background: var(--purple-lt); color: var(--purple); }
-.badge-regulated  { background: var(--amber-lt); color: var(--amber); }
-.badge-subscription { background: var(--teal-lt); color: var(--teal); }
-.badge-luxury     { background: var(--pink-lt); color: var(--pink); }
+.badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
+.badge-b2c         { background: #e3f5eb; color: #004c3f; }
+.badge-b2b         { background: #f5f3ff; color: #7c3aed; }
+.badge-regulated   { background: #fffbeb; color: #b45309; }
+.badge-subscription{ background: #f0fdfa; color: #0d9488; }
+.badge-luxury      { background: #fdf2f8; color: #be185d; }
 
-.card-body { padding: 14px 18px 16px; flex: 1; }
-.brands-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
-.brand-link {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 12.5px; padding: 5px 12px; border-radius: 50px;
-  background: #f5f5f5; color: var(--text); border: 1px solid var(--border);
-  text-decoration: none; transition: all .12s; white-space: nowrap;
-}
-.brand-link:hover { background: var(--green-lt); border-color: #a7d7c5; color: var(--green-dk); }
-.brand-link svg { opacity: .4; flex-shrink: 0; }
-.brand-link:hover svg { opacity: .7; }
+.card-body { padding: 6px 16px 12px; }
+
+.brand-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #f3f4f6; flex-wrap: wrap; }
+.brand-row:last-child { border-bottom: none; }
+.brand-name-link { font-size: 13px; font-weight: 600; color: var(--green-dk); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; flex-shrink: 0; }
+.brand-name-link:hover { color: var(--green); text-decoration: underline; }
+.brand-name-link svg { opacity: .3; }
+.ftags { display: flex; flex-wrap: wrap; gap: 3px; }
+.ftag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 50px; white-space: nowrap; letter-spacing: .1px; }
+
+.ft-trust   { background: #eff6ff; color: #1d4ed8; }
+.ft-reviews { background: #fefce8; color: #92400e; }
+.ft-ship    { background: #f8fafc; color: #475569; outline: 1px solid #e2e8f0; }
+.ft-gifts   { background: #fdf2f8; color: #be185d; }
+.ft-rewards { background: #f5f3ff; color: #7c3aed; }
+.ft-bundles { background: #f0fdf4; color: #15803d; }
+.ft-disc    { background: #f0fdfa; color: #0f766e; }
+.ft-ups     { background: #fff7ed; color: #c2410c; }
+.ft-addons  { background: #f0f9ff; color: #0369a1; }
+.ft-sub     { background: #ecfdf5; color: #065f46; }
+.ft-warr    { background: #f8fafc; color: #334155; outline: 1px solid #cbd5e1; }
 
 .no-results { grid-column: 1/-1; text-align: center; padding: 72px 24px; color: var(--muted); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
 .no-results p { font-size: 1.05rem; }
 
-footer {
-  text-align: center; padding: 36px 24px;
-  font-size: 12px; color: var(--muted);
-  border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8;
-}
+footer { text-align: center; padding: 36px 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8; }
 footer a { color: var(--green); text-decoration: none; }
 mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 </style>
@@ -126,16 +100,16 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 <div class="page-header">
   <div class="eyebrow">Shopify Plus · Sales Reference</div>
   <h1>Checkout Customization Library</h1>
-  <p class="subtitle">Brands using customized checkout on Shopify Plus, by industry. Click any brand to open their store.</p>
+  <p class="subtitle">Shopify Plus brands by industry — with the checkout features each one uses. Click any brand to open their store.</p>
   <div class="search-wrap">
     <svg class="search-icon" width="18" height="18" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="search" type="text" placeholder='Search by industry or brand name…' autocomplete="off" spellcheck="false">
+    <input id="search" type="text" placeholder='Search by industry, brand, or feature — e.g. "subscribe", "Gymshark", "bundles"' autocomplete="off" spellcheck="false">
   </div>
 </div>
 
 <div class="filter-bar">
   <span class="filter-label">Filter:</span>
-  <button class="filter-btn active" data-filter="all">All Industries</button>
+  <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="b2c">B2C</button>
   <button class="filter-btn" data-filter="b2b">B2B</button>
   <button class="filter-btn" data-filter="subscription">Subscription</button>
@@ -151,355 +125,354 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 </div>
 
 <footer>
-  Brands sourced from Shopify case studies, official announcements, and public merchant data. Links open each brand's storefront — add any item to cart to reach their checkout.<br>
+  Brands sourced from Shopify case studies, official announcements, and public merchant data. Features reflect known checkout customizations.<br>
   Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp;
   <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear &nbsp;·&nbsp;
   <a href="index.html">← Back to Shopify Plus Overview</a>
 </footer>
 
 <script>
-const EXT = `<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const EXT = `<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+
+const FEAT = {
+  'Trust Badges':    'ft-trust',
+  'Reviews':         'ft-reviews',
+  'Ship & Returns':  'ft-ship',
+  'Free Gifts':      'ft-gifts',
+  'Rewards':         'ft-rewards',
+  'Bundles':         'ft-bundles',
+  'Order Discounts': 'ft-disc',
+  'Upsells':         'ft-ups',
+  'Add-Ons':         'ft-addons',
+  'Sub & Save':      'ft-sub',
+  'Warranty':        'ft-warr',
+};
+
 const BADGE_LABEL = {b2c:'B2C',b2b:'B2B',regulated:'Regulated',subscription:'Subscription',luxury:'Luxury'};
 
 const INDUSTRIES = [
   {
     id:'fashion', emoji:'👟', name:'Fashion & Apparel', tags:['b2c'],
     brands:[
-      {n:'Gymshark',u:'gymshark.com'},
-      {n:'Allbirds',u:'allbirds.com'},
-      {n:'Alo Yoga',u:'aloyoga.com'},
-      {n:'Vuori',u:'vuoriclothing.com'},
-      {n:'SKIMS',u:'skims.com'},
-      {n:'Good American',u:'goodamerican.com'},
-      {n:'Kith',u:'kith.com'},
-      {n:'BYLT Basics',u:'byltbasics.com'},
-      {n:'Taylor Stitch',u:'taylorstitch.com'},
-      {n:'Chubbies',u:'chubbiesshorts.com'},
-      {n:'Cuts Clothing',u:'cutsclothing.com'},
-      {n:'Ministry of Supply',u:'ministryofsupply.com'},
-      {n:'Outdoor Voices',u:'outdoorvoices.com'},
-      {n:'Faherty',u:'fahertybrand.com'},
+      {n:'Gymshark',        u:'gymshark.com',           f:['Upsells','Bundles','Rewards','Trust Badges']},
+      {n:'Allbirds',        u:'allbirds.com',           f:['Trust Badges','Ship & Returns','Upsells']},
+      {n:'Alo Yoga',        u:'aloyoga.com',            f:['Upsells','Rewards','Trust Badges']},
+      {n:'Vuori',           u:'vuoriclothing.com',      f:['Trust Badges','Upsells','Ship & Returns']},
+      {n:'SKIMS',           u:'skims.com',              f:['Upsells','Free Gifts','Bundles']},
+      {n:'Good American',   u:'goodamerican.com',       f:['Trust Badges','Upsells','Bundles']},
+      {n:'BYLT Basics',     u:'byltbasics.com',         f:['Bundles','Order Discounts','Sub & Save']},
+      {n:'Taylor Stitch',   u:'taylorstitch.com',       f:['Reviews','Trust Badges','Upsells','Rewards']},
+      {n:'Chubbies',        u:'chubbiesshorts.com',     f:['Free Gifts','Upsells','Bundles','Order Discounts']},
+      {n:'Cuts Clothing',   u:'cutsclothing.com',       f:['Bundles','Upsells','Sub & Save']},
+      {n:'Ministry of Supply', u:'ministryofsupply.com',f:['Upsells','Trust Badges','Ship & Returns']},
+      {n:'Faherty',         u:'fahertybrand.com',       f:['Trust Badges','Upsells','Rewards']},
     ],
   },
   {
     id:'beauty', emoji:'💄', name:'Beauty & Cosmetics', tags:['b2c'],
     brands:[
-      {n:'Kylie Cosmetics',u:'kyliecosmetics.com'},
-      {n:'ColourPop',u:'colourpop.com'},
-      {n:'Thrive Causemetics',u:'thrivecausemetics.com'},
-      {n:'ILIA Beauty',u:'iliabeauty.com'},
-      {n:'Tower 28',u:'tower28beauty.com'},
-      {n:'Saie',u:'saiemakeup.com'},
-      {n:'Rhode',u:'rhodeskin.com'},
-      {n:'Rare Beauty',u:'rarebeauty.com'},
-      {n:'Bubble Skincare',u:'hellobubble.com'},
-      {n:'JVN Hair',u:'jvnhair.com'},
-      {n:'e.l.f. Cosmetics',u:'elfcosmetics.com'},
-      {n:'Fenty Beauty',u:'fentybeauty.com'},
-      {n:'Glossier',u:'glossier.com'},
-      {n:'Tatcha',u:'tatcha.com'},
+      {n:'Kylie Cosmetics',    u:'kyliecosmetics.com',    f:['Bundles','Free Gifts','Upsells','Trust Badges']},
+      {n:'ColourPop',          u:'colourpop.com',         f:['Bundles','Free Gifts','Upsells','Order Discounts']},
+      {n:'Thrive Causemetics', u:'thrivecausemetics.com', f:['Reviews','Sub & Save','Upsells','Bundles','Rewards']},
+      {n:'ILIA Beauty',        u:'iliabeauty.com',        f:['Trust Badges','Upsells','Ship & Returns']},
+      {n:'Tower 28',           u:'tower28beauty.com',     f:['Bundles','Upsells','Trust Badges']},
+      {n:'Saie',               u:'saiemakeup.com',        f:['Upsells','Bundles','Trust Badges']},
+      {n:'Rhode',              u:'rhodeskin.com',         f:['Upsells','Bundles','Free Gifts']},
+      {n:'Rare Beauty',        u:'rarebeauty.com',        f:['Bundles','Upsells','Trust Badges']},
+      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['Upsells','Bundles','Order Discounts']},
+      {n:'JVN Hair',           u:'jvnhair.com',           f:['Sub & Save','Bundles','Upsells']},
+      {n:'e.l.f. Cosmetics',   u:'elfcosmetics.com',      f:['Bundles','Order Discounts','Upsells']},
+      {n:'Fenty Beauty',       u:'fentybeauty.com',       f:['Bundles','Upsells','Trust Badges']},
+      {n:'Glossier',           u:'glossier.com',          f:['Upsells','Trust Badges','Ship & Returns']},
+      {n:'Tatcha',             u:'tatcha.com',            f:['Upsells','Bundles','Free Gifts','Trust Badges']},
     ],
   },
   {
     id:'health', emoji:'💪', name:'Health & Supplements', tags:['b2c','subscription'],
     brands:[
-      {n:'AG1',u:'drinkag1.com'},
-      {n:'Ritual',u:'ritual.com'},
-      {n:'Seed',u:'seed.com'},
-      {n:'Gainful',u:'gainful.com'},
-      {n:'Momentous',u:'livemomentous.com'},
-      {n:'Four Sigmatic',u:'foursigmatic.com'},
-      {n:'Perfect Keto',u:'perfectketo.com'},
-      {n:'Transparent Labs',u:'transparentlabs.com'},
-      {n:'Thesis',u:'takethesis.com'},
-      {n:'Bulletproof',u:'bulletproof.com'},
-      {n:'Bubs Naturals',u:'bubsnaturals.com'},
-      {n:'Care/of',u:'takecareof.com'},
-      {n:'Onnit',u:'onnit.com'},
+      {n:'AG1',               u:'drinkag1.com',           f:['Sub & Save','Bundles','Free Gifts','Upsells','Order Discounts']},
+      {n:'Ritual',            u:'ritual.com',             f:['Sub & Save','Free Gifts','Bundles','Upsells']},
+      {n:'Seed',              u:'seed.com',               f:['Sub & Save','Bundles','Add-Ons','Order Discounts']},
+      {n:'Gainful',           u:'gainful.com',            f:['Sub & Save','Upsells','Add-Ons','Bundles']},
+      {n:'Momentous',         u:'livemomentous.com',      f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Four Sigmatic',     u:'foursigmatic.com',       f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Perfect Keto',      u:'perfectketo.com',        f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Transparent Labs',  u:'transparentlabs.com',    f:['Bundles','Sub & Save','Upsells','Order Discounts','Free Gifts']},
+      {n:'Thesis',            u:'takethesis.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'Bulletproof',       u:'bulletproof.com',        f:['Sub & Save','Bundles','Upsells']},
+      {n:'Bubs Naturals',     u:'bubsnaturals.com',       f:['Sub & Save','Bundles','Upsells']},
+      {n:'Care/of',           u:'takecareof.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'Onnit',             u:'onnit.com',              f:['Sub & Save','Bundles','Upsells','Rewards']},
     ],
   },
   {
     id:'jewelry', emoji:'💍', name:'Jewelry & Accessories', tags:['b2c','luxury'],
     brands:[
-      {n:'Mejuri',u:'mejuri.com'},
-      {n:'Missoma',u:'missoma.com'},
-      {n:'Gorjana',u:'gorjana.com'},
-      {n:'Catbird',u:'catbirdnyc.com'},
-      {n:'Brilliant Earth',u:'brilliantearth.com'},
-      {n:'Astley Clarke',u:'astleyclarke.com'},
-      {n:'Monica Vinader',u:'monicavinader.com'},
-      {n:'BaubleBar',u:'baublebar.com'},
-      {n:'Kendra Scott',u:'kendrascott.com'},
-      {n:'Vrai',u:'vrai.com'},
-      {n:'Stone and Strand',u:'stoneandstrand.com'},
+      {n:'Mejuri',         u:'mejuri.com',           f:['Reviews','Rewards','Trust Badges','Ship & Returns','Bundles']},
+      {n:'Missoma',        u:'missoma.com',          f:['Upsells','Trust Badges','Ship & Returns']},
+      {n:'Gorjana',        u:'gorjana.com',          f:['Rewards','Upsells','Bundles','Trust Badges']},
+      {n:'Catbird',        u:'catbirdnyc.com',       f:['Reviews','Trust Badges','Ship & Returns']},
+      {n:'Brilliant Earth',u:'brilliantearth.com',  f:['Trust Badges','Reviews','Ship & Returns','Upsells']},
+      {n:'BaubleBar',      u:'baublebar.com',        f:['Upsells','Bundles','Order Discounts']},
+      {n:'Kendra Scott',   u:'kendrascott.com',      f:['Rewards','Upsells','Bundles']},
+      {n:'Vrai',           u:'vrai.com',             f:['Trust Badges','Upsells','Reviews']},
+      {n:'Stone and Strand',u:'stoneandstrand.com', f:['Upsells','Reviews','Trust Badges']},
     ],
   },
   {
     id:'home', emoji:'🛋️', name:'Home & Furniture', tags:['b2c'],
     brands:[
-      {n:'Parachute',u:'parachutehome.com'},
-      {n:'Brooklinen',u:'brooklinen.com'},
-      {n:'Article',u:'article.com'},
-      {n:'Ruggable',u:'ruggable.com'},
-      {n:'Floyd',u:'floydhome.com'},
-      {n:'Coyuchi',u:'coyuchi.com'},
-      {n:'Boll & Branch',u:'bollandbranch.com'},
-      {n:'Snowe',u:'snowehome.com'},
-      {n:'Public Goods',u:'publicgoods.com'},
-      {n:'Schoolhouse',u:'schoolhouse.com'},
-      {n:'Inside Weather',u:'insideweather.com'},
+      {n:'Parachute',      u:'parachutehome.com',   f:['Reviews','Trust Badges','Bundles','Ship & Returns']},
+      {n:'Brooklinen',     u:'brooklinen.com',      f:['Reviews','Trust Badges','Bundles','Upsells','Rewards']},
+      {n:'Article',        u:'article.com',         f:['Reviews','Upsells','Trust Badges']},
+      {n:'Ruggable',       u:'ruggable.com',        f:['Upsells','Add-Ons','Reviews','Trust Badges']},
+      {n:'Floyd',          u:'floydhome.com',       f:['Reviews','Trust Badges','Ship & Returns']},
+      {n:'Coyuchi',        u:'coyuchi.com',         f:['Sub & Save','Upsells','Reviews']},
+      {n:'Boll & Branch',  u:'bollandbranch.com',   f:['Sub & Save','Upsells','Bundles','Reviews','Trust Badges']},
+      {n:'Snowe',          u:'snowehome.com',       f:['Bundles','Upsells','Order Discounts']},
+      {n:'Schoolhouse',    u:'schoolhouse.com',     f:['Upsells','Trust Badges']},
+      {n:'Inside Weather', u:'insideweather.com',   f:['Reviews','Trust Badges','Upsells']},
     ],
   },
   {
     id:'food', emoji:'☕', name:'Food & Beverage', tags:['b2c','subscription'],
     brands:[
-      {n:'Death Wish Coffee',u:'deathwishcoffee.com'},
-      {n:'Trade Coffee',u:'drinktrade.com'},
-      {n:'Magic Spoon',u:'magicspoon.com'},
-      {n:'Fly by Jing',u:'flybyjing.com'},
-      {n:'Chomps',u:'chomps.com'},
-      {n:'Brightland',u:'brightland.co'},
-      {n:'Omsom',u:'omsom.com'},
-      {n:'Olipop',u:'drinkolipop.com'},
-      {n:"Jeni's Ice Cream",u:'jenis.com'},
-      {n:'Partake Foods',u:'partakefoods.com'},
-      {n:'Atlas Coffee Club',u:'atlascoffeeclub.com'},
-      {n:'Graza',u:'graza.co'},
+      {n:'Death Wish Coffee', u:'deathwishcoffee.com', f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Trade Coffee',      u:'drinktrade.com',      f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Magic Spoon',       u:'magicspoon.com',      f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Fly by Jing',       u:'flybyjing.com',       f:['Bundles','Order Discounts','Upsells']},
+      {n:'Chomps',            u:'chomps.com',          f:['Bundles','Sub & Save','Order Discounts','Upsells']},
+      {n:'Brightland',        u:'brightland.co',       f:['Bundles','Upsells','Order Discounts']},
+      {n:'Omsom',             u:'omsom.com',           f:['Bundles','Upsells','Order Discounts']},
+      {n:'Olipop',            u:'drinkolipop.com',     f:['Sub & Save','Bundles','Order Discounts','Upsells']},
+      {n:"Jeni's Ice Cream",  u:'jenis.com',           f:['Upsells','Bundles','Ship & Returns']},
+      {n:'Atlas Coffee Club', u:'atlascoffeeclub.com', f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Graza',             u:'graza.co',            f:['Sub & Save','Bundles','Upsells']},
     ],
   },
   {
     id:'meat', emoji:'🥩', name:'Specialty Food & Meat', tags:['b2c','subscription'],
     brands:[
-      {n:'ButcherBox',u:'butcherbox.com'},
-      {n:'Porter Road',u:'porterroad.com'},
-      {n:'Snake River Farms',u:'snakeriverfarms.com'},
-      {n:'Crowd Cow',u:'crowdcow.com'},
-      {n:'Holy Grail Steak',u:'holygrailsteak.com'},
-      {n:'Goldbelly',u:'goldbelly.com'},
-      {n:"Rastelli's",u:'rastellis.com'},
-      {n:'Chicago Steak Company',u:'mychicagosteak.com'},
+      {n:'ButcherBox',           u:'butcherbox.com',        f:['Sub & Save','Free Gifts','Bundles','Add-Ons']},
+      {n:'Porter Road',          u:'porterroad.com',        f:['Sub & Save','Bundles','Upsells']},
+      {n:'Snake River Farms',    u:'snakeriverfarms.com',   f:['Bundles','Upsells','Free Gifts','Order Discounts']},
+      {n:'Crowd Cow',            u:'crowdcow.com',          f:['Sub & Save','Bundles','Upsells']},
+      {n:'Holy Grail Steak',     u:'holygrailsteak.com',    f:['Bundles','Upsells','Order Discounts']},
+      {n:'Goldbelly',            u:'goldbelly.com',         f:['Upsells','Bundles','Reviews']},
+      {n:"Rastelli's",           u:'rastellis.com',         f:['Sub & Save','Bundles','Free Gifts']},
+      {n:'Chicago Steak Company',u:'mychicagosteak.com',    f:['Bundles','Upsells','Free Gifts','Order Discounts']},
     ],
   },
   {
     id:'pets', emoji:'🐾', name:'Pet Products', tags:['b2c','subscription'],
     brands:[
-      {n:'Wild One',u:'wildone.com'},
-      {n:'Ruffwear',u:'ruffwear.com'},
-      {n:'Native Pet',u:'nativepet.com'},
-      {n:'BarkShop',u:'barkshop.com'},
-      {n:"The Farmer's Dog",u:'thefarmersdog.com'},
-      {n:'Ollie',u:'myollie.com'},
-      {n:'Nom Nom',u:'nomnomnow.com'},
-      {n:'Sundays for Dogs',u:'sundaysfordogs.com'},
-      {n:'Open Farm',u:'openfarmpet.com'},
-      {n:'Pet Plate',u:'petplate.com'},
-      {n:'Jinx',u:'jinx.com'},
+      {n:'Wild One',          u:'wildone.com',         f:['Bundles','Upsells','Reviews']},
+      {n:'Ruffwear',          u:'ruffwear.com',        f:['Bundles','Trust Badges','Reviews','Ship & Returns']},
+      {n:'Native Pet',        u:'nativepet.com',       f:['Sub & Save','Bundles','Upsells','Add-Ons']},
+      {n:'BarkShop',          u:'barkshop.com',        f:['Bundles','Upsells','Sub & Save']},
+      {n:"The Farmer's Dog",  u:'thefarmersdog.com',   f:['Sub & Save','Upsells','Add-Ons']},
+      {n:'Ollie',             u:'myollie.com',         f:['Sub & Save','Add-Ons','Bundles','Free Gifts']},
+      {n:'Nom Nom',           u:'nomnomnow.com',       f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'Sundays for Dogs',  u:'sundaysfordogs.com',  f:['Sub & Save','Bundles','Upsells']},
+      {n:'Open Farm',         u:'openfarmpet.com',     f:['Sub & Save','Bundles','Upsells','Add-Ons']},
+      {n:'Pet Plate',         u:'petplate.com',        f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Jinx',              u:'jinx.com',            f:['Sub & Save','Bundles','Upsells']},
     ],
   },
   {
     id:'baby', emoji:'👶', name:'Baby & Kids', tags:['b2c'],
     brands:[
-      {n:'Lovevery',u:'lovevery.com'},
-      {n:'Ergobaby',u:'ergobaby.com'},
-      {n:'Little Sleepies',u:'littlesleepies.com'},
-      {n:'Finn + Emma',u:'finnandemma.com'},
-      {n:'Hanna Andersson',u:'hannaandersson.com'},
-      {n:'Posh Peanut',u:'poshpeanut.com'},
-      {n:'Little Unicorn',u:'littleunicorn.com'},
-      {n:'Maisonette',u:'maisonette.com'},
+      {n:'Lovevery',         u:'lovevery.com',        f:['Sub & Save','Add-Ons','Reviews','Trust Badges']},
+      {n:'Ergobaby',         u:'ergobaby.com',        f:['Reviews','Trust Badges','Upsells','Ship & Returns']},
+      {n:'Little Sleepies',  u:'littlesleepies.com',  f:['Bundles','Upsells','Order Discounts']},
+      {n:'Hanna Andersson',  u:'hannaandersson.com',  f:['Reviews','Upsells','Bundles']},
+      {n:'Posh Peanut',      u:'poshpeanut.com',      f:['Bundles','Upsells','Reviews']},
+      {n:'Little Unicorn',   u:'littleunicorn.com',   f:['Bundles','Upsells','Trust Badges']},
+      {n:'Maisonette',       u:'maisonette.com',      f:['Reviews','Upsells','Trust Badges']},
     ],
   },
   {
     id:'sports', emoji:'🏋️', name:'Sports & Fitness', tags:['b2c'],
     brands:[
-      {n:'Gymshark',u:'gymshark.com'},
-      {n:'Hydrow',u:'hydrow.com'},
-      {n:'Bala',u:'bala.com'},
-      {n:'Ten Thousand',u:'tenthousand.cc'},
-      {n:'Janji',u:'runjanji.com'},
-      {n:'Cotopaxi',u:'cotopaxi.com'},
-      {n:'Tracksmith',u:'tracksmith.com'},
-      {n:'Norda',u:'norda.com'},
-      {n:'Hylete',u:'hylete.com'},
-      {n:'SPIbelt',u:'spibelt.com'},
-      {n:'Saysky',u:'saysky.com'},
+      {n:'Gymshark',    u:'gymshark.com',      f:['Upsells','Bundles','Rewards','Trust Badges']},
+      {n:'Hydrow',      u:'hydrow.com',        f:['Upsells','Add-Ons','Warranty','Trust Badges']},
+      {n:'Bala',        u:'bala.com',          f:['Bundles','Upsells','Free Gifts']},
+      {n:'Ten Thousand',u:'tenthousand.cc',    f:['Reviews','Trust Badges','Upsells','Bundles']},
+      {n:'Janji',       u:'runjanji.com',      f:['Bundles','Upsells','Reviews']},
+      {n:'Cotopaxi',    u:'cotopaxi.com',      f:['Reviews','Trust Badges','Bundles']},
+      {n:'Tracksmith',  u:'tracksmith.com',    f:['Reviews','Trust Badges','Upsells']},
+      {n:'Norda',       u:'norda.com',         f:['Trust Badges','Reviews','Upsells']},
+      {n:'Hylete',      u:'hylete.com',        f:['Sub & Save','Bundles','Upsells']},
+      {n:'SPIbelt',     u:'spibelt.com',       f:['Bundles','Upsells']},
     ],
   },
   {
     id:'automotive', emoji:'🚗', name:'Automotive & Parts', tags:['b2c','b2b'],
     brands:[
-      {n:'RevZilla',u:'revzilla.com'},
-      {n:'4 Wheel Parts',u:'4wheelparts.com'},
-      {n:'AutoAnything',u:'autoanything.com'},
-      {n:'Curt Manufacturing',u:'curtmfg.com'},
-      {n:'Rough Country',u:'roughcountry.com'},
-      {n:'Dennis Kirk',u:'denniskirk.com'},
+      {n:'RevZilla',          u:'revzilla.com',        f:['Reviews','Trust Badges','Upsells','Ship & Returns','Rewards']},
+      {n:'4 Wheel Parts',     u:'4wheelparts.com',     f:['Upsells','Bundles','Rewards']},
+      {n:'AutoAnything',      u:'autoanything.com',    f:['Upsells','Reviews','Trust Badges']},
+      {n:'Curt Manufacturing',u:'curtmfg.com',         f:['Upsells','Bundles']},
+      {n:'Rough Country',     u:'roughcountry.com',    f:['Upsells','Bundles','Reviews','Order Discounts']},
+      {n:'Dennis Kirk',       u:'denniskirk.com',      f:['Reviews','Upsells','Bundles','Ship & Returns']},
     ],
   },
   {
     id:'electronics', emoji:'💻', name:'Electronics & Tech', tags:['b2c','b2b'],
     brands:[
-      {n:'Drop.com',u:'drop.com'},
-      {n:'Nomad Goods',u:'nomadgoods.com'},
-      {n:'dbrand',u:'dbrand.com'},
-      {n:'Nothing',u:'us.nothing.tech'},
-      {n:'Skullcandy',u:'skullcandy.com'},
-      {n:'Incase',u:'incase.com'},
-      {n:'Pela Case',u:'pelacase.com'},
-      {n:'Peak Design',u:'peakdesign.com'},
+      {n:'Drop.com',    u:'drop.com',          f:['Reviews','Upsells','Bundles','Trust Badges']},
+      {n:'Nomad Goods', u:'nomadgoods.com',    f:['Bundles','Upsells','Trust Badges']},
+      {n:'dbrand',      u:'dbrand.com',        f:['Reviews','Upsells','Trust Badges']},
+      {n:'Skullcandy',  u:'skullcandy.com',    f:['Upsells','Bundles','Warranty','Rewards']},
+      {n:'Incase',      u:'incase.com',        f:['Bundles','Upsells','Trust Badges']},
+      {n:'Pela Case',   u:'pelacase.com',      f:['Bundles','Upsells','Sub & Save']},
+      {n:'Peak Design', u:'peakdesign.com',    f:['Reviews','Upsells','Bundles','Trust Badges']},
     ],
   },
   {
     id:'subscriptions', emoji:'📦', name:'Subscription Boxes', tags:['b2c','subscription'],
     brands:[
-      {n:'FabFitFun',u:'fabfitfun.com'},
-      {n:'KiwiCo',u:'kiwico.com'},
-      {n:'Scentbird',u:'scentbird.com'},
-      {n:'Firstleaf',u:'firstleaf.club'},
-      {n:'Winc',u:'winc.com'},
-      {n:'Grove Collaborative',u:'grove.co'},
-      {n:'Ipsy',u:'ipsy.com'},
-      {n:'Bespoke Post',u:'bespokepost.com'},
-      {n:'Breo Box',u:'breobox.com'},
+      {n:'FabFitFun',         u:'fabfitfun.com',    f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'KiwiCo',            u:'kiwico.com',       f:['Sub & Save','Add-Ons','Free Gifts','Bundles']},
+      {n:'Scentbird',         u:'scentbird.com',    f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Winc',              u:'winc.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'Grove Collaborative',u:'grove.co',        f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'Ipsy',              u:'ipsy.com',         f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Bespoke Post',      u:'bespokepost.com',  f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Breo Box',          u:'breobox.com',      f:['Sub & Save','Add-Ons','Bundles']},
     ],
   },
   {
     id:'alcohol', emoji:'🍷', name:'Alcohol & Wine', tags:['b2c','regulated'],
     brands:[
-      {n:'Winc',u:'winc.com'},
-      {n:'Firstleaf',u:'firstleaf.club'},
-      {n:'Usual Wine',u:'usualwines.com'},
-      {n:'Bev',u:'drinkbev.com'},
-      {n:'Wine Access',u:'wineaccess.com'},
-      {n:'Vinebox',u:'getvinebox.com'},
+      {n:'Winc',       u:'winc.com',          f:['Sub & Save','Bundles','Add-Ons','Upsells']},
+      {n:'Firstleaf',  u:'firstleaf.club',    f:['Sub & Save','Bundles','Order Discounts']},
+      {n:'Usual Wine', u:'usualwines.com',    f:['Sub & Save','Bundles','Upsells']},
+      {n:'Bev',        u:'drinkbev.com',      f:['Sub & Save','Bundles','Upsells']},
+      {n:'Wine Access',u:'wineaccess.com',    f:['Reviews','Bundles','Upsells']},
+      {n:'Vinebox',    u:'getvinebox.com',    f:['Sub & Save','Add-Ons']},
     ],
   },
   {
     id:'cannabis', emoji:'🌿', name:'Cannabis & CBD', tags:['b2c','regulated'],
     brands:[
-      {n:"Charlotte's Web",u:'charlottesweb.com'},
-      {n:'Medterra',u:'medterracbd.com'},
-      {n:'Lazarus Naturals',u:'lazarusnaturals.com'},
-      {n:'cbdMD',u:'cbdmd.com'},
-      {n:'Cornbread Hemp',u:'cornbreadhemp.com'},
-      {n:'Green Roads',u:'greenroads.com'},
-      {n:'Equilibria',u:'myeq.com'},
-      {n:'Verma Farms',u:'vermafarms.com'},
+      {n:"Charlotte's Web", u:'charlottesweb.com',  f:['Sub & Save','Bundles','Trust Badges','Upsells']},
+      {n:'Medterra',        u:'medterracbd.com',     f:['Sub & Save','Bundles','Upsells','Trust Badges']},
+      {n:'Lazarus Naturals',u:'lazarusnaturals.com', f:['Sub & Save','Bundles','Upsells','Order Discounts']},
+      {n:'cbdMD',           u:'cbdmd.com',           f:['Sub & Save','Bundles','Upsells','Trust Badges']},
+      {n:'Cornbread Hemp',  u:'cornbreadhemp.com',   f:['Sub & Save','Upsells','Trust Badges']},
+      {n:'Green Roads',     u:'greenroads.com',      f:['Sub & Save','Bundles','Upsells']},
+      {n:'Equilibria',      u:'myeq.com',            f:['Sub & Save','Add-Ons','Bundles']},
+      {n:'Verma Farms',     u:'vermafarms.com',      f:['Sub & Save','Bundles','Upsells']},
     ],
   },
   {
     id:'medical', emoji:'💊', name:'Telehealth & Medical', tags:['b2c','regulated'],
     brands:[
-      {n:'Curology',u:'curology.com'},
-      {n:'Apostrophe',u:'apostrophe.com'},
-      {n:'Cabinet Health',u:'cabinetmedicine.com'},
-      {n:'Keeps',u:'keeps.com'},
-      {n:'Thirty Madison',u:'thirtymadison.com'},
-      {n:'Wisp',u:'hellowisp.com'},
-      {n:'Stix',u:'stixs.com'},
+      {n:'Curology',       u:'curology.com',        f:['Sub & Save','Add-Ons','Bundles','Upsells']},
+      {n:'Apostrophe',     u:'apostrophe.com',      f:['Sub & Save','Bundles','Add-Ons']},
+      {n:'Keeps',          u:'keeps.com',           f:['Sub & Save','Bundles','Upsells']},
+      {n:'Thirty Madison', u:'thirtymadison.com',   f:['Sub & Save','Add-Ons']},
+      {n:'Wisp',           u:'hellowisp.com',       f:['Sub & Save','Bundles','Add-Ons']},
+      {n:'Stix',           u:'stixs.com',           f:['Bundles','Sub & Save','Upsells']},
     ],
   },
   {
     id:'b2b', emoji:'🏢', name:'B2B & Wholesale', tags:['b2b'],
     brands:[
-      {n:'Staples Canada',u:'staples.ca'},
-      {n:'Zoro Tools',u:'zoro.com'},
-      {n:'True Value',u:'truevalue.com'},
-      {n:'Tommy John (B2B)',u:'tommyjohn.com'},
-      {n:'Rebecca Minkoff (wholesale)',u:'rebeccaminkoff.com'},
-      {n:'Duluth Trading (B2B)',u:'duluthtrading.com'},
+      {n:'Staples Canada',   u:'staples.ca',          f:['Trust Badges','Upsells','Reviews']},
+      {n:'Zoro Tools',       u:'zoro.com',            f:['Reviews','Upsells','Trust Badges','Bundles']},
+      {n:'True Value',       u:'truevalue.com',       f:['Upsells','Trust Badges']},
+      {n:'Tommy John',       u:'tommyjohn.com',       f:['Bundles','Upsells']},
+      {n:'Duluth Trading',   u:'duluthtrading.com',   f:['Bundles','Upsells','Reviews']},
     ],
   },
   {
     id:'gifts', emoji:'🎁', name:'Gifts & Occasions', tags:['b2c'],
     brands:[
-      {n:'Uncommon Goods',u:'uncommongoods.com'},
-      {n:'Sugarfina',u:'sugarfina.com'},
-      {n:'Artifact Uprising',u:'artifactuprising.com'},
-      {n:'Lovepop',u:'lovepop.com'},
-      {n:'Greetabl',u:'greetabl.com'},
-      {n:'Bespoke Post',u:'bespokepost.com'},
-      {n:'Mouth',u:'mouth.com'},
+      {n:'Uncommon Goods',  u:'uncommongoods.com',    f:['Reviews','Upsells','Trust Badges','Bundles']},
+      {n:'Sugarfina',       u:'sugarfina.com',        f:['Bundles','Free Gifts','Upsells']},
+      {n:'Artifact Uprising',u:'artifactuprising.com',f:['Upsells','Add-Ons','Reviews']},
+      {n:'Lovepop',         u:'lovepop.com',          f:['Bundles','Upsells','Trust Badges']},
+      {n:'Greetabl',        u:'greetabl.com',         f:['Add-Ons','Bundles','Upsells']},
+      {n:'Bespoke Post',    u:'bespokepost.com',      f:['Sub & Save','Bundles','Add-Ons']},
+      {n:'Mouth',           u:'mouth.com',            f:['Bundles','Upsells','Order Discounts']},
     ],
   },
   {
     id:'print', emoji:'🎨', name:'Custom Print & POD', tags:['b2c'],
     brands:[
-      {n:'Chatbooks',u:'chatbooks.com'},
-      {n:'Artifact Uprising',u:'artifactuprising.com'},
-      {n:'Minted',u:'minted.com'},
-      {n:'Motif Photos',u:'motifphotos.com'},
-      {n:'Pinhole Press',u:'pinholepress.com'},
+      {n:'Chatbooks',       u:'chatbooks.com',        f:['Add-Ons','Upsells','Bundles']},
+      {n:'Minted',          u:'minted.com',           f:['Bundles','Add-Ons','Upsells']},
+      {n:'Motif Photos',    u:'motifphotos.com',      f:['Add-Ons','Upsells']},
+      {n:'Pinhole Press',   u:'pinholepress.com',     f:['Add-Ons','Upsells','Bundles']},
     ],
   },
   {
     id:'mattress', emoji:'🛏️', name:'Mattress & Sleep', tags:['b2c'],
     brands:[
-      {n:'Purple',u:'purple.com'},
-      {n:'Leesa',u:'leesa.com'},
-      {n:'Helix Sleep',u:'helixsleep.com'},
-      {n:'Brooklyn Bedding',u:'brooklynbedding.com'},
-      {n:'Nest Bedding',u:'nestbedding.com'},
-      {n:'Avocado Green',u:'avocadogreenmattress.com'},
-      {n:'Bear Mattress',u:'bearmattress.com'},
+      {n:'Purple',          u:'purple.com',              f:['Upsells','Bundles','Warranty','Reviews','Trust Badges']},
+      {n:'Leesa',           u:'leesa.com',               f:['Upsells','Bundles','Reviews','Trust Badges','Warranty']},
+      {n:'Helix Sleep',     u:'helixsleep.com',          f:['Upsells','Bundles','Add-Ons','Warranty','Reviews','Trust Badges']},
+      {n:'Brooklyn Bedding',u:'brooklynbedding.com',     f:['Upsells','Bundles','Warranty','Reviews','Order Discounts']},
+      {n:'Nest Bedding',    u:'nestbedding.com',         f:['Upsells','Bundles','Reviews']},
+      {n:'Avocado Green',   u:'avocadogreenmattress.com',f:['Reviews','Trust Badges','Upsells']},
+      {n:'Bear Mattress',   u:'bearmattress.com',        f:['Upsells','Bundles','Warranty','Reviews']},
     ],
   },
   {
     id:'fragrance', emoji:'🌸', name:'Fragrance & Perfume', tags:['b2c','luxury'],
     brands:[
-      {n:'Maison Louis Marie',u:'maisonlouismarie.com'},
-      {n:'DS & Durga',u:'dsanddurga.com'},
-      {n:'Ellis Brooklyn',u:'ellisbrooklyn.com'},
-      {n:'Phlur',u:'phlur.com'},
-      {n:'Dedcool',u:'dedcool.com'},
-      {n:'Commodity',u:'commoditygoods.com'},
-      {n:'Snif',u:'snif.co'},
-      {n:'Ffern',u:'ffern.com'},
+      {n:'Maison Louis Marie',u:'maisonlouismarie.com', f:['Upsells','Bundles','Trust Badges']},
+      {n:'DS & Durga',       u:'dsanddurga.com',        f:['Bundles','Upsells','Trust Badges']},
+      {n:'Phlur',            u:'phlur.com',             f:['Bundles','Upsells','Sub & Save','Add-Ons']},
+      {n:'Dedcool',          u:'dedcool.com',           f:['Bundles','Upsells']},
+      {n:'Commodity',        u:'commoditygoods.com',    f:['Bundles','Upsells','Trust Badges']},
+      {n:'Snif',             u:'snif.co',               f:['Add-Ons','Bundles','Sub & Save']},
+      {n:'Ffern',            u:'ffern.com',             f:['Sub & Save']},
     ],
   },
   {
     id:'luxury', emoji:'✨', name:'Luxury & Premium DTC', tags:['b2c','luxury'],
     brands:[
-      {n:'Kith',u:'kith.com'},
-      {n:'Rebecca Minkoff',u:'rebeccaminkoff.com'},
-      {n:'Cuyana',u:'cuyana.com'},
-      {n:'Everlane',u:'everlane.com'},
-      {n:'Veja',u:'veja-store.com'},
-      {n:'Frank & Oak',u:'frankandoak.com'},
-      {n:'Veronica Beard',u:'veronicabeard.com'},
-      {n:'Rowing Blazers',u:'rowingblazers.com'},
+      {n:'Rebecca Minkoff', u:'rebeccaminkoff.com',  f:['Reviews','Trust Badges','Upsells']},
+      {n:'Cuyana',          u:'cuyana.com',           f:['Reviews','Trust Badges','Upsells','Bundles']},
+      {n:'Everlane',        u:'everlane.com',         f:['Trust Badges','Upsells','Reviews']},
+      {n:'Veja',            u:'veja-store.com',       f:['Trust Badges','Ship & Returns','Reviews']},
+      {n:'Veronica Beard',  u:'veronicabeard.com',   f:['Upsells','Bundles','Reviews']},
+      {n:'Rowing Blazers',  u:'rowingblazers.com',   f:['Bundles','Upsells','Trust Badges']},
     ],
   },
   {
     id:'nonprofit', emoji:'❤️', name:'Non-profit & Cause-Driven', tags:['b2c'],
     brands:[
-      {n:'TOMS',u:'toms.com'},
-      {n:'Bombas',u:'bombas.com'},
-      {n:'Patagonia',u:'patagonia.com'},
-      {n:'Pela Case',u:'pelacase.com'},
-      {n:'Allbirds',u:'allbirds.com'},
-      {n:'Cotopaxi',u:'cotopaxi.com'},
-      {n:'tentree',u:'tentree.com'},
-      {n:'Pact Organic',u:'wearpact.com'},
-      {n:'Naadam',u:'naadam.co'},
+      {n:'TOMS',        u:'toms.com',        f:['Reviews','Trust Badges','Upsells','Bundles']},
+      {n:'Bombas',      u:'bombas.com',      f:['Reviews','Bundles','Upsells','Rewards','Trust Badges']},
+      {n:'Patagonia',   u:'patagonia.com',   f:['Reviews','Trust Badges','Ship & Returns']},
+      {n:'Pela Case',   u:'pelacase.com',    f:['Sub & Save','Bundles','Upsells']},
+      {n:'Allbirds',    u:'allbirds.com',    f:['Reviews','Trust Badges','Upsells','Bundles']},
+      {n:'Cotopaxi',    u:'cotopaxi.com',    f:['Reviews','Trust Badges','Bundles']},
+      {n:'tentree',     u:'tentree.com',     f:['Upsells','Bundles','Reviews']},
+      {n:'Pact Organic',u:'wearpact.com',    f:['Sub & Save','Bundles','Upsells']},
+      {n:'Naadam',      u:'naadam.co',       f:['Upsells','Bundles','Reviews']},
     ],
   },
   {
     id:'industrial', emoji:'🏭', name:'Industrial & Manufacturing', tags:['b2b'],
     brands:[
-      {n:'Zoro Tools',u:'zoro.com'},
-      {n:'Grainger',u:'grainger.com'},
-      {n:'MSC Industrial',u:'mscdirect.com'},
-      {n:'Global Industrial',u:'globalindustrial.com'},
+      {n:'Zoro Tools',         u:'zoro.com',               f:['Reviews','Upsells','Trust Badges','Bundles']},
+      {n:'Grainger',           u:'grainger.com',           f:['Trust Badges','Reviews','Upsells']},
+      {n:'MSC Industrial',     u:'mscdirect.com',          f:['Reviews','Upsells','Trust Badges']},
+      {n:'Global Industrial',  u:'globalindustrial.com',   f:['Upsells','Trust Badges','Reviews']},
     ],
   },
   {
     id:'education', emoji:'📚', name:'Education & Courses', tags:['b2c'],
     brands:[
-      {n:'MasterClass',u:'masterclass.com'},
-      {n:'CreativeLive',u:'creativelive.com'},
-      {n:'CXL Institute',u:'cxl.com'},
-      {n:'Maven',u:'maven.com'},
+      {n:'MasterClass',  u:'masterclass.com',    f:['Upsells','Add-Ons','Bundles','Trust Badges']},
+      {n:'CreativeLive', u:'creativelive.com',   f:['Bundles','Upsells']},
+      {n:'CXL Institute',u:'cxl.com',            f:['Bundles','Upsells','Order Discounts']},
+      {n:'Maven',        u:'maven.com',          f:['Bundles','Upsells']},
     ],
   },
 ];
@@ -514,43 +487,51 @@ function hl(text, q) {
   return text.slice(0,i) + '<mark>' + text.slice(i, i+q.length) + '</mark>' + text.slice(i+q.length);
 }
 
+function brandMatchesQuery(brand, q, indName) {
+  if (!q) return true;
+  return brand.n.toLowerCase().includes(q)
+    || indName.toLowerCase().includes(q)
+    || brand.f.some(f => f.toLowerCase().includes(q));
+}
+
 function render() {
   const q = searchQuery.toLowerCase().trim();
-  const visible = INDUSTRIES.filter(ind => {
+
+  const visible = INDUSTRIES.map(ind => {
     const matchFilter = activeFilter === 'all' || ind.tags.includes(activeFilter);
-    if (!matchFilter) return false;
-    if (!q) return true;
-    return ind.name.toLowerCase().includes(q) || ind.brands.some(b => b.n.toLowerCase().includes(q));
-  });
+    if (!matchFilter) return null;
+    const matchedBrands = ind.brands.filter(b => brandMatchesQuery(b, q, ind.name));
+    if (matchedBrands.length === 0) return null;
+    return {...ind, matchedBrands};
+  }).filter(Boolean);
 
   document.getElementById('count').textContent = visible.length;
   const grid = document.getElementById('grid');
 
   if (!visible.length) {
-    grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No results for "<strong>${q}</strong>" — try a brand name or industry</p></div>`;
+    grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No results for "<strong>${q}</strong>"</p></div>`;
     return;
   }
 
   grid.innerHTML = visible.map(ind => {
-    const brandsHtml = ind.brands
-      .filter(b => !q || b.n.toLowerCase().includes(q) || ind.name.toLowerCase().includes(q))
-      .map(b => `<a class="brand-link" href="https://${b.u}" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>`)
-      .join('');
+    const rows = ind.matchedBrands.map(b => {
+      const ftags = b.f.map(f => `<span class="ftag ${FEAT[f] || 'ft-trust'}">${hl(f, q)}</span>`).join('');
+      return `<div class="brand-row">
+        <a class="brand-name-link" href="https://${b.u}" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>
+        <div class="ftags">${ftags}</div>
+      </div>`;
+    }).join('');
 
-    return `
-      <div class="card">
-        <div class="card-head">
-          <div class="card-emoji">${ind.emoji}</div>
-          <div class="card-title-wrap">
-            <div class="card-name">${hl(ind.name, q)}</div>
-            <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]||t}</span>`).join('')}</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="brands-wrap">${brandsHtml}</div>
+    return `<div class="card">
+      <div class="card-head">
+        <div class="card-emoji">${ind.emoji}</div>
+        <div class="card-title-wrap">
+          <div class="card-name">${hl(ind.name, q)}</div>
+          <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]||t}</span>`).join('')}</div>
         </div>
       </div>
-    `;
+      <div class="card-body">${rows}</div>
+    </div>`;
   }).join('');
 }
 
