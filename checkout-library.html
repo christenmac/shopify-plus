@@ -69,8 +69,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
 .results-count { font-size: 14px; color: var(--muted); }
 .results-count strong { color: var(--text); font-size: 1.1rem; }
-.legend { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
-.plus-badge-ex { background: var(--blue-lt); color: var(--blue); border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; }
 
 #grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 @media (max-width: 1100px) { #grid { grid-template-columns: repeat(2, 1fr); } }
@@ -89,35 +87,26 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 }
 .card-emoji { font-size: 2rem; line-height: 1.1; flex-shrink: 0; }
 .card-title-wrap { flex: 1 1 0; min-width: 0; }
-.card-name { font-size: .97rem; font-weight: 700; margin-bottom: 6px; line-height: 1.2; }
+.card-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
-.badge-b2c    { background: var(--green-lt); color: var(--green-dk); }
-.badge-b2b    { background: var(--purple-lt); color: var(--purple); }
-.badge-regulated { background: var(--amber-lt); color: var(--amber); }
+.badge-b2c        { background: var(--green-lt); color: var(--green-dk); }
+.badge-b2b        { background: var(--purple-lt); color: var(--purple); }
+.badge-regulated  { background: var(--amber-lt); color: var(--amber); }
 .badge-subscription { background: var(--teal-lt); color: var(--teal); }
-.badge-luxury { background: var(--pink-lt); color: var(--pink); }
+.badge-luxury     { background: var(--pink-lt); color: var(--pink); }
 
 .card-body { padding: 14px 18px 16px; flex: 1; }
-.section-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-
-.features-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
-.feat-pill {
-  font-size: 12px; padding: 4px 10px; border-radius: 50px;
-  background: #f0f0f0; color: #444;
-  display: inline-flex; align-items: center; gap: 5px;
-}
-.feat-pill.is-plus { background: var(--blue-lt); color: #1e40af; font-weight: 500; }
-.plus-tag { font-size: 10px; font-weight: 800; background: var(--blue); color: white; border-radius: 3px; padding: 1px 4px; letter-spacing: .2px; }
-
-.brands-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
-.brand-chip {
-  font-size: 12px; padding: 3px 10px; border-radius: 50px;
+.brands-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.brand-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12.5px; padding: 5px 12px; border-radius: 50px;
   background: #f5f5f5; color: var(--text); border: 1px solid var(--border);
-  cursor: pointer; transition: all .12s; user-select: none; position: relative;
+  text-decoration: none; transition: all .12s; white-space: nowrap;
 }
-.brand-chip:hover { background: var(--green-lt); border-color: #a7d7c5; color: var(--green-dk); }
-.brand-chip.copied { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+.brand-link:hover { background: var(--green-lt); border-color: #a7d7c5; color: var(--green-dk); }
+.brand-link svg { opacity: .4; flex-shrink: 0; }
+.brand-link:hover svg { opacity: .7; }
 
 .no-results { grid-column: 1/-1; text-align: center; padding: 72px 24px; color: var(--muted); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
@@ -126,8 +115,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 footer {
   text-align: center; padding: 36px 24px;
   font-size: 12px; color: var(--muted);
-  border-top: 1px solid var(--border); margin-top: 8px; background: white;
-  line-height: 1.8;
+  border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8;
 }
 footer a { color: var(--green); text-decoration: none; }
 mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
@@ -138,10 +126,10 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 <div class="page-header">
   <div class="eyebrow">Shopify Plus · Sales Reference</div>
   <h1>Checkout Customization Library</h1>
-  <p class="subtitle">Industries and known Shopify Plus brands using customized checkout. Search by vertical, brand, or feature type.</p>
+  <p class="subtitle">Brands using customized checkout on Shopify Plus, by industry. Click any brand to open their checkout.</p>
   <div class="search-wrap">
     <svg class="search-icon" width="18" height="18" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="search" type="text" placeholder='Search — try "subscription", "Gymshark", "age verification"…' autocomplete="off" spellcheck="false">
+    <input id="search" type="text" placeholder='Search by industry or brand name…' autocomplete="off" spellcheck="false">
   </div>
 </div>
 
@@ -158,338 +146,363 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 <div class="main-wrap">
   <div class="results-bar">
     <div class="results-count"><strong id="count">0</strong> industries shown</div>
-    <div class="legend">
-      <span class="plus-badge-ex">⚡ Plus</span>
-      <span>= requires Shopify Plus checkout feature &nbsp;·&nbsp; click any brand to copy name</span>
-    </div>
   </div>
   <div id="grid"></div>
 </div>
 
 <footer>
-  Brands sourced from Shopify case studies, official announcements, and public merchant data. Always verify current platform status before use in a pitch.<br>
-  Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp; <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear &nbsp;·&nbsp;
+  Brands sourced from Shopify case studies, official announcements, and public merchant data. Checkout links open each brand's <code>/checkout</code> page directly.<br>
+  Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp;
+  <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear &nbsp;·&nbsp;
   <a href="index.html">← Back to Shopify Plus Overview</a>
 </footer>
 
 <script>
+const EXT = `<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const BADGE_LABEL = {b2c:'B2C',b2b:'B2B',regulated:'Regulated',subscription:'Subscription',luxury:'Luxury'};
+
 const INDUSTRIES = [
   {
     id:'fashion', emoji:'👟', name:'Fashion & Apparel', tags:['b2c'],
-    features:[
-      {l:'Gift messaging & custom wrapping',p:true},
-      {l:'Monogramming / text personalization',p:true},
-      {l:'Size guide modal at checkout',p:true},
-      {l:'Loyalty points redemption',p:true},
-      {l:'Bundle builder / outfit complete',p:true},
-      {l:'Try before you buy (TBYB)',p:false},
-      {l:'Free returns upsell',p:true},
-      {l:'International / multi-currency',p:false},
+    brands:[
+      {n:'Gymshark',u:'gymshark.com'},
+      {n:'Allbirds',u:'allbirds.com'},
+      {n:'Alo Yoga',u:'aloyoga.com'},
+      {n:'Vuori',u:'vuoriclothing.com'},
+      {n:'SKIMS',u:'skims.com'},
+      {n:'Good American',u:'goodamerican.com'},
+      {n:'Kith',u:'kith.com'},
+      {n:'BYLT Basics',u:'byltbasics.com'},
+      {n:'Taylor Stitch',u:'taylorstitch.com'},
+      {n:'Chubbies',u:'chubbiesshorts.com'},
+      {n:'Cuts Clothing',u:'cutsclothing.com'},
+      {n:'Ministry of Supply',u:'ministryofsupply.com'},
+      {n:'Outdoor Voices',u:'outdoorvoices.com'},
+      {n:'Faherty',u:'fahertybrand.com'},
     ],
-    brands:['Gymshark','Allbirds','Alo Yoga','Vuori','SKIMS','Good American','Kith','BYLT Basics','Taylor Stitch','Chubbies','Cuts Clothing','Ministry of Supply','Outdoor Voices','Faherty'],
   },
   {
     id:'beauty', emoji:'💄', name:'Beauty & Cosmetics', tags:['b2c'],
-    features:[
-      {l:'Shade finder / color match integration',p:true},
-      {l:'Gift with purchase logic',p:true},
-      {l:'Subscribe & replenish upsell',p:true},
-      {l:'Sample add-on at checkout',p:true},
-      {l:'Loyalty rewards redemption',p:true},
-      {l:'Bundle / gift set builder',p:true},
-      {l:'Personalized product recommendations',p:true},
-      {l:'Virtual try-on link integration',p:true},
+    brands:[
+      {n:'Kylie Cosmetics',u:'kyliecosmetics.com'},
+      {n:'ColourPop',u:'colourpop.com'},
+      {n:'Thrive Causemetics',u:'thrivecausemetics.com'},
+      {n:'ILIA Beauty',u:'iliabeauty.com'},
+      {n:'Tower 28',u:'tower28beauty.com'},
+      {n:'Saie',u:'saiemakeup.com'},
+      {n:'Rhode',u:'rhodeskin.com'},
+      {n:'Rare Beauty',u:'rarebeauty.com'},
+      {n:'Bubble Skincare',u:'hellobubble.com'},
+      {n:'JVN Hair',u:'jvnhair.com'},
+      {n:'e.l.f. Cosmetics',u:'elfcosmetics.com'},
+      {n:'Fenty Beauty',u:'fentybeauty.com'},
+      {n:'Glossier',u:'glossier.com'},
+      {n:'Tatcha',u:'tatcha.com'},
     ],
-    brands:['Kylie Cosmetics','ColourPop','Thrive Causemetics','ILIA Beauty','Tower 28','Saie','Rhode','Rare Beauty','Bubble Skincare','JVN Hair','e.l.f. Cosmetics','Fenty Beauty','Glossier','Tatcha'],
   },
   {
     id:'health', emoji:'💪', name:'Health & Supplements', tags:['b2c','subscription'],
-    features:[
-      {l:'Subscribe & Save upsell',p:true},
-      {l:'HSA / FSA payment method',p:true},
-      {l:'Subscription frequency selector',p:true},
-      {l:'Quiz-driven personalized cart',p:true},
-      {l:'Bundle & stack builder',p:true},
-      {l:'Free trial offer at checkout',p:true},
-      {l:'Auto-ship program',p:false},
-      {l:'Dosage reminder setup',p:true},
+    brands:[
+      {n:'AG1',u:'drinkag1.com'},
+      {n:'Ritual',u:'ritual.com'},
+      {n:'Seed',u:'seed.com'},
+      {n:'Gainful',u:'gainful.com'},
+      {n:'Momentous',u:'livemomentous.com'},
+      {n:'Four Sigmatic',u:'foursigmatic.com'},
+      {n:'Perfect Keto',u:'perfectketo.com'},
+      {n:'Transparent Labs',u:'transparentlabs.com'},
+      {n:'Thesis',u:'takethesis.com'},
+      {n:'Bulletproof',u:'bulletproof.com'},
+      {n:'Bubs Naturals',u:'bubsnaturals.com'},
+      {n:'Care/of',u:'takecareof.com'},
+      {n:'Onnit',u:'onnit.com'},
     ],
-    brands:['AG1 (Athletic Greens)','Ritual','Seed','Gainful','Momentous','Four Sigmatic','Perfect Keto','Transparent Labs','Thesis','Bulletproof','Bubs Naturals','Care/of','Onnit'],
   },
   {
     id:'jewelry', emoji:'💍', name:'Jewelry & Accessories', tags:['b2c','luxury'],
-    features:[
-      {l:'Custom engraving / text fields',p:true},
-      {l:'Ring size selector at checkout',p:true},
-      {l:'Metal & stone option customizer',p:true},
-      {l:'Certificate of authenticity add-on',p:true},
-      {l:'Premium gift wrapping tiers',p:true},
-      {l:'Jewelry insurance upsell',p:true},
-      {l:'Live engraving preview',p:true},
+    brands:[
+      {n:'Mejuri',u:'mejuri.com'},
+      {n:'Missoma',u:'missoma.com'},
+      {n:'Gorjana',u:'gorjana.com'},
+      {n:'Catbird',u:'catbirdnyc.com'},
+      {n:'Brilliant Earth',u:'brilliantearth.com'},
+      {n:'Astley Clarke',u:'astleyclarke.com'},
+      {n:'Monica Vinader',u:'monicavinader.com'},
+      {n:'BaubleBar',u:'baublebar.com'},
+      {n:'Kendra Scott',u:'kendrascott.com'},
+      {n:'Vrai',u:'vrai.com'},
+      {n:'Stone and Strand',u:'stoneandstrand.com'},
     ],
-    brands:['Mejuri','Missoma','Gorjana','Catbird','Brilliant Earth','Astley Clarke','Monica Vinader','BaubleBar','Kendra Scott','Vrai','Anna Sheffield','Stone and Strand'],
   },
   {
     id:'home', emoji:'🛋️', name:'Home & Furniture', tags:['b2c'],
-    features:[
-      {l:'Delivery date / time scheduling',p:true},
-      {l:'White-glove delivery option',p:true},
-      {l:'Assembly service add-on',p:true},
-      {l:'Old furniture removal',p:true},
-      {l:'Swatch / sample request flow',p:false},
-      {l:'Financing / BNPL display',p:false},
-      {l:'Room planner link integration',p:true},
-      {l:'Fabric / finish customization',p:true},
+    brands:[
+      {n:'Parachute',u:'parachutehome.com'},
+      {n:'Brooklinen',u:'brooklinen.com'},
+      {n:'Article',u:'article.com'},
+      {n:'Ruggable',u:'ruggable.com'},
+      {n:'Floyd',u:'floydhome.com'},
+      {n:'Coyuchi',u:'coyuchi.com'},
+      {n:'Boll & Branch',u:'bollandbranch.com'},
+      {n:'Snowe',u:'snowehome.com'},
+      {n:'Public Goods',u:'publicgoods.com'},
+      {n:'Schoolhouse',u:'schoolhouse.com'},
+      {n:'Inside Weather',u:'insideweather.com'},
     ],
-    brands:['Parachute','Brooklinen','Article','Ruggable','Floyd','Coyuchi','Boll & Branch','Snowe','Public Goods','Under the Canopy','Schoolhouse','Inside Weather'],
   },
   {
     id:'food', emoji:'☕', name:'Food & Beverage', tags:['b2c','subscription'],
-    features:[
-      {l:'Delivery date / time picker',p:true},
-      {l:'Subscription frequency selector',p:true},
-      {l:'Dietary / allergy restriction notes',p:true},
-      {l:'Cold chain / temperature shipping options',p:true},
-      {l:'Tip option at checkout',p:true},
-      {l:'Local delivery zone check',p:true},
-      {l:'Gift messaging',p:false},
+    brands:[
+      {n:'Death Wish Coffee',u:'deathwishcoffee.com'},
+      {n:'Trade Coffee',u:'drinktrade.com'},
+      {n:'Magic Spoon',u:'magicspoon.com'},
+      {n:'Fly by Jing',u:'flybyjing.com'},
+      {n:'Chomps',u:'chomps.com'},
+      {n:'Brightland',u:'brightland.co'},
+      {n:'Omsom',u:'omsom.com'},
+      {n:'Olipop',u:'drinkolipop.com'},
+      {n:"Jeni's Ice Cream",u:'jenis.com'},
+      {n:'Partake Foods',u:'partakefoods.com'},
+      {n:'Atlas Coffee Club',u:'atlascoffeeclub.com'},
+      {n:'Graza',u:'graza.co'},
     ],
-    brands:['Death Wish Coffee','Trade Coffee','Magic Spoon','Fly by Jing','Chomps','Brightland','Omsom','Olipop','Jeni\'s Ice Cream','Partake Foods','BLK & Bold','Atlas Coffee Club','Graza'],
   },
   {
-    id:'meat', emoji:'🥩', name:'Specialty Food & Meat',tags:['b2c','subscription'],
-    features:[
-      {l:'Delivery date + temperature option',p:true},
-      {l:'Subscription box builder / cut selector',p:true},
-      {l:'Portion / weight selector',p:true},
-      {l:'Cold chain shipping upsell',p:true},
-      {l:'Corporate gifting flow',p:true},
-      {l:'Sourcing / certification display',p:false},
+    id:'meat', emoji:'🥩', name:'Specialty Food & Meat', tags:['b2c','subscription'],
+    brands:[
+      {n:'ButcherBox',u:'butcherbox.com'},
+      {n:'Porter Road',u:'porterroad.com'},
+      {n:'Snake River Farms',u:'snakeriverfarms.com'},
+      {n:'Crowd Cow',u:'crowdcow.com'},
+      {n:'Holy Grail Steak',u:'holygrailsteak.com'},
+      {n:'Goldbelly',u:'goldbelly.com'},
+      {n:"Rastelli's",u:'rastellis.com'},
+      {n:'Chicago Steak Company',u:'mychicagosteak.com'},
     ],
-    brands:['ButcherBox','Porter Road','Snake River Farms','Crowd Cow','Holy Grail Steak','Goldbelly','Rastelli\'s','Chicago Steak Company'],
   },
   {
     id:'pets', emoji:'🐾', name:'Pet Products', tags:['b2c','subscription'],
-    features:[
-      {l:'Pet profile (breed / weight / age)',p:true},
-      {l:'Prescription diet upload',p:true},
-      {l:'Auto-ship subscription',p:true},
-      {l:'Vet recommendation field',p:true},
-      {l:'Bundle builder (food + treat + toy)',p:true},
-      {l:'Personalized name on product',p:true},
+    brands:[
+      {n:'Wild One',u:'wildone.com'},
+      {n:'Ruffwear',u:'ruffwear.com'},
+      {n:'Native Pet',u:'nativepet.com'},
+      {n:'BarkShop',u:'barkshop.com'},
+      {n:"The Farmer's Dog",u:'thefarmersdog.com'},
+      {n:'Ollie',u:'myollie.com'},
+      {n:'Nom Nom',u:'nomnomnow.com'},
+      {n:'Sundays for Dogs',u:'sundaysfordogs.com'},
+      {n:'Open Farm',u:'openfarmpet.com'},
+      {n:'Pet Plate',u:'petplate.com'},
+      {n:'Jinx',u:'jinx.com'},
     ],
-    brands:['Wild One','Ruffwear','Native Pet','BarkShop','The Farmer\'s Dog','Ollie','Nom Nom','Sundays for Dogs','Open Farm','Maev','Pet Plate','Jinx'],
   },
   {
     id:'baby', emoji:'👶', name:'Baby & Kids', tags:['b2c'],
-    features:[
-      {l:'Product personalization (name/monogram)',p:true},
-      {l:'Baby registry integration',p:true},
-      {l:'Age-appropriate filtering at checkout',p:true},
-      {l:'Subscription for essentials',p:true},
-      {l:'Safety compliance disclosure',p:false},
-      {l:'Gift messaging',p:false},
+    brands:[
+      {n:'Lovevery',u:'lovevery.com'},
+      {n:'Ergobaby',u:'ergobaby.com'},
+      {n:'Little Sleepies',u:'littlesleepies.com'},
+      {n:'Finn + Emma',u:'finnandemma.com'},
+      {n:'Hanna Andersson',u:'hannaandersson.com'},
+      {n:'Posh Peanut',u:'poshpeanut.com'},
+      {n:'Little Unicorn',u:'littleunicorn.com'},
+      {n:'Maisonette',u:'maisonette.com'},
     ],
-    brands:['Lovevery','Ergobaby','Little Sleepies','Finn + Emma','Hanna Andersson','Posh Peanut','Little Unicorn','Maisonette','Kibou','Slumbersac'],
   },
   {
     id:'sports', emoji:'🏋️', name:'Sports & Fitness', tags:['b2c'],
-    features:[
-      {l:'Custom jersey / uniform builder',p:true},
-      {l:'Player name & number fields',p:true},
-      {l:'Equipment fitting data capture',p:true},
-      {l:'Club / membership verification',p:true},
-      {l:'Competition registration add-on',p:true},
-      {l:'Bundle & save (gear + accessories)',p:true},
+    brands:[
+      {n:'Gymshark',u:'gymshark.com'},
+      {n:'Hydrow',u:'hydrow.com'},
+      {n:'Bala',u:'bala.com'},
+      {n:'Ten Thousand',u:'tenthousand.cc'},
+      {n:'Janji',u:'runjanji.com'},
+      {n:'Cotopaxi',u:'cotopaxi.com'},
+      {n:'Tracksmith',u:'tracksmith.com'},
+      {n:'Norda',u:'norda.com'},
+      {n:'Hylete',u:'hylete.com'},
+      {n:'SPIbelt',u:'spibelt.com'},
+      {n:'Saysky',u:'saysky.com'},
     ],
-    brands:['Gymshark','Hydrow','Bala Bangles','Ten Thousand','Janji','Cotopaxi','Tracksmith','Norda','Hylete','Vuori','SPIbelt','Saysky'],
   },
   {
     id:'automotive', emoji:'🚗', name:'Automotive & Parts', tags:['b2c','b2b'],
-    features:[
-      {l:'Year / Make / Model vehicle selector',p:true},
-      {l:'VIN lookup field',p:true},
-      {l:'Fitment verification at checkout',p:true},
-      {l:'Core charge handling',p:true},
-      {l:'Hazmat / freight shipping logic',p:true},
-      {l:'Commercial fleet pricing',p:true},
+    brands:[
+      {n:'RevZilla',u:'revzilla.com'},
+      {n:'4 Wheel Parts',u:'4wheelparts.com'},
+      {n:'AutoAnything',u:'autoanything.com'},
+      {n:'Curt Manufacturing',u:'curtmfg.com'},
+      {n:'Rough Country',u:'roughcountry.com'},
+      {n:'Dennis Kirk',u:'denniskirk.com'},
     ],
-    brands:['RevZilla','4 Wheel Parts','AutoAnything','Curt Manufacturing','Driven Powersports','Rough Country','Dennis Kirk','Rogue Racing'],
   },
   {
     id:'electronics', emoji:'💻', name:'Electronics & Tech', tags:['b2c','b2b'],
-    features:[
-      {l:'Warranty / protection plan upsell',p:true},
-      {l:'Trade-in program',p:true},
-      {l:'Extended service plan add-on',p:true},
-      {l:'Device configuration selector',p:true},
-      {l:'Volume / education licensing logic',p:true},
-      {l:'Accessory bundle builder',p:true},
+    brands:[
+      {n:'Drop.com',u:'drop.com'},
+      {n:'Nomad Goods',u:'nomadgoods.com'},
+      {n:'dbrand',u:'dbrand.com'},
+      {n:'Nothing',u:'us.nothing.tech'},
+      {n:'Skullcandy',u:'skullcandy.com'},
+      {n:'Incase',u:'incase.com'},
+      {n:'Pela Case',u:'pelacase.com'},
+      {n:'Peak Design',u:'peakdesign.com'},
     ],
-    brands:['Drop.com','Nomad Goods','dbrand','Nothing','Tile','Skullcandy','Incase','Elgato','Pela Case','Peak Design'],
   },
   {
     id:'subscriptions', emoji:'📦', name:'Subscription Boxes', tags:['b2c','subscription'],
-    features:[
-      {l:'Subscription frequency selector',p:true},
-      {l:'Skip / pause shown at checkout',p:true},
-      {l:'Personalization quiz flow',p:true},
-      {l:'Prepay & save option',p:true},
-      {l:'Box contents customization',p:true},
-      {l:'Cancel-save (win-back) offer',p:true},
-      {l:'Gift subscription option',p:false},
+    brands:[
+      {n:'FabFitFun',u:'fabfitfun.com'},
+      {n:'KiwiCo',u:'kiwico.com'},
+      {n:'Scentbird',u:'scentbird.com'},
+      {n:'Firstleaf',u:'firstleaf.club'},
+      {n:'Winc',u:'winc.com'},
+      {n:'Grove Collaborative',u:'grove.co'},
+      {n:'Ipsy',u:'ipsy.com'},
+      {n:'Bespoke Post',u:'bespokepost.com'},
+      {n:'Breo Box',u:'breobox.com'},
     ],
-    brands:['FabFitFun','KiwiCo','Scentbird','Firstleaf','Winc','Grove Collaborative','Ipsy','Bespoke Post','Alltrue','Breo Box'],
   },
   {
     id:'alcohol', emoji:'🍷', name:'Alcohol & Wine', tags:['b2c','regulated'],
-    features:[
-      {l:'Age verification gate (21+)',p:true},
-      {l:'Signature-required delivery disclosure',p:true},
-      {l:'State shipping restriction check',p:true},
-      {l:'Temperature-controlled shipping option',p:true},
-      {l:'Wine club / subscription flow',p:true},
-      {l:'Sommelier pairing recommendation',p:true},
-      {l:'Gift messaging',p:false},
+    brands:[
+      {n:'Winc',u:'winc.com'},
+      {n:'Firstleaf',u:'firstleaf.club'},
+      {n:'Usual Wine',u:'usualwines.com'},
+      {n:'Bev',u:'drinkbev.com'},
+      {n:'Wine Access',u:'wineaccess.com'},
+      {n:'Vinebox',u:'getvinebox.com'},
     ],
-    brands:['Winc','Firstleaf','Drop Wine','Usual Wine','Bev','Wine Access','Vivino (select)','Total Wine (select)'],
   },
   {
     id:'cannabis', emoji:'🌿', name:'Cannabis & CBD', tags:['b2c','regulated'],
-    features:[
-      {l:'Age gate / verification (21+)',p:true},
-      {l:'State compliance / restriction check',p:true},
-      {l:'ID verification integration',p:true},
-      {l:'Legal disclaimer acceptance',p:true},
-      {l:'Medical vs recreational designation',p:true},
-      {l:'Dispensary / pickup selection',p:true},
+    brands:[
+      {n:"Charlotte's Web",u:'charlottesweb.com'},
+      {n:'Medterra',u:'medterracbd.com'},
+      {n:'Lazarus Naturals',u:'lazarusnaturals.com'},
+      {n:'cbdMD',u:'cbdmd.com'},
+      {n:'Cornbread Hemp',u:'cornbreadhemp.com'},
+      {n:'Green Roads',u:'greenroads.com'},
+      {n:'Equilibria',u:'myeq.com'},
+      {n:'Verma Farms',u:'vermafarms.com'},
     ],
-    brands:['Charlotte\'s Web','Medterra','Lazarus Naturals','cbdMD','Cornbread Hemp','Sunmed','Green Roads','Equilibria','Verma Farms'],
   },
   {
     id:'medical', emoji:'💊', name:'Telehealth & Medical', tags:['b2c','regulated'],
-    features:[
-      {l:'Prescription upload field',p:true},
-      {l:'HSA / FSA payment method',p:true},
-      {l:'HIPAA consent capture',p:true},
-      {l:'Healthcare provider info field',p:true},
-      {l:'Refill subscription setup',p:true},
-      {l:'ID / insurance verification',p:true},
+    brands:[
+      {n:'Curology',u:'curology.com'},
+      {n:'Apostrophe',u:'apostrophe.com'},
+      {n:'Cabinet Health',u:'cabinetmedicine.com'},
+      {n:'Keeps',u:'keeps.com'},
+      {n:'Thirty Madison',u:'thirtymadison.com'},
+      {n:'Wisp',u:'hellowisp.com'},
+      {n:'Stix',u:'stixs.com'},
     ],
-    brands:['Curology','Apostrophe','Cabinet Health','Nurx','Keeps','Thirty Madison','Wisp','Stix'],
   },
   {
     id:'b2b', emoji:'🏢', name:'B2B & Wholesale', tags:['b2b'],
-    features:[
-      {l:'Net terms (Net 30 / 60 / 90)',p:true},
-      {l:'PO number field',p:true},
-      {l:'Tax exemption certificate upload',p:true},
-      {l:'Company account & tiered pricing',p:true},
-      {l:'Bulk quantity discounts',p:true},
-      {l:'Quote-to-order workflow',p:true},
-      {l:'Multi-location ordering',p:true},
+    brands:[
+      {n:'Staples Canada',u:'staples.ca'},
+      {n:'Zoro Tools',u:'zoro.com'},
+      {n:'True Value',u:'truevalue.com'},
+      {n:'Tommy John (B2B)',u:'tommyjohn.com'},
+      {n:'Rebecca Minkoff (wholesale)',u:'rebeccaminkoff.com'},
+      {n:'Duluth Trading (B2B)',u:'duluthtrading.com'},
     ],
-    brands:['Staples Canada','Tommy John (B2B)','Rebecca Minkoff (wholesale)','Duluth Trading (B2B)','True Value','Zoro Tools','Grainger (select)'],
   },
   {
     id:'gifts', emoji:'🎁', name:'Gifts & Occasions', tags:['b2c'],
-    features:[
-      {l:'Gift message & custom greeting card',p:true},
-      {l:'Ship to multiple addresses',p:true},
-      {l:'Gift registry integration',p:true},
-      {l:'Premium packaging upgrade',p:true},
-      {l:'Scheduled / surprise delivery date',p:true},
-      {l:'Gift receipt option',p:false},
-      {l:'Personalized keepsake add-on',p:true},
+    brands:[
+      {n:'Uncommon Goods',u:'uncommongoods.com'},
+      {n:'Sugarfina',u:'sugarfina.com'},
+      {n:'Artifact Uprising',u:'artifactuprising.com'},
+      {n:'Lovepop',u:'lovepop.com'},
+      {n:'Greetabl',u:'greetabl.com'},
+      {n:'Bespoke Post',u:'bespokepost.com'},
+      {n:'Mouth',u:'mouth.com'},
     ],
-    brands:['Uncommon Goods','Sugarfina','Artifact Uprising','Lovepop','Greetabl','Bespoke Post','1-800-Flowers (select)','Mouth'],
   },
   {
     id:'print', emoji:'🎨', name:'Custom Print & POD', tags:['b2c'],
-    features:[
-      {l:'File / artwork upload at checkout',p:true},
-      {l:'Live product preview / mockup',p:true},
-      {l:'Text / name customization fields',p:true},
-      {l:'Print placement selector',p:true},
-      {l:'Rush production add-on',p:true},
-      {l:'Proof approval step',p:true},
+    brands:[
+      {n:'Chatbooks',u:'chatbooks.com'},
+      {n:'Artifact Uprising',u:'artifactuprising.com'},
+      {n:'Minted',u:'minted.com'},
+      {n:'Motif Photos',u:'motifphotos.com'},
+      {n:'Pinhole Press',u:'pinholepress.com'},
     ],
-    brands:['Chatbooks','Artifact Uprising','Minted','Printful-powered stores','Printify-powered stores','Zazzle','Canvs'],
   },
   {
     id:'mattress', emoji:'🛏️', name:'Mattress & Sleep', tags:['b2c'],
-    features:[
-      {l:'Sleep quiz → personalized recommendation',p:true},
-      {l:'White-glove delivery option',p:true},
-      {l:'Old mattress removal add-on',p:true},
-      {l:'Delivery date scheduling',p:true},
-      {l:'Financing / BNPL display',p:false},
-      {l:'Free trial period disclosure',p:false},
+    brands:[
+      {n:'Purple',u:'purple.com'},
+      {n:'Leesa',u:'leesa.com'},
+      {n:'Helix Sleep',u:'helixsleep.com'},
+      {n:'Brooklyn Bedding',u:'brooklynbedding.com'},
+      {n:'Nest Bedding',u:'nestbedding.com'},
+      {n:'Avocado Green',u:'avocadogreenmattress.com'},
+      {n:'Bear Mattress',u:'bearmattress.com'},
     ],
-    brands:['Purple','Leesa','Helix Sleep','Brooklyn Bedding','Nest Bedding','Avocado Green','Bear Mattress','Saatva (select)'],
   },
   {
     id:'fragrance', emoji:'🌸', name:'Fragrance & Perfume', tags:['b2c','luxury'],
-    features:[
-      {l:'Sample-before-you-buy option',p:true},
-      {l:'Custom engraving on bottle',p:true},
-      {l:'Gift set / discovery kit builder',p:true},
-      {l:'Subscription refill program',p:true},
-      {l:'Personalized fragrance profile quiz',p:true},
+    brands:[
+      {n:'Maison Louis Marie',u:'maisonlouismarie.com'},
+      {n:'DS & Durga',u:'dsanddurga.com'},
+      {n:'Ellis Brooklyn',u:'ellisbrooklyn.com'},
+      {n:'Phlur',u:'phlur.com'},
+      {n:'Dedcool',u:'dedcool.com'},
+      {n:'Commodity',u:'commoditygoods.com'},
+      {n:'Snif',u:'snif.co'},
+      {n:'Ffern',u:'ffern.com'},
     ],
-    brands:['Maison Louis Marie','DS & Durga','Ellis Brooklyn','Phlur','Dedcool','Commodity','Snif','Ffern','Imaginary Authors'],
   },
   {
     id:'luxury', emoji:'✨', name:'Luxury & Premium DTC', tags:['b2c','luxury'],
-    features:[
-      {l:'Concierge / personal stylist field',p:true},
-      {l:'Premium gift wrapping options',p:true},
-      {l:'Authentication certificate',p:true},
-      {l:'VIP member exclusive pricing',p:true},
-      {l:'Bespoke / custom order flow',p:true},
-      {l:'White-glove delivery',p:true},
+    brands:[
+      {n:'Kith',u:'kith.com'},
+      {n:'Rebecca Minkoff',u:'rebeccaminkoff.com'},
+      {n:'Cuyana',u:'cuyana.com'},
+      {n:'Everlane',u:'everlane.com'},
+      {n:'Veja',u:'veja-store.com'},
+      {n:'Frank & Oak',u:'frankandoak.com'},
+      {n:'Veronica Beard',u:'veronicabeard.com'},
+      {n:'Rowing Blazers',u:'rowingblazers.com'},
     ],
-    brands:['Kith','Rebecca Minkoff','Cuyana','Everlane','Veja','Frank & Oak','Reiss (select)','Veronica Beard','Rowing Blazers'],
   },
   {
     id:'nonprofit', emoji:'❤️', name:'Non-profit & Cause-Driven', tags:['b2c'],
-    features:[
-      {l:'Custom donation amount fields',p:true},
-      {l:'In honor / in memory dedication',p:true},
-      {l:'Recurring giving (subscription)',p:true},
-      {l:'Fund / program designation',p:true},
-      {l:'Matching gift info display',p:true},
-      {l:'Tax receipt customization',p:false},
+    brands:[
+      {n:'TOMS',u:'toms.com'},
+      {n:'Bombas',u:'bombas.com'},
+      {n:'Patagonia',u:'patagonia.com'},
+      {n:'Pela Case',u:'pelacase.com'},
+      {n:'Allbirds',u:'allbirds.com'},
+      {n:'Cotopaxi',u:'cotopaxi.com'},
+      {n:'tentree',u:'tentree.com'},
+      {n:'Pact Organic',u:'wearpact.com'},
+      {n:'Naadam',u:'naadam.co'},
     ],
-    brands:['TOMS','Bombas','Patagonia','Pela Case','Allbirds','Cotopaxi','tentree','Pact Organic','Naadam'],
   },
   {
     id:'industrial', emoji:'🏭', name:'Industrial & Manufacturing', tags:['b2b'],
-    features:[
-      {l:'RFQ (Request for Quote) workflow',p:true},
-      {l:'Bulk pricing tiers',p:true},
-      {l:'LTL / freight shipping calculator',p:true},
-      {l:'Compliance documentation upload',p:true},
-      {l:'Multi-site / multi-location ordering',p:true},
-      {l:'Purchase order (PO) workflow',p:true},
+    brands:[
+      {n:'Zoro Tools',u:'zoro.com'},
+      {n:'Grainger',u:'grainger.com'},
+      {n:'MSC Industrial',u:'mscdirect.com'},
+      {n:'Global Industrial',u:'globalindustrial.com'},
     ],
-    brands:['Zoro Tools','Grainger (select)','MSC Industrial (select)','Fastenal (select)','Global Industrial (select)','Applied Industrial (select)'],
   },
   {
     id:'education', emoji:'📚', name:'Education & Courses', tags:['b2c'],
-    features:[
-      {l:'Cohort / session date selection',p:true},
-      {l:'Payment plan at checkout',p:true},
-      {l:'Group enrollment discount logic',p:true},
-      {l:'Prerequisite / access verification',p:true},
-      {l:'Institutional / corporate pricing',p:true},
-      {l:'Certificate delivery info',p:false},
+    brands:[
+      {n:'MasterClass',u:'masterclass.com'},
+      {n:'CreativeLive',u:'creativelive.com'},
+      {n:'CXL Institute',u:'cxl.com'},
+      {n:'Maven',u:'maven.com'},
     ],
-    brands:['MasterClass (select)','CreativeLive','CXL Institute','Maven','Kajabi-powered stores','Thinkific-powered stores'],
   },
 ];
-
-const BADGE_LABEL = {b2c:'B2C',b2b:'B2B',regulated:'Regulated',subscription:'Subscription',luxury:'Luxury'};
 
 let activeFilter = 'all';
 let searchQuery = '';
@@ -507,48 +520,38 @@ function render() {
     const matchFilter = activeFilter === 'all' || ind.tags.includes(activeFilter);
     if (!matchFilter) return false;
     if (!q) return true;
-    return ind.name.toLowerCase().includes(q)
-      || ind.features.some(f => f.l.toLowerCase().includes(q))
-      || ind.brands.some(b => b.toLowerCase().includes(q));
+    return ind.name.toLowerCase().includes(q) || ind.brands.some(b => b.n.toLowerCase().includes(q));
   });
 
   document.getElementById('count').textContent = visible.length;
   const grid = document.getElementById('grid');
 
   if (!visible.length) {
-    grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No results for "<strong>${q}</strong>" — try a brand name, feature, or industry</p></div>`;
+    grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No results for "<strong>${q}</strong>" — try a brand name or industry</p></div>`;
     return;
   }
 
-  grid.innerHTML = visible.map(ind => `
-    <div class="card">
-      <div class="card-head">
-        <div class="card-emoji">${ind.emoji}</div>
-        <div class="card-title-wrap">
-          <div class="card-name">${hl(ind.name, q)}</div>
-          <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]||t}</span>`).join('')}</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="section-label">Checkout Features</div>
-        <div class="features-wrap">
-          ${ind.features.map(f=>`<span class="feat-pill${f.p?' is-plus':''}">${hl(f.l,q)}${f.p?'<span class="plus-tag">⚡ Plus</span>':''}</span>`).join('')}
-        </div>
-        <div class="section-label">Known Shopify Plus Brands</div>
-        <div class="brands-wrap">
-          ${ind.brands.map(b=>`<span class="brand-chip" onclick="copyBrand(this,'${b.replace(/'/g,"\\'")}')">${hl(b,q)}</span>`).join('')}
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
+  grid.innerHTML = visible.map(ind => {
+    const brandsHtml = ind.brands
+      .filter(b => !q || b.n.toLowerCase().includes(q) || ind.name.toLowerCase().includes(q))
+      .map(b => `<a class="brand-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>`)
+      .join('');
 
-function copyBrand(el, name) {
-  navigator.clipboard.writeText(name).then(() => {
-    el.classList.add('copied');
-    el.textContent = '✓ ' + name;
-    setTimeout(() => { el.classList.remove('copied'); render(); }, 1400);
-  }).catch(() => {});
+    return `
+      <div class="card">
+        <div class="card-head">
+          <div class="card-emoji">${ind.emoji}</div>
+          <div class="card-title-wrap">
+            <div class="card-name">${hl(ind.name, q)}</div>
+            <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]||t}</span>`).join('')}</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="brands-wrap">${brandsHtml}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 document.getElementById('search').addEventListener('input', e => {
