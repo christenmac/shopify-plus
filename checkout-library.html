@@ -21,7 +21,7 @@
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
 .page-header {
-  background: linear-gradient(135deg, var(--green-dk) 0%, var(--green) 100%);
+  background: #000;
   padding: 52px 24px 44px; text-align: center; color: white;
 }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: .65; margin-bottom: 14px; }
@@ -127,8 +127,7 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 <footer>
   Brands sourced from Shopify case studies, official announcements, and public merchant data. Features reflect known checkout customizations.<br>
   Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp;
-  <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear &nbsp;·&nbsp;
-  <a href="index.html">← Back to Shopify Plus Overview</a>
+  <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear
 </footer>
 
 <script>
@@ -517,7 +516,7 @@ function render() {
     const rows = ind.matchedBrands.map(b => {
       const ftags = b.f.map(f => `<span class="ftag ${FEAT[f] || 'ft-trust'}">${hl(f, q)}</span>`).join('');
       return `<div class="brand-row">
-        <a class="brand-name-link" href="https://${b.u}" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>
+        <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>
         <div class="ftags">${ftags}</div>
       </div>`;
     }).join('');
