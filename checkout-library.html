@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shopify Plus Checkout Library</title>
+<title>Checkout Library</title>
 <style>
 :root {
   --green: #008060;
@@ -20,13 +20,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-.page-header {
-  background: #000;
-  padding: 52px 24px 44px; text-align: center; color: white;
-}
+.page-header { background: #000; padding: 52px 24px 44px; text-align: center; color: white; }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: .65; margin-bottom: 14px; }
 .page-header h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: 10px; }
-.subtitle { font-size: 1rem; opacity: .8; margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+.subtitle { font-size: 1rem; opacity: .8; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 .search-wrap { max-width: 560px; margin: 0 auto; position: relative; }
 .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: .45; pointer-events: none; }
 #search { width: 100%; padding: 15px 18px 15px 48px; border: none; border-radius: 50px; font-size: 1rem; outline: none; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,.2); }
@@ -51,21 +48,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .15s, box-shadow .15s; }
 .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
-
 .card-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
 .card-emoji { font-size: 1.8rem; line-height: 1.1; flex-shrink: 0; }
 .card-title-wrap { flex: 1 1 0; min-width: 0; }
 .card-name { font-size: .95rem; font-weight: 700; margin-bottom: 5px; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
-.badge-b2c         { background: #e3f5eb; color: #004c3f; }
-.badge-b2b         { background: #f5f3ff; color: #7c3aed; }
-.badge-regulated   { background: #fffbeb; color: #b45309; }
-.badge-subscription{ background: #f0fdfa; color: #0d9488; }
-.badge-luxury      { background: #fdf2f8; color: #be185d; }
+.badge-b2c          { background: #e3f5eb; color: #004c3f; }
+.badge-b2b          { background: #f5f3ff; color: #7c3aed; }
+.badge-regulated    { background: #fffbeb; color: #b45309; }
+.badge-subscription { background: #f0fdfa; color: #0d9488; }
+.badge-luxury       { background: #fdf2f8; color: #be185d; }
 
 .card-body { padding: 6px 16px 12px; }
-
 .brand-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #f3f4f6; flex-wrap: wrap; }
 .brand-row:last-child { border-bottom: none; }
 .brand-name-link { font-size: 13px; font-weight: 600; color: var(--green-dk); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; flex-shrink: 0; }
@@ -74,36 +69,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .ftags { display: flex; flex-wrap: wrap; gap: 3px; }
 .ftag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 50px; white-space: nowrap; letter-spacing: .1px; }
 
-.ft-trust   { background: #eff6ff; color: #1d4ed8; }
-.ft-reviews { background: #fefce8; color: #92400e; }
-.ft-ship    { background: #f8fafc; color: #475569; outline: 1px solid #e2e8f0; }
-.ft-gifts   { background: #fdf2f8; color: #be185d; }
-.ft-rewards { background: #f5f3ff; color: #7c3aed; }
-.ft-bundles { background: #f0fdf4; color: #15803d; }
-.ft-disc    { background: #f0fdfa; color: #0f766e; }
-.ft-ups     { background: #fff7ed; color: #c2410c; }
-.ft-addons  { background: #f0f9ff; color: #0369a1; }
-.ft-sub     { background: #ecfdf5; color: #065f46; }
-.ft-warr    { background: #f8fafc; color: #334155; outline: 1px solid #cbd5e1; }
+.ft-trust    { background: #eff6ff; color: #1d4ed8; }
+.ft-ship     { background: #f8fafc; color: #475569; outline: 1px solid #e2e8f0; }
+.ft-gift     { background: #fdf2f8; color: #be185d; }
+.ft-loyalty  { background: #f5f3ff; color: #7c3aed; }
+.ft-disc     { background: #f0fdfa; color: #0f766e; }
+.ft-ppu      { background: #fff7ed; color: #c2410c; }
+.ft-addon    { background: #f0f9ff; color: #0369a1; }
+.ft-sub      { background: #ecfdf5; color: #065f46; }
+.ft-warr     { background: #f8fafc; color: #334155; outline: 1px solid #cbd5e1; }
+.ft-fields   { background: #fefce8; color: #92400e; }
+.ft-bnpl     { background: #eef2ff; color: #4338ca; }
+.ft-hsa      { background: #f0fdf4; color: #166534; }
+.ft-age      { background: #fef2f2; color: #b91c1c; }
+.ft-delivery { background: #ecfeff; color: #0e7490; }
 
 .no-results { grid-column: 1/-1; text-align: center; padding: 72px 24px; color: var(--muted); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
-.no-results p { font-size: 1.05rem; }
-
 footer { text-align: center; padding: 36px 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8; }
-footer a { color: var(--green); text-decoration: none; }
 mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 14px 24px; background: white; border-bottom: 1px solid var(--border); font-size: 11px; }
+.legend-item { display: flex; align-items: center; gap: 4px; color: var(--muted); }
 </style>
 </head>
 <body>
 
 <div class="page-header">
   <div class="eyebrow">Shopify Plus · Sales Reference</div>
-  <h1>Checkout Customization Library</h1>
-  <p class="subtitle">Shopify Plus brands by industry — with the checkout features each one uses. Click any brand to open their store.</p>
+  <h1>Checkout Library</h1>
+  <p class="subtitle">What each brand actually shows on their final checkout page — features triggered at <code style="font-size:.85em;opacity:.7">/checkout</code>, not before it.</p>
   <div class="search-wrap">
     <svg class="search-icon" width="18" height="18" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="search" type="text" placeholder='Search by industry, brand, or feature — e.g. "subscribe", "Gymshark", "bundles"' autocomplete="off" spellcheck="false">
+    <input id="search" type="text" placeholder='Search by brand, industry, or feature — e.g. "warranty", "BNPL", "Gymshark"' autocomplete="off" spellcheck="false">
   </div>
 </div>
 
@@ -117,6 +115,23 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
   <button class="filter-btn" data-filter="luxury">Luxury</button>
 </div>
 
+<div class="legend">
+  <span class="legend-item"><span class="ftag ft-sub">Sub & Save</span></span>
+  <span class="legend-item"><span class="ftag ft-ppu">Post-Purchase Upsell</span></span>
+  <span class="legend-item"><span class="ftag ft-addon">Checkout Add-On</span></span>
+  <span class="legend-item"><span class="ftag ft-fields">Custom Fields</span></span>
+  <span class="legend-item"><span class="ftag ft-gift">Free Gift</span></span>
+  <span class="legend-item"><span class="ftag ft-loyalty">Loyalty Redemption</span></span>
+  <span class="legend-item"><span class="ftag ft-bnpl">BNPL</span></span>
+  <span class="legend-item"><span class="ftag ft-trust">Trust Badges</span></span>
+  <span class="legend-item"><span class="ftag ft-warr">Warranty</span></span>
+  <span class="legend-item"><span class="ftag ft-hsa">HSA/FSA Pay</span></span>
+  <span class="legend-item"><span class="ftag ft-age">Age Verification</span></span>
+  <span class="legend-item"><span class="ftag ft-delivery">Delivery Picker</span></span>
+  <span class="legend-item"><span class="ftag ft-disc">Order Discounts</span></span>
+  <span class="legend-item"><span class="ftag ft-ship">Ship & Returns</span></span>
+</div>
+
 <div class="main-wrap">
   <div class="results-bar">
     <div class="results-count"><strong id="count">0</strong> industries shown</div>
@@ -125,353 +140,355 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 </div>
 
 <footer>
-  Brands sourced from Shopify case studies, official announcements, and public merchant data. Features reflect known checkout customizations.<br>
-  Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp;
-  <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear
+  Features reflect what appears on each brand's actual <strong>/checkout</strong> page. Sourced from Shopify case studies and public merchant data.<br>
+  Press <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">/</kbd> to search &nbsp;·&nbsp; <kbd style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px">Esc</kbd> to clear
 </footer>
 
 <script>
 const EXT = `<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
 const FEAT = {
-  'Trust Badges':    'ft-trust',
-  'Reviews':         'ft-reviews',
-  'Ship & Returns':  'ft-ship',
-  'Free Gifts':      'ft-gifts',
-  'Rewards':         'ft-rewards',
-  'Bundles':         'ft-bundles',
-  'Order Discounts': 'ft-disc',
-  'Upsells':         'ft-ups',
-  'Add-Ons':         'ft-addons',
-  'Sub & Save':      'ft-sub',
-  'Warranty':        'ft-warr',
+  'Sub & Save':           'ft-sub',
+  'Post-Purchase Upsell': 'ft-ppu',
+  'Checkout Add-On':      'ft-addon',
+  'Custom Fields':        'ft-fields',
+  'Free Gift':            'ft-gift',
+  'Loyalty Redemption':   'ft-loyalty',
+  'BNPL':                 'ft-bnpl',
+  'Trust Badges':         'ft-trust',
+  'Warranty':             'ft-warr',
+  'HSA/FSA Pay':          'ft-hsa',
+  'Age Verification':     'ft-age',
+  'Delivery Picker':      'ft-delivery',
+  'Order Discounts':      'ft-disc',
+  'Ship & Returns':       'ft-ship',
 };
 
 const BADGE_LABEL = {b2c:'B2C',b2b:'B2B',regulated:'Regulated',subscription:'Subscription',luxury:'Luxury'};
 
 const INDUSTRIES = [
   {
-    id:'fashion', emoji:'👟', name:'Fashion & Apparel', tags:['b2c'],
+    id:'alcohol', emoji:'🍷', name:'Alcohol & Wine', tags:['b2c','regulated'],
     brands:[
-      {n:'Gymshark',        u:'gymshark.com',           f:['Upsells','Bundles','Rewards','Trust Badges']},
-      {n:'Allbirds',        u:'allbirds.com',           f:['Trust Badges','Ship & Returns','Upsells']},
-      {n:'Alo Yoga',        u:'aloyoga.com',            f:['Upsells','Rewards','Trust Badges']},
-      {n:'Vuori',           u:'vuoriclothing.com',      f:['Trust Badges','Upsells','Ship & Returns']},
-      {n:'SKIMS',           u:'skims.com',              f:['Upsells','Free Gifts','Bundles']},
-      {n:'Good American',   u:'goodamerican.com',       f:['Trust Badges','Upsells','Bundles']},
-      {n:'BYLT Basics',     u:'byltbasics.com',         f:['Bundles','Order Discounts','Sub & Save']},
-      {n:'Taylor Stitch',   u:'taylorstitch.com',       f:['Reviews','Trust Badges','Upsells','Rewards']},
-      {n:'Chubbies',        u:'chubbiesshorts.com',     f:['Free Gifts','Upsells','Bundles','Order Discounts']},
-      {n:'Cuts Clothing',   u:'cutsclothing.com',       f:['Bundles','Upsells','Sub & Save']},
-      {n:'Ministry of Supply', u:'ministryofsupply.com',f:['Upsells','Trust Badges','Ship & Returns']},
-      {n:'Faherty',         u:'fahertybrand.com',       f:['Trust Badges','Upsells','Rewards']},
-    ],
-  },
-  {
-    id:'beauty', emoji:'💄', name:'Beauty & Cosmetics', tags:['b2c'],
-    brands:[
-      {n:'Kylie Cosmetics',    u:'kyliecosmetics.com',    f:['Bundles','Free Gifts','Upsells','Trust Badges']},
-      {n:'ColourPop',          u:'colourpop.com',         f:['Bundles','Free Gifts','Upsells','Order Discounts']},
-      {n:'Thrive Causemetics', u:'thrivecausemetics.com', f:['Reviews','Sub & Save','Upsells','Bundles','Rewards']},
-      {n:'ILIA Beauty',        u:'iliabeauty.com',        f:['Trust Badges','Upsells','Ship & Returns']},
-      {n:'Tower 28',           u:'tower28beauty.com',     f:['Bundles','Upsells','Trust Badges']},
-      {n:'Saie',               u:'saiemakeup.com',        f:['Upsells','Bundles','Trust Badges']},
-      {n:'Rhode',              u:'rhodeskin.com',         f:['Upsells','Bundles','Free Gifts']},
-      {n:'Rare Beauty',        u:'rarebeauty.com',        f:['Bundles','Upsells','Trust Badges']},
-      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['Upsells','Bundles','Order Discounts']},
-      {n:'JVN Hair',           u:'jvnhair.com',           f:['Sub & Save','Bundles','Upsells']},
-      {n:'e.l.f. Cosmetics',   u:'elfcosmetics.com',      f:['Bundles','Order Discounts','Upsells']},
-      {n:'Fenty Beauty',       u:'fentybeauty.com',       f:['Bundles','Upsells','Trust Badges']},
-      {n:'Glossier',           u:'glossier.com',          f:['Upsells','Trust Badges','Ship & Returns']},
-      {n:'Tatcha',             u:'tatcha.com',            f:['Upsells','Bundles','Free Gifts','Trust Badges']},
-    ],
-  },
-  {
-    id:'health', emoji:'💪', name:'Health & Supplements', tags:['b2c','subscription'],
-    brands:[
-      {n:'AG1',               u:'drinkag1.com',           f:['Sub & Save','Bundles','Free Gifts','Upsells','Order Discounts']},
-      {n:'Ritual',            u:'ritual.com',             f:['Sub & Save','Free Gifts','Bundles','Upsells']},
-      {n:'Seed',              u:'seed.com',               f:['Sub & Save','Bundles','Add-Ons','Order Discounts']},
-      {n:'Gainful',           u:'gainful.com',            f:['Sub & Save','Upsells','Add-Ons','Bundles']},
-      {n:'Momentous',         u:'livemomentous.com',      f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Four Sigmatic',     u:'foursigmatic.com',       f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Perfect Keto',      u:'perfectketo.com',        f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Transparent Labs',  u:'transparentlabs.com',    f:['Bundles','Sub & Save','Upsells','Order Discounts','Free Gifts']},
-      {n:'Thesis',            u:'takethesis.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'Bulletproof',       u:'bulletproof.com',        f:['Sub & Save','Bundles','Upsells']},
-      {n:'Bubs Naturals',     u:'bubsnaturals.com',       f:['Sub & Save','Bundles','Upsells']},
-      {n:'Care/of',           u:'takecareof.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'Onnit',             u:'onnit.com',              f:['Sub & Save','Bundles','Upsells','Rewards']},
-    ],
-  },
-  {
-    id:'jewelry', emoji:'💍', name:'Jewelry & Accessories', tags:['b2c','luxury'],
-    brands:[
-      {n:'Mejuri',         u:'mejuri.com',           f:['Reviews','Rewards','Trust Badges','Ship & Returns','Bundles']},
-      {n:'Missoma',        u:'missoma.com',          f:['Upsells','Trust Badges','Ship & Returns']},
-      {n:'Gorjana',        u:'gorjana.com',          f:['Rewards','Upsells','Bundles','Trust Badges']},
-      {n:'Catbird',        u:'catbirdnyc.com',       f:['Reviews','Trust Badges','Ship & Returns']},
-      {n:'Brilliant Earth',u:'brilliantearth.com',  f:['Trust Badges','Reviews','Ship & Returns','Upsells']},
-      {n:'BaubleBar',      u:'baublebar.com',        f:['Upsells','Bundles','Order Discounts']},
-      {n:'Kendra Scott',   u:'kendrascott.com',      f:['Rewards','Upsells','Bundles']},
-      {n:'Vrai',           u:'vrai.com',             f:['Trust Badges','Upsells','Reviews']},
-      {n:'Stone and Strand',u:'stoneandstrand.com', f:['Upsells','Reviews','Trust Badges']},
-    ],
-  },
-  {
-    id:'home', emoji:'🛋️', name:'Home & Furniture', tags:['b2c'],
-    brands:[
-      {n:'Parachute',      u:'parachutehome.com',   f:['Reviews','Trust Badges','Bundles','Ship & Returns']},
-      {n:'Brooklinen',     u:'brooklinen.com',      f:['Reviews','Trust Badges','Bundles','Upsells','Rewards']},
-      {n:'Article',        u:'article.com',         f:['Reviews','Upsells','Trust Badges']},
-      {n:'Ruggable',       u:'ruggable.com',        f:['Upsells','Add-Ons','Reviews','Trust Badges']},
-      {n:'Floyd',          u:'floydhome.com',       f:['Reviews','Trust Badges','Ship & Returns']},
-      {n:'Coyuchi',        u:'coyuchi.com',         f:['Sub & Save','Upsells','Reviews']},
-      {n:'Boll & Branch',  u:'bollandbranch.com',   f:['Sub & Save','Upsells','Bundles','Reviews','Trust Badges']},
-      {n:'Snowe',          u:'snowehome.com',       f:['Bundles','Upsells','Order Discounts']},
-      {n:'Schoolhouse',    u:'schoolhouse.com',     f:['Upsells','Trust Badges']},
-      {n:'Inside Weather', u:'insideweather.com',   f:['Reviews','Trust Badges','Upsells']},
-    ],
-  },
-  {
-    id:'food', emoji:'☕', name:'Food & Beverage', tags:['b2c','subscription'],
-    brands:[
-      {n:'Death Wish Coffee', u:'deathwishcoffee.com', f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Trade Coffee',      u:'drinktrade.com',      f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Magic Spoon',       u:'magicspoon.com',      f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Fly by Jing',       u:'flybyjing.com',       f:['Bundles','Order Discounts','Upsells']},
-      {n:'Chomps',            u:'chomps.com',          f:['Bundles','Sub & Save','Order Discounts','Upsells']},
-      {n:'Brightland',        u:'brightland.co',       f:['Bundles','Upsells','Order Discounts']},
-      {n:'Omsom',             u:'omsom.com',           f:['Bundles','Upsells','Order Discounts']},
-      {n:'Olipop',            u:'drinkolipop.com',     f:['Sub & Save','Bundles','Order Discounts','Upsells']},
-      {n:"Jeni's Ice Cream",  u:'jenis.com',           f:['Upsells','Bundles','Ship & Returns']},
-      {n:'Atlas Coffee Club', u:'atlascoffeeclub.com', f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Graza',             u:'graza.co',            f:['Sub & Save','Bundles','Upsells']},
-    ],
-  },
-  {
-    id:'meat', emoji:'🥩', name:'Specialty Food & Meat', tags:['b2c','subscription'],
-    brands:[
-      {n:'ButcherBox',           u:'butcherbox.com',        f:['Sub & Save','Free Gifts','Bundles','Add-Ons']},
-      {n:'Porter Road',          u:'porterroad.com',        f:['Sub & Save','Bundles','Upsells']},
-      {n:'Snake River Farms',    u:'snakeriverfarms.com',   f:['Bundles','Upsells','Free Gifts','Order Discounts']},
-      {n:'Crowd Cow',            u:'crowdcow.com',          f:['Sub & Save','Bundles','Upsells']},
-      {n:'Holy Grail Steak',     u:'holygrailsteak.com',    f:['Bundles','Upsells','Order Discounts']},
-      {n:'Goldbelly',            u:'goldbelly.com',         f:['Upsells','Bundles','Reviews']},
-      {n:"Rastelli's",           u:'rastellis.com',         f:['Sub & Save','Bundles','Free Gifts']},
-      {n:'Chicago Steak Company',u:'mychicagosteak.com',    f:['Bundles','Upsells','Free Gifts','Order Discounts']},
-    ],
-  },
-  {
-    id:'pets', emoji:'🐾', name:'Pet Products', tags:['b2c','subscription'],
-    brands:[
-      {n:'Wild One',          u:'wildone.com',         f:['Bundles','Upsells','Reviews']},
-      {n:'Ruffwear',          u:'ruffwear.com',        f:['Bundles','Trust Badges','Reviews','Ship & Returns']},
-      {n:'Native Pet',        u:'nativepet.com',       f:['Sub & Save','Bundles','Upsells','Add-Ons']},
-      {n:'BarkShop',          u:'barkshop.com',        f:['Bundles','Upsells','Sub & Save']},
-      {n:"The Farmer's Dog",  u:'thefarmersdog.com',   f:['Sub & Save','Upsells','Add-Ons']},
-      {n:'Ollie',             u:'myollie.com',         f:['Sub & Save','Add-Ons','Bundles','Free Gifts']},
-      {n:'Nom Nom',           u:'nomnomnow.com',       f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'Sundays for Dogs',  u:'sundaysfordogs.com',  f:['Sub & Save','Bundles','Upsells']},
-      {n:'Open Farm',         u:'openfarmpet.com',     f:['Sub & Save','Bundles','Upsells','Add-Ons']},
-      {n:'Pet Plate',         u:'petplate.com',        f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Jinx',              u:'jinx.com',            f:['Sub & Save','Bundles','Upsells']},
-    ],
-  },
-  {
-    id:'baby', emoji:'👶', name:'Baby & Kids', tags:['b2c'],
-    brands:[
-      {n:'Lovevery',         u:'lovevery.com',        f:['Sub & Save','Add-Ons','Reviews','Trust Badges']},
-      {n:'Ergobaby',         u:'ergobaby.com',        f:['Reviews','Trust Badges','Upsells','Ship & Returns']},
-      {n:'Little Sleepies',  u:'littlesleepies.com',  f:['Bundles','Upsells','Order Discounts']},
-      {n:'Hanna Andersson',  u:'hannaandersson.com',  f:['Reviews','Upsells','Bundles']},
-      {n:'Posh Peanut',      u:'poshpeanut.com',      f:['Bundles','Upsells','Reviews']},
-      {n:'Little Unicorn',   u:'littleunicorn.com',   f:['Bundles','Upsells','Trust Badges']},
-      {n:'Maisonette',       u:'maisonette.com',      f:['Reviews','Upsells','Trust Badges']},
-    ],
-  },
-  {
-    id:'sports', emoji:'🏋️', name:'Sports & Fitness', tags:['b2c'],
-    brands:[
-      {n:'Gymshark',    u:'gymshark.com',      f:['Upsells','Bundles','Rewards','Trust Badges']},
-      {n:'Hydrow',      u:'hydrow.com',        f:['Upsells','Add-Ons','Warranty','Trust Badges']},
-      {n:'Bala',        u:'bala.com',          f:['Bundles','Upsells','Free Gifts']},
-      {n:'Ten Thousand',u:'tenthousand.cc',    f:['Reviews','Trust Badges','Upsells','Bundles']},
-      {n:'Janji',       u:'runjanji.com',      f:['Bundles','Upsells','Reviews']},
-      {n:'Cotopaxi',    u:'cotopaxi.com',      f:['Reviews','Trust Badges','Bundles']},
-      {n:'Tracksmith',  u:'tracksmith.com',    f:['Reviews','Trust Badges','Upsells']},
-      {n:'Norda',       u:'norda.com',         f:['Trust Badges','Reviews','Upsells']},
-      {n:'Hylete',      u:'hylete.com',        f:['Sub & Save','Bundles','Upsells']},
-      {n:'SPIbelt',     u:'spibelt.com',       f:['Bundles','Upsells']},
+      {n:'Winc',        u:'winc.com',         f:['Age Verification','Sub & Save','Checkout Add-On']},
+      {n:'Firstleaf',   u:'firstleaf.club',   f:['Age Verification','Sub & Save','Order Discounts']},
+      {n:'Usual Wine',  u:'usualwines.com',   f:['Age Verification','Sub & Save']},
+      {n:'Bev',         u:'drinkbev.com',     f:['Age Verification','Sub & Save']},
+      {n:'Wine Access', u:'wineaccess.com',   f:['Age Verification','Trust Badges']},
+      {n:'Vinebox',     u:'getvinebox.com',   f:['Age Verification','Sub & Save','Checkout Add-On']},
     ],
   },
   {
     id:'automotive', emoji:'🚗', name:'Automotive & Parts', tags:['b2c','b2b'],
     brands:[
-      {n:'RevZilla',          u:'revzilla.com',        f:['Reviews','Trust Badges','Upsells','Ship & Returns','Rewards']},
-      {n:'4 Wheel Parts',     u:'4wheelparts.com',     f:['Upsells','Bundles','Rewards']},
-      {n:'AutoAnything',      u:'autoanything.com',    f:['Upsells','Reviews','Trust Badges']},
-      {n:'Curt Manufacturing',u:'curtmfg.com',         f:['Upsells','Bundles']},
-      {n:'Rough Country',     u:'roughcountry.com',    f:['Upsells','Bundles','Reviews','Order Discounts']},
-      {n:'Dennis Kirk',       u:'denniskirk.com',      f:['Reviews','Upsells','Bundles','Ship & Returns']},
-    ],
-  },
-  {
-    id:'electronics', emoji:'💻', name:'Electronics & Tech', tags:['b2c','b2b'],
-    brands:[
-      {n:'Drop.com',    u:'drop.com',          f:['Reviews','Upsells','Bundles','Trust Badges']},
-      {n:'Nomad Goods', u:'nomadgoods.com',    f:['Bundles','Upsells','Trust Badges']},
-      {n:'dbrand',      u:'dbrand.com',        f:['Reviews','Upsells','Trust Badges']},
-      {n:'Skullcandy',  u:'skullcandy.com',    f:['Upsells','Bundles','Warranty','Rewards']},
-      {n:'Incase',      u:'incase.com',        f:['Bundles','Upsells','Trust Badges']},
-      {n:'Pela Case',   u:'pelacase.com',      f:['Bundles','Upsells','Sub & Save']},
-      {n:'Peak Design', u:'peakdesign.com',    f:['Reviews','Upsells','Bundles','Trust Badges']},
-    ],
-  },
-  {
-    id:'subscriptions', emoji:'📦', name:'Subscription Boxes', tags:['b2c','subscription'],
-    brands:[
-      {n:'FabFitFun',         u:'fabfitfun.com',    f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'KiwiCo',            u:'kiwico.com',       f:['Sub & Save','Add-Ons','Free Gifts','Bundles']},
-      {n:'Scentbird',         u:'scentbird.com',    f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Winc',              u:'winc.com',         f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'Grove Collaborative',u:'grove.co',        f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'Ipsy',              u:'ipsy.com',         f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Bespoke Post',      u:'bespokepost.com',  f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Breo Box',          u:'breobox.com',      f:['Sub & Save','Add-Ons','Bundles']},
-    ],
-  },
-  {
-    id:'alcohol', emoji:'🍷', name:'Alcohol & Wine', tags:['b2c','regulated'],
-    brands:[
-      {n:'Winc',       u:'winc.com',          f:['Sub & Save','Bundles','Add-Ons','Upsells']},
-      {n:'Firstleaf',  u:'firstleaf.club',    f:['Sub & Save','Bundles','Order Discounts']},
-      {n:'Usual Wine', u:'usualwines.com',    f:['Sub & Save','Bundles','Upsells']},
-      {n:'Bev',        u:'drinkbev.com',      f:['Sub & Save','Bundles','Upsells']},
-      {n:'Wine Access',u:'wineaccess.com',    f:['Reviews','Bundles','Upsells']},
-      {n:'Vinebox',    u:'getvinebox.com',    f:['Sub & Save','Add-Ons']},
-    ],
-  },
-  {
-    id:'cannabis', emoji:'🌿', name:'Cannabis & CBD', tags:['b2c','regulated'],
-    brands:[
-      {n:"Charlotte's Web", u:'charlottesweb.com',  f:['Sub & Save','Bundles','Trust Badges','Upsells']},
-      {n:'Medterra',        u:'medterracbd.com',     f:['Sub & Save','Bundles','Upsells','Trust Badges']},
-      {n:'Lazarus Naturals',u:'lazarusnaturals.com', f:['Sub & Save','Bundles','Upsells','Order Discounts']},
-      {n:'cbdMD',           u:'cbdmd.com',           f:['Sub & Save','Bundles','Upsells','Trust Badges']},
-      {n:'Cornbread Hemp',  u:'cornbreadhemp.com',   f:['Sub & Save','Upsells','Trust Badges']},
-      {n:'Green Roads',     u:'greenroads.com',      f:['Sub & Save','Bundles','Upsells']},
-      {n:'Equilibria',      u:'myeq.com',            f:['Sub & Save','Add-Ons','Bundles']},
-      {n:'Verma Farms',     u:'vermafarms.com',      f:['Sub & Save','Bundles','Upsells']},
-    ],
-  },
-  {
-    id:'medical', emoji:'💊', name:'Telehealth & Medical', tags:['b2c','regulated'],
-    brands:[
-      {n:'Curology',       u:'curology.com',        f:['Sub & Save','Add-Ons','Bundles','Upsells']},
-      {n:'Apostrophe',     u:'apostrophe.com',      f:['Sub & Save','Bundles','Add-Ons']},
-      {n:'Keeps',          u:'keeps.com',           f:['Sub & Save','Bundles','Upsells']},
-      {n:'Thirty Madison', u:'thirtymadison.com',   f:['Sub & Save','Add-Ons']},
-      {n:'Wisp',           u:'hellowisp.com',       f:['Sub & Save','Bundles','Add-Ons']},
-      {n:'Stix',           u:'stixs.com',           f:['Bundles','Sub & Save','Upsells']},
+      {n:'RevZilla',           u:'revzilla.com',       f:['Custom Fields','Trust Badges','Order Discounts','Post-Purchase Upsell','Loyalty Redemption']},
+      {n:'4 Wheel Parts',      u:'4wheelparts.com',    f:['Custom Fields','Order Discounts','Loyalty Redemption']},
+      {n:'AutoAnything',       u:'autoanything.com',   f:['Custom Fields','Trust Badges','Post-Purchase Upsell']},
+      {n:'Curt Manufacturing', u:'curtmfg.com',        f:['Custom Fields','Trust Badges']},
+      {n:'Rough Country',      u:'roughcountry.com',   f:['Custom Fields','Order Discounts','Post-Purchase Upsell']},
+      {n:'Dennis Kirk',        u:'denniskirk.com',     f:['Custom Fields','Trust Badges','Order Discounts']},
     ],
   },
   {
     id:'b2b', emoji:'🏢', name:'B2B & Wholesale', tags:['b2b'],
     brands:[
-      {n:'Staples Canada',   u:'staples.ca',          f:['Trust Badges','Upsells','Reviews']},
-      {n:'Zoro Tools',       u:'zoro.com',            f:['Reviews','Upsells','Trust Badges','Bundles']},
-      {n:'True Value',       u:'truevalue.com',       f:['Upsells','Trust Badges']},
-      {n:'Tommy John',       u:'tommyjohn.com',       f:['Bundles','Upsells']},
-      {n:'Duluth Trading',   u:'duluthtrading.com',   f:['Bundles','Upsells','Reviews']},
+      {n:'Staples Canada',  u:'staples.ca',         f:['Custom Fields','Trust Badges','Order Discounts']},
+      {n:'Zoro Tools',      u:'zoro.com',           f:['Custom Fields','Trust Badges','Order Discounts']},
+      {n:'True Value',      u:'truevalue.com',      f:['Custom Fields','Trust Badges']},
+      {n:'Tommy John',      u:'tommyjohn.com',      f:['Custom Fields','Order Discounts']},
+      {n:'Duluth Trading',  u:'duluthtrading.com',  f:['Custom Fields','Order Discounts']},
     ],
   },
   {
-    id:'gifts', emoji:'🎁', name:'Gifts & Occasions', tags:['b2c'],
+    id:'baby', emoji:'👶', name:'Baby & Kids', tags:['b2c'],
     brands:[
-      {n:'Uncommon Goods',  u:'uncommongoods.com',    f:['Reviews','Upsells','Trust Badges','Bundles']},
-      {n:'Sugarfina',       u:'sugarfina.com',        f:['Bundles','Free Gifts','Upsells']},
-      {n:'Artifact Uprising',u:'artifactuprising.com',f:['Upsells','Add-Ons','Reviews']},
-      {n:'Lovepop',         u:'lovepop.com',          f:['Bundles','Upsells','Trust Badges']},
-      {n:'Greetabl',        u:'greetabl.com',         f:['Add-Ons','Bundles','Upsells']},
-      {n:'Bespoke Post',    u:'bespokepost.com',      f:['Sub & Save','Bundles','Add-Ons']},
-      {n:'Mouth',           u:'mouth.com',            f:['Bundles','Upsells','Order Discounts']},
+      {n:'Lovevery',        u:'lovevery.com',        f:['Sub & Save','Custom Fields','Trust Badges']},
+      {n:'Ergobaby',        u:'ergobaby.com',        f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Little Sleepies', u:'littlesleepies.com',  f:['Custom Fields','Order Discounts','BNPL']},
+      {n:'Hanna Andersson', u:'hannaandersson.com',  f:['Custom Fields','BNPL']},
+      {n:'Posh Peanut',     u:'poshpeanut.com',      f:['Custom Fields','BNPL']},
+      {n:'Little Unicorn',  u:'littleunicorn.com',   f:['Custom Fields','Trust Badges']},
+      {n:'Maisonette',      u:'maisonette.com',      f:['Custom Fields','Trust Badges','BNPL']},
+    ],
+  },
+  {
+    id:'beauty', emoji:'💄', name:'Beauty & Cosmetics', tags:['b2c'],
+    brands:[
+      {n:'Kylie Cosmetics',    u:'kyliecosmetics.com',    f:['Free Gift','Post-Purchase Upsell','Trust Badges']},
+      {n:'ColourPop',          u:'colourpop.com',         f:['Free Gift','Order Discounts','Trust Badges']},
+      {n:'Thrive Causemetics', u:'thrivecausemetics.com', f:['Sub & Save','Loyalty Redemption','Post-Purchase Upsell','Free Gift']},
+      {n:'ILIA Beauty',        u:'iliabeauty.com',        f:['Trust Badges','BNPL']},
+      {n:'Tower 28',           u:'tower28beauty.com',     f:['Custom Fields','Trust Badges','Checkout Add-On']},
+      {n:'Saie',               u:'saiemakeup.com',        f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Rhode',              u:'rhodeskin.com',         f:['Free Gift','Post-Purchase Upsell']},
+      {n:'Rare Beauty',        u:'rarebeauty.com',        f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['BNPL','Order Discounts']},
+      {n:'JVN Hair',           u:'jvnhair.com',           f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'e.l.f. Cosmetics',   u:'elfcosmetics.com',      f:['Order Discounts','BNPL']},
+      {n:'Fenty Beauty',       u:'fentybeauty.com',       f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Glossier',           u:'glossier.com',          f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Tatcha',             u:'tatcha.com',            f:['Free Gift','Trust Badges']},
+    ],
+  },
+  {
+    id:'cannabis', emoji:'🌿', name:'Cannabis & CBD', tags:['b2c','regulated'],
+    brands:[
+      {n:"Charlotte's Web", u:'charlottesweb.com',  f:['Age Verification','Sub & Save','Trust Badges']},
+      {n:'Medterra',        u:'medterracbd.com',    f:['Age Verification','Sub & Save','Trust Badges']},
+      {n:'Lazarus Naturals',u:'lazarusnaturals.com',f:['Age Verification','Sub & Save','Order Discounts']},
+      {n:'cbdMD',           u:'cbdmd.com',          f:['Age Verification','Sub & Save','Trust Badges']},
+      {n:'Cornbread Hemp',  u:'cornbreadhemp.com',  f:['Age Verification','Sub & Save']},
+      {n:'Green Roads',     u:'greenroads.com',     f:['Age Verification','Sub & Save']},
+      {n:'Equilibria',      u:'myeq.com',           f:['Age Verification','Sub & Save','Checkout Add-On']},
+      {n:'Verma Farms',     u:'vermafarms.com',     f:['Age Verification','Sub & Save']},
     ],
   },
   {
     id:'print', emoji:'🎨', name:'Custom Print & POD', tags:['b2c'],
     brands:[
-      {n:'Chatbooks',       u:'chatbooks.com',        f:['Add-Ons','Upsells','Bundles']},
-      {n:'Minted',          u:'minted.com',           f:['Bundles','Add-Ons','Upsells']},
-      {n:'Motif Photos',    u:'motifphotos.com',      f:['Add-Ons','Upsells']},
-      {n:'Pinhole Press',   u:'pinholepress.com',     f:['Add-Ons','Upsells','Bundles']},
-    ],
-  },
-  {
-    id:'mattress', emoji:'🛏️', name:'Mattress & Sleep', tags:['b2c'],
-    brands:[
-      {n:'Purple',          u:'purple.com',              f:['Upsells','Bundles','Warranty','Reviews','Trust Badges']},
-      {n:'Leesa',           u:'leesa.com',               f:['Upsells','Bundles','Reviews','Trust Badges','Warranty']},
-      {n:'Helix Sleep',     u:'helixsleep.com',          f:['Upsells','Bundles','Add-Ons','Warranty','Reviews','Trust Badges']},
-      {n:'Brooklyn Bedding',u:'brooklynbedding.com',     f:['Upsells','Bundles','Warranty','Reviews','Order Discounts']},
-      {n:'Nest Bedding',    u:'nestbedding.com',         f:['Upsells','Bundles','Reviews']},
-      {n:'Avocado Green',   u:'avocadogreenmattress.com',f:['Reviews','Trust Badges','Upsells']},
-      {n:'Bear Mattress',   u:'bearmattress.com',        f:['Upsells','Bundles','Warranty','Reviews']},
-    ],
-  },
-  {
-    id:'fragrance', emoji:'🌸', name:'Fragrance & Perfume', tags:['b2c','luxury'],
-    brands:[
-      {n:'Maison Louis Marie',u:'maisonlouismarie.com', f:['Upsells','Bundles','Trust Badges']},
-      {n:'DS & Durga',       u:'dsanddurga.com',        f:['Bundles','Upsells','Trust Badges']},
-      {n:'Phlur',            u:'phlur.com',             f:['Bundles','Upsells','Sub & Save','Add-Ons']},
-      {n:'Dedcool',          u:'dedcool.com',           f:['Bundles','Upsells']},
-      {n:'Commodity',        u:'commoditygoods.com',    f:['Bundles','Upsells','Trust Badges']},
-      {n:'Snif',             u:'snif.co',               f:['Add-Ons','Bundles','Sub & Save']},
-      {n:'Ffern',            u:'ffern.com',             f:['Sub & Save']},
-    ],
-  },
-  {
-    id:'luxury', emoji:'✨', name:'Luxury & Premium DTC', tags:['b2c','luxury'],
-    brands:[
-      {n:'Rebecca Minkoff', u:'rebeccaminkoff.com',  f:['Reviews','Trust Badges','Upsells']},
-      {n:'Cuyana',          u:'cuyana.com',           f:['Reviews','Trust Badges','Upsells','Bundles']},
-      {n:'Everlane',        u:'everlane.com',         f:['Trust Badges','Upsells','Reviews']},
-      {n:'Veja',            u:'veja-store.com',       f:['Trust Badges','Ship & Returns','Reviews']},
-      {n:'Veronica Beard',  u:'veronicabeard.com',   f:['Upsells','Bundles','Reviews']},
-      {n:'Rowing Blazers',  u:'rowingblazers.com',   f:['Bundles','Upsells','Trust Badges']},
-    ],
-  },
-  {
-    id:'nonprofit', emoji:'❤️', name:'Non-profit & Cause-Driven', tags:['b2c'],
-    brands:[
-      {n:'TOMS',        u:'toms.com',        f:['Reviews','Trust Badges','Upsells','Bundles']},
-      {n:'Bombas',      u:'bombas.com',      f:['Reviews','Bundles','Upsells','Rewards','Trust Badges']},
-      {n:'Patagonia',   u:'patagonia.com',   f:['Reviews','Trust Badges','Ship & Returns']},
-      {n:'Pela Case',   u:'pelacase.com',    f:['Sub & Save','Bundles','Upsells']},
-      {n:'Allbirds',    u:'allbirds.com',    f:['Reviews','Trust Badges','Upsells','Bundles']},
-      {n:'Cotopaxi',    u:'cotopaxi.com',    f:['Reviews','Trust Badges','Bundles']},
-      {n:'tentree',     u:'tentree.com',     f:['Upsells','Bundles','Reviews']},
-      {n:'Pact Organic',u:'wearpact.com',    f:['Sub & Save','Bundles','Upsells']},
-      {n:'Naadam',      u:'naadam.co',       f:['Upsells','Bundles','Reviews']},
-    ],
-  },
-  {
-    id:'industrial', emoji:'🏭', name:'Industrial & Manufacturing', tags:['b2b'],
-    brands:[
-      {n:'Zoro Tools',         u:'zoro.com',               f:['Reviews','Upsells','Trust Badges','Bundles']},
-      {n:'Grainger',           u:'grainger.com',           f:['Trust Badges','Reviews','Upsells']},
-      {n:'MSC Industrial',     u:'mscdirect.com',          f:['Reviews','Upsells','Trust Badges']},
-      {n:'Global Industrial',  u:'globalindustrial.com',   f:['Upsells','Trust Badges','Reviews']},
+      {n:'Chatbooks',     u:'chatbooks.com',      f:['Custom Fields','Checkout Add-On','Post-Purchase Upsell']},
+      {n:'Minted',        u:'minted.com',         f:['Custom Fields','Checkout Add-On']},
+      {n:'Motif Photos',  u:'motifphotos.com',    f:['Custom Fields','Checkout Add-On']},
+      {n:'Pinhole Press', u:'pinholepress.com',   f:['Custom Fields','Checkout Add-On']},
     ],
   },
   {
     id:'education', emoji:'📚', name:'Education & Courses', tags:['b2c'],
     brands:[
-      {n:'MasterClass',  u:'masterclass.com',    f:['Upsells','Add-Ons','Bundles','Trust Badges']},
-      {n:'CreativeLive', u:'creativelive.com',   f:['Bundles','Upsells']},
-      {n:'CXL Institute',u:'cxl.com',            f:['Bundles','Upsells','Order Discounts']},
-      {n:'Maven',        u:'maven.com',          f:['Bundles','Upsells']},
+      {n:'MasterClass',   u:'masterclass.com',  f:['Post-Purchase Upsell','Checkout Add-On','BNPL']},
+      {n:'CreativeLive',  u:'creativelive.com', f:['BNPL','Order Discounts']},
+      {n:'CXL Institute', u:'cxl.com',          f:['Order Discounts','BNPL']},
+      {n:'Maven',         u:'maven.com',        f:['Order Discounts']},
+    ],
+  },
+  {
+    id:'electronics', emoji:'💻', name:'Electronics & Tech', tags:['b2c','b2b'],
+    brands:[
+      {n:'Drop.com',    u:'drop.com',        f:['Post-Purchase Upsell','Trust Badges','Order Discounts']},
+      {n:'Nomad Goods', u:'nomadgoods.com',  f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'dbrand',      u:'dbrand.com',      f:['Custom Fields','Trust Badges']},
+      {n:'Skullcandy',  u:'skullcandy.com',  f:['Warranty','Loyalty Redemption','BNPL']},
+      {n:'Incase',      u:'incase.com',      f:['Trust Badges','BNPL']},
+      {n:'Pela Case',   u:'pelacase.com',    f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Peak Design', u:'peakdesign.com',  f:['Trust Badges','Post-Purchase Upsell','BNPL']},
+    ],
+  },
+  {
+    id:'fashion', emoji:'👟', name:'Fashion & Apparel', tags:['b2c'],
+    brands:[
+      {n:'Gymshark',           u:'gymshark.com',          f:['Post-Purchase Upsell','Loyalty Redemption','Trust Badges','BNPL']},
+      {n:'Allbirds',           u:'allbirds.com',          f:['Trust Badges','Ship & Returns','Post-Purchase Upsell']},
+      {n:'Alo Yoga',           u:'aloyoga.com',           f:['Loyalty Redemption','Trust Badges','BNPL']},
+      {n:'Vuori',              u:'vuoriclothing.com',     f:['Trust Badges','BNPL','Post-Purchase Upsell']},
+      {n:'SKIMS',              u:'skims.com',             f:['Trust Badges','Free Gift','Post-Purchase Upsell','BNPL']},
+      {n:'Good American',      u:'goodamerican.com',      f:['Trust Badges','BNPL']},
+      {n:'BYLT Basics',        u:'byltbasics.com',        f:['Sub & Save','Order Discounts','Trust Badges']},
+      {n:'Taylor Stitch',      u:'taylorstitch.com',      f:['Loyalty Redemption','Trust Badges','Custom Fields']},
+      {n:'Chubbies',           u:'chubbiesshorts.com',    f:['Free Gift','Order Discounts','Trust Badges']},
+      {n:'Cuts Clothing',      u:'cutsclothing.com',      f:['Sub & Save','Trust Badges']},
+      {n:'Ministry of Supply', u:'ministryofsupply.com', f:['Trust Badges','BNPL']},
+      {n:'Faherty',            u:'fahertybrand.com',      f:['Loyalty Redemption','Trust Badges','BNPL']},
+    ],
+  },
+  {
+    id:'food', emoji:'☕', name:'Food & Beverage', tags:['b2c','subscription'],
+    brands:[
+      {n:'Death Wish Coffee', u:'deathwishcoffee.com', f:['Sub & Save','Order Discounts','Post-Purchase Upsell']},
+      {n:'Trade Coffee',      u:'drinktrade.com',      f:['Sub & Save','Custom Fields','Checkout Add-On']},
+      {n:'Magic Spoon',       u:'magicspoon.com',      f:['Sub & Save','Order Discounts','Post-Purchase Upsell']},
+      {n:'Fly by Jing',       u:'flybyjing.com',       f:['Order Discounts','Custom Fields']},
+      {n:'Chomps',            u:'chomps.com',          f:['Sub & Save','Order Discounts']},
+      {n:'Brightland',        u:'brightland.co',       f:['Order Discounts','Custom Fields']},
+      {n:'Omsom',             u:'omsom.com',           f:['Order Discounts','Custom Fields']},
+      {n:'Olipop',            u:'drinkolipop.com',     f:['Sub & Save','Order Discounts']},
+      {n:"Jeni's Ice Cream",  u:'jenis.com',           f:['Delivery Picker','Custom Fields','Ship & Returns']},
+      {n:'Atlas Coffee Club', u:'atlascoffeeclub.com', f:['Sub & Save','Custom Fields','Checkout Add-On']},
+      {n:'Graza',             u:'graza.co',            f:['Sub & Save','Order Discounts']},
+    ],
+  },
+  {
+    id:'fragrance', emoji:'🌸', name:'Fragrance & Perfume', tags:['b2c','luxury'],
+    brands:[
+      {n:'Maison Louis Marie', u:'maisonlouismarie.com', f:['Custom Fields','Trust Badges']},
+      {n:'DS & Durga',         u:'dsanddurga.com',       f:['Custom Fields','Trust Badges']},
+      {n:'Phlur',              u:'phlur.com',            f:['Sub & Save','Checkout Add-On']},
+      {n:'Dedcool',            u:'dedcool.com',          f:['Custom Fields','Trust Badges']},
+      {n:'Commodity',          u:'commoditygoods.com',   f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Snif',               u:'snif.co',              f:['Checkout Add-On','Sub & Save']},
+      {n:'Ffern',              u:'ffern.com',            f:['Sub & Save','Custom Fields']},
+    ],
+  },
+  {
+    id:'gifts', emoji:'🎁', name:'Gifts & Occasions', tags:['b2c'],
+    brands:[
+      {n:'Uncommon Goods',   u:'uncommongoods.com',   f:['Custom Fields','Post-Purchase Upsell','Trust Badges']},
+      {n:'Sugarfina',        u:'sugarfina.com',       f:['Custom Fields','Free Gift']},
+      {n:'Artifact Uprising',u:'artifactuprising.com',f:['Custom Fields','Checkout Add-On']},
+      {n:'Lovepop',          u:'lovepop.com',         f:['Custom Fields','Trust Badges']},
+      {n:'Greetabl',         u:'greetabl.com',        f:['Custom Fields','Checkout Add-On']},
+      {n:'Bespoke Post',     u:'bespokepost.com',     f:['Sub & Save','Custom Fields']},
+      {n:'Mouth',            u:'mouth.com',           f:['Custom Fields','Order Discounts']},
+    ],
+  },
+  {
+    id:'health', emoji:'💪', name:'Health & Supplements', tags:['b2c','subscription'],
+    brands:[
+      {n:'AG1',              u:'drinkag1.com',        f:['Sub & Save','Free Gift','Post-Purchase Upsell','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Ritual',           u:'ritual.com',          f:['Sub & Save','Free Gift','Post-Purchase Upsell']},
+      {n:'Seed',             u:'seed.com',            f:['Sub & Save','Checkout Add-On']},
+      {n:'Gainful',          u:'gainful.com',         f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'Momentous',        u:'livemomentous.com',   f:['Sub & Save','Post-Purchase Upsell','HSA/FSA Pay']},
+      {n:'Four Sigmatic',    u:'foursigmatic.com',    f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Perfect Keto',     u:'perfectketo.com',     f:['Sub & Save','Order Discounts','Post-Purchase Upsell']},
+      {n:'Transparent Labs', u:'transparentlabs.com', f:['Sub & Save','Free Gift','Order Discounts']},
+      {n:'Thesis',           u:'takethesis.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'Bulletproof',      u:'bulletproof.com',     f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Bubs Naturals',    u:'bubsnaturals.com',    f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Care/of',          u:'takecareof.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Onnit',            u:'onnit.com',           f:['Sub & Save','Loyalty Redemption','Post-Purchase Upsell']},
+    ],
+  },
+  {
+    id:'home', emoji:'🛋️', name:'Home & Furniture', tags:['b2c'],
+    brands:[
+      {n:'Parachute',     u:'parachutehome.com', f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Brooklinen',    u:'brooklinen.com',    f:['Custom Fields','Loyalty Redemption','Trust Badges','BNPL']},
+      {n:'Article',       u:'article.com',       f:['BNPL','Delivery Picker','Trust Badges']},
+      {n:'Ruggable',      u:'ruggable.com',      f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Floyd',         u:'floydhome.com',     f:['BNPL','Delivery Picker','Trust Badges']},
+      {n:'Coyuchi',       u:'coyuchi.com',       f:['Sub & Save','Custom Fields','BNPL']},
+      {n:'Boll & Branch', u:'bollandbranch.com', f:['Sub & Save','Custom Fields','Trust Badges','BNPL']},
+      {n:'Snowe',         u:'snowehome.com',     f:['Order Discounts','BNPL']},
+      {n:'Schoolhouse',   u:'schoolhouse.com',   f:['Trust Badges','BNPL']},
+      {n:'Inside Weather',u:'insideweather.com', f:['BNPL','Delivery Picker']},
+    ],
+  },
+  {
+    id:'industrial', emoji:'🏭', name:'Industrial & Manufacturing', tags:['b2b'],
+    brands:[
+      {n:'Zoro Tools',        u:'zoro.com',              f:['Custom Fields','Order Discounts','Trust Badges']},
+      {n:'Grainger',          u:'grainger.com',          f:['Custom Fields','Trust Badges','Order Discounts']},
+      {n:'MSC Industrial',    u:'mscdirect.com',         f:['Custom Fields','Trust Badges']},
+      {n:'Global Industrial', u:'globalindustrial.com',  f:['Custom Fields','Trust Badges']},
+    ],
+  },
+  {
+    id:'jewelry', emoji:'💍', name:'Jewelry & Accessories', tags:['b2c','luxury'],
+    brands:[
+      {n:'Mejuri',          u:'mejuri.com',          f:['Custom Fields','Loyalty Redemption','Trust Badges']},
+      {n:'Missoma',         u:'missoma.com',         f:['Custom Fields','Trust Badges']},
+      {n:'Gorjana',         u:'gorjana.com',         f:['Custom Fields','Loyalty Redemption','BNPL']},
+      {n:'Catbird',         u:'catbirdnyc.com',      f:['Custom Fields','Trust Badges']},
+      {n:'Brilliant Earth', u:'brilliantearth.com',  f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'BaubleBar',       u:'baublebar.com',       f:['Custom Fields','Post-Purchase Upsell','BNPL']},
+      {n:'Kendra Scott',    u:'kendrascott.com',     f:['Custom Fields','Loyalty Redemption','BNPL']},
+      {n:'Vrai',            u:'vrai.com',            f:['Custom Fields','Trust Badges']},
+      {n:'Stone and Strand',u:'stoneandstrand.com',  f:['Custom Fields','Trust Badges']},
+    ],
+  },
+  {
+    id:'luxury', emoji:'✨', name:'Luxury & Premium DTC', tags:['b2c','luxury'],
+    brands:[
+      {n:'Rebecca Minkoff', u:'rebeccaminkoff.com', f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Cuyana',          u:'cuyana.com',          f:['Custom Fields','Trust Badges']},
+      {n:'Everlane',        u:'everlane.com',        f:['Trust Badges','Ship & Returns']},
+      {n:'Veja',            u:'veja-store.com',      f:['Trust Badges','Ship & Returns']},
+      {n:'Veronica Beard',  u:'veronicabeard.com',  f:['Custom Fields','BNPL']},
+      {n:'Rowing Blazers',  u:'rowingblazers.com',  f:['Trust Badges','Custom Fields']},
+    ],
+  },
+  {
+    id:'mattress', emoji:'🛏️', name:'Mattress & Sleep', tags:['b2c'],
+    brands:[
+      {n:'Purple',          u:'purple.com',               f:['Warranty','Delivery Picker','BNPL','Post-Purchase Upsell','Trust Badges']},
+      {n:'Leesa',           u:'leesa.com',                f:['Warranty','BNPL','Post-Purchase Upsell','Trust Badges']},
+      {n:'Helix Sleep',     u:'helixsleep.com',           f:['Warranty','Checkout Add-On','BNPL','Delivery Picker']},
+      {n:'Brooklyn Bedding',u:'brooklynbedding.com',      f:['Warranty','BNPL','Order Discounts']},
+      {n:'Nest Bedding',    u:'nestbedding.com',          f:['Warranty','BNPL']},
+      {n:'Avocado Green',   u:'avocadogreenmattress.com', f:['Warranty','Trust Badges','Delivery Picker']},
+      {n:'Bear Mattress',   u:'bearmattress.com',         f:['Warranty','BNPL','Post-Purchase Upsell']},
+    ],
+  },
+  {
+    id:'nonprofit', emoji:'❤️', name:'Non-profit & Cause-Driven', tags:['b2c'],
+    brands:[
+      {n:'TOMS',        u:'toms.com',       f:['Custom Fields','Post-Purchase Upsell','Trust Badges']},
+      {n:'Bombas',      u:'bombas.com',     f:['Custom Fields','Loyalty Redemption','Post-Purchase Upsell']},
+      {n:'Patagonia',   u:'patagonia.com',  f:['Ship & Returns','Trust Badges','Checkout Add-On']},
+      {n:'Pela Case',   u:'pelacase.com',   f:['Sub & Save','Checkout Add-On']},
+      {n:'Allbirds',    u:'allbirds.com',   f:['Trust Badges','Checkout Add-On','Post-Purchase Upsell']},
+      {n:'Cotopaxi',    u:'cotopaxi.com',   f:['Trust Badges','Custom Fields']},
+      {n:'tentree',     u:'tentree.com',    f:['Checkout Add-On','Trust Badges']},
+      {n:'Pact Organic',u:'wearpact.com',   f:['Sub & Save','Trust Badges']},
+      {n:'Naadam',      u:'naadam.co',      f:['Custom Fields','Trust Badges','BNPL']},
+    ],
+  },
+  {
+    id:'pets', emoji:'🐾', name:'Pet Products', tags:['b2c','subscription'],
+    brands:[
+      {n:'Wild One',         u:'wildone.com',        f:['Custom Fields','Trust Badges']},
+      {n:'Ruffwear',         u:'ruffwear.com',       f:['Ship & Returns','Trust Badges','Custom Fields']},
+      {n:'Native Pet',       u:'nativepet.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'BarkShop',         u:'barkshop.com',       f:['Sub & Save','Custom Fields']},
+      {n:"The Farmer's Dog", u:'thefarmersdog.com',  f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'Ollie',            u:'myollie.com',        f:['Sub & Save','Checkout Add-On','Free Gift']},
+      {n:'Nom Nom',          u:'nomnomnow.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'Sundays for Dogs', u:'sundaysfordogs.com', f:['Sub & Save','Trust Badges']},
+      {n:'Open Farm',        u:'openfarmpet.com',    f:['Sub & Save','Checkout Add-On']},
+      {n:'Pet Plate',        u:'petplate.com',       f:['Sub & Save','Checkout Add-On','Custom Fields']},
+      {n:'Jinx',             u:'jinx.com',           f:['Sub & Save','Post-Purchase Upsell']},
+    ],
+  },
+  {
+    id:'meat', emoji:'🥩', name:'Specialty Food & Meat', tags:['b2c','subscription'],
+    brands:[
+      {n:'ButcherBox',            u:'butcherbox.com',       f:['Sub & Save','Free Gift','Checkout Add-On','Delivery Picker']},
+      {n:'Porter Road',           u:'porterroad.com',       f:['Sub & Save','Custom Fields']},
+      {n:'Snake River Farms',     u:'snakeriverfarms.com',  f:['Free Gift','Order Discounts','Delivery Picker']},
+      {n:'Crowd Cow',             u:'crowdcow.com',         f:['Sub & Save','Checkout Add-On','Delivery Picker']},
+      {n:'Holy Grail Steak',      u:'holygrailsteak.com',   f:['Order Discounts','Delivery Picker']},
+      {n:'Goldbelly',             u:'goldbelly.com',        f:['Delivery Picker','Custom Fields','Trust Badges']},
+      {n:"Rastelli's",            u:'rastellis.com',        f:['Sub & Save','Free Gift','Delivery Picker']},
+      {n:'Chicago Steak Company', u:'mychicagosteak.com',   f:['Free Gift','Order Discounts','Custom Fields','Delivery Picker']},
+    ],
+  },
+  {
+    id:'sports', emoji:'🏋️', name:'Sports & Fitness', tags:['b2c'],
+    brands:[
+      {n:'Gymshark',    u:'gymshark.com',    f:['Post-Purchase Upsell','Loyalty Redemption','BNPL','Trust Badges']},
+      {n:'Hydrow',      u:'hydrow.com',      f:['Checkout Add-On','Warranty','BNPL']},
+      {n:'Bala',        u:'bala.com',        f:['Free Gift','Trust Badges','BNPL']},
+      {n:'Ten Thousand',u:'tenthousand.cc',  f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Janji',       u:'runjanji.com',    f:['Custom Fields','Trust Badges']},
+      {n:'Cotopaxi',    u:'cotopaxi.com',    f:['Trust Badges','Custom Fields']},
+      {n:'Tracksmith',  u:'tracksmith.com',  f:['Custom Fields','Trust Badges']},
+      {n:'Norda',       u:'norda.com',       f:['Trust Badges','BNPL']},
+      {n:'Hylete',      u:'hylete.com',      f:['Sub & Save','Trust Badges']},
+      {n:'SPIbelt',     u:'spibelt.com',     f:['Custom Fields']},
+    ],
+  },
+  {
+    id:'subscriptions', emoji:'📦', name:'Subscription Boxes', tags:['b2c','subscription'],
+    brands:[
+      {n:'FabFitFun',          u:'fabfitfun.com',   f:['Sub & Save','Checkout Add-On','Post-Purchase Upsell']},
+      {n:'KiwiCo',             u:'kiwico.com',      f:['Sub & Save','Checkout Add-On','Free Gift']},
+      {n:'Scentbird',          u:'scentbird.com',   f:['Sub & Save','Checkout Add-On']},
+      {n:'Winc',               u:'winc.com',        f:['Sub & Save','Checkout Add-On','Age Verification']},
+      {n:'Grove Collaborative',u:'grove.co',        f:['Sub & Save','Order Discounts']},
+      {n:'Ipsy',               u:'ipsy.com',        f:['Sub & Save','Checkout Add-On']},
+      {n:'Bespoke Post',       u:'bespokepost.com', f:['Sub & Save','Checkout Add-On']},
+      {n:'Breo Box',           u:'breobox.com',     f:['Sub & Save','Checkout Add-On']},
+    ],
+  },
+  {
+    id:'medical', emoji:'💊', name:'Telehealth & Medical', tags:['b2c','regulated'],
+    brands:[
+      {n:'Curology',       u:'curology.com',       f:['Sub & Save','Checkout Add-On','HSA/FSA Pay','Custom Fields']},
+      {n:'Apostrophe',     u:'apostrophe.com',     f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Keeps',          u:'keeps.com',          f:['Sub & Save','HSA/FSA Pay']},
+      {n:'Thirty Madison', u:'thirtymadison.com',  f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Wisp',           u:'hellowisp.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Stix',           u:'stixs.com',          f:['Sub & Save','HSA/FSA Pay']},
     ],
   },
 ];
@@ -486,22 +503,14 @@ function hl(text, q) {
   return text.slice(0,i) + '<mark>' + text.slice(i, i+q.length) + '</mark>' + text.slice(i+q.length);
 }
 
-function brandMatchesQuery(brand, q, indName) {
-  if (!q) return true;
-  return brand.n.toLowerCase().includes(q)
-    || indName.toLowerCase().includes(q)
-    || brand.f.some(f => f.toLowerCase().includes(q));
-}
-
 function render() {
   const q = searchQuery.toLowerCase().trim();
-
   const visible = INDUSTRIES.map(ind => {
-    const matchFilter = activeFilter === 'all' || ind.tags.includes(activeFilter);
-    if (!matchFilter) return null;
-    const matchedBrands = ind.brands.filter(b => brandMatchesQuery(b, q, ind.name));
-    if (matchedBrands.length === 0) return null;
-    return {...ind, matchedBrands};
+    if (activeFilter !== 'all' && !ind.tags.includes(activeFilter)) return null;
+    const matched = ind.brands.filter(b =>
+      !q || b.n.toLowerCase().includes(q) || ind.name.toLowerCase().includes(q) || b.f.some(f => f.toLowerCase().includes(q))
+    );
+    return matched.length ? {...ind, matched} : null;
   }).filter(Boolean);
 
   document.getElementById('count').textContent = visible.length;
@@ -512,33 +521,26 @@ function render() {
     return;
   }
 
-  grid.innerHTML = visible.map(ind => {
-    const rows = ind.matchedBrands.map(b => {
-      const ftags = b.f.map(f => `<span class="ftag ${FEAT[f] || 'ft-trust'}">${hl(f, q)}</span>`).join('');
-      return `<div class="brand-row">
-        <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n, q)} ${EXT}</a>
-        <div class="ftags">${ftags}</div>
-      </div>`;
-    }).join('');
-
-    return `<div class="card">
+  grid.innerHTML = visible.map(ind => `
+    <div class="card">
       <div class="card-head">
         <div class="card-emoji">${ind.emoji}</div>
         <div class="card-title-wrap">
           <div class="card-name">${hl(ind.name, q)}</div>
-          <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]||t}</span>`).join('')}</div>
+          <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]}</span>`).join('')}</div>
         </div>
       </div>
-      <div class="card-body">${rows}</div>
-    </div>`;
-  }).join('');
+      <div class="card-body">
+        ${ind.matched.map(b => `
+          <div class="brand-row">
+            <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
+            <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
 }
 
-document.getElementById('search').addEventListener('input', e => {
-  searchQuery = e.target.value;
-  render();
-});
-
+document.getElementById('search').addEventListener('input', e => { searchQuery = e.target.value; render(); });
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -547,17 +549,9 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     render();
   });
 });
-
 document.addEventListener('keydown', e => {
-  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
-    e.preventDefault();
-    document.getElementById('search').focus();
-  }
-  if (e.key === 'Escape') {
-    document.getElementById('search').value = '';
-    searchQuery = '';
-    render();
-  }
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); document.getElementById('search').focus(); }
+  if (e.key === 'Escape') { document.getElementById('search').value = ''; searchQuery = ''; render(); }
 });
 
 render();
