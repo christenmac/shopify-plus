@@ -684,7 +684,7 @@
     <div>
       <div class="section-lbl">Sections — uncheck to hide</div>
       <div id="retail-section-list">
-        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailRatesCard(this.checked)"><span class="sec-item-label">💳 POS Rates</span></div>
+        <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked data-rcard="pos-rates" onchange="toggleRetailRatesCard(this.checked)"><span class="sec-item-label">💳 POS Rates</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('resources',this.checked)"><span class="sec-item-label">POS Overview &amp; Resources</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('inventory',this.checked)"><span class="sec-item-label">Inventory Management</span></div>
         <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleRetailSection('reporting',this.checked)"><span class="sec-item-label">POS Reporting</span></div>
@@ -1451,7 +1451,10 @@
 
     <!-- Retail Rates -->
     <div class="rates-card" id="retail-rates-card">
-      <div class="rates-hdg">💳 POS Rates</div>
+      <div class="savings-hdg-row">
+        <span class="rates-hdg" style="margin-bottom:0">💳 POS Rates</span>
+        <button class="sav-dismiss" title="Hide POS rates" onclick="toggleRetailRatesCard(false)">✕</button>
+      </div>
       <div class="rates-grid">
         <div class="rate-box" data-rrate="inperson"><button class="sav-box-x" onclick="toggleRetailRate('inperson',false)" title="Remove">×</button><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="retail-rate-inperson" class="rate-val" contenteditable="true">2.6% + $0.10</span></div>
         <div class="rate-box" data-rrate="pos"><button class="sav-box-x" onclick="toggleRetailRate('pos',false)" title="Remove">×</button><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="retail-rate-pos" class="rate-val" contenteditable="true">$89/mo</span></div>
@@ -3031,6 +3034,8 @@
   function toggleRetailRatesCard(visible) {
     const card = document.getElementById('retail-rates-card');
     if (card) card.classList.toggle('sec-hidden', !visible);
+    const cb = document.querySelector('#retail-section-list input[data-rcard="pos-rates"]');
+    if (cb) cb.checked = visible;
   }
 
   // ── Retail / POS — rate box toggle ──
