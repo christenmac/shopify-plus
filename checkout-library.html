@@ -32,7 +32,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 .filter-bar { background: white; border-bottom: 1px solid var(--border); padding: 10px 24px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 0; z-index: 11; }
 .filter-bar::-webkit-scrollbar { display: none; }
-.feat-bar { background: #fafafa; border-bottom: 1px solid var(--border); padding: 8px 24px; display: flex; align-items: center; gap: 6px; overflow-x: auto; position: sticky; top: 45px; z-index: 10; }
+.feat-bar-wrap { background: #fafafa; border-bottom: 1px solid var(--border); position: sticky; top: 45px; z-index: 10; display: flex; align-items: center; }
+.feat-arrow { flex-shrink: 0; width: 32px; height: 100%; min-height: 42px; border: none; background: #fafafa; cursor: pointer; font-size: 14px; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: color .1s, background .1s; }
+.feat-arrow:hover { color: var(--text); background: #f0f0f0; }
+.feat-arrow.hidden { opacity: 0; pointer-events: none; }
+.feat-bar { flex: 1; padding: 8px 4px; display: flex; align-items: center; gap: 6px; overflow-x: auto; scroll-behavior: smooth; }
 .feat-bar::-webkit-scrollbar { display: none; }
 .filter-label { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-right: 4px; text-transform: uppercase; letter-spacing: .5px; }
 .filter-btn { padding: 6px 15px; border-radius: 50px; border: 1.5px solid var(--border); background: white; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all .12s; color: var(--text); }
@@ -94,8 +98,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 footer { text-align: center; padding: 36px 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8; }
 mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 
-.legend { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 14px 24px; background: white; border-bottom: 1px solid var(--border); font-size: 11px; }
-.legend-item { display: flex; align-items: center; gap: 4px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -119,40 +121,27 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
   <button class="filter-btn" data-filter="regulated">Regulated</button>
   <button class="filter-btn" data-filter="luxury">Luxury</button>
 </div>
-<div class="feat-bar">
-  <span class="filter-label">Feature:</span>
-  <button class="feat-btn ft-sub active" data-feat="all">All Features</button>
-  <button class="feat-btn ft-sub" data-feat="Sub &amp; Save">Sub &amp; Save</button>
-  <button class="feat-btn ft-ppu" data-feat="Post-Purchase Upsell">Post-Purchase Upsell</button>
-  <button class="feat-btn ft-addon" data-feat="Checkout Add-On">Checkout Add-On</button>
-  <button class="feat-btn ft-fields" data-feat="Custom Fields">Custom Fields</button>
-  <button class="feat-btn ft-gift" data-feat="Free Gift">Free Gift</button>
-  <button class="feat-btn ft-loyalty" data-feat="Loyalty Redemption">Loyalty Redemption</button>
-  <button class="feat-btn ft-bnpl" data-feat="BNPL">BNPL</button>
-  <button class="feat-btn ft-trust" data-feat="Trust Badges">Trust Badges</button>
-  <button class="feat-btn ft-warr" data-feat="Warranty">Warranty</button>
-  <button class="feat-btn ft-hsa" data-feat="HSA/FSA Pay">HSA/FSA Pay</button>
-  <button class="feat-btn ft-age" data-feat="Age Verification">Age Verification</button>
-  <button class="feat-btn ft-delivery" data-feat="Delivery Picker">Delivery Picker</button>
-  <button class="feat-btn ft-disc" data-feat="Order Discounts">Order Discounts</button>
-  <button class="feat-btn ft-ship" data-feat="Ship &amp; Returns">Ship &amp; Returns</button>
-</div>
-
-<div class="legend">
-  <span class="legend-item"><span class="ftag ft-sub">Sub & Save</span></span>
-  <span class="legend-item"><span class="ftag ft-ppu">Post-Purchase Upsell</span></span>
-  <span class="legend-item"><span class="ftag ft-addon">Checkout Add-On</span></span>
-  <span class="legend-item"><span class="ftag ft-fields">Custom Fields</span></span>
-  <span class="legend-item"><span class="ftag ft-gift">Free Gift</span></span>
-  <span class="legend-item"><span class="ftag ft-loyalty">Loyalty Redemption</span></span>
-  <span class="legend-item"><span class="ftag ft-bnpl">BNPL</span></span>
-  <span class="legend-item"><span class="ftag ft-trust">Trust Badges</span></span>
-  <span class="legend-item"><span class="ftag ft-warr">Warranty</span></span>
-  <span class="legend-item"><span class="ftag ft-hsa">HSA/FSA Pay</span></span>
-  <span class="legend-item"><span class="ftag ft-age">Age Verification</span></span>
-  <span class="legend-item"><span class="ftag ft-delivery">Delivery Picker</span></span>
-  <span class="legend-item"><span class="ftag ft-disc">Order Discounts</span></span>
-  <span class="legend-item"><span class="ftag ft-ship">Ship & Returns</span></span>
+<div class="feat-bar-wrap">
+  <button class="feat-arrow hidden" id="feat-prev">&#8592;</button>
+  <div class="feat-bar" id="feat-bar">
+    <span class="filter-label">Feature:</span>
+    <button class="feat-btn ft-sub active" data-feat="all">All Features</button>
+    <button class="feat-btn ft-sub" data-feat="Sub &amp; Save">Sub &amp; Save</button>
+    <button class="feat-btn ft-ppu" data-feat="Post-Purchase Upsell">Post-Purchase Upsell</button>
+    <button class="feat-btn ft-addon" data-feat="Checkout Add-On">Checkout Add-On</button>
+    <button class="feat-btn ft-fields" data-feat="Custom Fields">Custom Fields</button>
+    <button class="feat-btn ft-gift" data-feat="Free Gift">Free Gift</button>
+    <button class="feat-btn ft-loyalty" data-feat="Loyalty Redemption">Loyalty Redemption</button>
+    <button class="feat-btn ft-bnpl" data-feat="BNPL">BNPL</button>
+    <button class="feat-btn ft-trust" data-feat="Trust Badges">Trust Badges</button>
+    <button class="feat-btn ft-warr" data-feat="Warranty">Warranty</button>
+    <button class="feat-btn ft-hsa" data-feat="HSA/FSA Pay">HSA/FSA Pay</button>
+    <button class="feat-btn ft-age" data-feat="Age Verification">Age Verification</button>
+    <button class="feat-btn ft-delivery" data-feat="Delivery Picker">Delivery Picker</button>
+    <button class="feat-btn ft-disc" data-feat="Order Discounts">Order Discounts</button>
+    <button class="feat-btn ft-ship" data-feat="Ship &amp; Returns">Ship &amp; Returns</button>
+  </div>
+  <button class="feat-arrow" id="feat-next">&#8594;</button>
 </div>
 
 <div class="main-wrap">
@@ -582,6 +571,18 @@ document.querySelectorAll('.feat-btn').forEach(btn => {
     render();
   });
 });
+
+const featBar = document.getElementById('feat-bar');
+const featPrev = document.getElementById('feat-prev');
+const featNext = document.getElementById('feat-next');
+function updateArrows() {
+  featPrev.classList.toggle('hidden', featBar.scrollLeft <= 4);
+  featNext.classList.toggle('hidden', featBar.scrollLeft + featBar.clientWidth >= featBar.scrollWidth - 4);
+}
+featPrev.addEventListener('click', () => { featBar.scrollLeft -= 240; });
+featNext.addEventListener('click', () => { featBar.scrollLeft += 240; });
+featBar.addEventListener('scroll', updateArrows, { passive: true });
+updateArrows();
 document.addEventListener('keydown', e => {
   if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); document.getElementById('search').focus(); }
   if (e.key === 'Escape') { document.getElementById('search').value = ''; searchQuery = ''; render(); }
