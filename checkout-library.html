@@ -51,32 +51,32 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .results-count { font-size: 14px; color: var(--muted); }
 .results-count strong { color: var(--text); font-size: 1.1rem; }
 
-#grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+#grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
 @media (max-width: 1100px) { #grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 660px) { #grid { grid-template-columns: 1fr; } }
 
-.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .15s, box-shadow .15s; }
-.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
-.card-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
-.card-emoji { font-size: 1.8rem; line-height: 1.1; flex-shrink: 0; }
+.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .15s, box-shadow .15s; overflow: hidden; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.1); }
+.card-head { padding: 14px 18px 13px; background: #fafafa; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.card-emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
 .card-title-wrap { flex: 1 1 0; min-width: 0; }
-.card-name { font-size: .95rem; font-weight: 700; margin-bottom: 5px; }
+.card-name { font-size: 1rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -.2px; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
+.badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
 .badge-b2c          { background: #e3f5eb; color: #004c3f; }
 .badge-b2b          { background: #f5f3ff; color: #7c3aed; }
 .badge-regulated    { background: #fffbeb; color: #b45309; }
 .badge-subscription { background: #f0fdfa; color: #0d9488; }
 .badge-luxury       { background: #fdf2f8; color: #be185d; }
 
-.card-body { padding: 6px 16px 12px; }
-.brand-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #f3f4f6; flex-wrap: wrap; }
+.card-body { padding: 4px 0 4px; }
+.brand-row { display: flex; align-items: center; gap: 10px; padding: 9px 18px; border-bottom: 1px solid #f1f3f5; flex-wrap: wrap; }
 .brand-row:last-child { border-bottom: none; }
-.brand-name-link { font-size: 13px; font-weight: 600; color: var(--green-dk); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; flex-shrink: 0; }
-.brand-name-link:hover { color: var(--green); text-decoration: underline; }
-.brand-name-link svg { opacity: .3; }
-.ftags { display: flex; flex-wrap: wrap; gap: 3px; }
-.ftag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 50px; white-space: nowrap; letter-spacing: .1px; }
+.brand-name-link { font-size: 13px; font-weight: 700; color: #111; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0; background: white; border: 1.5px solid #d1d5db; border-radius: 6px; padding: 3px 9px 3px 8px; transition: border-color .12s, color .12s; }
+.brand-name-link:hover { border-color: var(--green); color: var(--green); }
+.brand-name-link svg { opacity: .4; }
+.ftags { display: flex; flex-wrap: wrap; gap: 4px; }
+.ftag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 50px; white-space: nowrap; letter-spacing: .1px; }
 
 .ft-trust    { background: #eff6ff; color: #1d4ed8; }
 .ft-ship     { background: #f8fafc; color: #475569; outline: 1px solid #e2e8f0; }
@@ -477,6 +477,7 @@ const INDUSTRIES = [
       {n:'Norda',       u:'norda.com',       f:['Trust Badges','BNPL']},
       {n:'Hylete',      u:'hylete.com',      f:['Sub & Save','Trust Badges']},
       {n:'SPIbelt',     u:'spibelt.com',     f:['Custom Fields']},
+      {n:'Warstic',     u:'warstic.com',     f:['Custom Fields','Warranty','Order Discounts','Trust Badges']},
     ],
   },
   {
