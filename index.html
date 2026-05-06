@@ -101,6 +101,15 @@
     }
     .btn-copy:hover { border-color: var(--green); color: var(--green); }
     .btn-copy.copied { background: #F4F8EC; border-color: var(--green); color: var(--dark); }
+    .btn-restore {
+      background: #fff; color: var(--dark); border: 1.5px solid var(--green); border-radius: 7px;
+      padding: 8px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px; transition: all .15s;
+    }
+    .btn-restore:hover { background: var(--light); }
+    .btn-restore:disabled { opacity: 0.35; cursor: default; border-color: var(--border); color: var(--lite-t); }
+    .btn-restore.saved-flash { background: var(--light); }
+    .btn-restore.restored { background: #F4F8EC; border-color: var(--green); color: var(--dark); }
 
     /* ── Share modal ── */
     .modal-overlay {
@@ -826,10 +835,16 @@
     <span class="edit-badge">✏ Click any text to edit</span>
     <span class="edit-badge" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE;">🔗 Underlined text = clickable link</span>
   </div>
-  <button class="btn-share" onclick="exportMerchantPage()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-    Export for Merchant
-  </button>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button id="btn-restore" class="btn-restore" onclick="restoreState()" disabled title="Restore your last autosaved session">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+      Restore
+    </button>
+    <button class="btn-share" onclick="exportMerchantPage()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      Export for Merchant
+    </button>
+  </div>
 </div>
 
 <!-- ═══════════════ DOCUMENT ═══════════════ -->
@@ -1126,6 +1141,7 @@
           <li>Checkout UI Extensions (in checkout)</li>
           <li>Cart &amp; Checkout Validation Functions</li>
           <li>Payment/Delivery Customization Functions</li>
+          <li><a href="https://shopify.dev/docs/apps/build/purchase-options/subscriptions" target="_blank" rel="noopener">Subscription APIs</a> — recurring billing, selling plans &amp; purchase options</li>
         </ul>
       </div>
     </div>
@@ -2472,12 +2488,14 @@
             <li><strong>Organization Admin API</strong> — Centralized user and settings management across all expansion stores</li>
             <li><strong>Storefront API / Hydrogen</strong> — Headless commerce with up to 25 storefronts and free Oxygen hosting</li>
             <li><strong>Higher Rate Limits</strong> — Up to 10x on public apps, up to 500% on private/custom apps</li>
+            <li><strong><a href="https://shopify.dev/docs/apps/build/purchase-options/subscriptions" target="_blank" rel="noopener" style="color:inherit;">Subscription APIs</a></strong> — Recurring billing and selling plans for subscription-based products</li>
           </ul>
         </div>
         <div class="badges" style="margin-top:8px;">
           <span class="badge"><a href="https://shopify.dev/docs/api" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">API Reference</a></span>
           <span class="badge"><a href="https://shopify.dev/docs/api/admin-graphql" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Admin GraphQL</a></span>
           <span class="badge"><a href="https://shopify.dev/docs/storefronts/headless/hydrogen" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Hydrogen Docs</a></span>
+          <span class="badge"><a href="https://shopify.dev/docs/apps/build/purchase-options/subscriptions" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Subscription APIs</a></span>
         </div>
       </div>
     </div>
@@ -3095,6 +3113,138 @@
     } else {
       el.textContent = val;
     }
+  }
+
+  // ── Autosave & Restore ──
+  const SAVE_KEY = 'splus_v1';
+  let _saveTimer = null;
+
+  function _buildCeKey(el) {
+    let anc = el.closest('[data-key]');
+    if (anc) {
+      const ces = [...anc.querySelectorAll('[contenteditable]')];
+      return 'ce:k:' + anc.dataset.key + ':' + ces.indexOf(el);
+    }
+    anc = el.closest('[data-sp-key]');
+    if (anc) {
+      const ces = [...anc.querySelectorAll('[contenteditable]')];
+      return 'ce:sp:' + anc.dataset.spKey + ':' + ces.indexOf(el);
+    }
+    anc = el.closest('[data-rkey]');
+    if (anc) {
+      const ces = [...anc.querySelectorAll('[contenteditable]')];
+      return 'ce:r:' + anc.dataset.rkey + ':' + ces.indexOf(el);
+    }
+    const all = [...document.querySelectorAll('[contenteditable]')];
+    return 'ce:g:' + all.indexOf(el);
+  }
+
+  function scheduleSave() {
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(saveState, 800);
+  }
+
+  function saveState() {
+    const state = {};
+    document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+      state['i:' + el.id] = el.value;
+    });
+    document.querySelectorAll('#sections-container .sec-wrap[data-key]').forEach(el => {
+      state['sv:' + el.dataset.key] = el.classList.contains('sec-hidden') ? '1' : '0';
+    });
+    document.querySelectorAll('[data-sp-key]').forEach(el => {
+      state['spv:' + el.dataset.spKey] = el.classList.contains('sec-hidden') ? '1' : '0';
+    });
+    document.querySelectorAll('[data-rkey]').forEach(el => {
+      state['rv:' + el.dataset.rkey] = el.classList.contains('sec-hidden') ? '1' : '0';
+    });
+    state['order:plus'] = [...document.querySelectorAll('#section-list .sec-item[data-key]')].map(i => i.dataset.key).join(',');
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+      state[_buildCeKey(el)] = el.innerHTML;
+    });
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    const btn = document.getElementById('btn-restore');
+    if (btn) {
+      btn.disabled = false;
+      btn.classList.add('saved-flash');
+      setTimeout(() => btn.classList.remove('saved-flash'), 600);
+    }
+  }
+
+  function restoreState() {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    if (state['order:plus']) {
+      const keys = state['order:plus'].split(',').filter(Boolean);
+      const panelList = document.getElementById('section-list');
+      const docContainer = document.getElementById('sections-container');
+      keys.forEach(key => {
+        const pi = panelList?.querySelector('.sec-item[data-key="' + key + '"]');
+        const dw = docContainer?.querySelector('.sec-wrap[data-key="' + key + '"]');
+        if (pi) panelList.appendChild(pi);
+        if (dw) docContainer.appendChild(dw);
+      });
+    }
+    document.querySelectorAll('#sections-container .sec-wrap[data-key]').forEach(el => {
+      const v = state['sv:' + el.dataset.key];
+      if (v !== undefined) {
+        el.classList.toggle('sec-hidden', v === '1');
+        const pi = document.querySelector('#section-list .sec-item[data-key="' + el.dataset.key + '"]');
+        if (pi) {
+          pi.classList.toggle('hidden-sec', v === '1');
+          const cb = pi.querySelector('input[type=checkbox]');
+          if (cb) cb.checked = v === '0';
+        }
+      }
+    });
+    document.querySelectorAll('[data-sp-key]').forEach(el => {
+      const v = state['spv:' + el.dataset.spKey];
+      if (v !== undefined) el.classList.toggle('sec-hidden', v === '1');
+    });
+    document.querySelectorAll('[data-rkey]').forEach(el => {
+      const v = state['rv:' + el.dataset.rkey];
+      if (v !== undefined) el.classList.toggle('sec-hidden', v === '1');
+    });
+    document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+      const v = state['i:' + el.id];
+      if (v !== undefined) {
+        el.value = v;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+      const v = state[_buildCeKey(el)];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    updateDividers();
+    updateRetailDividers();
+    const btn = document.getElementById('btn-restore');
+    if (btn) {
+      btn.classList.add('restored');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Restored!';
+      setTimeout(() => {
+        btn.classList.remove('restored');
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg> Restore';
+      }, 2000);
+    }
+  }
+
+  // Autosave on any user input
+  document.addEventListener('input', e => {
+    if (e.target.matches('[contenteditable], input, textarea, select')) scheduleSave();
+  });
+  document.addEventListener('change', e => {
+    if (e.target.matches('input[type=checkbox], input[type=color], select')) scheduleSave();
+  });
+
+  // Autosave after drag-drop reorder
+  document.addEventListener('drop', () => setTimeout(scheduleSave, 100), true);
+
+  // Enable restore button if saved data exists
+  if (localStorage.getItem(SAVE_KEY)) {
+    const btn = document.getElementById('btn-restore');
+    if (btn) btn.disabled = false;
   }
 
 </script>
