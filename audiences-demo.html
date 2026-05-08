@@ -227,6 +227,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .meta-aud-bar-pin { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 3px; height: 18px; background: #1c1e21; border-radius: 2px; }
 .meta-reach-bar { height: 4px; border-radius: 2px; background: #dddfe2; margin-top: 4px; margin-bottom: 12px; position: relative; overflow: hidden; }
 .meta-reach-bar-fill { position: absolute; left: 0; top: 0; height: 100%; width: 28%; background: #1877f2; }
+.meta-am-resize { width: 4px; flex-shrink: 0; cursor: col-resize; background: transparent; transition: background .15s; position: relative; }
+.meta-am-resize:hover, .meta-am-resize.dragging { background: #1877f2; }
+.meta-scroll-hint { position: sticky; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,.98)); font-size: 11px; color: #65676b; pointer-events: none; transition: opacity .4s; }
+.meta-scroll-hint.hidden { opacity: 0; }
+.meta-scroll-hint-dot { width: 6px; height: 6px; border-radius: 50%; background: #1877f2; animation: scrollBounce .9s infinite; }
+@keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
 
 /* ── SCREEN 5 & 6: Screenshots ── */
 .screenshot-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e3e5e7; margin-bottom: 12px; }
@@ -871,8 +877,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
                 </div>
               </div>
 
+              <!-- Resize handle -->
+              <div class="meta-am-resize" id="metaResize" onmousedown="startMetaResize(event)"></div>
+
               <!-- Main scrollable content -->
-              <div class="meta-am-scroll">
+              <div class="meta-am-scroll" id="metaScroll">
                 <!-- Ad set name -->
                 <div class="meta-am-sec">
                   <div class="meta-am-sec-head">
@@ -959,6 +968,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
                 <div class="meta-am-footer-bar">
                   By publishing your ad, you agree to Meta's <a href="#" style="color:#1877f2" onclick="return false">Advertising Standards</a> and confirm that you have the right to use all content and that your ad complies with our policies.
                 </div>
+                <!-- Scroll hint -->
+                <div class="meta-scroll-hint" id="metaScrollHint">
+                  <div class="meta-scroll-hint-dot"></div>
+                  Scroll for more
+                </div>
+
                 <div class="meta-am-actions">
                   <button style="background:none;border:1px solid #c9cccf;border-radius:6px;padding:7px 14px;font-size:12px;color:#65676b;cursor:pointer">Close</button>
                   <div style="display:flex;align-items:center;gap:8px">
@@ -1258,6 +1273,44 @@ function setPlatform(key) {
 function toggleAcc(row) {
   row.classList.toggle('open');
 }
+
+// Meta Ads Manager sidebar resize
+function startMetaResize(e) {
+  e.preventDefault();
+  const handle = document.getElementById('metaResize');
+  const nav = handle.previousElementSibling;
+  handle.classList.add('dragging');
+  const startX = e.clientX;
+  const startW = nav.offsetWidth;
+  function onMove(e) {
+    const newW = Math.max(120, Math.min(320, startW + e.clientX - startX));
+    nav.style.width = newW + 'px';
+  }
+  function onUp() {
+    handle.classList.remove('dragging');
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+// Scroll hint — hide once user has scrolled down
+(function() {
+  function initScrollHint() {
+    const scroll = document.getElementById('metaScroll');
+    const hint = document.getElementById('metaScrollHint');
+    if (!scroll || !hint) return;
+    scroll.addEventListener('scroll', function() {
+      if (scroll.scrollTop > 20) hint.classList.add('hidden');
+      else hint.classList.remove('hidden');
+    }, { passive: true });
+  }
+  document.addEventListener('DOMContentLoaded', initScrollHint);
+  // also init when screen 6 becomes visible
+  const origGoTo = window.goTo;
+  window.goTo = function(n) { origGoTo(n); if (n === 6) setTimeout(initScrollHint, 50); };
+})();
 
 function connectPlt(btn) {
   btn.textContent = '✓ Connected';
