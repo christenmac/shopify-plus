@@ -160,6 +160,51 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .connect-row-text { flex: 1; font-size: 12px; color: #4b5563; }
 .accordion-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; font-size: 13px; font-weight: 600; color: #8c9196; }
 
+/* ── Seismic-style callout ── */
+.demo-callout { background: #e6f5ee; border: 1.5px solid #a8d5bc; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #1a4a35; line-height: 1.65; margin-bottom: 14px; }
+
+/* ── Audiences accordion ── */
+.aud-acc-row { border-bottom: 1px solid #f3f4f6; }
+.aud-acc-row:last-child { border-bottom: none; }
+.aud-acc-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; cursor: pointer; user-select: none; transition: background .1s; }
+.aud-acc-header:hover { background: #fafafa; }
+.aud-acc-name { flex: 1; font-size: 14px; font-weight: 600; color: #202223; }
+.aud-acc-chevron { transition: transform .2s; color: #8c9196; flex-shrink: 0; }
+.aud-acc-row.open .aud-acc-chevron { transform: rotate(90deg); }
+.aud-acc-body { display: none; padding: 0 16px 16px 46px; }
+.aud-acc-row.open .aud-acc-body { display: block; }
+.badge-exporting { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; background: #fff3cd; color: #92400e; margin-right: 6px; }
+.export-complete-row { display: flex; align-items: center; justify-content: space-between; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: #065f46; font-weight: 600; }
+.aud-info-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid #f3f4f6; font-size: 13px; }
+.aud-info-row-icon { width: 18px; height: 18px; flex-shrink: 0; color: #8c9196; }
+.aud-info-main { flex: 1; color: #4b5563; }
+.aud-info-secondary { font-size: 12px; color: #8c9196; white-space: nowrap; }
+
+/* ── Benchmarks table ── */
+.bench-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+.bench-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 700; color: #8c9196; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #e3e5e7; }
+.bench-table th:not(:first-child) { text-align: center; }
+.bench-table td { padding: 12px 12px; border-bottom: 1px solid #f3f4f6; color: #202223; }
+.bench-table td:not(:first-child) { text-align: center; color: #4b5563; }
+.bench-table tr:last-child td { border-bottom: none; }
+
+/* ── Meta Ads Manager mockup ── */
+.meta-am { background: white; border-radius: 12px; border: 1px solid #e3e5e7; overflow: hidden; margin-bottom: 16px; }
+.meta-am-topbar { background: #242526; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+.meta-am-breadcrumb { font-size: 12px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 6px; flex: 1; }
+.meta-am-breadcrumb strong { color: white; }
+.meta-am-sep { color: rgba(255,255,255,.3); }
+.meta-am-body { display: flex; }
+.meta-am-main { flex: 1; padding: 20px 24px; border-right: 1px solid #f3f4f6; }
+.meta-am-sidebar { width: 230px; flex-shrink: 0; padding: 16px; background: #fafafa; }
+.meta-am-section-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.meta-am-check { color: #1877f2; }
+.meta-am-field { border: 1px solid #c9cccf; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: #202223; background: white; width: 100%; margin-bottom: 14px; font-family: inherit; }
+.aud-def-bar { height: 8px; border-radius: 4px; background: #e3e5e7; margin: 6px 0 3px; position: relative; overflow: hidden; }
+.aud-def-bar-fill { position: absolute; right: 0; top: 0; height: 100%; width: 72%; background: #1877f2; border-radius: 4px; }
+.meta-reach-bar { height: 4px; border-radius: 2px; background: #e3e5e7; margin-top: 5px; position: relative; overflow: hidden; }
+.meta-reach-bar-fill { position: absolute; left: 0; top: 0; height: 100%; width: 28%; background: #1877f2; }
+
 /* ── SCREEN 5 & 6: Screenshots ── */
 .screenshot-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e3e5e7; margin-bottom: 12px; }
 .screenshot-card img { width: 100%; display: block; }
@@ -591,19 +636,215 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           </div>
         </div>
 
-        <!-- SCREEN 5: Audiences Ready (actual screenshot) -->
+        <!-- SCREEN 5: Audiences — live accordion + benchmarks -->
         <div class="screen" id="screen-5">
-          <div class="page-title-row">
-            <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
-            <div class="page-title">Audiences</div>
-          </div>
-          <div class="screenshot-card">
-            <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CIiW48a-m4oDEAE=.png" alt="Four audience types ready to use">
-          </div>
-          <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 18px;font-size:13px;color:#065f46;font-weight:600;margin-bottom:4px">
-            ✓ All audiences synced to Meta. Apply these lists in Meta Ads Manager to activate them.
+
+          <!-- Title + version + action buttons -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
+              <div style="display:flex;align-items:baseline;gap:8px">
+                <div class="page-title">Audiences</div>
+                <span style="font-size:12px;background:#f1f2f4;border-radius:4px;padding:2px 8px;color:#6b7280;font-weight:600">v2.4</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="p-btn p-btn-secondary" style="font-size:12px;padding:6px 14px">Share feedback</button>
+              <button class="p-btn p-btn-secondary" style="font-size:12px;padding:6px 14px;display:inline-flex;align-items:center;gap:5px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                View on Meta
+              </button>
+            </div>
           </div>
 
+          <!-- Platform tabs with connected dots -->
+          <div class="plt-tabs-row" style="margin-bottom:16px">
+            <div class="plt-tab active" style="display:inline-flex;align-items:center;gap:5px">Meta <span style="width:7px;height:7px;border-radius:50%;background:#008060;display:inline-block;flex-shrink:0"></span></div>
+            <div class="plt-tab" style="display:inline-flex;align-items:center;gap:5px">Google <span style="width:7px;height:7px;border-radius:50%;background:#008060;display:inline-block;flex-shrink:0"></span></div>
+            <div class="plt-tab">Pinterest</div>
+            <div class="plt-tab">TikTok</div>
+            <div class="plt-tab">Criteo</div>
+            <div class="plt-tab">Snapchat</div>
+          </div>
+
+          <div class="demo-callout">Here we can see the different types of custom audiences Shopify generates based on the different stages of your customer funnel.</div>
+
+          <!-- Audiences accordion card -->
+          <div class="p-card" style="margin-bottom:16px">
+
+            <!-- Retargeting Boost -->
+            <div class="aud-acc-row" onclick="toggleAcc(this)">
+              <div class="aud-acc-header">
+                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
+                <span class="aud-acc-name">Retargeting Boost</span>
+                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="aud-acc-body">
+                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px">
+                  <li>People who visited your store in the last 90 days</li>
+                  <li>Use this audience to re-engage visitors who didn't purchase</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Prospecting (open by default) -->
+            <div class="aud-acc-row open" onclick="toggleAcc(this)">
+              <div class="aud-acc-header">
+                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
+                <span class="aud-acc-name">Prospecting</span>
+                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="aud-acc-body">
+                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+                  <li>People in the US and Canada similar to those who bought your products or related products</li>
+                  <li>Target this audience in prospecting campaigns to reach more relevant customers</li>
+                </ul>
+                <div class="export-complete-row">
+                  <span>✓ Audience export is complete</span>
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" onclick="event.stopPropagation()" style="cursor:pointer"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </div>
+                <div class="demo-callout" onclick="event.stopPropagation()">Prospecting audience contains people in the US and Canada who are similar to those who bought your products or related products. In the expanded card, you can see that there are up to <strong>1.7 million people</strong> you can potentially target. Note that this audience also <strong>automatically updates every week.</strong></div>
+                <div class="aud-info-row" onclick="event.stopPropagation()">
+                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
+                  <span class="aud-info-main">Using in <span style="color:#8c9196">· No ad set — Add the audience to an ad set</span></span>
+                  <button class="p-btn p-btn-dark" style="font-size:12px;padding:5px 12px;flex-shrink:0" onclick="event.stopPropagation();goTo(6)">Select ad set</button>
+                </div>
+                <div class="aud-info-row">
+                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
+                  <span class="aud-info-main">Audience <strong>1,700,000</strong></span>
+                  <span class="aud-info-secondary">Updates weekly on Meta</span>
+                </div>
+                <div class="aud-info-row">
+                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                  <span class="aud-info-main">Last updated <strong>Thursday at 11:52 pm</strong></span>
+                </div>
+                <div class="demo-callout" style="margin-top:12px" onclick="event.stopPropagation()">Let's go ahead and add the Prospecting audience to a Meta ad set that belongs to a broad targeting campaign for BFCM. Click <strong>Select ad set</strong> above to continue.</div>
+              </div>
+            </div>
+
+            <!-- Lookalike with Exporting badge -->
+            <div class="aud-acc-row" onclick="toggleAcc(this)">
+              <div class="aud-acc-header">
+                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
+                <span class="aud-acc-name">Lookalike</span>
+                <span class="badge-exporting">Exporting</span>
+                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="aud-acc-body">
+                <ul style="padding-left:18px;font-size:13px;color:#4b5563">
+                  <li>Audience created by Meta using the Retargeting Boost audience as a seed</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Existing Customers Plus -->
+            <div class="aud-acc-row" onclick="toggleAcc(this)">
+              <div class="aud-acc-header">
+                <svg class="aud-detail-item-icon" viewBox="0 0 20 20" fill="#4b5563"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 9a7 7 0 1114 0H3z"/></svg>
+                <span class="aud-acc-name">Existing Customers Plus</span>
+                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="aud-acc-body">
+                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px">
+                  <li>People who bought from your store, enriched with identifiers to improve matching</li>
+                  <li>Excludes 40% more existing customers than standard ad platform lists</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Benchmarks -->
+          <div class="p-card">
+            <div class="p-card-sec">
+              <div style="font-size:16px;font-weight:800;margin-bottom:14px">Benchmarks</div>
+              <div style="display:flex;gap:6px;margin-bottom:12px">
+                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px;background:#f1f2f4;border-color:#f1f2f4;color:#202223">Similar stores</button>
+                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px">Industries</button>
+              </div>
+              <div style="display:flex;gap:8px;margin-bottom:10px">
+                <div style="display:inline-flex;align-items:center;gap:5px;background:white;border:1px solid #c9cccf;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer">Furniture <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+                <div style="display:inline-flex;align-items:center;gap:5px;background:white;border:1px solid #c9cccf;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer">Under $1,000 <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8c9196;margin-bottom:12px">
+                <svg width="13" height="13" viewBox="0 0 20 20" fill="#8c9196"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
+                You don't have enough Meta campaign conversions over the last 30 days
+              </div>
+              <table class="bench-table">
+                <thead><tr><th>Metric</th><th>Your store</th><th>Shopify stores</th><th>Your standing</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td>Average order value</td><td style="color:#8c9196">—</td><td>$583.98</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
+                  <tr><td>Click through rate</td><td style="color:#8c9196">—</td><td>1.14%</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
+                  <tr><td>Conversion rate</td><td style="color:#8c9196">—</td><td>1.62%</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Audiences auto-refresh weekly</div>
+            <button class="p-btn p-btn-green" onclick="nextStep()">Apply in Meta →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 6: Meta Ads Manager + Performance -->
+        <div class="screen" id="screen-6">
+
+          <div class="demo-callout">You're directly sent to the ad set page where you can see the targeting configurations including which audiences to target.</div>
+
+          <!-- Meta Ads Manager mockup -->
+          <div class="meta-am">
+            <div class="meta-am-topbar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,.6)"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+              <div class="meta-am-breadcrumb">
+                <span>BFCM 2024</span>
+                <span class="meta-am-sep">›</span>
+                <strong>BFCM Acquisition</strong>
+                <span class="meta-am-sep">›</span>
+                <span>1 Ad</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-shrink:0">
+                <button class="p-btn" style="background:#1877f2;color:white;border-color:#1877f2;font-size:12px;padding:5px 14px">Edit</button>
+                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px;background:transparent;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)">Review</button>
+              </div>
+            </div>
+            <div class="meta-am-body">
+              <div class="meta-am-main">
+                <div class="meta-am-section-title"><span class="meta-am-check">✓</span> Ad set name</div>
+                <input class="meta-am-field" value="BFCM Acquisition" readonly>
+                <div class="meta-am-section-title"><span class="meta-am-check">✓</span> Audience</div>
+                <div style="font-size:13px;color:#4b5563;margin-bottom:10px">Shopify Audiences are added directly to this ad set for targeting.</div>
+                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:11px 14px;font-size:13px;color:#065f46;display:flex;align-items:center;gap:8px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <strong>✓ Shopify Audiences — Prospecting</strong> added to BFCM Acquisition ad set
+                </div>
+              </div>
+              <div class="meta-am-sidebar">
+                <div style="font-size:12px;font-weight:700;color:#202223;margin-bottom:6px">Audience definition</div>
+                <div style="font-size:12px;color:#4b5563;margin-bottom:6px">Your audience is broad.</div>
+                <div class="aud-def-bar"><div class="aud-def-bar-fill"></div></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#8c9196;margin-bottom:10px"><span>Narrow</span><span>Broad</span></div>
+                <div style="font-size:12px;color:#4b5563;margin-bottom:14px">Estimated audience size: <strong style="color:#202223">428,800 – 504,500</strong></div>
+                <div style="border-top:1px solid #e3e5e7;padding-top:12px">
+                  <div style="font-size:12px;font-weight:700;color:#202223;margin-bottom:8px">Estimated daily results</div>
+                  <div style="font-size:11px;color:#8c9196;margin-bottom:2px">Reach</div>
+                  <div style="font-size:20px;font-weight:800;color:#202223">1.3K – 3.8K</div>
+                  <div class="meta-reach-bar"><div class="meta-reach-bar-fill"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance screenshots -->
+          <div class="screenshot-card">
+            <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CJ3b4dnhsoUDEAE=.png" alt="Sales increasing, acquisition costs decreasing">
+          </div>
+          <div class="screenshot-card">
+            <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CK3D69nhsoUDEAE=.png" alt="Benchmark reporting — Meta platform">
+          </div>
+
+          <!-- Customer results -->
           <div style="font-size:12px;font-weight:700;color:#8c9196;letter-spacing:1.5px;text-transform:uppercase;margin:18px 0 4px">What merchants are seeing</div>
           <div class="result-cards">
             <div class="result-card">
@@ -621,25 +862,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
               <div class="result-metric"><span class="result-metric-number">23%</span><span class="result-metric-label">of first campaign sales were new customers</span></div>
             </div>
           </div>
-          <div class="nav-btns">
-            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
-            <div class="nav-hint">Audiences auto-refresh on a rolling 90-day window</div>
-            <button class="p-btn p-btn-green" onclick="nextStep()">View performance →</button>
-          </div>
-        </div>
 
-        <!-- SCREEN 6: Performance (actual screenshots) -->
-        <div class="screen" id="screen-6">
-          <div class="page-title-row">
-            <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
-            <div class="page-title">Audiences</div>
-          </div>
-          <div class="screenshot-card">
-            <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CJ3b4dnhsoUDEAE=.png" alt="Sales increasing, acquisition costs decreasing">
-          </div>
-          <div class="screenshot-card">
-            <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CK3D69nhsoUDEAE=.png" alt="Benchmark reporting — Meta platform">
-          </div>
           <div class="nav-btns">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
             <div class="nav-hint" style="color:#008060;font-weight:700">🎉 Setup complete — audiences are live</div>
@@ -866,6 +1089,10 @@ function setPlatform(key) {
     const idx = keys.indexOf(key);
     if (idx >= 0) switchPlt(tabs[idx], key);
   }, 50);
+}
+
+function toggleAcc(row) {
+  row.classList.toggle('open');
 }
 
 function connectPlt(btn) {
