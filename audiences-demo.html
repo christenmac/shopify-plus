@@ -259,11 +259,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <svg viewBox="0 0 20 20" fill="currentColor"><rect x="3" y="4" width="14" height="12" rx="2"/><path d="M7 4V2m6 2V2"/></svg>Point of Sale
         </div>
         <div class="s-section">Apps</div>
-        <div class="s-item active">
+        <div class="s-item active" onclick="goTo(2)" style="cursor:pointer">
           <svg viewBox="0 0 109 124" fill="currentColor" style="color:#202223"><path d="M74.7 14.8s-.3-1.5-1.4-1.5c-1 0-13.7 2.6-13.7 2.6s-9.1-8.8-10-9.7c-1-1-2.8-.7-3.5-.5l-4.8 1.5C38.7 4.2 33.5 2.6 29 2.6 18.7 2.6 13.6 13 12 18.8c-4.2 1.3-7.2 2.2-7.6 2.3C1.3 22.2 1.2 22.4 1 25.5L0 111.4l73.3 13.7L109 116V15.5l-34.3-.7z"/></svg>
           Audiences <span class="s-item-dot"></span>
         </div>
-        <div class="s-item" style="padding-left:32px;font-size:12px;color:#8c9196">
+        <div class="s-item" style="padding-left:32px;font-size:12px;color:#8c9196;cursor:pointer" onclick="goTo(3)">
           <svg viewBox="0 0 20 20" fill="currentColor" style="width:13px;height:13px"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
           Settings
         </div>
@@ -278,8 +278,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <!-- MAIN -->
     <div class="admin-main">
       <div class="admin-topbar">
-        <div class="topbar-shopify">
+        <div class="topbar-shopify" style="display:flex;align-items:center;gap:10px">
           <svg width="24" height="28" viewBox="0 0 109 124" fill="white"><path d="M74.7 14.8s-.3-1.5-1.4-1.5c-1 0-13.7 2.6-13.7 2.6s-9.1-8.8-10-9.7c-1-1-2.8-.7-3.5-.5l-4.8 1.5C38.7 4.2 33.5 2.6 29 2.6 18.7 2.6 13.6 13 12 18.8c-4.2 1.3-7.2 2.2-7.6 2.3C1.3 22.2 1.2 22.4 1 25.5L0 111.4l73.3 13.7L109 116V15.5l-34.3-.7z"/></svg>
+          <button id="topbar-back" onclick="prevStep()" style="display:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;align-items:center;gap:5px;font-family:inherit">
+            <svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Back
+          </button>
         </div>
         <div class="topbar-search">
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -618,6 +622,8 @@ function updateProgress() {
     if (i + 1 === currentStep) el.classList.add('active');
   });
   document.getElementById('breadcrumb-text').textContent = breadcrumbs[currentStep - 1];
+  const backBtn = document.getElementById('topbar-back');
+  backBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
 }
 
 function showScreen(n) {
@@ -764,6 +770,7 @@ function connectPlt(btn) {
   btn.style.borderColor = '#008060';
   btn.disabled = true;
   toast('Audiences will be generated within 24 hours');
+  setTimeout(() => goTo(5), 1400);
 }
 </script>
 </body>
