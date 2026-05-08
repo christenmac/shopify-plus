@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify Audiences</title>
+<style>
+:root {
+  --green: #008060;
+  --green-dk: #004c3f;
+  --green-lt: #d1fae5;
+  --bg: #f6f6f7;
+  --border: #e1e3e5;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --radius: 14px;
+  --shadow: 0 2px 12px rgba(0,0,0,.07);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+
+/* HERO */
+.hero { background: #000; color: white; padding: 72px 24px 64px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 0%, rgba(0,128,96,.35) 0%, transparent 60%), radial-gradient(ellipse at 20% 100%, rgba(0,128,96,.18) 0%, transparent 50%); pointer-events: none; }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #95bf47; margin-bottom: 18px; }
+.hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 20px; }
+.hero h1 span { color: #95bf47; }
+.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto 36px; line-height: 1.6; }
+.hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.hero-badge { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 50px; padding: 6px 16px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.85); }
+
+/* STATS */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); border-bottom: 2px solid var(--border); }
+.stat-block { background: white; padding: 32px 24px; text-align: center; }
+.stat-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--green-dk); letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 13px; color: var(--muted); font-weight: 500; line-height: 1.4; max-width: 160px; margin: 0 auto; }
+@media (max-width: 600px) { .stats-row { grid-template-columns: 1fr; } }
+
+/* WRAP */
+.wrap { max-width: 900px; margin: 0 auto; padding: 56px 24px; }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+.section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -.5px; margin-bottom: 14px; line-height: 1.15; }
+.section-body { font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 620px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 52px 0; }
+
+/* HOW IT WORKS */
+.steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 36px; }
+@media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
+.step-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 28px 24px; box-shadow: var(--shadow); }
+.step-num { width: 34px; height: 34px; border-radius: 50%; background: var(--green-lt); color: var(--green-dk); font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.step-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+.step-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* PLATFORMS */
+.platforms { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.platform-pill { display: flex; align-items: center; gap: 8px; background: white; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700; color: var(--text); box-shadow: var(--shadow); }
+.platform-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* CASE STUDY */
+.case-card { background: var(--green-dk); color: white; border-radius: var(--radius); padding: 40px; position: relative; overflow: hidden; }
+.case-card::before { content: ''; position: absolute; right: -40px; top: -40px; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,255,255,.04); }
+.case-brand { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 12px; }
+.case-quote { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 700; line-height: 1.4; margin-bottom: 32px; color: rgba(255,255,255,.92); max-width: 560px; }
+.case-stats { display: flex; flex-wrap: wrap; gap: 32px; }
+.case-stat-num { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; color: #95bf47; margin-bottom: 4px; }
+.case-stat-label { font-size: 12px; color: rgba(255,255,255,.6); font-weight: 500; }
+
+/* ELIGIBILITY */
+.elig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+@media (max-width: 600px) { .elig-grid { grid-template-columns: 1fr; } }
+.elig-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; text-align: center; box-shadow: var(--shadow); }
+.elig-icon { font-size: 2rem; margin-bottom: 12px; }
+.elig-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+.elig-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* FREE BANNER */
+.free-banner { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: var(--radius); padding: 24px 28px; display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+.free-badge { background: var(--green); color: white; font-size: 12px; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+.free-text { font-size: 14px; color: var(--green-dk); font-weight: 600; line-height: 1.5; }
+
+/* VS */
+.vs-table { width: 100%; border-collapse: collapse; margin-top: 32px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.vs-table th { padding: 14px 20px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; }
+.vs-table th:first-child { background: #fafafa; color: var(--muted); text-align: left; }
+.vs-table th:nth-child(2) { background: #f3f4f6; color: var(--muted); text-align: center; }
+.vs-table th:nth-child(3) { background: var(--green-dk); color: white; text-align: center; }
+.vs-table td { padding: 13px 20px; font-size: 14px; border-top: 1px solid var(--border); }
+.vs-table td:first-child { background: white; font-weight: 600; }
+.vs-table td:nth-child(2) { background: #fafafa; text-align: center; color: var(--muted); }
+.vs-table td:nth-child(3) { background: #f0fdf4; text-align: center; font-weight: 700; color: var(--green-dk); }
+.vs-table tr:last-child td { border-bottom: none; }
+.check-green { color: var(--green); font-size: 16px; }
+.x-grey { color: #d1d5db; font-size: 16px; }
+
+/* CTA */
+.cta-section { background: #000; color: white; text-align: center; padding: 64px 24px; }
+.cta-section h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -.5px; margin-bottom: 14px; }
+.cta-section p { color: rgba(255,255,255,.6); font-size: 1rem; margin-bottom: 32px; }
+.cta-btn { display: inline-block; background: var(--green); color: white; font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: 50px; text-decoration: none; transition: background .12s; }
+.cta-btn:hover { background: var(--green-dk); }
+
+footer { text-align: center; padding: 28px 24px; font-size: 12px; color: var(--muted); background: white; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Shopify Plus · Exclusive Feature</div>
+  <h1>Find buyers <span>before</span><br>your competitors do.</h1>
+  <p class="hero-sub">Shopify Audiences uses purchase signals from millions of Shopify buyers to build high-intent ad audiences — and sends them directly to your ad platforms.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">🆓 Free for Shopify Plus</span>
+    <span class="hero-badge">📍 US &amp; Canada</span>
+    <span class="hero-badge">⚡ Works with Meta, Google, TikTok &amp; more</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-block">
+    <div class="stat-num">2×</div>
+    <div class="stat-label">more retargeting conversions per marketing dollar</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">50%</div>
+    <div class="stat-label">lower customer acquisition costs on average</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">40%</div>
+    <div class="stat-label">more existing customer exclusions to eliminate wasted spend</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="wrap">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Your ad audiences, powered by<br>Shopify's entire buyer network.</div>
+  <p class="section-body">Shopify Audiences pools anonymized, opt-in purchase signals from across millions of Shopify merchants — then uses machine learning to build audience lists specifically tuned to your store and products.</p>
+
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Connect your ad platforms</div>
+      <div class="step-body">Link Meta, Google, TikTok, Pinterest, Snapchat, or Criteo directly from the Audiences app in just a few clicks. No developer needed.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Audiences are auto-generated</div>
+      <div class="step-body">Within 24 hours, Shopify's ML model analyzes purchase intent signals across the network and builds custom lists matched to your catalog and customer profile.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Target high-intent buyers</div>
+      <div class="step-body">Use Prospecting lists to find net-new customers who look like your best buyers — using data no ad platform has on its own.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">Retarget &amp; exclude smarter</div>
+      <div class="step-body">Retargeting Boost lists increase retargeting conversions. Existing Customers Plus exclusion lists automatically prevent showing ads to people who already bought — cutting wasted spend by 40%+.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PLATFORMS -->
+  <div class="section-label">Supported Platforms</div>
+  <div class="section-title">Works where you already run ads.</div>
+  <p class="section-body">Audience lists sync directly to your connected ad accounts — no CSV exports, no manual uploads.</p>
+  <div class="platforms">
+    <div class="platform-pill"><div class="platform-dot" style="background:#1877f2"></div>Meta (Facebook &amp; Instagram)</div>
+    <div class="platform-pill"><div class="platform-dot" style="background:#4285f4"></div>Google</div>
+    <div class="platform-pill"><div class="platform-dot" style="background:#010101"></div>TikTok</div>
+    <div class="platform-pill"><div class="platform-dot" style="background:#e60023"></div>Pinterest</div>
+    <div class="platform-pill"><div class="platform-dot" style="background:#fffc00;outline:1px solid #e5e7eb;outline-offset:-1px;border-radius:50%"></div>Snapchat</div>
+    <div class="platform-pill"><div class="platform-dot" style="background:#ff6b35"></div>Criteo</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- VS TABLE -->
+  <div class="section-label">Why It's Different</div>
+  <div class="section-title">Data your competitors can't buy.</div>
+  <p class="section-body">Ad platforms can only see behavior within their own ecosystem. Shopify Audiences brings in verified purchase signals from across the open web.</p>
+
+  <table class="vs-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Ad Platform Alone</th>
+        <th>✦ Shopify Audiences</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Actual purchase behavior (not just clicks)</td>
+        <td><span class="x-grey">✗</span></td>
+        <td><span class="check-green">✓</span></td>
+      </tr>
+      <tr>
+        <td>Cross-merchant buyer signals</td>
+        <td><span class="x-grey">✗</span></td>
+        <td><span class="check-green">✓</span></td>
+      </tr>
+      <tr>
+        <td>Smart exclusion of existing customers</td>
+        <td>Limited</td>
+        <td><span class="check-green">✓ 40% more identified</span></td>
+      </tr>
+      <tr>
+        <td>Automatic list refresh</td>
+        <td><span class="x-grey">✗</span></td>
+        <td><span class="check-green">✓</span></td>
+      </tr>
+      <tr>
+        <td>Benchmark vs. industry peers</td>
+        <td><span class="x-grey">✗</span></td>
+        <td><span class="check-green">✓</span></td>
+      </tr>
+      <tr>
+        <td>Works across all major ad platforms</td>
+        <td>Platform-specific</td>
+        <td><span class="check-green">✓ Meta, Google, TikTok &amp; more</span></td>
+      </tr>
+      <tr>
+        <td>Cost to use</td>
+        <td>Included in ad platform</td>
+        <td><span class="check-green">✓ Free for Shopify Plus</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- CASE STUDY -->
+  <div class="section-label">Customer Story</div>
+  <div class="section-title">Real results from a real brand.</div>
+
+  <div class="case-card" style="margin-top:28px">
+    <div class="case-brand">Mac Duggal · Fashion</div>
+    <div class="case-quote">"Shopify Audiences gave us a retargeting audience 2.3x larger than what we had before — and the cost per purchase dropped dramatically."</div>
+    <div class="case-stats">
+      <div>
+        <div class="case-stat-num">2.3×</div>
+        <div class="case-stat-label">larger retargeting audience</div>
+      </div>
+      <div>
+        <div class="case-stat-num">3.6×</div>
+        <div class="case-stat-label">lower cost per purchase</div>
+      </div>
+      <div>
+        <div class="case-stat-num">2×</div>
+        <div class="case-stat-label">return on ad spend</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ELIGIBILITY -->
+  <div class="section-label">Who Can Use It</div>
+  <div class="section-title">Built exclusively for Shopify Plus.</div>
+  <p class="section-body">Shopify Audiences is available to merchants who meet all three of the following requirements:</p>
+
+  <div class="elig-grid">
+    <div class="elig-card">
+      <div class="elig-icon">⚡</div>
+      <div class="elig-title">Shopify Plus Plan</div>
+      <div class="elig-body">Available only on the Plus tier — one of the many exclusive benefits of the plan.</div>
+    </div>
+    <div class="elig-card">
+      <div class="elig-icon">💳</div>
+      <div class="elig-title">Shopify Payments</div>
+      <div class="elig-body">Must be processing through Shopify Payments to access the buyer signal network.</div>
+    </div>
+    <div class="elig-card">
+      <div class="elig-icon">📍</div>
+      <div class="elig-title">US or Canada</div>
+      <div class="elig-body">Currently available for merchants based in the United States or Canada.</div>
+    </div>
+  </div>
+
+  <div class="free-banner">
+    <span class="free-badge">100% Free</span>
+    <span class="free-text">Shopify Audiences is free to install and use for all eligible Shopify Plus merchants. You only pay your normal ad platform fees — nothing extra to Shopify.</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to lower your CAC?</h2>
+  <p>Learn more about Shopify Audiences and start finding better buyers today.</p>
+  <a href="https://www.shopify.com/audiences" target="_blank" rel="noopener" class="cta-btn">Explore Shopify Audiences →</a>
+</div>
+
+<footer>Shopify Audiences is a Shopify Plus exclusive feature. Requires Shopify Payments. Available in US &amp; Canada. · <a href="https://www.shopify.com/audiences" target="_blank" style="color:var(--green)">shopify.com/audiences</a></footer>
+
+</body>
+</html>
