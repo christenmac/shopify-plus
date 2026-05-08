@@ -621,7 +621,6 @@ function updateProgress() {
     if (i + 1 < currentStep) el.classList.add('done');
     if (i + 1 === currentStep) el.classList.add('active');
   });
-  document.getElementById('breadcrumb-text').textContent = breadcrumbs[currentStep - 1];
   const backBtn = document.getElementById('topbar-back');
   backBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
 }
