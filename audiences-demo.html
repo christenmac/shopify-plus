@@ -164,6 +164,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .screenshot-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e3e5e7; margin-bottom: 12px; }
 .screenshot-card img { width: 100%; display: block; }
 
+/* ── Stat strip ── */
+.stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #f3f4f6; }
+.stat-item { padding: 16px 12px; text-align: center; border-right: 1px solid #f3f4f6; }
+.stat-item:last-child { border-right: none; }
+.stat-number { font-size: 22px; font-weight: 900; color: #008060; letter-spacing: -.5px; line-height: 1; }
+.stat-label { font-size: 11px; color: #6b7280; margin-top: 4px; line-height: 1.35; }
+
+/* ── Result cards ── */
+.result-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.result-card { background: white; border: 1px solid #e3e5e7; border-radius: 12px; padding: 18px 20px; }
+.result-card-brand { font-size: 13px; font-weight: 800; color: #202223; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between; }
+.result-card-tag { font-size: 10px; color: #6b7280; font-weight: 500; background: #f1f2f4; border-radius: 4px; padding: 2px 6px; }
+.result-metric { display: flex; align-items: baseline; gap: 7px; margin-bottom: 8px; }
+.result-metric-number { font-size: 19px; font-weight: 900; color: #008060; letter-spacing: -.5px; line-height: 1; }
+.result-metric-label { font-size: 12px; color: #4b5563; line-height: 1.3; }
+
 /* Platform setup list */
 .platform-setup-row { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid #f3f4f6; cursor: pointer; }
 .platform-setup-row:hover { background: #fafafa; }
@@ -326,7 +342,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
             </div>
             <div class="p-card-sec">
               <div class="p-label">About this app</div>
-              <div class="p-body">Shopify Audiences uses ML and purchase signals from across the Shopify merchant network to build high-converting ad audiences — automatically synced to Meta, Google, TikTok, Pinterest, Snapchat, and Criteo.<br><br>Free and exclusive to Shopify Plus merchants using Shopify Payments in the US or Canada.</div>
+              <div class="p-body">Shopify Audiences uses machine learning and purchase intent signals from across the Shopify merchant network to build high-converting custom audiences — automatically synced to Meta, Google, TikTok, Pinterest, Snapchat, and Criteo.<br><br>Merchants see up to <strong>50% lower customer acquisition costs</strong> and <strong>2x more orders per marketing dollar</strong>. Existing Customers Plus audiences exclude <strong>40% more of your existing customers</strong> than standard ad platform lists — so your budget reaches net-new buyers.<br><br>Free and exclusive to Shopify Plus merchants using Shopify Payments in the US or Canada.</div>
+            </div>
+            <div class="stat-strip">
+              <div class="stat-item"><div class="stat-number">50%</div><div class="stat-label">lower customer acquisition costs</div></div>
+              <div class="stat-item"><div class="stat-number">2x</div><div class="stat-label">more orders per marketing dollar</div></div>
+              <div class="stat-item"><div class="stat-number">40%</div><div class="stat-label">better existing customer exclusions</div></div>
             </div>
             <div class="screenshot-row">
               <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CIiW48a-m4oDEAE=.png" alt="Audiences ready">
@@ -355,19 +376,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
                 <ul class="welcome-bullets">
                   <li>
                     <div class="welcome-bullet-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M2 10C3.6 5.9 6.5 3 10 3s6.4 2.9 8 7c-1.6 4.1-4.5 7-8 7s-6.4-2.9-8-7z"/></svg></div>
-                    <span>Boost retargeting with additional audiences who visited your store but didn't purchase</span>
+                    <span><strong>Retargeting Boost</strong> — reach people who visited but didn't buy, delivering up to <strong>2x more orders per marketing dollar</strong></span>
                   </li>
                   <li>
                     <div class="welcome-bullet-icon"><svg viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
-                    <span>Improve broad targeting with audiences similar to those who bought your products or related products</span>
+                    <span><strong>Prospecting</strong> — find net-new buyers similar to your best customers using signals from millions of Shopify stores</span>
                   </li>
                   <li>
                     <div class="welcome-bullet-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 9a7 7 0 1114 0H3z"/></svg></div>
-                    <span>Enhance exclusion match-rates using audiences containing existing customers with added identifiers</span>
+                    <span><strong>Existing Customers Plus</strong> — exclusion lists that remove <strong>40% more existing customers</strong> than standard ad platform audiences</span>
                   </li>
                   <li>
                     <div class="welcome-bullet-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11l4-4 4 4 4-6 4 3"/></svg></div>
-                    <span>Evaluate your ad performance using benchmarks from similar stores and industry groups</span>
+                    <span><strong>Benchmarks</strong> — compare your ad performance against similar stores and industry groups to spot gaps</span>
                   </li>
                 </ul>
               </div>
@@ -579,8 +600,26 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <div class="screenshot-card">
             <img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/desktop_screenshot/CIiW48a-m4oDEAE=.png" alt="Four audience types ready to use">
           </div>
-          <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 18px;font-size:13px;color:#065f46;font-weight:600">
+          <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 18px;font-size:13px;color:#065f46;font-weight:600;margin-bottom:4px">
             ✓ All audiences synced to Meta. Apply these lists in Meta Ads Manager to activate them.
+          </div>
+
+          <div style="font-size:12px;font-weight:700;color:#8c9196;letter-spacing:1.5px;text-transform:uppercase;margin:18px 0 4px">What merchants are seeing</div>
+          <div class="result-cards">
+            <div class="result-card">
+              <div class="result-card-brand">Nathan James <span class="result-card-tag">Furniture · Meta</span></div>
+              <div class="result-metric"><span class="result-metric-number">175%</span><span class="result-metric-label">higher conversion rate</span></div>
+              <div class="result-metric"><span class="result-metric-number">5.6x</span><span class="result-metric-label">return on ad spend</span></div>
+              <div class="result-metric"><span class="result-metric-number">52%</span><span class="result-metric-label">lower customer acquisition cost</span></div>
+              <div class="result-metric"><span class="result-metric-number">$100K</span><span class="result-metric-label">incremental revenue + 500 new customers</span></div>
+            </div>
+            <div class="result-card">
+              <div class="result-card-brand">Happy Hippo <span class="result-card-tag">Bath products · Meta</span></div>
+              <div class="result-metric"><span class="result-metric-number">200%</span><span class="result-metric-label">higher conversion rate</span></div>
+              <div class="result-metric"><span class="result-metric-number">4.7x</span><span class="result-metric-label">return on ad spend</span></div>
+              <div class="result-metric"><span class="result-metric-number">72%</span><span class="result-metric-label">lower customer acquisition cost</span></div>
+              <div class="result-metric"><span class="result-metric-number">23%</span><span class="result-metric-label">of first campaign sales were new customers</span></div>
+            </div>
           </div>
           <div class="nav-btns">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
