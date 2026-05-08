@@ -78,6 +78,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .free-badge { background: var(--green); color: white; font-size: 12px; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
 .free-text { font-size: 14px; color: var(--green-dk); font-weight: 600; line-height: 1.5; }
 
+/* AUDIENCE TYPES */
+.types-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
+@media (max-width: 640px) { .types-grid { grid-template-columns: 1fr; } }
+.type-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); }
+.type-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.type-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+.type-name { font-size: 15px; font-weight: 800; }
+.type-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+.type-refresh { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 50px; background: #f3f4f6; color: #374151; }
+
+/* PRIVACY */
+.privacy-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+@media (max-width: 600px) { .privacy-row { grid-template-columns: 1fr; } }
+.privacy-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 22px; box-shadow: var(--shadow); }
+.privacy-icon { font-size: 1.6rem; margin-bottom: 10px; }
+.privacy-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+.privacy-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* BENCHMARK */
+.bench-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); display: flex; gap: 28px; align-items: flex-start; margin-top: 28px; }
+@media (max-width: 600px) { .bench-card { flex-direction: column; gap: 16px; } }
+.bench-icon { font-size: 2.8rem; flex-shrink: 0; }
+.bench-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+.bench-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
 /* VS */
 .vs-table { width: 100%; border-collapse: collapse; margin-top: 32px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
 .vs-table th { padding: 14px 20px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; }
@@ -174,6 +199,92 @@ footer { text-align: center; padding: 28px 24px; font-size: 12px; color: var(--m
     <div class="platform-pill"><div class="platform-dot" style="background:#e60023"></div>Pinterest</div>
     <div class="platform-pill"><div class="platform-dot" style="background:#fffc00;outline:1px solid #e5e7eb;outline-offset:-1px;border-radius:50%"></div>Snapchat</div>
     <div class="platform-pill"><div class="platform-dot" style="background:#ff6b35"></div>Criteo</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AUDIENCE TYPES -->
+  <div class="section-label">Audience Types</div>
+  <div class="section-title">Five lists. Every stage of the funnel.</div>
+  <p class="section-body">Shopify Audiences generates different list types depending on your goal — finding new customers, converting warm visitors, or eliminating wasted spend on people who already bought.</p>
+
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-header">
+        <div class="type-icon" style="background:#eff6ff">🔍</div>
+        <div class="type-name">Prospecting</div>
+      </div>
+      <div class="type-body">Finds net-new customers who share characteristics with your best buyers — powered by purchase signals across the entire Shopify merchant network. The most powerful list for scaling customer acquisition.</div>
+      <span class="type-refresh">↻ Refreshes every 7–14 days</span>
+    </div>
+    <div class="type-card">
+      <div class="type-header">
+        <div class="type-icon" style="background:#fff7ed">⚡</div>
+        <div class="type-name">Retargeting Boost</div>
+      </div>
+      <div class="type-body">ML-filtered list of site visitors who showed high purchase intent but didn't convert. Shopify scores each visitor for conversion likelihood — so you're only retargeting people who are actually likely to buy.</div>
+      <span class="type-refresh">↻ Refreshes every 1–7 days</span>
+    </div>
+    <div class="type-card">
+      <div class="type-header">
+        <div class="type-icon" style="background:#f5f3ff">🪞</div>
+        <div class="type-name">Lookalike Audiences</div>
+      </div>
+      <div class="type-body">Platform-native lookalike lists seeded with your Shopify data. On Meta, this covers up to 3% of US/Canada users — roughly <strong>9.1 million people</strong>. On Criteo, a managed segment of 100,000 matched customers.</div>
+      <span class="type-refresh">↻ Platform-managed refresh</span>
+    </div>
+    <div class="type-card">
+      <div class="type-header">
+        <div class="type-icon" style="background:#fef2f2">🚫</div>
+        <div class="type-name">Existing Customers Plus</div>
+      </div>
+      <div class="type-body">Suppression list that prevents you from showing prospecting ads to people who already purchased. Shopify identifies 40% more of these customers than ad platforms do on their own — eliminating budget waste automatically.</div>
+      <span class="type-refresh">↻ Continuously updated</span>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:18px 22px;margin-top:16px;font-size:14px;color:var(--green-dk);font-weight:600;line-height:1.6;">
+    🔄 <strong>90-day rolling window:</strong> All audience lists automatically refresh using the most recent 90 days of buyer behavior — so your targeting stays current without any manual work.
+  </div>
+
+  <hr class="divider">
+
+  <!-- BENCHMARKING -->
+  <div class="section-label">Performance Benchmarks</div>
+  <div class="section-title">See how you stack up against<br>stores like yours.</div>
+  <p class="section-body">Shopify Audiences includes built-in benchmark data — comparing your ad performance against similar Shopify Plus merchants in your category. Know if your CAC is on track, and set realistic targets based on real peer data.</p>
+
+  <div class="bench-card">
+    <div class="bench-icon">📊</div>
+    <div>
+      <div class="bench-title">Industry-Level Comparison</div>
+      <div class="bench-body">Instead of guessing whether your CPAs are good or bad, Audiences shows you exactly how your metrics compare to merchants in the same vertical — at the same scale. This turns generic ad performance data into actionable context only Shopify can provide.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PRIVACY -->
+  <div class="section-label">Data &amp; Privacy</div>
+  <div class="section-title">Your data stays yours.</div>
+  <p class="section-body">Shopify Audiences pools anonymized, opt-in signals — your customer data is never exposed to other merchants or ad platforms.</p>
+
+  <div class="privacy-row">
+    <div class="privacy-card">
+      <div class="privacy-icon">🔒</div>
+      <div class="privacy-title">Hashed &amp; Aggregated</div>
+      <div class="privacy-body">Individual customer data is hashed and anonymized before entering the ML model. No raw customer info is ever shared with ad platforms or other merchants.</div>
+    </div>
+    <div class="privacy-card">
+      <div class="privacy-icon">✅</div>
+      <div class="privacy-title">SOC 2 Compliant</div>
+      <div class="privacy-body">Shopify maintains SOC 2 compliance with regular third-party security audits — meeting the highest standards for data security and privacy controls.</div>
+    </div>
+    <div class="privacy-card">
+      <div class="privacy-icon">🙋</div>
+      <div class="privacy-title">Customer Opt-Out</div>
+      <div class="privacy-body">Customers can opt out of having their data included in the shared buyer network at any time, giving end-consumers full control over their data.</div>
+    </div>
   </div>
 
   <hr class="divider">
