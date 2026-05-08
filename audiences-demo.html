@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify Audiences — Interactive Demo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f1f2f4; color: #1a1a1a; }
+
+/* ─── OUTER CHROME ─── */
+.demo-shell { max-width: 1180px; margin: 0 auto; padding: 24px; }
+
+.demo-header { text-align: center; padding: 40px 24px 32px; }
+.demo-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #008060; margin-bottom: 12px; }
+.demo-header h1 { font-size: 2rem; font-weight: 900; letter-spacing: -.5px; margin-bottom: 8px; }
+.demo-header p { color: #6b7280; font-size: 15px; }
+
+/* PROGRESS */
+.progress-wrap { display: flex; align-items: center; justify-content: center; gap: 0; margin: 0 auto 32px; max-width: 680px; }
+.prog-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; cursor: pointer; }
+.prog-step:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: 50%; width: 100%; height: 2px; background: #e5e7eb; z-index: 0; }
+.prog-step.done:not(:last-child)::after { background: #008060; }
+.prog-dot { width: 30px; height: 30px; border-radius: 50%; border: 2.5px solid #e5e7eb; background: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #9ca3af; position: relative; z-index: 1; transition: all .2s; }
+.prog-step.done .prog-dot { background: #008060; border-color: #008060; color: white; }
+.prog-step.active .prog-dot { background: white; border-color: #008060; color: #008060; box-shadow: 0 0 0 4px rgba(0,128,96,.15); }
+.prog-label { font-size: 10px; font-weight: 700; color: #9ca3af; text-align: center; white-space: nowrap; }
+.prog-step.done .prog-label, .prog-step.active .prog-label { color: #008060; }
+
+/* ─── SHOPIFY ADMIN SHELL ─── */
+.admin-shell { display: flex; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,.18); border: 1px solid #2a2a2a; min-height: 560px; }
+
+/* Sidebar */
+.admin-sidebar { width: 220px; background: #1a1a1a; flex-shrink: 0; display: flex; flex-direction: column; }
+.admin-sidebar-logo { padding: 18px 16px 14px; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: 10px; }
+.admin-sidebar-logo-bag { width: 28px; height: 28px; background: #95bf47; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.admin-sidebar-logo-bag svg { width: 16px; height: 16px; }
+.admin-store-name { font-size: 13px; font-weight: 700; color: white; }
+.admin-store-plan { font-size: 10px; color: rgba(255,255,255,.4); }
+.admin-nav { padding: 8px 0; flex: 1; }
+.admin-nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; font-size: 13px; color: rgba(255,255,255,.55); cursor: pointer; border-radius: 8px; margin: 1px 8px; transition: all .12s; }
+.admin-nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.85); }
+.admin-nav-item.active { background: rgba(255,255,255,.1); color: white; }
+.admin-nav-item svg { width: 16px; height: 16px; opacity: .6; flex-shrink: 0; }
+.admin-nav-item.active svg { opacity: 1; }
+.admin-nav-section { padding: 12px 16px 4px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.25); }
+
+/* Main content */
+.admin-main { flex: 1; background: #f1f2f4; overflow: hidden; display: flex; flex-direction: column; }
+.admin-topbar { background: white; border-bottom: 1px solid #e5e7eb; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.admin-breadcrumb { font-size: 13px; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+.admin-breadcrumb span { color: #1a1a1a; font-weight: 600; }
+.admin-topbar-actions { display: flex; align-items: center; gap: 12px; }
+.admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,#008060,#95bf47); }
+.admin-content { flex: 1; padding: 24px; overflow-y: auto; }
+
+/* Screen container */
+.screen { display: none; }
+.screen.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Polaris-style components */
+.p-page-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; letter-spacing: -.3px; }
+.p-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; margin-bottom: 16px; overflow: hidden; }
+.p-card-section { padding: 20px; border-bottom: 1px solid #f3f4f6; }
+.p-card-section:last-child { border-bottom: none; }
+.p-card-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.p-card-body { font-size: 13px; color: #6b7280; line-height: 1.6; }
+.p-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: all .12s; font-family: inherit; }
+.p-btn-primary { background: #008060; color: white; border-color: #008060; }
+.p-btn-primary:hover { background: #004c3f; }
+.p-btn-secondary { background: white; color: #1a1a1a; border-color: #d1d5db; }
+.p-btn-secondary:hover { background: #f9fafb; }
+.p-btn-plain { background: none; color: #008060; border-color: transparent; padding-left: 0; }
+.p-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; }
+.p-badge-success { background: #d1fae5; color: #065f46; }
+.p-badge-warning { background: #fef3c7; color: #92400e; }
+.p-badge-info { background: #dbeafe; color: #1e40af; }
+.p-badge-new { background: #f3e8ff; color: #7e22ce; }
+.p-toggle { display: flex; align-items: center; gap: 12px; }
+.p-toggle-track { width: 40px; height: 22px; border-radius: 50px; background: #d1d5db; position: relative; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+.p-toggle-track.on { background: #008060; }
+.p-toggle-thumb { width: 18px; height: 18px; border-radius: 50%; background: white; position: absolute; top: 2px; left: 2px; transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.p-toggle-track.on .p-toggle-thumb { left: 20px; }
+.p-toggle-label { font-size: 13px; font-weight: 600; }
+.p-divider { border: none; border-top: 1px solid #f3f4f6; margin: 16px 0; }
+
+/* App install card */
+.app-install-header { display: flex; gap: 20px; align-items: flex-start; padding: 24px; border-bottom: 1px solid #f3f4f6; }
+.app-icon { width: 64px; height: 64px; border-radius: 14px; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 28px; }
+.app-meta { flex: 1; }
+.app-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+.app-by { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+.app-rating { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #6b7280; }
+.stars { color: #f59e0b; letter-spacing: -1px; }
+
+/* Platform tabs */
+.platform-tabs { display: flex; gap: 2px; background: #f3f4f6; border-radius: 10px; padding: 3px; margin-bottom: 20px; flex-wrap: wrap; }
+.platform-tab { flex: 1; min-width: 80px; padding: 7px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; color: #6b7280; transition: all .12s; white-space: nowrap; }
+.platform-tab.active { background: white; color: #1a1a1a; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.platform-connect-area { text-align: center; padding: 32px 24px; }
+.platform-connect-icon { font-size: 3rem; margin-bottom: 16px; }
+.platform-connect-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+.platform-connect-body { font-size: 13px; color: #6b7280; margin-bottom: 24px; line-height: 1.6; max-width: 360px; margin-left: auto; margin-right: auto; }
+
+/* Audience list */
+.aud-list { display: flex; flex-direction: column; gap: 12px; }
+.aud-item { background: white; border-radius: 10px; border: 1px solid #e5e7eb; padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+.aud-item-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.aud-item-info { flex: 1; }
+.aud-item-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.aud-item-desc { font-size: 12px; color: #6b7280; }
+.aud-item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.aud-item-size { font-size: 12px; color: #6b7280; font-weight: 600; }
+.aud-item-refresh { font-size: 11px; color: #9ca3af; }
+
+/* Metrics dashboard */
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.metric-card { background: white; border-radius: 10px; border: 1px solid #e5e7eb; padding: 18px; }
+.metric-label { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.metric-val { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; color: #1a1a1a; }
+.metric-delta { font-size: 12px; font-weight: 700; margin-top: 4px; }
+.metric-delta.up { color: #008060; }
+.metric-delta.down { color: #008060; }
+
+/* Benchmark chart mockup */
+.bench-chart { background: white; border-radius: 10px; border: 1px solid #e5e7eb; padding: 20px; }
+.bench-chart-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.bench-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.bench-row-label { font-size: 12px; color: #6b7280; width: 140px; flex-shrink: 0; }
+.bench-bar-wrap { flex: 1; height: 20px; background: #f3f4f6; border-radius: 50px; overflow: hidden; position: relative; }
+.bench-bar { height: 100%; border-radius: 50px; }
+.bench-val { font-size: 12px; font-weight: 700; width: 60px; text-align: right; flex-shrink: 0; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+.nav-hint { font-size: 12px; color: #9ca3af; text-align: center; flex: 1; }
+
+/* Notification toast */
+.toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: white; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.2); transform: translateY(80px); opacity: 0; transition: all .3s; z-index: 100; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #95bf47; flex-shrink: 0; }
+
+/* Data sharing page */
+.ds-highlight { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 16px 18px; display: flex; gap: 12px; margin-bottom: 12px; }
+.ds-highlight-icon { font-size: 20px; flex-shrink: 0; }
+.ds-highlight-text { font-size: 13px; color: #065f46; line-height: 1.6; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .admin-sidebar { display: none; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .progress-wrap { gap: 4px; }
+  .prog-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-header">
+  <div class="demo-eyebrow">Shopify Plus · Interactive Demo</div>
+  <h1>Shopify Audiences — How It Works</h1>
+  <p>Walk through the real install and setup experience, step by step.</p>
+</div>
+
+<div class="demo-shell">
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap" id="progress">
+    <div class="prog-step active" data-step="1" onclick="goTo(1)">
+      <div class="prog-dot">1</div>
+      <div class="prog-label">App Store</div>
+    </div>
+    <div class="prog-step" data-step="2" onclick="goTo(2)">
+      <div class="prog-dot">2</div>
+      <div class="prog-label">Install</div>
+    </div>
+    <div class="prog-step" data-step="3" onclick="goTo(3)">
+      <div class="prog-dot">3</div>
+      <div class="prog-label">Data Sharing</div>
+    </div>
+    <div class="prog-step" data-step="4" onclick="goTo(4)">
+      <div class="prog-dot">4</div>
+      <div class="prog-label">Connect Platforms</div>
+    </div>
+    <div class="prog-step" data-step="5" onclick="goTo(5)">
+      <div class="prog-dot">5</div>
+      <div class="prog-label">Audiences Ready</div>
+    </div>
+    <div class="prog-step" data-step="6" onclick="goTo(6)">
+      <div class="prog-dot">6</div>
+      <div class="prog-label">Dashboard</div>
+    </div>
+  </div>
+
+  <!-- ADMIN SHELL -->
+  <div class="admin-shell">
+
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-logo">
+        <div class="admin-sidebar-logo-bag">
+          <svg viewBox="0 0 20 20" fill="white"><path d="M4 2h12l2 5H2L4 2zm-2 7h16v9a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/></svg>
+        </div>
+        <div>
+          <div class="admin-store-name">BrandCo Store</div>
+          <div class="admin-store-plan">Shopify Plus</div>
+        </div>
+      </div>
+      <div class="admin-nav">
+        <div class="admin-nav-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg>
+          Home
+        </div>
+        <div class="admin-nav-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14v2H3zm0 5h14v2H3zm0 5h9v2H3z"/></svg>
+          Orders
+        </div>
+        <div class="admin-nav-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 9a7 7 0 1114 0H3z"/></svg>
+          Customers
+        </div>
+        <div class="admin-nav-section">Marketing</div>
+        <div class="admin-nav-item active">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path d="M2 10C3.6 5.9 6.5 3 10 3s6.4 2.9 8 7c-1.6 4.1-4.5 7-8 7s-6.4-2.9-8-7z"/></svg>
+          Audiences
+        </div>
+        <div class="admin-nav-item">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11l8-9 8 9H16v7H4v-7H2z"/></svg>
+          Apps
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <div class="admin-breadcrumb">
+          <span id="breadcrumb-text">App Store</span>
+        </div>
+        <div class="admin-topbar-actions">
+          <svg width="16" height="16" fill="none" stroke="#6b7280" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <div class="admin-avatar"></div>
+        </div>
+      </div>
+
+      <div class="admin-content">
+
+        <!-- SCREEN 1: App Store listing -->
+        <div class="screen active" id="screen-1">
+          <div class="p-card">
+            <div class="app-install-header">
+              <div class="app-icon">🎯</div>
+              <div class="app-meta">
+                <div class="app-name">Shopify Audiences</div>
+                <div class="app-by">by Shopify · <span style="color:#008060;font-weight:700">Free</span></div>
+                <div class="app-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.6 · 1,200+ reviews</span>
+                  <span style="margin-left:8px" class="p-badge p-badge-success">Shopify Plus</span>
+                </div>
+              </div>
+              <button class="p-btn p-btn-primary" onclick="nextStep()">Add app</button>
+            </div>
+            <div class="p-card-section">
+              <div class="p-card-title">About this app</div>
+              <div class="p-card-body">Shopify Audiences uses machine learning and purchase signals from across the Shopify merchant network to build high-converting ad audiences for Meta, Google, TikTok, Pinterest, Snapchat, and Criteo — automatically.<br><br>Available exclusively to Shopify Plus merchants using Shopify Payments in the US or Canada.</div>
+            </div>
+            <div class="p-card-section" style="display:flex;gap:32px;flex-wrap:wrap">
+              <div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.5px;margin-bottom:4px">CAC Reduction</div><div style="font-size:22px;font-weight:900;color:#008060">Up to 50%</div></div>
+              <div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.5px;margin-bottom:4px">More Conversions</div><div style="font-size:22px;font-weight:900;color:#008060">2× per dollar</div></div>
+              <div><div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.5px;margin-bottom:4px">Better Exclusions</div><div style="font-size:22px;font-weight:900;color:#008060">+40%</div></div>
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <div></div>
+            <div class="nav-hint">Click <strong>Add app</strong> or use the button below to continue</div>
+            <button class="p-btn p-btn-primary" onclick="nextStep()">Next →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 2: Get Started / Install -->
+        <div class="screen" id="screen-2">
+          <div class="p-page-title">Shopify Audiences</div>
+          <div class="p-card">
+            <div class="p-card-section" style="text-align:center;padding:48px 32px">
+              <div style="font-size:4rem;margin-bottom:20px">🎯</div>
+              <div style="font-size:20px;font-weight:900;margin-bottom:10px;letter-spacing:-.3px">Welcome to Shopify Audiences</div>
+              <div style="font-size:14px;color:#6b7280;max-width:420px;margin:0 auto 28px;line-height:1.7">Find your best buyers faster using purchase signals from across the Shopify merchant network. Audiences are auto-built and synced to your ad platforms — free for Shopify Plus.</div>
+              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px">
+                <span class="p-badge p-badge-success">✓ Shopify Plus plan detected</span>
+                <span class="p-badge p-badge-success">✓ Shopify Payments active</span>
+                <span class="p-badge p-badge-success">✓ US store eligible</span>
+              </div>
+              <button class="p-btn p-btn-primary" style="font-size:15px;padding:12px 32px" onclick="nextStep()">Get started</button>
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Your store is eligible and ready to go</div>
+            <button class="p-btn p-btn-primary" onclick="nextStep()">Next →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 3: Data Sharing -->
+        <div class="screen" id="screen-3">
+          <div class="p-page-title">Data sharing</div>
+          <div class="p-card">
+            <div class="p-card-section">
+              <div class="p-card-title">Shopify Network Intelligence</div>
+              <div class="p-card-body" style="margin-bottom:16px">To generate audiences, Shopify pools anonymized, opt-in purchase signals from participating merchants. Your customer data is hashed before entering the model — it is never shared with other merchants or ad platforms.</div>
+              <div class="ds-highlight">
+                <div class="ds-highlight-icon">🔒</div>
+                <div class="ds-highlight-text"><strong>Privacy-safe by design:</strong> All data is hashed and aggregated before use. Individual customer records are never exposed. Customers can opt out at any time. Shopify is SOC 2 compliant.</div>
+              </div>
+              <div class="ds-highlight" style="margin-top:8px">
+                <div class="ds-highlight-icon">⚖️</div>
+                <div class="ds-highlight-text"><strong>Legal compliance:</strong> Ensure your store complies with applicable US state and regional privacy laws before enabling data sharing.</div>
+              </div>
+            </div>
+            <div class="p-card-section">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+                <div>
+                  <div style="font-size:14px;font-weight:700;margin-bottom:4px">Enable data sharing</div>
+                  <div style="font-size:13px;color:#6b7280">Allow your store to contribute to and benefit from the shared buyer signal network</div>
+                </div>
+                <div class="p-toggle" onclick="toggleDataShare(this)">
+                  <div class="p-toggle-track" id="ds-toggle">
+                    <div class="p-toggle-thumb"></div>
+                  </div>
+                  <span class="p-toggle-label" id="ds-label">Off</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Toggle data sharing on to continue</div>
+            <button class="p-btn p-btn-primary" onclick="nextStep()">Save &amp; continue →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 4: Connect Platforms -->
+        <div class="screen" id="screen-4">
+          <div class="p-page-title">Connect your ad platforms</div>
+          <div class="platform-tabs" id="platform-tabs">
+            <div class="platform-tab active" onclick="switchPlatform(this,'meta')">Meta</div>
+            <div class="platform-tab" onclick="switchPlatform(this,'google')">Google</div>
+            <div class="platform-tab" onclick="switchPlatform(this,'tiktok')">TikTok</div>
+            <div class="platform-tab" onclick="switchPlatform(this,'pinterest')">Pinterest</div>
+            <div class="platform-tab" onclick="switchPlatform(this,'snapchat')">Snapchat</div>
+            <div class="platform-tab" onclick="switchPlatform(this,'criteo')">Criteo</div>
+          </div>
+
+          <div id="platform-panel">
+            <div class="p-card">
+              <div class="platform-connect-area">
+                <div class="platform-connect-icon" id="plt-icon">📘</div>
+                <div class="platform-connect-title" id="plt-title">Connect Meta</div>
+                <div class="platform-connect-body" id="plt-body">Sign in with your Meta Business account to sync audiences directly to Facebook and Instagram ad campaigns. Shopify recommends starting with Meta for the fastest results.</div>
+                <button class="p-btn p-btn-primary" id="plt-btn" onclick="connectPlatform(this)">Connect Meta →</button>
+                <div style="margin-top:12px" id="plt-connected" style="display:none"></div>
+              </div>
+              <div class="p-card-section" style="background:#fafafa" id="plt-audiences">
+                <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Audiences available on this platform</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px" id="plt-audience-tags">
+                  <span class="p-badge p-badge-info">Prospecting</span>
+                  <span class="p-badge p-badge-info">Retargeting Boost</span>
+                  <span class="p-badge p-badge-info">Meta Lookalike</span>
+                  <span class="p-badge p-badge-success">Existing Customers Plus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Connect at least one platform to activate audiences</div>
+            <button class="p-btn p-btn-primary" onclick="nextStep()">Generate audiences →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 5: Audiences Ready -->
+        <div class="screen" id="screen-5">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+            <div class="p-page-title" style="margin-bottom:0">Your Audiences</div>
+            <span class="p-badge p-badge-success" style="font-size:12px;padding:5px 12px">● 4 audiences active</span>
+          </div>
+          <div class="aud-list">
+            <div class="aud-item">
+              <div class="aud-item-icon" style="background:#eff6ff">🔍</div>
+              <div class="aud-item-info">
+                <div class="aud-item-name">Prospecting — Meta</div>
+                <div class="aud-item-desc">High-intent net-new buyers similar to your best customers · Cross-merchant signals</div>
+              </div>
+              <div class="aud-item-right">
+                <span class="aud-item-size">~1.2M</span>
+                <span class="p-badge p-badge-success">Ready</span>
+                <span class="aud-item-refresh">↻ 7–14d</span>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-item-icon" style="background:#fff7ed">⚡</div>
+              <div class="aud-item-info">
+                <div class="aud-item-name">Retargeting Boost — Meta</div>
+                <div class="aud-item-desc">ML-scored visitors with highest purchase likelihood · Filtered from site traffic</div>
+              </div>
+              <div class="aud-item-right">
+                <span class="aud-item-size">~86K</span>
+                <span class="p-badge p-badge-success">Ready</span>
+                <span class="aud-item-refresh">↻ 1–7d</span>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-item-icon" style="background:#f5f3ff">🪞</div>
+              <div class="aud-item-info">
+                <div class="aud-item-name">Meta Lookalike (3%)</div>
+                <div class="aud-item-desc">Platform-generated lookalike · ~9.1M US/CA Meta users matched to your buyer profile</div>
+              </div>
+              <div class="aud-item-right">
+                <span class="aud-item-size">~9.1M</span>
+                <span class="p-badge p-badge-success">Ready</span>
+                <span class="aud-item-refresh">↻ Auto</span>
+              </div>
+            </div>
+            <div class="aud-item">
+              <div class="aud-item-icon" style="background:#fef2f2">🚫</div>
+              <div class="aud-item-info">
+                <div class="aud-item-name">Existing Customers Plus — Exclusion</div>
+                <div class="aud-item-desc">Suppresses existing buyers from prospecting · 40% more identified than Meta alone</div>
+              </div>
+              <div class="aud-item-right">
+                <span class="aud-item-size">~34K</span>
+                <span class="p-badge p-badge-success">Ready</span>
+                <span class="aud-item-refresh">↻ Daily</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 18px;margin-top:16px;font-size:13px;color:#065f46;font-weight:600">
+            ✓ All audiences synced to Meta. Apply these lists in Meta Ads Manager to your campaigns to activate them.
+          </div>
+          <div class="nav-buttons">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Audiences auto-refresh on a rolling 90-day window</div>
+            <button class="p-btn p-btn-primary" onclick="nextStep()">View performance →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 6: Dashboard / Performance -->
+        <div class="screen" id="screen-6">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+            <div class="p-page-title" style="margin-bottom:0">Performance</div>
+            <select style="font-size:13px;font-weight:600;border:1.5px solid #e5e7eb;border-radius:8px;padding:6px 12px;background:white;font-family:inherit">
+              <option>Last 30 days</option>
+              <option>Last 90 days</option>
+              <option>Last 365 days</option>
+            </select>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Customer Acquisition Cost</div>
+              <div class="metric-val">$28.40</div>
+              <div class="metric-delta down">↓ 43% vs. before Audiences</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Retargeting Conversions</div>
+              <div class="metric-val">2,841</div>
+              <div class="metric-delta up">↑ 2.1× vs. standard targeting</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Ad Spend Saved (Exclusions)</div>
+              <div class="metric-val">$6,200</div>
+              <div class="metric-delta up">↑ 40% more buyers excluded</div>
+            </div>
+          </div>
+
+          <div class="bench-chart">
+            <div class="bench-chart-title">📊 Benchmark — How you compare to similar stores</div>
+            <div class="bench-row">
+              <div class="bench-row-label" style="font-size:12px;font-weight:700">Your CAC</div>
+              <div class="bench-bar-wrap"><div class="bench-bar" style="width:38%;background:#008060"></div></div>
+              <div class="bench-val" style="color:#008060;font-weight:800">$28</div>
+            </div>
+            <div class="bench-row">
+              <div class="bench-row-label" style="font-size:12px;color:#9ca3af">Industry avg (similar stores)</div>
+              <div class="bench-bar-wrap"><div class="bench-bar" style="width:62%;background:#d1d5db"></div></div>
+              <div class="bench-val" style="color:#9ca3af">$49</div>
+            </div>
+            <div class="bench-row">
+              <div class="bench-row-label" style="font-size:12px;color:#9ca3af">Before Shopify Audiences</div>
+              <div class="bench-bar-wrap"><div class="bench-bar" style="width:80%;background:#fecdd3"></div></div>
+              <div class="bench-val" style="color:#9ca3af">$62</div>
+            </div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:8px">Lower is better · Benchmark data pulled from similar Shopify Plus stores in your category</div>
+          </div>
+
+          <div class="nav-buttons" style="margin-top:20px">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint" style="color:#008060;font-weight:700">🎉 Setup complete — audiences are live</div>
+            <button class="p-btn p-btn-primary" onclick="goTo(1)">↺ Restart demo</button>
+          </div>
+        </div>
+
+      </div><!-- /admin-content -->
+    </div><!-- /admin-main -->
+  </div><!-- /admin-shell -->
+
+</div><!-- /demo-shell -->
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 6;
+const breadcrumbs = ['App Store','Install App','Data Sharing','Connect Platforms','Audiences Ready','Performance'];
+
+function updateProgress() {
+  document.querySelectorAll('.prog-step').forEach((el, i) => {
+    const s = i + 1;
+    el.classList.remove('active','done');
+    if (s < currentStep) el.classList.add('done');
+    if (s === currentStep) el.classList.add('active');
+  });
+  document.getElementById('breadcrumb-text').textContent = breadcrumbs[currentStep - 1];
+}
+
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + n).classList.add('active');
+}
+
+function goTo(n) {
+  currentStep = n;
+  updateProgress();
+  showScreen(n);
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) goTo(currentStep + 1);
+}
+
+function prevStep() {
+  if (currentStep > 1) goTo(currentStep - 1);
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function toggleDataShare(el) {
+  const track = document.getElementById('ds-toggle');
+  const label = document.getElementById('ds-label');
+  track.classList.toggle('on');
+  const isOn = track.classList.contains('on');
+  label.textContent = isOn ? 'On' : 'Off';
+  if (isOn) toast('Data sharing enabled — audiences will start generating');
+}
+
+const platforms = {
+  meta:      { icon:'📘', name:'Meta', body:'Sign in with your Meta Business account to sync audiences directly to Facebook and Instagram ad campaigns. Shopify recommends starting with Meta for the fastest results.', tags: '<span class="p-badge p-badge-info">Prospecting</span><span class="p-badge p-badge-info">Retargeting Boost</span><span class="p-badge p-badge-info">Meta Lookalike</span><span class="p-badge p-badge-success">Existing Customers Plus</span>' },
+  google:    { icon:'🔵', name:'Google', body:'Connect your Google Ads account to use Shopify Audiences as a seed for Performance Max campaigns and smart bidding signals.', tags: '<span class="p-badge p-badge-info">Prospecting Seed</span><span class="p-badge p-badge-success">Existing Customers</span>' },
+  tiktok:    { icon:'🎵', name:'TikTok', body:'Link your TikTok Ads Manager account to reach high-intent buyers across TikTok\'s US and Canadian user base.', tags: '<span class="p-badge p-badge-info">Prospecting</span><span class="p-badge p-badge-info">Retargeting Boost</span><span class="p-badge p-badge-info">TikTok Lookalike</span><span class="p-badge p-badge-success">Existing Customers</span>' },
+  pinterest: { icon:'📌', name:'Pinterest', body:'Sync audiences to Pinterest Ads to target buyers who are actively discovering and saving products in your category.', tags: '<span class="p-badge p-badge-info">Prospecting</span><span class="p-badge p-badge-info">Retargeting Boost</span><span class="p-badge p-badge-success">Existing Customers</span>' },
+  snapchat:  { icon:'👻', name:'Snapchat', body:'Connect Snapchat Ads to reach a younger, mobile-first audience with purchase signals matched to your store profile.', tags: '<span class="p-badge p-badge-info">Prospecting</span><span class="p-badge p-badge-info">Retargeting Boost</span><span class="p-badge p-badge-success">Existing Customers</span>' },
+  criteo:    { icon:'🟠', name:'Criteo', body:'Connect Criteo to leverage a managed segment of 100,000 matched US/Canada customers for retargeting and prospecting.', tags: '<span class="p-badge p-badge-info">Prospecting</span><span class="p-badge p-badge-info">Retargeting Boost</span><span class="p-badge p-badge-info">Criteo Lookalike (100K)</span><span class="p-badge p-badge-success">Existing Customers</span>' },
+};
+
+const connected = {};
+
+function switchPlatform(tab, key) {
+  document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const p = platforms[key];
+  document.getElementById('plt-icon').textContent = p.icon;
+  document.getElementById('plt-title').textContent = (connected[key] ? '✓ Connected to ' : 'Connect ') + p.name;
+  document.getElementById('plt-body').textContent = p.body;
+  document.getElementById('plt-audience-tags').innerHTML = p.tags;
+  const btn = document.getElementById('plt-btn');
+  btn.textContent = connected[key] ? '✓ Connected' : 'Connect ' + p.name + ' →';
+  btn.className = connected[key] ? 'p-btn p-btn-secondary' : 'p-btn p-btn-primary';
+  btn.onclick = connected[key] ? null : function(){ connectPlatform(this, key); };
+  btn._key = key;
+}
+
+function connectPlatform(btn, key) {
+  const k = key || btn._key || 'meta';
+  connected[k] = true;
+  toast(platforms[k].name + ' connected — audiences will sync automatically');
+  switchPlatform(document.querySelector('.platform-tab.active'), k);
+}
+
+// init first platform btn
+document.getElementById('plt-btn')._key = 'meta';
+document.getElementById('plt-btn').onclick = function(){ connectPlatform(this, 'meta'); };
+</script>
+</body>
+</html>
