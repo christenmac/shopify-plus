@@ -189,20 +189,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .bench-table tr:last-child td { border-bottom: none; }
 
 /* ── Meta Ads Manager mockup ── */
-.meta-am { background: white; border-radius: 12px; border: 1px solid #e3e5e7; overflow: hidden; margin-bottom: 16px; }
-.meta-am-topbar { background: #242526; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+.meta-am { background: white; border-radius: 12px; border: 1px solid #dddfe2; overflow: hidden; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.1); }
+.meta-am-topbar { background: #242526; padding: 8px 14px; display: flex; align-items: center; gap: 10px; min-height: 44px; }
 .meta-am-breadcrumb { font-size: 12px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 6px; flex: 1; }
 .meta-am-breadcrumb strong { color: white; }
-.meta-am-sep { color: rgba(255,255,255,.3); }
-.meta-am-body { display: flex; }
-.meta-am-main { flex: 1; padding: 20px 24px; border-right: 1px solid #f3f4f6; }
-.meta-am-sidebar { width: 230px; flex-shrink: 0; padding: 16px; background: #fafafa; }
-.meta-am-section-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.meta-am-check { color: #1877f2; }
-.meta-am-field { border: 1px solid #c9cccf; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: #202223; background: white; width: 100%; margin-bottom: 14px; font-family: inherit; }
-.aud-def-bar { height: 8px; border-radius: 4px; background: #e3e5e7; margin: 6px 0 3px; position: relative; overflow: hidden; }
-.aud-def-bar-fill { position: absolute; right: 0; top: 0; height: 100%; width: 72%; background: #1877f2; border-radius: 4px; }
-.meta-reach-bar { height: 4px; border-radius: 2px; background: #e3e5e7; margin-top: 5px; position: relative; overflow: hidden; }
+.meta-am-sep { color: rgba(255,255,255,.25); }
+.meta-am-body { display: flex; height: 460px; }
+.meta-am-leftnav { width: 190px; flex-shrink: 0; background: #f0f2f5; border-right: 1px solid #dddfe2; display: flex; overflow: hidden; }
+.meta-am-icon-rail { width: 44px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding: 10px 0; gap: 16px; border-right: 1px solid #dddfe2; }
+.meta-am-icon-btn { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #65676b; cursor: pointer; }
+.meta-am-icon-btn.act { background: #e7f3ff; color: #1877f2; }
+.meta-am-campaign-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+.meta-am-cr { padding: 7px 8px; font-size: 12px; color: #1c1e21; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 4px; margin: 1px 4px; }
+.meta-am-cr:hover { background: rgba(0,0,0,.06); }
+.meta-am-cr.active { background: #e7f3ff; font-weight: 700; color: #1877f2; border-left: 3px solid #1877f2; padding-left: 5px; margin-left: 4px; }
+.meta-am-cr.sub { padding-left: 18px; }
+.meta-am-cr.sub.active { padding-left: 15px; }
+.meta-am-scroll { flex: 1; overflow-y: auto; background: white; display: flex; flex-direction: column; }
+.meta-am-sec { padding: 14px 20px; border-bottom: 1px solid #f0f2f5; }
+.meta-am-sec-head { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #1c1e21; margin-bottom: 10px; }
+.meta-check { color: #1877f2; }
+.meta-radio { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f2f5; }
+.meta-radio:last-child { border-bottom: none; }
+.meta-radio-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #c9cccf; flex-shrink: 0; margin-top: 1px; background: white; }
+.meta-radio-name { font-size: 13px; font-weight: 600; color: #1c1e21; }
+.meta-radio-sub { font-size: 12px; color: #65676b; }
+.meta-sel { width: 100%; padding: 8px 12px; border: 1px solid #c9cccf; border-radius: 6px; font-size: 13px; font-family: inherit; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2365676b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; color: #1c1e21; }
+.meta-irow { display: flex; border: 1px solid #c9cccf; border-radius: 6px; overflow: hidden; }
+.meta-irow input { flex: 1; padding: 8px 12px; border: none; font-size: 13px; font-family: inherit; outline: none; background: white; }
+.meta-irow-suf { padding: 8px 12px; background: #f0f2f5; border-left: 1px solid #c9cccf; font-size: 13px; color: #65676b; display: flex; align-items: center; }
+.meta-am-footer-bar { padding: 10px 20px; font-size: 12px; color: #65676b; border-bottom: 1px solid #f0f2f5; }
+.meta-am-actions { padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; background: white; border-top: 1px solid #dddfe2; margin-top: auto; }
+.meta-publish { background: #42b72a; color: white; border: none; border-radius: 6px; padding: 8px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.meta-discard { background: white; color: #1c1e21; border: 1.5px solid #c9cccf; border-radius: 6px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.meta-am-right { width: 250px; flex-shrink: 0; background: #f0f2f5; border-left: 1px solid #dddfe2; padding: 14px 14px; overflow-y: auto; }
+.meta-aud-bar { height: 10px; border-radius: 5px; background: linear-gradient(to right, #c9cccf 0%, #c9cccf 30%, #42b72a 100%); margin: 6px 0 3px; position: relative; }
+.meta-aud-bar-pin { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 3px; height: 18px; background: #1c1e21; border-radius: 2px; }
+.meta-reach-bar { height: 4px; border-radius: 2px; background: #dddfe2; margin-top: 4px; margin-bottom: 12px; position: relative; overflow: hidden; }
 .meta-reach-bar-fill { position: absolute; left: 0; top: 0; height: 100%; width: 28%; background: #1877f2; }
 
 /* ── SCREEN 5 & 6: Screenshots ── */
@@ -796,43 +819,184 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <!-- Meta Ads Manager mockup -->
           <div class="meta-am">
             <div class="meta-am-topbar">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,.6)"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
               <div class="meta-am-breadcrumb">
+                <span>Ads Manager</span>
+                <span class="meta-am-sep">›</span>
                 <span>BFCM 2024</span>
                 <span class="meta-am-sep">›</span>
                 <strong>BFCM Acquisition</strong>
-                <span class="meta-am-sep">›</span>
-                <span>1 Ad</span>
               </div>
-              <div style="display:flex;gap:8px;flex-shrink:0">
-                <button class="p-btn" style="background:#1877f2;color:white;border-color:#1877f2;font-size:12px;padding:5px 14px">Edit</button>
-                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px;background:transparent;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)">Review</button>
+              <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                <button style="background:#1877f2;color:white;border:none;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer">Edit ad set</button>
               </div>
             </div>
             <div class="meta-am-body">
-              <div class="meta-am-main">
-                <div class="meta-am-section-title"><span class="meta-am-check">✓</span> Ad set name</div>
-                <input class="meta-am-field" value="BFCM Acquisition" readonly>
-                <div class="meta-am-section-title"><span class="meta-am-check">✓</span> Audience</div>
-                <div style="font-size:13px;color:#4b5563;margin-bottom:10px">Shopify Audiences are added directly to this ad set for targeting.</div>
-                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:11px 14px;font-size:13px;color:#065f46;display:flex;align-items:center;gap:8px">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                  <strong>✓ Shopify Audiences — Prospecting</strong> added to BFCM Acquisition ad set
+
+              <!-- Left nav -->
+              <div class="meta-am-leftnav">
+                <div class="meta-am-icon-rail">
+                  <!-- Home -->
+                  <div class="meta-am-icon-btn act">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                  </div>
+                  <!-- Campaigns -->
+                  <div class="meta-am-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                  </div>
+                  <!-- Audiences -->
+                  <div class="meta-am-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                  </div>
+                  <!-- Charts -->
+                  <div class="meta-am-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+                  </div>
+                  <!-- Settings -->
+                  <div class="meta-am-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                  </div>
+                </div>
+                <div class="meta-am-campaign-list">
+                  <div class="meta-am-cr" style="font-size:11px;font-weight:700;color:#65676b;padding:10px 8px 4px;cursor:default">BFCM 2024</div>
+                  <div class="meta-am-cr sub active">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M7 10l5 5 5-5z"/></svg>
+                    BFCM Acquisition
+                  </div>
+                  <div class="meta-am-cr sub" style="padding-left:26px;font-size:11px;color:#65676b">1 Ad set · Active</div>
+                  <div class="meta-am-cr sub" style="padding-left:18px;margin-top:4px">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M10 17l5-5-5-5v10z"/></svg>
+                    BFCM Sale
+                  </div>
                 </div>
               </div>
-              <div class="meta-am-sidebar">
-                <div style="font-size:12px;font-weight:700;color:#202223;margin-bottom:6px">Audience definition</div>
-                <div style="font-size:12px;color:#4b5563;margin-bottom:6px">Your audience is broad.</div>
-                <div class="aud-def-bar"><div class="aud-def-bar-fill"></div></div>
-                <div style="display:flex;justify-content:space-between;font-size:11px;color:#8c9196;margin-bottom:10px"><span>Narrow</span><span>Broad</span></div>
-                <div style="font-size:12px;color:#4b5563;margin-bottom:14px">Estimated audience size: <strong style="color:#202223">428,800 – 504,500</strong></div>
-                <div style="border-top:1px solid #e3e5e7;padding-top:12px">
-                  <div style="font-size:12px;font-weight:700;color:#202223;margin-bottom:8px">Estimated daily results</div>
-                  <div style="font-size:11px;color:#8c9196;margin-bottom:2px">Reach</div>
-                  <div style="font-size:20px;font-weight:800;color:#202223">1.3K – 3.8K</div>
-                  <div class="meta-reach-bar"><div class="meta-reach-bar-fill"></div></div>
+
+              <!-- Main scrollable content -->
+              <div class="meta-am-scroll">
+                <!-- Ad set name -->
+                <div class="meta-am-sec">
+                  <div class="meta-am-sec-head">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#42b72a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <strong style="font-size:13px">Ad set name</strong>
+                    <button style="margin-left:auto;background:none;border:1px solid #c9cccf;border-radius:4px;padding:3px 8px;font-size:11px;color:#65676b;cursor:pointer">Create template</button>
+                  </div>
+                  <input style="width:100%;margin-top:8px;padding:8px 10px;border:1.5px solid #1877f2;border-radius:6px;font-size:13px;font-family:inherit;color:#1c1e21;outline:none" value="BFCM Acquisition" readonly>
+                </div>
+
+                <!-- Conversion -->
+                <div class="meta-am-sec">
+                  <div class="meta-am-sec-head">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#42b72a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <strong style="font-size:13px">Conversion</strong>
+                  </div>
+                  <div style="font-size:11px;color:#65676b;margin:8px 0 6px">Conversion location</div>
+                  <div class="meta-radio">
+                    <div class="meta-radio-dot" style="border-color:#1877f2;background:#1877f2;box-shadow:inset 0 0 0 3px white"></div>
+                    <div><div style="font-size:13px;font-weight:700;color:#1c1e21">Website</div><div style="font-size:11px;color:#65676b">Drive traffic to your website</div></div>
+                  </div>
+                  <div class="meta-radio">
+                    <div class="meta-radio-dot"></div>
+                    <div><div style="font-size:13px;color:#1c1e21">App</div></div>
+                  </div>
+                  <div class="meta-radio">
+                    <div class="meta-radio-dot"></div>
+                    <div><div style="font-size:13px;color:#1c1e21">Messaging apps</div></div>
+                  </div>
+                  <div class="meta-radio">
+                    <div class="meta-radio-dot"></div>
+                    <div><div style="font-size:13px;color:#1c1e21">Instagram profile</div></div>
+                  </div>
+                  <div class="meta-radio" style="border-bottom:none">
+                    <div class="meta-radio-dot"></div>
+                    <div><div style="font-size:13px;color:#1c1e21">Calls</div></div>
+                  </div>
+                </div>
+
+                <!-- Performance goal -->
+                <div class="meta-am-sec">
+                  <div class="meta-am-sec-head">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#42b72a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <strong style="font-size:13px">Performance goal</strong>
+                  </div>
+                  <div style="font-size:11px;color:#65676b;margin:8px 0 4px">Optimization goal</div>
+                  <div style="position:relative">
+                    <select class="meta-sel">
+                      <option selected>Maximize number of conversations</option>
+                      <option>Maximize number of link clicks</option>
+                      <option>Maximize reach of ads</option>
+                    </select>
+                    <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none" width="12" height="12" viewBox="0 0 24 24" fill="#65676b"><path d="M7 10l5 5 5-5z"/></svg>
+                  </div>
+                </div>
+
+                <!-- Bid control -->
+                <div class="meta-am-sec">
+                  <div class="meta-am-sec-head">
+                    <strong style="font-size:13px">Bid control</strong>
+                    <span style="font-size:11px;color:#65676b;margin-left:4px">(optional)</span>
+                  </div>
+                  <div style="font-size:11px;color:#65676b;margin:8px 0 4px">Per result bid cap</div>
+                  <div class="meta-irow">
+                    <input style="flex:1;border:none;padding:8px 10px;font-size:13px;font-family:inherit;outline:none" value="100.00" readonly>
+                    <div style="padding:0 12px;display:flex;align-items:center;background:#f0f2f5;font-size:12px;color:#65676b;border-left:1px solid #c9cccf">CAD</div>
+                  </div>
+                </div>
+
+                <!-- Audience section with Shopify callout -->
+                <div class="meta-am-sec" style="background:#f0fdf4;border-left:3px solid #42b72a">
+                  <div class="meta-am-sec-head">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#42b72a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <strong style="font-size:13px;color:#065f46">Audience</strong>
+                  </div>
+                  <div style="font-size:12px;color:#065f46;margin-top:6px;display:flex;align-items:center;gap:6px">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    <strong>Shopify Audiences — Prospecting</strong> · 1,700,000 people
+                  </div>
+                  <div style="font-size:11px;color:#065f46;margin-top:4px">Synced from Shopify · Updates weekly</div>
+                </div>
+
+                <!-- Footer terms -->
+                <div class="meta-am-footer-bar">
+                  By publishing your ad, you agree to Meta's <a href="#" style="color:#1877f2" onclick="return false">Advertising Standards</a> and confirm that you have the right to use all content and that your ad complies with our policies.
+                </div>
+                <div class="meta-am-actions">
+                  <button style="background:none;border:1px solid #c9cccf;border-radius:6px;padding:7px 14px;font-size:12px;color:#65676b;cursor:pointer">Close</button>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:12px;color:#65676b">All edits saved</span>
+                    <button style="background:none;border:1px solid #c9cccf;border-radius:6px;padding:7px 14px;font-size:12px;color:#65676b;cursor:pointer">Discard draft</button>
+                    <button class="meta-publish">Publish</button>
+                  </div>
                 </div>
               </div>
+
+              <!-- Right audience panel -->
+              <div class="meta-am-right">
+                <div style="font-size:12px;font-weight:700;color:#1c1e21;margin-bottom:4px">Audience definition</div>
+                <div style="font-size:11px;color:#65676b;margin-bottom:6px">Your audience selection is fairly broad.</div>
+                <div class="meta-aud-bar">
+                  <div class="meta-aud-bar-pin"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:#8c9196;margin-bottom:10px"><span>Narrow</span><span>Broad</span></div>
+                <div style="font-size:11px;color:#65676b;margin-bottom:3px">Estimated audience size</div>
+                <div style="font-size:13px;font-weight:700;color:#1c1e21;margin-bottom:12px">428,800 – 504,500</div>
+
+                <div style="border-top:1px solid #dddfe2;padding-top:10px">
+                  <div style="font-size:12px;font-weight:700;color:#1c1e21;margin-bottom:8px">Estimated daily results</div>
+
+                  <div style="font-size:11px;color:#65676b;margin-bottom:3px">Reach</div>
+                  <div style="font-size:15px;font-weight:800;color:#1c1e21;margin-bottom:4px">1.3K – 3.8K</div>
+                  <div style="height:6px;background:#e4e6ea;border-radius:3px;overflow:hidden;margin-bottom:10px">
+                    <div style="height:100%;width:72%;background:linear-gradient(to right,#1877f2,#42b72a);border-radius:3px"></div>
+                  </div>
+
+                  <div style="font-size:11px;color:#65676b;margin-bottom:3px">Conversations</div>
+                  <div style="font-size:15px;font-weight:800;color:#1c1e21;margin-bottom:4px">0 – 0</div>
+                  <div style="height:6px;background:#e4e6ea;border-radius:3px;margin-bottom:14px"></div>
+
+                  <div style="font-size:10px;color:#8c9196;line-height:1.5">Estimates are based on your budget, bid, audience, and market data. They aren't a guarantee of results.</div>
+                </div>
+              </div>
+
             </div>
           </div>
 
