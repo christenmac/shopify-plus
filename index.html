@@ -218,6 +218,7 @@
     .sav-box-x { display: none; position: absolute; top: -7px; right: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 11px; line-height: 18px; text-align: center; cursor: pointer; padding: 0; font-weight: 700; }
     #savings-card .rate-box:hover .sav-box-x { display: block; }
     #retail-rates-card .rate-box:hover .sav-box-x { display: block; }
+#adv-rates-card .rate-box:hover .sav-box-x { display: block; }
     /* "Add Savings" re-show link */
     #savings-add-btn { display: none; text-align: center; margin-bottom: 20px; }
     #savings-add-btn button { background: none; border: 1.5px dashed var(--mid); border-radius: 8px; color: var(--dark); font-size: 12px; font-weight: 700; padding: 7px 18px; cursor: pointer; width: 100%; }
@@ -2668,11 +2669,11 @@
         <button class="sav-dismiss" title="Hide rates" onclick="toggleAdvRatesCard(false)">✕</button>
       </div>
       <div class="rates-grid">
-        <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="adv-rate-online" class="rate-val" contenteditable="true">2.5% + $0.30</span></div>
-        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="adv-rate-inperson" class="rate-val" contenteditable="true">2.4% + $0.00</span></div>
-        <div class="rate-box"><span class="rate-lbl">3rd Party Fee</span><span class="rate-sep">·</span><span id="adv-rate-3p" class="rate-val" contenteditable="true">0.5%</span></div>
-        <div class="rate-box"><span class="rate-lbl">Staff Accounts</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">15</span></div>
-        <div class="rate-box"><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">Up to 8</span></div>
+        <div class="rate-box" data-advbox="online"><button class="sav-box-x" onclick="toggleAdvRate('online',false)" title="Remove">×</button><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="adv-rate-online" class="rate-val" contenteditable="true">2.5% + $0.30</span></div>
+        <div class="rate-box" data-advbox="inperson"><button class="sav-box-x" onclick="toggleAdvRate('inperson',false)" title="Remove">×</button><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="adv-rate-inperson" class="rate-val" contenteditable="true">2.4% + $0.00</span></div>
+        <div class="rate-box" data-advbox="3p"><button class="sav-box-x" onclick="toggleAdvRate('3p',false)" title="Remove">×</button><span class="rate-lbl">3rd Party Fee</span><span class="rate-sep">·</span><span id="adv-rate-3p" class="rate-val" contenteditable="true">0.5%</span></div>
+        <div class="rate-box" data-advbox="staff"><button class="sav-box-x" onclick="toggleAdvRate('staff',false)" title="Remove">×</button><span class="rate-lbl">Staff Accounts</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">15</span></div>
+        <div class="rate-box" data-advbox="locations"><button class="sav-box-x" onclick="toggleAdvRate('locations',false)" title="Remove">×</button><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">Up to 8</span></div>
       </div>
     </div>
 
@@ -2718,6 +2719,7 @@
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">International Markets &amp; Cross-Border Commerce</div></div>
       <div class="feat-body">
         <p contenteditable="true">Shopify Advanced includes the most robust international tools available outside of Plus — letting merchants localize their storefront, collect duties upfront, and price by market without third-party apps.</p>
+        <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/international" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></p>
         <div class="sub-box">
           <div class="sub-title" contenteditable="true">Markets Features</div>
           <ul contenteditable="true">
@@ -3252,6 +3254,11 @@
     if (card) card.classList.toggle('sec-hidden', !visible);
     const cb = document.getElementById('adv-rates-cb');
     if (cb) cb.checked = visible;
+  }
+
+  function toggleAdvRate(key, visible) {
+    const box = document.querySelector(`#adv-rates-card .rate-box[data-advbox="${key}"]`);
+    if (box) box.classList.toggle('sec-hidden', !visible);
   }
 
   // ── Retail / POS — rate box toggle ──
