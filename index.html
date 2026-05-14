@@ -818,6 +818,23 @@
     <div class="panel-hr"></div>
     <div class="panel-tip">Click any doc text to edit.</div>
   </div><!-- /shipping-panel -->
+
+  <div id="advanced-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">Rates</div>
+      <div class="field"><label>Online Rate</label><input placeholder="e.g. 2.5% + $0.30" oninput="set('adv-rate-online',this.value)"></div>
+      <div class="field"><label>In Person Rate</label><input placeholder="e.g. 2.4% + $0.00" oninput="set('adv-rate-inperson',this.value)"></div>
+      <div class="field"><label>3rd Party Fee</label><input placeholder="e.g. 0.5%" oninput="set('adv-rate-3p',this.value)"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Store Details</div>
+      <div class="field"><label>Store Name</label><input placeholder="Store Name" oninput="document.querySelectorAll('.adv-store-name').forEach(el=>el.textContent=this.value||'Store Name')"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Click any doc text to edit.</div>
+  </div><!-- /advanced-panel -->
+
 </aside>
 
 <!-- ═══════════════ TOOLBAR ═══════════════ -->
@@ -831,6 +848,7 @@
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
       <button class="tab-btn" onclick="switchTab('shipping',this)">Shopify Shipping</button>
       <button class="tab-btn" onclick="switchTab('b2b',this)">Shopify B2B</button>
+      <button class="tab-btn" onclick="switchTab('advanced',this)">Shopify Advanced</button>
     </div>
     <span class="edit-badge">✏ Click any text to edit</span>
     <span class="edit-badge" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE;">🔗 Underlined text = clickable link</span>
@@ -2620,6 +2638,204 @@
 </div><!-- /doc-wrap -->
 </div><!-- /tab-action -->
 
+<!-- ══ ADVANCED TAB ══ -->
+<div id="tab-advanced" class="tab-content">
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="d-logo">
+      <img src="logo.png" alt="Shopify">
+    </div>
+    <div class="d-header-r">
+      <h1><a href="https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-advanced-plan" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify Advanced</a></h1>
+      <p contenteditable="true"><em>Feature Overview &amp; Benefits</em></p>
+      <input class="header-store-input" placeholder="Store Name" autocomplete="off"
+             oninput="document.querySelectorAll('.adv-store-name').forEach(el=>el.textContent=this.value)">
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- Rates card -->
+    <div class="rates-card">
+      <div class="rates-hdg">💳 Advanced Rates</div>
+      <div class="rates-grid">
+        <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="adv-rate-online" class="rate-val" contenteditable="true">2.5% + $0.30</span></div>
+        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="adv-rate-inperson" class="rate-val" contenteditable="true">2.4% + $0.00</span></div>
+        <div class="rate-box"><span class="rate-lbl">3rd Party Fee</span><span class="rate-sep">·</span><span id="adv-rate-3p" class="rate-val" contenteditable="true">0.5%</span></div>
+        <div class="rate-box"><span class="rate-lbl">Staff Accounts</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">15</span></div>
+        <div class="rate-box"><span class="rate-lbl">Locations</span><span class="rate-sep">·</span><span class="rate-val" contenteditable="true">Up to 8</span></div>
+      </div>
+    </div>
+
+    <!-- Plan Overview -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Advanced Plan</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced is built for high-growth merchants who need sophisticated analytics, international selling tools, and the most competitive transaction rates outside of Shopify Plus. It includes every feature from Basic and Grow plans, plus a powerful reporting suite, custom report builder, third-party real-time shipping rates, and expanded cross-border commerce capabilities.</p>
+        <div class="badges" style="margin-top:10px">
+          <span class="badge" contenteditable="true">15 Staff Accounts</span>
+          <span class="badge" contenteditable="true">8 Locations</span>
+          <span class="badge" contenteditable="true">Advanced Analytics</span>
+          <span class="badge" contenteditable="true">International Markets</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Advanced Analytics -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Advanced Analytics &amp; Custom Reports</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced includes the full analytics suite — purpose-built dashboards and a custom report builder that gives merchants complete visibility into sales performance, customer behavior, and operational metrics without needing a separate BI tool.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Reporting Suite</div>
+          <ul contenteditable="true">
+            <li><strong>Custom report builder</strong> — build and save reports from scratch using any combination of dimensions and metrics</li>
+            <li><strong>Predicted values</strong> — select reports surface AI-driven forecasts alongside actuals for smarter planning</li>
+            <li>Finance reports: payouts, payments, liabilities, taxes by market</li>
+            <li>Sales reports by product, SKU, variant, channel, staff, and discount code</li>
+            <li>Customer cohort and retention reports</li>
+            <li>Inventory and ABC analysis reports</li>
+            <li>Behavior reports: sessions, conversion funnel, cart analysis</li>
+            <li>Marketing reports: attribution by UTM, campaign, and referral source</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Compared to Lower Plans</div>
+          <ul contenteditable="true">
+            <li>Basic plan: standard reports only, no custom builder</li>
+            <li>Grow plan: expanded reports, still no custom builder</li>
+            <li><strong>Advanced</strong>: full custom report builder + predicted values — the only non-Plus tier with both</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- International Markets -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">International Markets &amp; Cross-Border Commerce</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced includes the most robust international tools available outside of Plus — letting merchants localize their storefront, collect duties upfront, and price by market without third-party apps.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Markets Features</div>
+          <ul contenteditable="true">
+            <li><strong>Country/region-specific domains</strong> — localized URLs (e.g. store.com/fr) for SEO and buyer trust</li>
+            <li><strong>Local currency pricing</strong> — display and transact in buyers' local currencies</li>
+            <li><strong>Country-specific product pricing</strong> — set exact prices per market, not just a conversion estimate</li>
+            <li><strong>Percentage-based price adjustments</strong> by market — mark up or down across all products for a region</li>
+            <li><strong>Translated storefronts</strong> — publish content in local languages per market</li>
+            <li>Market-specific payment methods, shipping zones, and tax settings</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Duties &amp; Import Taxes</div>
+          <ul contenteditable="true">
+            <li><strong>Landed cost calculation</strong> — estimate and collect duties and import taxes at checkout</li>
+            <li>Reduces cart abandonment caused by surprise charges upon delivery</li>
+            <li>Merchants can choose to include duties in the displayed price or collect separately</li>
+            <li>Supports Delivered Duty Paid (DDP) and Delivered at Place (DAP) shipping terms</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Third-Party Shipping -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Third-Party Carrier-Calculated Shipping</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced includes real-time carrier-calculated shipping rates at checkout from third-party carriers — giving customers accurate shipping costs based on their location, cart weight, and delivery preference without manual rate tables.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">How It Works</div>
+          <ul contenteditable="true">
+            <li>Live rates pulled directly from carrier APIs at the time of checkout (UPS, FedEx, USPS, DHL, and more)</li>
+            <li>Customers see real options — standard, expedited, overnight — with actual carrier pricing</li>
+            <li>Eliminates under- and over-charging on shipping by removing manual flat-rate guesswork</li>
+            <li>Works alongside Shopify Shipping for discounted label printing</li>
+            <li>Fully customizable: rename rates, add handling fees, set conditions by weight or price</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Staff & Permissions -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Staff Accounts &amp; Permissions</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced supports up to <strong>15 staff accounts</strong> — enough for growing teams to assign role-based access across operations, marketing, customer service, and fulfillment without sharing login credentials.</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Permission Controls</div>
+          <ul contenteditable="true">
+            <li>Granular permissions per staff member: orders, products, reports, settings, and more</li>
+            <li>Restrict access to sensitive areas like financials, customer PII, and staff management</li>
+            <li>Activity logs track changes by staff account for accountability</li>
+            <li>POS-specific role assignment — control what staff can do in-store vs online admin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Support -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Enhanced 24/7 Support</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced includes <strong>enhanced 24/7 chat support</strong> — a step above the standard support tier — with faster response times and access to more experienced support specialists for complex troubleshooting.</p>
+        <ul contenteditable="true">
+          <li>24/7 live chat with priority routing</li>
+          <li>Phone and email callbacks available</li>
+          <li>Access to Shopify's Help Center, community forums, and developer documentation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- What's Included -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Everything from Basic &amp; Grow — Plus More</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Advanced includes all features from Basic and Grow plans. Here's what carries forward:</p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Core Platform (All Plans)</div>
+          <ul contenteditable="true">
+            <li>Online store with unlimited products, blog, and pages</li>
+            <li>Shopify Payments — no transaction fees when enabled</li>
+            <li>Shop Pay, Shop Pay Installments, and Shop Pay Shipping Protection</li>
+            <li>Shopify Shipping — discounted rates with USPS, UPS, DHL, and more</li>
+            <li>Abandoned cart recovery, discount codes, and gift cards</li>
+            <li>Fraud analysis and chargeback management tools</li>
+            <li>Shopify Flow (automation) — available on all plans</li>
+            <li>Shopify Markets — sell to multiple countries from one store</li>
+            <li>POS Lite — free point of sale for in-person selling</li>
+            <li>Facebook, Instagram, Google, TikTok, and marketplace channel integrations</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Upgrading to Shopify Plus</div>
+          <ul contenteditable="true">
+            <li>Unlimited staff accounts (vs 15 on Advanced)</li>
+            <li>Up to 9 expansion stores (separate storefronts from one admin)</li>
+            <li>Unlimited B2B catalogs and native wholesale portal</li>
+            <li>Checkout extensibility — full UI customization with Checkout Blocks and Functions</li>
+            <li>POS Pro included free at all retail locations</li>
+            <li>Launchpad — schedule flash sales, campaigns, and theme changes</li>
+            <li>Bot protection and advanced security features</li>
+            <li>Dedicated Merchant Success Manager</li>
+            <li>Exclusive API access (Flow, Scripts, and more)</li>
+            <li>0% 3rd-party transaction fees (vs 0.5% on Advanced)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+  <div class="doc-footer">Shopify Advanced — Confidential &amp; Proprietary</div>
+</div><!-- /doc-wrap -->
+</div><!-- /tab-advanced -->
+
 </div><!-- /main -->
 
 <script>
@@ -2687,6 +2903,7 @@
     const paymentsPanel = document.getElementById('payments-panel');
     const shippingPanel = document.getElementById('shipping-panel');
     const b2bPanel      = document.getElementById('b2b-panel');
+    const advancedPanel = document.getElementById('advanced-panel');
     const logo = document.getElementById('panel-logo');
     plusPanel.style.display     = tab === 'plus'     ? 'flex' : 'none';
     retailPanel.style.display   = tab === 'retail'   ? 'flex' : 'none';
@@ -2694,7 +2911,8 @@
     if (paymentsPanel) paymentsPanel.style.display = tab === 'payments' ? 'flex' : 'none';
     if (shippingPanel) shippingPanel.style.display = tab === 'shipping' ? 'flex' : 'none';
     if (b2bPanel)      b2bPanel.style.display      = tab === 'b2b'      ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : '🛍 Plus Overview';
+    if (advancedPanel) advancedPanel.style.display = tab === 'advanced' ? 'flex' : 'none';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : tab === 'advanced' ? '📊 Shopify Advanced' : '🛍 Plus Overview';
   }
 
   function set(id, val) {
