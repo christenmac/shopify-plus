@@ -832,6 +832,11 @@
       <div class="field"><label>Store Name</label><input placeholder="Store Name" oninput="document.querySelectorAll('.adv-store-name').forEach(el=>el.textContent=this.value||'Store Name')"></div>
     </div>
     <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked id="adv-rates-cb" onchange="toggleAdvRatesCard(this.checked)"><span class="sec-item-label">💳 Advanced Rates</span></div>
+    </div>
+    <div class="panel-hr"></div>
     <div class="panel-tip">Click any doc text to edit.</div>
   </div><!-- /advanced-panel -->
 
@@ -2657,8 +2662,11 @@
   <div class="doc-body">
 
     <!-- Rates card -->
-    <div class="rates-card">
-      <div class="rates-hdg">💳 Advanced Rates</div>
+    <div class="rates-card" id="adv-rates-card">
+      <div class="savings-hdg-row">
+        <span class="rates-hdg" style="margin-bottom:0">💳 Advanced Rates</span>
+        <button class="sav-dismiss" title="Hide rates" onclick="toggleAdvRatesCard(false)">✕</button>
+      </div>
       <div class="rates-grid">
         <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="adv-rate-online" class="rate-val" contenteditable="true">2.5% + $0.30</span></div>
         <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="adv-rate-inperson" class="rate-val" contenteditable="true">2.4% + $0.00</span></div>
@@ -2701,14 +2709,6 @@
             <li>Marketing reports: attribution by UTM, campaign, and referral source</li>
           </ul>
         </div>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Compared to Lower Plans</div>
-          <ul contenteditable="true">
-            <li>Basic plan: standard reports only, no custom builder</li>
-            <li>Grow plan: expanded reports, still no custom builder</li>
-            <li><strong>Advanced</strong>: full custom report builder + predicted values — the only non-Plus tier with both</li>
-          </ul>
-        </div>
       </div>
     </div>
     <div class="doc-hr"></div>
@@ -2747,14 +2747,23 @@
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Third-Party Carrier-Calculated Shipping</div></div>
       <div class="feat-body">
         <p contenteditable="true">Shopify Advanced includes real-time carrier-calculated shipping rates at checkout from third-party carriers — giving customers accurate shipping costs based on their location, cart weight, and delivery preference without manual rate tables.</p>
+        <p style="margin-top:6px"><a href="https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates/third-party-carrier-calculated-shipping" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Overview ↗</a></p>
         <div class="sub-box">
           <div class="sub-title" contenteditable="true">How It Works</div>
           <ul contenteditable="true">
-            <li>Live rates pulled directly from carrier APIs at the time of checkout (UPS, FedEx, USPS, DHL, and more)</li>
+            <li>When a customer checks out, Shopify retrieves live rates from your connected carrier accounts based on the order's weight, dimensions, and destination</li>
             <li>Customers see real options — standard, expedited, overnight — with actual carrier pricing</li>
             <li>Eliminates under- and over-charging on shipping by removing manual flat-rate guesswork</li>
             <li>Works alongside Shopify Shipping for discounted label printing</li>
             <li>Fully customizable: rename rates, add handling fees, set conditions by weight or price</li>
+            <li>Backup shipping rates can be configured to activate when a third-party app fails to return rates</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Supported Carriers</div>
+          <ul contenteditable="true">
+            <li>UPS, FedEx, USPS, Canada Post, Australia Post</li>
+            <li>Any third-party shipping app that integrates carrier-calculated rates via Shopify's API</li>
           </ul>
         </div>
       </div>
@@ -3235,6 +3244,13 @@
     const card = document.getElementById('retail-rates-card');
     if (card) card.classList.toggle('sec-hidden', !visible);
     const cb = document.querySelector('#retail-section-list input[data-rcard="pos-rates"]');
+    if (cb) cb.checked = visible;
+  }
+
+  function toggleAdvRatesCard(visible) {
+    const card = document.getElementById('adv-rates-card');
+    if (card) card.classList.toggle('sec-hidden', !visible);
+    const cb = document.getElementById('adv-rates-cb');
     if (cb) cb.checked = visible;
   }
 
