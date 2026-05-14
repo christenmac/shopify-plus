@@ -2827,8 +2827,8 @@
       <img src="logo.png" alt="Shopify">
     </div>
     <div class="d-header-r">
-      <h1><a href="https://shopify.dev/docs/api" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify API &amp; Platform</a></h1>
-      <p contenteditable="true"><em>Customization, Themes &amp; Integrations</em></p>
+      <h1><a href="https://shopify.dev/docs/api" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Shopify Plus — API &amp; Customization</a></h1>
+      <p contenteditable="true"><em>What Plus Unlocks for Developers &amp; Your Tech Stack</em></p>
       <input class="header-store-input" placeholder="Store Name" autocomplete="off"
              oninput="document.querySelectorAll('.api-store-name').forEach(el=>el.textContent=this.value)">
     </div>
@@ -2838,14 +2838,103 @@
 
     <!-- Overview -->
     <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">The Shopify Platform Is Built to Be Extended</div></div>
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Plus Gives You the Full API Surface</div></div>
       <div class="feat-body">
-        <p contenteditable="true">Every part of Shopify — the storefront, checkout, admin, and POS — is accessible via API. This means your developers, agency partners, and third-party apps can customize and connect anything without rebuilding from scratch. Shopify's API layer is the reason the ecosystem has over 13,000 apps and powers custom storefronts, deep ERP integrations, and fully tailored checkout experiences for the world's largest brands.</p>
+        <p contenteditable="true">Shopify Plus unlocks a set of exclusive APIs, developer tools, and platform capabilities that are not available on any other plan. For brands with complex tech stacks, custom storefronts, or enterprise integrations, Plus is the only tier built to support that level of customization — without compromising the stability and performance Shopify is known for.</p>
         <div class="badges" style="margin-top:10px">
-          <span class="badge" contenteditable="true">REST &amp; GraphQL</span>
-          <span class="badge" contenteditable="true">13,000+ App Ecosystem</span>
-          <span class="badge" contenteditable="true">Headless Ready</span>
-          <span class="badge" contenteditable="true">No-Code + Pro-Code</span>
+          <span class="badge" contenteditable="true">Plus-Exclusive APIs</span>
+          <span class="badge" contenteditable="true">Checkout Extensibility</span>
+          <span class="badge" contenteditable="true">Shopify Functions</span>
+          <span class="badge" contenteditable="true">Headless &amp; Hydrogen</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Checkout Extensibility -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Checkout Extensibility — Plus Exclusive</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">On Shopify Plus, the checkout is fully extensible. Developers can add custom UI blocks, modify shipping and payment logic, and personalize the entire purchase flow — without forking Shopify's checkout code or losing access to future platform updates.</p>
+        <p style="margin-top:6px"><a href="https://shopify.dev/docs/apps/build/checkout" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Checkout Extensibility Docs ↗</a></p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Checkout UI Extensions</div>
+          <ul contenteditable="true">
+            <li>Inject custom content anywhere in checkout — upsells, loyalty points, gift messages, trust banners, subscription prompts</li>
+            <li>Read live cart and buyer data to render personalized, conditional content</li>
+            <li>Renders natively inside Shopify's checkout — no iframes, no performance hits</li>
+            <li>Merchants control placement and toggle blocks from the Theme Editor — no developer needed after setup</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Shopify Functions</div>
+          <ul contenteditable="true">
+            <li>Rewrite Shopify's core checkout logic — discounts, shipping rates, payment methods, cart validation, delivery options</li>
+            <li>Runs at Shopify's edge with sub-millisecond execution — no external API roundtrips</li>
+            <li>Examples: tiered volume discounts, BOGO, hiding payment methods by cart value, blocking checkout by geography, custom delivery rules</li>
+            <li>Replaces legacy Shopify Scripts — more powerful, more flexible, forward-compatible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Plus-Exclusive APIs -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Plus-Exclusive APIs</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Plus merchants get access to a set of APIs that are gated entirely behind Plus — not available to any other plan or third-party app by default. These are the APIs that power enterprise-grade workflows around authentication, gifting, and staff management.</p>
+        <p style="margin-top:6px"><a href="https://shopify.dev/docs/api/admin-graphql" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Admin API Reference ↗</a></p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Multipass</div>
+          <ul contenteditable="true">
+            <li>Single sign-on (SSO) for customers — log in once on your external site and be seamlessly authenticated on your Shopify store</li>
+            <li>Eliminates duplicate accounts and friction for loyalty members, B2C portals, or brands with a separate web presence</li>
+            <li>Generates a secure, time-limited token passed to Shopify to authenticate the session — no passwords stored in Shopify</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Gift Card API</div>
+          <ul contenteditable="true">
+            <li>Programmatically create, adjust, and disable gift cards via API — not just through the Shopify admin</li>
+            <li>Powers custom gifting programs, promotional credit issuance, refund-to-gift-card flows, and loyalty reward systems</li>
+            <li>Retrieve balance, transaction history, and expiry date per card</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">User Management API</div>
+          <ul contenteditable="true">
+            <li>Programmatically manage staff accounts — create, update, and deactivate users and their permissions at scale</li>
+            <li>Essential for large teams and enterprise IT workflows where staff provisioning is handled by HR or identity management systems</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="doc-hr"></div>
+
+    <!-- Headless & Hydrogen -->
+    <div class="feature">
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Headless Commerce &amp; Hydrogen</div></div>
+      <div class="feat-body">
+        <p contenteditable="true">Shopify Plus is the platform of choice for headless builds — where a custom frontend is decoupled from Shopify's backend, giving brands complete creative and technical freedom while Shopify handles checkout, payments, inventory, and fulfillment.</p>
+        <p style="margin-top:6px"><a href="https://hydrogen.shopify.dev" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Hydrogen Framework ↗</a>&nbsp;&nbsp;<a href="https://shopify.dev/docs/api/storefront" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Storefront API ↗</a></p>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Shopify Hydrogen</div>
+          <ul contenteditable="true">
+            <li>Shopify's official React-based framework for building headless storefronts — purpose-built for commerce performance</li>
+            <li>Deployed on <strong>Oxygen</strong> — Shopify's global edge hosting network, included with Plus</li>
+            <li>Built-in caching, streaming SSR, and optimized data fetching patterns for fast page loads</li>
+            <li>Full access to Storefront API — products, collections, cart, customer accounts, metafields</li>
+          </ul>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Why Plus for Headless</div>
+          <ul contenteditable="true">
+            <li>Checkout remains on Shopify — meaning checkout extensibility, Shop Pay, and all payment methods still work</li>
+            <li>No hosting costs for the frontend — Oxygen is included, not an add-on</li>
+            <li>Multipass SSO bridges the custom frontend and Shopify customer authentication seamlessly</li>
+            <li>Expansion stores can each have their own headless frontend, managed from one Plus admin</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -2855,162 +2944,53 @@
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Theme Customization &amp; Liquid</div></div>
       <div class="feat-body">
-        <p contenteditable="true">Shopify themes are built on <strong>Liquid</strong> — Shopify's open-source templating language — combined with HTML, CSS, and JavaScript. Merchants can customize every visual element of their storefront without touching a line of code using the drag-and-drop Theme Editor, or go deeper with full code access for pixel-perfect control.</p>
-        <p style="margin-top:6px"><a href="https://shopify.dev/docs/themes" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Theme Docs ↗</a></p>
+        <p contenteditable="true">For brands staying on Shopify's native storefront, Plus merchants get full theme code access — no restrictions. Shopify's <strong>Liquid</strong> templating language, combined with Online Store 2.0, lets developers customize every page with dynamic data and custom logic while keeping the merchant experience in the Theme Editor.</p>
+        <p style="margin-top:6px"><a href="https://shopify.dev/docs/themes/liquid/reference" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Liquid Reference ↗</a>&nbsp;&nbsp;<a href="https://shopify.dev/docs/storefronts/themes" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Theme Docs ↗</a></p>
         <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Online Store 2.0</div>
+          <div class="sub-title" contenteditable="true">What Plus Merchants Can Do</div>
           <ul contenteditable="true">
-            <li><strong>Sections everywhere</strong> — drag-and-drop sections on any page, not just the homepage</li>
-            <li><strong>JSON templates</strong> — each page type is defined by a JSON file merchants can fully rearrange</li>
-            <li><strong>App blocks</strong> — third-party apps inject content directly into the Theme Editor without touching theme code</li>
-            <li>Theme versioning — safely test changes and roll back with one click</li>
-            <li>Over 100 free and paid themes in the Shopify Theme Store, all built on OS 2.0</li>
-          </ul>
-        </div>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Liquid Templating</div>
-          <ul contenteditable="true">
-            <li>Access product, collection, cart, customer, and order data natively in templates</li>
-            <li>Conditional logic, loops, and filters for dynamic content rendering</li>
-            <li>Metafields surfaced directly in Liquid — add custom data to any object (product, variant, customer)</li>
-            <li>Full CSS/JS control — no restrictions on what can be styled or scripted</li>
+            <li>Full access to theme source code — HTML, CSS, JavaScript, and Liquid with no sandboxing</li>
+            <li><strong>Sections everywhere</strong> — drag-and-drop custom sections on any page type via JSON templates</li>
+            <li><strong>App blocks</strong> — third-party apps surface in the Theme Editor without touching theme code</li>
+            <li>Metafields in Liquid — attach and display custom data on products, variants, customers, and orders</li>
+            <li>GitHub integration — version control theme files and deploy via CI/CD pipeline</li>
+            <li>Multiple theme versions — publish, test, and roll back independently per expansion store</li>
           </ul>
         </div>
       </div>
     </div>
     <div class="doc-hr"></div>
 
-    <!-- Storefront API -->
+    <!-- Custom Apps & Integrations -->
     <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Storefront API — Headless &amp; Custom Storefronts</div></div>
+      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Custom Apps &amp; Enterprise Integrations</div></div>
       <div class="feat-body">
-        <p contenteditable="true">The <strong>Storefront API</strong> lets developers build completely custom buying experiences — mobile apps, progressive web apps, kiosks, or headless storefronts — while Shopify continues to handle inventory, checkout, payments, and fulfillment in the background.</p>
-        <p style="margin-top:6px"><a href="https://shopify.dev/docs/api/storefront" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Storefront API Docs ↗</a>&nbsp;&nbsp;<a href="https://hydrogen.shopify.dev" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Hydrogen Framework ↗</a></p>
+        <p contenteditable="true">Shopify Plus merchants can build private custom apps with access to the full Admin API — including Plus-exclusive endpoints — to connect their Shopify store to any internal system. This is how enterprise brands integrate ERPs, WMS platforms, PIMs, and customer data platforms without relying on off-the-shelf connectors.</p>
+        <p style="margin-top:6px"><a href="https://shopify.dev/docs/apps/launch/custom-apps" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Custom App Docs ↗</a></p>
         <div class="sub-box">
-          <div class="sub-title" contenteditable="true">What It Enables</div>
+          <div class="sub-title" contenteditable="true">Common Plus Integration Patterns</div>
           <ul contenteditable="true">
-            <li><strong>Headless commerce</strong> — decouple the frontend from Shopify's backend, use any JS framework (React, Vue, Next.js)</li>
-            <li><strong>Shopify Hydrogen</strong> — Shopify's official React-based framework for building headless storefronts, deployed on Oxygen (Shopify's edge hosting)</li>
-            <li>Mobile app storefronts — iOS and Android apps powered by Shopify's checkout and payments</li>
-            <li>Multi-surface selling — same product catalog and cart powering web, app, kiosk, and in-store screens</li>
-            <li>Content from any CMS (Contentful, Sanity, Prismic) combined with Shopify product data</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-
-    <!-- Admin API -->
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Admin API — Integrations &amp; Automation</div></div>
-      <div class="feat-body">
-        <p contenteditable="true">The <strong>Admin API</strong> (GraphQL and REST) is the backbone of Shopify's integration ecosystem — giving developers full programmatic access to products, orders, customers, inventory, fulfillment, and store settings. It's how ERPs, WMSs, PIMs, and custom internal tools connect to Shopify.</p>
-        <p style="margin-top:6px"><a href="https://shopify.dev/docs/api/admin" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Admin API Docs ↗</a></p>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Common Integration Use Cases</div>
-          <ul contenteditable="true">
-            <li><strong>ERP sync</strong> — push orders to NetSuite, SAP, or Microsoft Dynamics; sync inventory back to Shopify in real time</li>
-            <li><strong>WMS / 3PL</strong> — route orders to fulfillment partners, update tracking, and manage multi-location inventory</li>
-            <li><strong>PIM systems</strong> — bulk import/update products, variants, metafields, and media from a master catalog</li>
-            <li><strong>Custom reporting</strong> — pull raw order and customer data into BI tools (Looker, Tableau, Power BI)</li>
-            <li><strong>Customer portals</strong> — build self-serve account pages beyond what Shopify's native customer accounts provide</li>
+            <li><strong>ERP</strong> — bi-directional sync of orders, inventory, and financials with NetSuite, SAP, Microsoft Dynamics, or Oracle</li>
+            <li><strong>WMS / 3PL</strong> — route orders to fulfillment centers, receive tracking updates, and manage multi-location inventory in real time</li>
+            <li><strong>PIM</strong> — push product data, variants, metafields, and media from a master catalog into Shopify at scale</li>
+            <li><strong>CDP / CRM</strong> — sync customer segments and purchase history with Salesforce, HubSpot, Klaviyo, or a proprietary CDP</li>
+            <li><strong>BI &amp; Data Warehouse</strong> — export raw order, customer, and behavior data into Snowflake, BigQuery, or Redshift for custom reporting</li>
           </ul>
         </div>
         <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Webhooks &amp; Real-Time Events</div>
+          <div class="sub-title" contenteditable="true">Shopify Flow — Plus Automation</div>
           <ul contenteditable="true">
-            <li>Subscribe to events — order created, payment captured, inventory updated, fulfillment shipped — and trigger workflows instantly</li>
-            <li>Mandatory webhooks for GDPR compliance (customer data request, erasure, shop data erasure)</li>
-            <li>Works with Shopify Flow, Zapier, Make, and custom webhook endpoints</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-
-    <!-- Checkout Extensibility -->
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Checkout Extensibility (Plus)</div></div>
-      <div class="feat-body">
-        <p contenteditable="true">On <strong>Shopify Plus</strong>, the checkout is fully extensible via <strong>Checkout UI Extensions</strong> and <strong>Shopify Functions</strong> — allowing developers to add custom UI blocks, modify shipping and payment logic, and personalize the purchase flow without forking Shopify's checkout code.</p>
-        <p style="margin-top:6px"><a href="https://shopify.dev/docs/apps/build/checkout" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Checkout Extensibility Docs ↗</a></p>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Checkout UI Extensions</div>
-          <ul contenteditable="true">
-            <li>Add custom content blocks anywhere in the checkout flow — information banners, upsells, loyalty points, gift messages</li>
-            <li>Read cart and buyer data to render personalized, dynamic content</li>
-            <li>Built with React components — renders natively inside Shopify's checkout, no iframes</li>
-            <li>Managed via the Theme Editor — merchants can toggle and configure blocks without a developer</li>
-          </ul>
-        </div>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Shopify Functions</div>
-          <ul contenteditable="true">
-            <li>Customize Shopify's core business logic — discounts, shipping, payment methods, cart validation</li>
-            <li>Run server-side at Shopify's edge — no latency from external API calls</li>
-            <li>Examples: tiered discounts, BOGO logic, hiding payment methods by cart value, blocking checkout by geography</li>
-            <li>Replaces deprecated Shopify Scripts (Plus legacy) with a more powerful, standards-based model</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-
-    <!-- Metafields & Custom Data -->
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Metafields &amp; Custom Data</div></div>
-      <div class="feat-body">
-        <p contenteditable="true">Metafields let merchants attach custom structured data to any Shopify object — products, variants, orders, customers, collections, and more — without a separate database or app. This is how teams store size guides, care instructions, warranty info, B2B-specific fields, or any data that doesn't fit Shopify's standard schema.</p>
-        <p style="margin-top:6px"><a href="https://shopify.dev/docs/apps/build/custom-data" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Custom Data Docs ↗</a></p>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Metafields</div>
-          <ul contenteditable="true">
-            <li>Supported types: text, number, date, URL, JSON, color, file, product reference, and more</li>
-            <li>Editable directly in the Shopify admin — no app or code required to set values</li>
-            <li>Exposed in Liquid templates and the Storefront API — surface on PDPs, collection pages, and custom storefronts</li>
-            <li>Filterable and searchable via the Admin API for segmentation and reporting</li>
-          </ul>
-        </div>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Metaobjects</div>
-          <ul contenteditable="true">
-            <li>Custom content models — define reusable structured types (e.g. "Team Member", "Store Feature", "FAQ") and render them anywhere</li>
-            <li>Acts as a lightweight CMS built directly into Shopify — no external headless CMS required for most use cases</li>
-            <li>Accessible via Liquid and the Storefront API for headless rendering</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="doc-hr"></div>
-
-    <!-- App Ecosystem -->
-    <div class="feature">
-      <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">App Ecosystem &amp; Custom Apps</div></div>
-      <div class="feat-body">
-        <p contenteditable="true">Shopify's app platform lets teams extend store functionality through public apps from the App Store or private custom apps built specifically for their business. Custom apps use the same APIs as public apps — giving merchants the full power of the platform without the overhead of a public listing.</p>
-        <p style="margin-top:6px"><a href="https://apps.shopify.com" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">App Store ↗</a>&nbsp;&nbsp;<a href="https://shopify.dev/docs/apps" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">App Development Docs ↗</a></p>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Public App Store</div>
-          <ul contenteditable="true">
-            <li>13,000+ apps across marketing, fulfillment, analytics, subscriptions, loyalty, reviews, and more</li>
-            <li>Most apps install in minutes and surface in the Shopify admin alongside native features</li>
-            <li>App blocks integrate directly into themes via the Theme Editor — no code required to place them</li>
-          </ul>
-        </div>
-        <div class="sub-box">
-          <div class="sub-title" contenteditable="true">Custom &amp; Private Apps</div>
-          <ul contenteditable="true">
-            <li>Build internal tools that connect Shopify to proprietary systems — warehouse software, internal dashboards, custom fulfillment workflows</li>
-            <li>Scoped API access — apps only request the permissions they need</li>
-            <li>On Shopify Plus: access to exclusive APIs unavailable to public apps (e.g. multipass, gift card creation, user management)</li>
-            <li>Deploy on any hosting provider, or use <strong>Shopify Managed Installation</strong> for simple, secure app distribution</li>
+            <li>No-code workflow builder — trigger actions based on any Shopify event (order placed, inventory low, customer tagged, fraud flagged)</li>
+            <li>Built-in actions: tag orders/customers, send emails, create metafield values, pause/archive products, notify Slack</li>
+            <li>Connect to external systems via webhooks — trigger workflows in Zapier, Make, or any HTTP endpoint</li>
+            <li>Multi-store flows on Plus — run the same automation logic across all expansion stores from one place</li>
           </ul>
         </div>
       </div>
     </div>
 
   </div><!-- /doc-body -->
-  <div class="doc-footer">Shopify API &amp; Platform — Confidential &amp; Proprietary</div>
+  <div class="doc-footer">Shopify Plus — API &amp; Customization</div>
 </div><!-- /doc-wrap -->
 </div><!-- /tab-api -->
 
