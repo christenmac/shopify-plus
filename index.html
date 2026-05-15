@@ -3141,8 +3141,13 @@
     const docWrap = document.querySelector(`#sections-container .sec-wrap[data-key="${key}"]`);
     const panelItem = document.querySelector(`#section-list .sec-item[data-key="${key}"]`);
     if (docWrap) docWrap.classList.toggle('sec-hidden', !visible);
-    if (panelItem) panelItem.classList.toggle('hidden-sec', !visible);
+    if (panelItem) {
+      panelItem.classList.toggle('hidden-sec', !visible);
+      const cb = panelItem.querySelector('input[type=checkbox]');
+      if (cb) cb.checked = visible;
+    }
     updateDividers();
+    scheduleSave();
   }
 
   function toggleSpSection(key, visible) {
