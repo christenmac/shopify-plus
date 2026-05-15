@@ -213,6 +213,9 @@
     .savings-hdg-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
     .sav-dismiss { background: none; border: none; font-size: 15px; color: var(--lite-t); cursor: pointer; line-height: 1; padding: 0 0 0 8px; }
     .sav-dismiss:hover { color: var(--red); }
+    .sec-dismiss { background: none; border: none; font-size: 14px; color: var(--lite-t); cursor: pointer; line-height: 1; padding: 0; margin-left: auto; flex-shrink: 0; opacity: 0; transition: opacity .15s; }
+    .sec-wrap:hover .sec-dismiss { opacity: 1; }
+    .sec-dismiss:hover { color: var(--red); }
     /* Per-box × remove button */
     .rate-box { position: relative; }
     .sav-box-x { display: none; position: absolute; top: -7px; right: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 11px; line-height: 18px; text-align: center; cursor: pointer; padding: 0; font-weight: 700; }
@@ -491,7 +494,7 @@
         border: 1px solid #e5e7eb !important;
       }
       .co-print-hint { display: none !important; }
-      .sav-box-x, .sav-dismiss { display: none !important; }
+      .sav-box-x, .sav-dismiss, .sec-dismiss { display: none !important; }
     }
   </style>
 </head>
@@ -555,6 +558,10 @@
     <div class="field"><label>Reached Checkout</label><input id="s-reach" placeholder="e.g. 17,034" oninput="setNum('stat-reach',this.value)"></div>
     <div class="field"><label>Completed Checkout</label><input id="s-orders" placeholder="e.g. 12,044" oninput="setNum('stat-orders',this.value)"></div>
     <div class="field"><label>Abandoned Cart Value</label><input id="s-abandoned" placeholder="e.g. $249,500" oninput="set('stat-abandoned',this.value)"></div>
+    <div class="sec-item" style="margin-top:6px">
+      <input type="checkbox" checked id="l365-cb" onchange="toggleL365(this.checked)">
+      <span style="font-size:12px;color:var(--lite-t)">Show Conversion Insights box</span>
+    </div>
   </div>
 
   <div class="panel-hr"></div>
@@ -973,7 +980,7 @@
         </div>
         <p style="margin-top:8px" contenteditable="true">Free access to <strong>ReBuy</strong> and <strong>AfterSell</strong> for checkout customization on Plus.</p>
 
-        <div class="sub-box" style="margin-top:9px">
+        <div class="sub-box" id="l365-subbox" style="margin-top:9px">
           <div class="sub-title" contenteditable="true">L365 Conversion Insights</div>
           <div class="l365-grid">
             <div class="stat-box">
@@ -3178,6 +3185,26 @@
     const box = document.querySelector(`#plus-rates-card .rate-box[data-plusbox="${key}"]`);
     if (box) box.classList.toggle('sec-hidden', !visible);
   }
+
+  function toggleL365(visible) {
+    const box = document.getElementById('l365-subbox');
+    if (box) box.classList.toggle('sec-hidden', !visible);
+    const cb = document.getElementById('l365-cb');
+    if (cb) cb.checked = visible;
+  }
+
+  // Inject dismiss (✕) buttons into all Plus feature sections
+  document.querySelectorAll('#tab-plus .sec-wrap[data-key]').forEach(wrap => {
+    const key = wrap.getAttribute('data-key');
+    const featHead = wrap.querySelector('.feat-head');
+    if (!featHead) return;
+    const btn = document.createElement('button');
+    btn.className = 'sec-dismiss';
+    btn.title = 'Hide section';
+    btn.textContent = '✕';
+    btn.onclick = () => toggleSection(key, false);
+    featHead.appendChild(btn);
+  });
 
   // ── Drag & Drop ──
   let dragSrcPanel = null;
