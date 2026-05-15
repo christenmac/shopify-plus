@@ -219,6 +219,7 @@
     #savings-card .rate-box:hover .sav-box-x { display: block; }
     #retail-rates-card .rate-box:hover .sav-box-x { display: block; }
 #adv-rates-card .rate-box:hover .sav-box-x { display: block; }
+#plus-rates-card .rate-box:hover .sav-box-x { display: block; }
     /* "Add Savings" re-show link */
     #savings-add-btn { display: none; text-align: center; margin-bottom: 20px; }
     #savings-add-btn button { background: none; border: 1.5px dashed var(--mid); border-radius: 8px; color: var(--dark); font-size: 12px; font-weight: 700; padding: 7px 18px; cursor: pointer; width: 100%; }
@@ -904,14 +905,14 @@
   <div class="doc-body">
 
     <!-- Rates -->
-    <div class="rates-card">
+    <div class="rates-card" id="plus-rates-card">
       <div class="rates-hdg">💳 Plus Rates</div>
       <div class="rates-grid">
-        <div class="rate-box"><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="rate-online" class="rate-val" contenteditable="true">2.25% + $0.30</span></div>
-        <div class="rate-box"><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="rate-inperson" class="rate-val" contenteditable="true">2.3% + $0.10</span></div>
-        <div class="rate-box"><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span id="rate-3p" class="rate-val" contenteditable="true">0% Fee</span></div>
-        <div class="rate-box"><span class="rate-lbl">Shop Pay Installments</span><span class="rate-sep">·</span><span id="rate-spi" class="rate-val" contenteditable="true">5% + $0.30</span></div>
-        <div class="rate-box"><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="rate-pos" class="rate-val" contenteditable="true">Free</span></div>
+        <div class="rate-box" data-plusbox="online"><button class="sav-box-x" onclick="togglePlusRate('online',false)" title="Remove">×</button><span class="rate-lbl">Online</span><span class="rate-sep">·</span><span id="rate-online" class="rate-val" contenteditable="true">2.25% + $0.30</span></div>
+        <div class="rate-box" data-plusbox="inperson"><button class="sav-box-x" onclick="togglePlusRate('inperson',false)" title="Remove">×</button><span class="rate-lbl">In Person</span><span class="rate-sep">·</span><span id="rate-inperson" class="rate-val" contenteditable="true">2.3% + $0.10</span></div>
+        <div class="rate-box" data-plusbox="3p"><button class="sav-box-x" onclick="togglePlusRate('3p',false)" title="Remove">×</button><span class="rate-lbl">3rd Party</span><span class="rate-sep">·</span><span id="rate-3p" class="rate-val" contenteditable="true">0% Fee</span></div>
+        <div class="rate-box" data-plusbox="spi"><button class="sav-box-x" onclick="togglePlusRate('spi',false)" title="Remove">×</button><span class="rate-lbl">Shop Pay Installments</span><span class="rate-sep">·</span><span id="rate-spi" class="rate-val" contenteditable="true">5% + $0.30</span></div>
+        <div class="rate-box" data-plusbox="pos"><button class="sav-box-x" onclick="togglePlusRate('pos',false)" title="Remove">×</button><span class="rate-lbl">POS Pro</span><span class="rate-sep">·</span><span id="rate-pos" class="rate-val" contenteditable="true">Free</span></div>
       </div>
     </div>
 
@@ -3162,7 +3163,7 @@
     const add  = document.getElementById('savings-notes-add');
     const notes = document.getElementById('savings-notes');
     if (wrap) wrap.style.display = visible ? '' : 'none';
-    if (add)  add.style.display  = visible ? 'none' : '';
+    if (add)  add.style.display  = 'none';
     if (!visible && notes) { notes.innerHTML = ''; notes.blur(); }
   }
 
@@ -3171,6 +3172,11 @@
     if (box) box.classList.toggle('sec-hidden', !visible);
     const cb = document.querySelector(`#savings-box-list input[data-savbox="${key}"]`);
     if (cb) cb.checked = visible;
+  }
+
+  function togglePlusRate(key, visible) {
+    const box = document.querySelector(`#plus-rates-card .rate-box[data-plusbox="${key}"]`);
+    if (box) box.classList.toggle('sec-hidden', !visible);
   }
 
   // ── Drag & Drop ──
