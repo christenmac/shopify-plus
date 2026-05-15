@@ -949,6 +949,8 @@
 
     <div id="sections-container">
 
+    </div>
+
     <!-- Customized Checkout -->
     <div class="sec-wrap" data-key="checkout">
     <div class="feature">
@@ -3004,6 +3006,21 @@
 </div><!-- /main -->
 
 <script>
+  // ── Move sec-wraps into #sections-container on load ──
+  (function() {
+    const container = document.getElementById('sections-container');
+    if (!container) return;
+    const parent = container.parentNode;
+    let node = container.nextSibling;
+    while (node) {
+      const next = node.nextSibling;
+      if (node.nodeType === 1 && node.classList && node.classList.contains('sec-wrap') && node.dataset && node.dataset.key) {
+        container.appendChild(node);
+      }
+      node = next;
+    }
+  })();
+
   // ── Text formatting ──
   let savedRange = null;
 
