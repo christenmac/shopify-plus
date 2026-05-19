@@ -51,30 +51,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .results-count { font-size: 14px; color: var(--muted); }
 .results-count strong { color: var(--text); font-size: 1.1rem; }
 
-#grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 1100px) { #grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 660px) { #grid { grid-template-columns: 1fr; } }
+#grid { display: flex; flex-direction: column; gap: 8px; }
 
-.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: box-shadow .15s; overflow: hidden; }
-.card-head { padding: 14px 18px 13px; background: #fafafa; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; transition: background .12s; }
-.card-head:hover { background: #f0f1f3; }
-.card-head.open { border-bottom: 1px solid var(--border); }
-.card-emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
-.card-title-wrap { flex: 1 1 0; min-width: 0; }
-.card-name { font-size: 1rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -.2px; }
-.card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.cat-block { background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+.cat-hdr { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: #fafafa; border-bottom: 1px solid var(--border); }
+.cat-emoji { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+.cat-name { font-size: .95rem; font-weight: 800; letter-spacing: -.2px; margin-bottom: 3px; }
+.cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.cat-count { margin-left: auto; font-size: 11px; color: var(--muted); font-weight: 500; white-space: nowrap; }
 .badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; letter-spacing: .4px; }
 .badge-b2c          { background: #e3f5eb; color: #004c3f; }
 .badge-b2b          { background: #f5f3ff; color: #7c3aed; }
 .badge-regulated    { background: #fffbeb; color: #b45309; }
 .badge-subscription { background: #f0fdfa; color: #0d9488; }
 .badge-luxury       { background: #fdf2f8; color: #be185d; }
-.card-count { font-size: 11px; color: var(--muted); font-weight: 500; white-space: nowrap; margin-right: 4px; }
-.card-chevron { flex-shrink: 0; color: var(--muted); transition: transform .2s; }
-.card-head.open .card-chevron { transform: rotate(180deg); }
-
-.card-body { padding: 4px 0 4px; display: none; }
-.card-body.open { display: block; }
 .brand-row { display: flex; align-items: center; gap: 10px; padding: 9px 18px; border-bottom: 1px solid #f1f3f5; flex-wrap: wrap; }
 .brand-row:last-child { border-bottom: none; }
 .brand-name-link { font-size: 13px; font-weight: 700; color: #111; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0; background: white; border: 1.5px solid #d1d5db; border-radius: 6px; padding: 3px 9px 3px 8px; transition: border-color .12s, color .12s; }
@@ -98,7 +88,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .ft-age      { background: #fef2f2; color: #b91c1c; }
 .ft-delivery { background: #ecfeff; color: #0e7490; }
 
-.no-results { grid-column: 1/-1; text-align: center; padding: 72px 24px; color: var(--muted); }
+.no-results { text-align: center; padding: 72px 24px; color: var(--muted); background: white; border-radius: var(--radius); border: 1px solid var(--border); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
 footer { text-align: center; padding: 36px 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 8px; background: white; line-height: 1.8; }
 mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
@@ -229,22 +219,26 @@ const INDUSTRIES = [
     ],
   },
   {
-    id:'beauty', emoji:'💄', name:'Beauty & Cosmetics', tags:['b2c'],
+    id:'cosmetics', emoji:'💋', name:'Cosmetics & Makeup', tags:['b2c'],
     brands:[
-      {n:'Kylie Cosmetics',    u:'kyliecosmetics.com',    f:['Free Gift','Post-Purchase Upsell','Trust Badges']},
-      {n:'ColourPop',          u:'colourpop.com',         f:['Free Gift','Order Discounts','Trust Badges']},
+      {n:'Kylie Cosmetics',  u:'kyliecosmetics.com',    f:['Free Gift','Post-Purchase Upsell','Trust Badges']},
+      {n:'ColourPop',        u:'colourpop.com',         f:['Free Gift','Order Discounts','Trust Badges']},
+      {n:'Rare Beauty',      u:'rarebeauty.com',        f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Fenty Beauty',     u:'fentybeauty.com',       f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'e.l.f. Cosmetics', u:'elfcosmetics.com',      f:['Order Discounts','BNPL']},
+      {n:'ILIA Beauty',      u:'iliabeauty.com',        f:['Trust Badges','BNPL']},
+      {n:'Saie',             u:'saiemakeup.com',        f:['Trust Badges','Post-Purchase Upsell']},
+    ],
+  },
+  {
+    id:'skincare', emoji:'🧴', name:'Skincare & Beauty', tags:['b2c'],
+    brands:[
       {n:'Thrive Causemetics', u:'thrivecausemetics.com', f:['Sub & Save','Loyalty Redemption','Post-Purchase Upsell','Free Gift']},
-      {n:'ILIA Beauty',        u:'iliabeauty.com',        f:['Trust Badges','BNPL']},
-      {n:'Tower 28',           u:'tower28beauty.com',     f:['Custom Fields','Trust Badges','Checkout Add-On']},
-      {n:'Saie',               u:'saiemakeup.com',        f:['Trust Badges','Post-Purchase Upsell']},
-      {n:'Rhode',              u:'rhodeskin.com',         f:['Free Gift','Post-Purchase Upsell']},
-      {n:'Rare Beauty',        u:'rarebeauty.com',        f:['Trust Badges','Post-Purchase Upsell']},
-      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['BNPL','Order Discounts']},
-      {n:'JVN Hair',           u:'jvnhair.com',           f:['Sub & Save','Post-Purchase Upsell']},
-      {n:'e.l.f. Cosmetics',   u:'elfcosmetics.com',      f:['Order Discounts','BNPL']},
-      {n:'Fenty Beauty',       u:'fentybeauty.com',       f:['Trust Badges','Post-Purchase Upsell']},
       {n:'Glossier',           u:'glossier.com',          f:['Trust Badges','Post-Purchase Upsell']},
       {n:'Tatcha',             u:'tatcha.com',            f:['Free Gift','Trust Badges']},
+      {n:'Rhode',              u:'rhodeskin.com',         f:['Free Gift','Post-Purchase Upsell']},
+      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['BNPL','Order Discounts']},
+      {n:'JVN Hair',           u:'jvnhair.com',           f:['Sub & Save','Post-Purchase Upsell']},
     ],
   },
   {
@@ -545,34 +539,22 @@ function render() {
     return;
   }
 
-  const CHEVRON = `<svg class="card-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
-
   grid.innerHTML = visible.map(ind => `
-    <div class="card">
-      <div class="card-head" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
-        <div class="card-emoji">${ind.emoji}</div>
-        <div class="card-title-wrap">
-          <div class="card-name">${hl(ind.name, q)}</div>
-          <div class="card-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]}</span>`).join('')}</div>
+    <div class="cat-block">
+      <div class="cat-hdr">
+        <span class="cat-emoji">${ind.emoji}</span>
+        <div>
+          <div class="cat-name">${hl(ind.name, q)}</div>
+          <div class="cat-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]}</span>`).join('')}</div>
         </div>
-        <span class="card-count">${ind.matched.length} brand${ind.matched.length !== 1 ? 's' : ''}</span>
-        ${CHEVRON}
+        <span class="cat-count">${ind.matched.length} brand${ind.matched.length !== 1 ? 's' : ''}</span>
       </div>
-      <div class="card-body">
-        ${ind.matched.map(b => `
-          <div class="brand-row">
-            <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
-            <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
-          </div>`).join('')}
-      </div>
+      ${ind.matched.map(b => `
+        <div class="brand-row">
+          <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
+          <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
+        </div>`).join('')}
     </div>`).join('');
-
-  if (q || activeFeat !== 'all') {
-    document.querySelectorAll('.card-head').forEach(h => {
-      h.classList.add('open');
-      h.nextElementSibling.classList.add('open');
-    });
-  }
 }
 
 document.getElementById('search').addEventListener('input', e => { searchQuery = e.target.value; render(); });
