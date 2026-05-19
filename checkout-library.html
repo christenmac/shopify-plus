@@ -54,7 +54,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 #grid { display: flex; flex-direction: column; gap: 8px; }
 
 .cat-block { background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
-.cat-hdr { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: #fafafa; border-bottom: 1px solid var(--border); }
+.cat-hdr { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: #fafafa; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
+.cat-hdr:hover { background: #f0f0f0; }
+.cat-chevron { margin-left: 8px; flex-shrink: 0; color: var(--muted); transition: transform .2s; font-size: 12px; }
+.cat-block.open .cat-chevron { transform: rotate(90deg); }
+.cat-body { display: none; }
+.cat-block.open .cat-body { display: block; }
 .cat-emoji { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
 .cat-name { font-size: .95rem; font-weight: 800; letter-spacing: -.2px; margin-bottom: 3px; }
 .cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -65,7 +70,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .badge-regulated    { background: #fffbeb; color: #b45309; }
 .badge-subscription { background: #f0fdfa; color: #0d9488; }
 .badge-luxury       { background: #fdf2f8; color: #be185d; }
-.brand-row { display: flex; align-items: center; gap: 10px; padding: 9px 18px; border-bottom: 1px solid #f1f3f5; flex-wrap: wrap; }
+.brand-row { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 9px 18px; border-bottom: 1px solid #f1f3f5; flex-wrap: wrap; }
 .brand-row:last-child { border-bottom: none; }
 .brand-name-link { font-size: 13px; font-weight: 700; color: #111; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; flex-shrink: 0; background: white; border: 1.5px solid #d1d5db; border-radius: 6px; padding: 3px 9px 3px 8px; transition: border-color .12s, color .12s; }
 .brand-name-link:hover { border-color: var(--green); color: var(--green); }
@@ -549,14 +554,22 @@ function render() {
           <div class="cat-tags">${ind.tags.map(t=>`<span class="badge badge-${t}">${BADGE_LABEL[t]}</span>`).join('')}</div>
         </div>
         <span class="cat-count">${ind.matched.length} brand${ind.matched.length !== 1 ? 's' : ''}</span>
+        <span class="cat-chevron">&#9654;</span>
       </div>
-      ${ind.matched.map(b => `
-        <div class="brand-row">
-          <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
-          <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
-        </div>`).join('')}
+      <div class="cat-body">
+        ${ind.matched.map(b => `
+          <div class="brand-row">
+            <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
+            <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
+          </div>`).join('')}
+      </div>
     </div>`).join('');
 }
+
+document.getElementById('grid').addEventListener('click', e => {
+  const hdr = e.target.closest('.cat-hdr');
+  if (hdr) hdr.closest('.cat-block').classList.toggle('open');
+});
 
 document.getElementById('search').addEventListener('input', e => { searchQuery = e.target.value; render(); });
 document.querySelectorAll('.filter-btn').forEach(btn => {
