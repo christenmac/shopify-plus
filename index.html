@@ -2906,6 +2906,25 @@
             <li>Replaces legacy Shopify Scripts — more powerful, more flexible, forward-compatible</li>
           </ul>
         </div>
+        <div class="sub-box">
+          <div class="sub-title" contenteditable="true">Post-Purchase Extensions</div>
+          <p style="margin-bottom:5px"><a href="https://shopify.dev/docs/apps/build/checkout/product-offers/build-a-post-purchase-offer" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">Build a Post-Purchase Offer ↗</a>&nbsp;&nbsp;<a href="https://shopify.dev/docs/api/pos-ui-extensions/latest/targets/post-purchase" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:none;">POS Post-Purchase Targets ↗</a></p>
+          <ul contenteditable="true">
+            <li>Present upsell offers <strong>after payment but before the order confirmation page</strong> — customers can accept with one click, no re-entering payment details</li>
+            <li>Two extension points: <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">Checkout::PostPurchase::ShouldRender</code> (pre-fetches and decides whether to show) and <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">Checkout::PostPurchase::Render</code> (displays the offer UI)</li>
+            <li>Supports percentage and fixed-value discounts on added products; shipping and tax are automatically recalculated via <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">calculateChangeset()</code> and <code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">applyChangeset()</code></li>
+            <li>Mobile-optimized and Shop Pay-integrated — consistent with the checkout experience</li>
+            <li>Custom apps using post-purchase extensions are <strong>Plus-exclusive</strong>; all merchants can use App Store apps that include post-purchase extensions</li>
+          </ul>
+          <div style="margin-top:8px">
+            <div style="font-size:11.5px;font-weight:700;color:#6D7175;margin-bottom:4px">POS Post-Purchase Targets</div>
+            <ul contenteditable="true">
+              <li><strong>Block</strong> (<code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">pos.purchase.post.block.render</code>) — persistent info section after a sale: warranty details, registration links, care instructions</li>
+              <li><strong>Action Menu Item</strong> (<code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">pos.purchase.post.action.menu-item.render</code>) — button in the post-purchase action menu to trigger follow-up workflows, receipt sending, or feedback collection</li>
+              <li><strong>Action Modal</strong> (<code style="font-size:10.5px;background:#f3f4f6;padding:1px 5px;border-radius:3px">pos.purchase.post.action.render</code>) — full-screen modal for multi-step workflows, forms, and complex post-sale interactions</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="doc-hr"></div>
