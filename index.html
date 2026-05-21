@@ -179,7 +179,7 @@
     /* ── Doc Body ── */
     .doc-body { padding: 30px 46px; }
     .doc-body::before {
-      content: '🔗  This document contains clickable links and resources — look for underlined text.';
+      content: '🔗  This document contains clickable links and resources — look for green text.';
       display: block;
       font-size: 11px;
       color: #1E40AF;
@@ -814,7 +814,21 @@
       <div class="field"><label>Store Name</label><input placeholder="e.g. Acme Wholesale" oninput="document.querySelectorAll('.b2b-store-name').forEach(el=>el.textContent=this.value||'Store Name')"></div>
     </div>
     <div class="panel-hr"></div>
-    <div class="panel-tip">Click any doc text to edit.</div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="b2b-section-list">
+        <div class="sec-item" data-sec-key="b2b-overview"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-overview',this.checked)"><span class="sec-item-label">B2B Overview</span></div>
+        <div class="sec-item" data-sec-key="b2b-companies"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-companies',this.checked)"><span class="sec-item-label">Companies & Customers</span></div>
+        <div class="sec-item" data-sec-key="b2b-catalogs"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-catalogs',this.checked)"><span class="sec-item-label">Catalogs & Pricing</span></div>
+        <div class="sec-item" data-sec-key="b2b-storefront"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-storefront',this.checked)"><span class="sec-item-label">Storefront & Auth</span></div>
+        <div class="sec-item" data-sec-key="b2b-checkout"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-checkout',this.checked)"><span class="sec-item-label">Checkout & Orders</span></div>
+        <div class="sec-item" data-sec-key="b2b-automation"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-automation',this.checked)"><span class="sec-item-label">Automation & APIs</span></div>
+        <div class="sec-item" data-sec-key="b2b-resources"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleB2BSec('b2b-resources',this.checked)"><span class="sec-item-label">Resources</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit.</div>
   </div><!-- /b2b-panel -->
 
   <div id="shipping-panel" style="display:none;flex-direction:column;gap:18px;">
@@ -825,14 +839,29 @@
       <div class="field"><label>Monthly Shipments</label><input id="sh-volume" placeholder="e.g. 500/mo" oninput="setShText('sh-volume-val',this.value)"></div>
     </div>
     <div class="panel-hr"></div>
-    <div class="panel-tip">Click any doc text to edit.</div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="ship-section-list">
+        <div class="sec-item" data-sec-key="sh-overview"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-overview',this.checked)"><span class="sec-item-label">Shipping Overview</span></div>
+        <div class="sec-item" data-sec-key="sh-rates"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-rates',this.checked)"><span class="sec-item-label">Discounted Rates</span></div>
+        <div class="sec-item" data-sec-key="sh-carriers"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-carriers',this.checked)"><span class="sec-item-label">Carrier Integrations</span></div>
+        <div class="sec-item" data-sec-key="sh-labels"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-labels',this.checked)"><span class="sec-item-label">Label & Fulfillment</span></div>
+        <div class="sec-item" data-sec-key="sh-tracking"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-tracking',this.checked)"><span class="sec-item-label">Tracking</span></div>
+        <div class="sec-item" data-sec-key="sh-returns"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-returns',this.checked)"><span class="sec-item-label">Returns Management</span></div>
+        <div class="sec-item" data-sec-key="sh-sfn"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-sfn',this.checked)"><span class="sec-item-label">Fulfillment Network</span></div>
+        <div class="sec-item" data-sec-key="sh-plus"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleShipSec('sh-plus',this.checked)"><span class="sec-item-label">Advanced & Plus</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit.</div>
   </div><!-- /shipping-panel -->
 
   <div id="advanced-panel" style="display:none;flex-direction:column;gap:18px;">
     <div>
       <div class="section-lbl">Rates</div>
       <div class="field"><label>Online Rate</label><input placeholder="e.g. 2.5% + $0.30" oninput="set('adv-rate-online',this.value)"></div>
-      <div class="field"><label>In Person Rate</label><input placeholder="e.g. 2.4% + $0.00" oninput="set('adv-rate-inperson',this.value)"></div>
+      <div class="field"><label>In Person Rate</label><input placeholder="e.g. 2.4% + $0.10" oninput="set('adv-rate-inperson',this.value)"></div>
       <div class="field"><label>3rd Party Fee</label><input placeholder="e.g. 0.5%" oninput="set('adv-rate-3p',this.value)"></div>
     </div>
     <div class="panel-hr"></div>
@@ -846,7 +875,20 @@
       <div class="sec-item"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked id="adv-rates-cb" onchange="toggleAdvRatesCard(this.checked)"><span class="sec-item-label">💳 Advanced Rates</span></div>
     </div>
     <div class="panel-hr"></div>
-    <div class="panel-tip">Click any doc text to edit.</div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="adv-section-list">
+        <div class="sec-item" data-sec-key="adv-plan"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-plan',this.checked)"><span class="sec-item-label">Advanced Overview</span></div>
+        <div class="sec-item" data-sec-key="adv-analytics"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-analytics',this.checked)"><span class="sec-item-label">Analytics & Reports</span></div>
+        <div class="sec-item" data-sec-key="adv-international"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-international',this.checked)"><span class="sec-item-label">International Markets</span></div>
+        <div class="sec-item" data-sec-key="adv-shipping"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-shipping',this.checked)"><span class="sec-item-label">Carrier Shipping</span></div>
+        <div class="sec-item" data-sec-key="adv-staff"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-staff',this.checked)"><span class="sec-item-label">Staff Accounts</span></div>
+        <div class="sec-item" data-sec-key="adv-support"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleAdvSec('adv-support',this.checked)"><span class="sec-item-label">24/7 Support</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit.</div>
   </div><!-- /advanced-panel -->
 
   <div id="api-panel" style="display:none;flex-direction:column;gap:18px;">
@@ -855,8 +897,47 @@
       <div class="field"><label>Store Name</label><input placeholder="Store Name" autocomplete="off" oninput="document.querySelectorAll('.api-store-name').forEach(el=>el.textContent=this.value||'Store Name')"></div>
     </div>
     <div class="panel-hr"></div>
-    <div class="panel-tip">Click any doc text to edit · use Export to share with merchant.</div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="api-section-list">
+        <div class="sec-item" data-sec-key="api-overview"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-overview',this.checked)"><span class="sec-item-label">API Overview</span></div>
+        <div class="sec-item" data-sec-key="api-checkout"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-checkout',this.checked)"><span class="sec-item-label">Checkout Extensibility</span></div>
+        <div class="sec-item" data-sec-key="api-exclusive"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-exclusive',this.checked)"><span class="sec-item-label">Plus-Exclusive APIs</span></div>
+        <div class="sec-item" data-sec-key="api-headless"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-headless',this.checked)"><span class="sec-item-label">Headless & Hydrogen</span></div>
+        <div class="sec-item" data-sec-key="api-theme"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-theme',this.checked)"><span class="sec-item-label">Theme & Liquid</span></div>
+        <div class="sec-item" data-sec-key="api-custom"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleApiSec('api-custom',this.checked)"><span class="sec-item-label">Custom Apps</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit · use Export to share with merchant.</div>
   </div><!-- /api-panel -->
+
+  <div id="action-panel" style="display:none;flex-direction:column;gap:18px;">
+    <div>
+      <div class="section-lbl">Store Details</div>
+      <div class="field"><label>Store Name</label><input placeholder="Store Name" autocomplete="off" oninput="document.getElementById('action-store').value=this.value;document.getElementById('action-store-print').textContent=this.value"></div>
+    </div>
+    <div class="panel-hr"></div>
+    <div>
+      <div class="section-lbl">Sections — uncheck to hide</div>
+      <div id="action-section-list">
+        <div class="sec-item" data-sec-key="a-starthere"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-starthere',this.checked)"><span class="sec-item-label">🚀 Start Here</span></div>
+        <div class="sec-item" data-sec-key="a-checkout"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-checkout',this.checked)"><span class="sec-item-label">Custom Checkout</span></div>
+        <div class="sec-item" data-sec-key="a-audiences"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-audiences',this.checked)"><span class="sec-item-label">Shopify Audiences</span></div>
+        <div class="sec-item" data-sec-key="a-b2b"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-b2b',this.checked)"><span class="sec-item-label">B2B Functionality</span></div>
+        <div class="sec-item" data-sec-key="a-launchpad"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-launchpad',this.checked)"><span class="sec-item-label">Launchpad</span></div>
+        <div class="sec-item" data-sec-key="a-combined"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-combined',this.checked)"><span class="sec-item-label">Combined Listings</span></div>
+        <div class="sec-item" data-sec-key="a-api"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-api',this.checked)"><span class="sec-item-label">Top API Recommendations</span></div>
+        <div class="sec-item" data-sec-key="a-flow"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-flow',this.checked)"><span class="sec-item-label">Shopify Flow</span></div>
+        <div class="sec-item" data-sec-key="a-academy"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-academy',this.checked)"><span class="sec-item-label">Plus Academy</span></div>
+        <div class="sec-item" data-sec-key="a-staff"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-staff',this.checked)"><span class="sec-item-label">Staff Accounts</span></div>
+        <div class="sec-item" data-sec-key="a-support"><span class="drag-handle" style="visibility:hidden">⠿</span><input type="checkbox" checked onchange="toggleActionSec('a-support',this.checked)"><span class="sec-item-label">24/7 Priority Support</span></div>
+      </div>
+    </div>
+    <div class="panel-hr"></div>
+    <div class="panel-tip">Uncheck to hide · click any doc text to edit.</div>
+  </div><!-- /action-panel -->
 
 </aside>
 
@@ -1947,9 +2028,10 @@
     </div>
   </div>
 
-  <div class="doc-body">
+  <div class="doc-body" id="ship-sections-container">
 
     <!-- Overview -->
+    <div class="sec-wrap" data-sec-key="sh-overview">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Shipping Overview</div></div>
       <div class="feat-body">
@@ -1962,8 +2044,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Discounted Rates -->
+    <div class="sec-wrap" data-sec-key="sh-rates">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Discounted Carrier Rates</div></div>
       <div class="feat-body">
@@ -1978,8 +2062,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Carrier Integrations -->
+    <div class="sec-wrap" data-sec-key="sh-carriers">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Carrier Integrations</div></div>
       <div class="feat-body">
@@ -1995,8 +2081,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Label & Fulfillment Tools -->
+    <div class="sec-wrap" data-sec-key="sh-labels">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Label & Fulfillment Tools</div></div>
       <div class="feat-body">
@@ -2014,8 +2102,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Tracking & Customer Experience -->
+    <div class="sec-wrap" data-sec-key="sh-tracking">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Tracking & Customer Experience</div></div>
       <div class="feat-body">
@@ -2029,8 +2119,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Returns -->
+    <div class="sec-wrap" data-sec-key="sh-returns">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Returns Management</div></div>
       <div class="feat-body">
@@ -2048,8 +2140,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Shopify Fulfillment Network -->
+    <div class="sec-wrap" data-sec-key="sh-sfn">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Fulfillment Network (SFN)</div></div>
       <div class="feat-body">
@@ -2064,8 +2158,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Advanced / Plus Features -->
+    <div class="sec-wrap" data-sec-key="sh-plus">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Advanced & Plus Features</div></div>
       <div class="feat-body">
@@ -2078,6 +2174,7 @@
           <li><strong>Carrier-calculated shipping rates</strong> — real-time rates at checkout (Advanced + Plus)</li>
         </ul>
       </div>
+    </div>
     </div>
 
   </div><!-- /doc-body -->
@@ -2103,9 +2200,10 @@
     </div>
   </div>
 
-  <div class="doc-body">
+  <div class="doc-body" id="b2b-sections-container">
 
     <!-- Overview -->
+    <div class="sec-wrap" data-sec-key="b2b-overview">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify B2B Functionality</div></div>
       <div class="feat-body">
@@ -2121,8 +2219,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Companies & Customers -->
+    <div class="sec-wrap" data-sec-key="b2b-companies">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Companies &amp; Customers</div></div>
       <div class="feat-body">
@@ -2160,8 +2260,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Catalogs & Pricing -->
+    <div class="sec-wrap" data-sec-key="b2b-catalogs">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Catalogs &amp; Pricing</div></div>
       <div class="feat-body">
@@ -2191,8 +2293,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Storefront & Authentication -->
+    <div class="sec-wrap" data-sec-key="b2b-storefront">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">B2B Storefront &amp; Authentication</div></div>
       <div class="feat-body">
@@ -2224,8 +2328,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Checkout, Orders & Payment Terms -->
+    <div class="sec-wrap" data-sec-key="b2b-checkout">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Checkout, Orders &amp; Payment Terms</div></div>
       <div class="feat-body">
@@ -2260,8 +2366,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Automation, APIs & Integrations -->
+    <div class="sec-wrap" data-sec-key="b2b-automation">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Automation, APIs &amp; ERP Integrations</div></div>
       <div class="feat-body">
@@ -2303,10 +2411,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Resources & Migration -->
+    <div class="sec-wrap" data-sec-key="b2b-resources">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Resources &amp; Getting Started</div></div>
       <div class="feat-body">
@@ -2333,6 +2443,7 @@
         </div>
       </div>
     </div>
+    </div>
 
   </div><!-- /doc-body -->
 
@@ -2358,9 +2469,10 @@
     </div>
   </div>
 
-  <div class="doc-body">
+  <div class="doc-body" id="action-sections-container">
 
     <!-- Start Here -->
+    <div class="sec-wrap" data-sec-key="a-starthere">
     <div class="rates-card" style="margin-bottom:28px;">
       <div class="rates-hdg">🚀 Start Here</div>
       <p style="font-size:12.5px;color:var(--mid-t);margin-bottom:12px;" contenteditable="true">Official Shopify resources to guide you through launch and beyond.</p>
@@ -2375,10 +2487,12 @@
         </a>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Custom Checkout -->
+    <div class="sec-wrap" data-sec-key="a-checkout">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2412,10 +2526,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Shopify Audiences -->
+    <div class="sec-wrap" data-sec-key="a-audiences">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2441,10 +2557,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- B2B Functionality -->
+    <div class="sec-wrap" data-sec-key="a-b2b">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2470,10 +2588,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Launchpad -->
+    <div class="sec-wrap" data-sec-key="a-launchpad">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2500,10 +2620,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Combined Listings -->
+    <div class="sec-wrap" data-sec-key="a-combined">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2529,10 +2651,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Top API Recommendations -->
+    <div class="sec-wrap" data-sec-key="a-api">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2562,10 +2686,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Shopify Flow Recommendations -->
+    <div class="sec-wrap" data-sec-key="a-flow">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2593,10 +2719,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Shopify Plus Academy -->
+    <div class="sec-wrap" data-sec-key="a-academy">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2620,10 +2748,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- Unlimited Staff Accounts -->
+    <div class="sec-wrap" data-sec-key="a-staff">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2649,10 +2779,12 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="doc-hr"></div>
 
     <!-- 24/7 Priority Support -->
+    <div class="sec-wrap" data-sec-key="a-support">
     <div class="feature">
       <div class="feat-head">
         <div class="check">✓</div>
@@ -2672,6 +2804,7 @@
           </ul>
         </div>
       </div>
+    </div>
     </div>
 
   </div><!-- /doc-body -->
@@ -2696,7 +2829,7 @@
     </div>
   </div>
 
-  <div class="doc-body">
+  <div class="doc-body" id="adv-sections-container">
 
     <!-- Rates card -->
     <div class="rates-card" id="adv-rates-card">
@@ -2714,6 +2847,7 @@
     </div>
 
     <!-- Plan Overview -->
+    <div class="sec-wrap" data-sec-key="adv-plan">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Shopify Advanced Plan</div></div>
       <div class="feat-body">
@@ -2728,8 +2862,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Advanced Analytics -->
+    <div class="sec-wrap" data-sec-key="adv-analytics">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Advanced Analytics &amp; Custom Reports</div></div>
       <div class="feat-body">
@@ -2752,8 +2888,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- International Markets -->
+    <div class="sec-wrap" data-sec-key="adv-international">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">International Markets &amp; Cross-Border Commerce</div></div>
       <div class="feat-body">
@@ -2782,8 +2920,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Third-Party Shipping -->
+    <div class="sec-wrap" data-sec-key="adv-shipping">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Third-Party Carrier-Calculated Shipping</div></div>
       <div class="feat-body">
@@ -2810,8 +2950,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Staff & Permissions -->
+    <div class="sec-wrap" data-sec-key="adv-staff">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Staff Accounts &amp; Permissions</div></div>
       <div class="feat-body">
@@ -2828,8 +2970,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Support -->
+    <div class="sec-wrap" data-sec-key="adv-support">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Enhanced 24/7 Support</div></div>
       <div class="feat-body">
@@ -2840,6 +2984,7 @@
           <li>Access to Shopify's Help Center, community forums, and developer documentation</li>
         </ul>
       </div>
+    </div>
     </div>
 
   </div><!-- /doc-body -->
@@ -2863,9 +3008,10 @@
     </div>
   </div>
 
-  <div class="doc-body">
+  <div class="doc-body" id="api-sections-container">
 
     <!-- Overview -->
+    <div class="sec-wrap" data-sec-key="api-overview">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Plus Gives You the Full API Surface</div></div>
       <div class="feat-body">
@@ -2879,8 +3025,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Checkout Extensibility -->
+    <div class="sec-wrap" data-sec-key="api-checkout">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Checkout Extensibility — Plus Exclusive</div></div>
       <div class="feat-body">
@@ -2928,8 +3076,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Plus-Exclusive APIs -->
+    <div class="sec-wrap" data-sec-key="api-exclusive">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Plus-Exclusive APIs</div></div>
       <div class="feat-body">
@@ -2961,8 +3111,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Headless & Hydrogen -->
+    <div class="sec-wrap" data-sec-key="api-headless">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Headless Commerce &amp; Hydrogen</div></div>
       <div class="feat-body">
@@ -2989,8 +3141,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Theme Customization -->
+    <div class="sec-wrap" data-sec-key="api-theme">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Theme Customization &amp; Liquid</div></div>
       <div class="feat-body">
@@ -3010,8 +3164,10 @@
       </div>
     </div>
     <div class="doc-hr"></div>
+    </div>
 
     <!-- Custom Apps & Integrations -->
+    <div class="sec-wrap" data-sec-key="api-custom">
     <div class="feature">
       <div class="feat-head"><div class="check">✓</div><div class="feat-title" contenteditable="true">Custom Apps &amp; Enterprise Integrations</div></div>
       <div class="feat-body">
@@ -3047,6 +3203,7 @@
           </ul>
         </div>
       </div>
+    </div>
     </div>
 
   </div><!-- /doc-body -->
@@ -3147,6 +3304,8 @@
     if (b2bPanel)      b2bPanel.style.display      = tab === 'b2b'      ? 'flex' : 'none';
     if (advancedPanel) advancedPanel.style.display = tab === 'advanced' ? 'flex' : 'none';
     if (apiPanel)      apiPanel.style.display      = tab === 'api'      ? 'flex' : 'none';
+    const actionPanel  = document.getElementById('action-panel');
+    if (actionPanel)   actionPanel.style.display   = tab === 'action'   ? 'flex' : 'none';
     if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : tab === 'advanced' ? '📊 Shopify Advanced' : tab === 'api' ? '🔌 Shopify API' : '🛍 Plus Overview';
   }
 
@@ -3727,6 +3886,91 @@
       }, 2000);
     }
   }
+
+  // ── Generic section toggle for action/shipping/b2b/adv/api tabs ──
+  function toggleTabSec(containerId, listId, key, visible) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const wrap = container.querySelector('[data-sec-key="' + key + '"]');
+    if (wrap) wrap.classList.toggle('sec-hidden', !visible);
+    if (listId) {
+      const item = document.querySelector('#' + listId + ' [data-sec-key="' + key + '"] input[type=checkbox]');
+      if (item) item.checked = visible;
+    }
+    // update dividers
+    const wraps = [...container.querySelectorAll('[data-sec-key]')];
+    const vis = wraps.filter(w => !w.classList.contains('sec-hidden'));
+    wraps.forEach(w => {
+      const hr = w.querySelector('.doc-hr');
+      if (hr) hr.style.display = (w === vis[vis.length - 1]) ? 'none' : '';
+    });
+  }
+  function toggleActionSec(key, v) { toggleTabSec('action-sections-container','action-section-list',key,v); }
+  function toggleShipSec(key, v)   { toggleTabSec('ship-sections-container','ship-section-list',key,v); }
+  function toggleB2BSec(key, v)    { toggleTabSec('b2b-sections-container','b2b-section-list',key,v); }
+  function toggleAdvSec(key, v)    { toggleTabSec('adv-sections-container','adv-section-list',key,v); }
+  function toggleApiSec(key, v)    { toggleTabSec('api-sections-container','api-section-list',key,v); }
+
+  // ── Inject X dismiss buttons into tab section containers ──
+  function injectXButtons(containerId, dismissFn) {
+    const c = document.getElementById(containerId);
+    if (!c) return;
+    c.querySelectorAll('[data-sec-key]').forEach(wrap => {
+      const key = wrap.getAttribute('data-sec-key');
+      const head = wrap.querySelector('.feat-head');
+      if (!head || head.querySelector('.sec-dismiss')) return;
+      const btn = document.createElement('button');
+      btn.className = 'sec-dismiss';
+      btn.title = 'Hide section';
+      btn.textContent = '✕';
+      btn.onclick = () => dismissFn(key);
+      head.appendChild(btn);
+    });
+  }
+  injectXButtons('action-sections-container', k => toggleActionSec(k, false));
+  injectXButtons('ship-sections-container',   k => toggleShipSec(k, false));
+  injectXButtons('b2b-sections-container',    k => toggleB2BSec(k, false));
+  injectXButtons('adv-sections-container',    k => toggleAdvSec(k, false));
+  injectXButtons('api-sections-container',    k => toggleApiSec(k, false));
+
+  // ── Inject X buttons for Retail sections (data-rkey) ──
+  document.querySelectorAll('#retail-sections-container .sec-wrap[data-rkey]').forEach(wrap => {
+    const key = wrap.getAttribute('data-rkey');
+    const head = wrap.querySelector('.feat-head');
+    if (!head || head.querySelector('.sec-dismiss')) return;
+    const btn = document.createElement('button');
+    btn.className = 'sec-dismiss';
+    btn.title = 'Hide section';
+    btn.textContent = '✕';
+    btn.onclick = () => toggleRetailSection(key, false);
+    head.appendChild(btn);
+  });
+
+  // ── Inject X buttons for Payments sections (data-sp-key on .feature) ──
+  document.querySelectorAll('#tab-payments [data-sp-key]').forEach(el => {
+    if (!el.classList.contains('feature')) return;
+    const key = el.getAttribute('data-sp-key');
+    const head = el.querySelector('.feat-head');
+    if (!head || head.querySelector('.sec-dismiss')) return;
+    const btn = document.createElement('button');
+    btn.className = 'sec-dismiss';
+    btn.title = 'Hide section';
+    btn.textContent = '✕';
+    btn.onclick = () => dismissSpSection(key);
+    head.appendChild(btn);
+  });
+
+  // Initialize dividers for new containers
+  ['action-sections-container','ship-sections-container','b2b-sections-container','adv-sections-container','api-sections-container'].forEach(id => {
+    const c = document.getElementById(id);
+    if (!c) return;
+    const wraps = [...c.querySelectorAll('[data-sec-key]')];
+    const vis = wraps.filter(w => !w.classList.contains('sec-hidden'));
+    wraps.forEach(w => {
+      const hr = w.querySelector('.doc-hr');
+      if (hr) hr.style.display = (w === vis[vis.length - 1]) ? 'none' : '';
+    });
+  });
 
   // Autosave on any user input
   document.addEventListener('input', e => {
