@@ -92,6 +92,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .ft-hsa      { background: #f0fdf4; color: #166534; }
 .ft-age      { background: #fef2f2; color: #b91c1c; }
 .ft-delivery { background: #ecfeff; color: #0e7490; }
+.ft-rec      { background: #fff1f2; color: #e11d48; }
 
 .no-results { text-align: center; padding: 72px 24px; color: var(--muted); background: white; border-radius: var(--radius); border: 1px solid var(--border); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
@@ -126,9 +127,10 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
   <div class="feat-bar" id="feat-bar">
     <span class="filter-label">Feature:</span>
     <button class="feat-btn ft-sub active" data-feat="all">All Features</button>
-    <button class="feat-btn ft-sub" data-feat="Sub &amp; Save">Sub &amp; Save</button>
+    <button class="feat-btn ft-rec" data-feat="Recommendations">Recommendations</button>
     <button class="feat-btn ft-ppu" data-feat="Post-Purchase Upsell">Post-Purchase Upsell</button>
     <button class="feat-btn ft-addon" data-feat="Checkout Add-On">Checkout Add-On</button>
+    <button class="feat-btn ft-sub" data-feat="Sub &amp; Save">Sub &amp; Save</button>
     <button class="feat-btn ft-fields" data-feat="Custom Fields">Custom Fields</button>
     <button class="feat-btn ft-gift" data-feat="Free Gift">Free Gift</button>
     <button class="feat-btn ft-loyalty" data-feat="Loyalty Redemption">Loyalty Redemption</button>
@@ -160,6 +162,7 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
 const EXT = `<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
 const FEAT = {
+  'Recommendations':      'ft-rec',
   'Sub & Save':           'ft-sub',
   'Post-Purchase Upsell': 'ft-ppu',
   'Checkout Add-On':      'ft-addon',
@@ -413,8 +416,8 @@ const INDUSTRIES = [
   {
     id:'home', emoji:'🛋️', name:'Home & Furniture', tags:['b2c'],
     brands:[
-      {n:'Jonathan Adler',u:'jonathanadler.com', f:['Trust Badges','BNPL','Delivery Picker']},
-      {n:'Parachute',     u:'parachutehome.com', f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Cozy Earth',    u:'cozyearth.com',     f:['Post-Purchase Upsell','Recommendations']},
+      {n:'Parachute',     u:'parachutehome.com', f:['Recommendations','Custom Fields','BNPL']},
       {n:'Brooklinen',    u:'brooklinen.com',    f:['Custom Fields','Loyalty Redemption','Trust Badges','BNPL']},
       {n:'Article',       u:'article.com',       f:['BNPL','Delivery Picker','Trust Badges']},
       {n:'Colorfil',      u:'colorfil.com',      f:['Sub & Save','Custom Fields','Trust Badges']},
@@ -447,60 +450,46 @@ const INDUSTRIES = [
       {n:'BaubleBar',       u:'baublebar.com',       f:['Custom Fields','Post-Purchase Upsell','BNPL']},
       {n:'Kendra Scott',    u:'kendrascott.com',     f:['Custom Fields','Loyalty Redemption','BNPL']},
       {n:'Vrai',            u:'vrai.com',            f:['Custom Fields','Trust Badges']},
-      {n:'Aurate New York', u:'auratenewyork.com',   f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Aurate New York', u:'auratenewyork.com',   f:['Post-Purchase Upsell']},
       {n:'Stone and Strand',u:'stoneandstrand.com',  f:['Custom Fields','Trust Badges']},
     ],
   },
   {
     id:'luxury', emoji:'✨', name:'Luxury & Premium DTC', tags:['b2c','luxury'],
     brands:[
-      {n:'Polène',          u:'polene-paris.com',    f:['Trust Badges','Ship & Returns','Custom Fields']},
-      {n:'Victoria Beckham',u:'victoriabeckham.com', f:['Trust Badges','BNPL','Ship & Returns']},
-      {n:'Khaite',          u:'khaite.com',          f:['Trust Badges','Ship & Returns']},
-      {n:'Holland Cooper',  u:'hollandcooper.com',   f:['Trust Badges','BNPL','Custom Fields']},
-      {n:'Orlebar Brown',   u:'orlebarbrown.com',    f:['Trust Badges','BNPL','Post-Purchase Upsell']},
-      {n:'Derek Rose',      u:'derek-rose.com',      f:['Custom Fields','Trust Badges','Ship & Returns']},
-      {n:'La Garçonne',     u:'lagarconne.com',      f:['Trust Badges','Ship & Returns']},
-      {n:'Cult Gaia',       u:'cultgaia.com',        f:['Trust Badges','BNPL']},
-      {n:'STAUD',           u:'staud.clothing',      f:['Trust Badges','BNPL']},
-      {n:'Anine Bing',      u:'aninebing.com',       f:['Trust Badges','BNPL','Loyalty Redemption']},
-      {n:'Sarah Flint',     u:'sarahflint.com',      f:['Trust Badges','BNPL','Loyalty Redemption']},
-      {n:'M.Gemi',          u:'mgemi.com',           f:['Trust Badges','BNPL','Custom Fields']},
-      {n:'Rebecca Minkoff', u:'rebeccaminkoff.com', f:['Custom Fields','Trust Badges','BNPL']},
-      {n:'Cuyana',          u:'cuyana.com',          f:['Custom Fields','Trust Badges']},
-      {n:'Everlane',        u:'everlane.com',        f:['Trust Badges','Ship & Returns']},
-      {n:'Veja',            u:'veja-store.com',      f:['Trust Badges','Ship & Returns']},
-      {n:'Veronica Beard',  u:'veronicabeard.com',  f:['Custom Fields','BNPL']},
-      {n:'Rowing Blazers',  u:'rowingblazers.com',  f:['Trust Badges','Custom Fields']},
-    ],
-  },
-  {
-    id:'streetwear', emoji:'🧢', name:'Streetwear & Hype', tags:['b2c','luxury'],
-    brands:[
-      {n:'Kith',             u:'kith.com',          f:['Trust Badges','Order Discounts','Post-Purchase Upsell']},
-      {n:'Aimé Leon Dore',   u:'aimeleondore.com',  f:['Trust Badges','Ship & Returns']},
-      {n:'Fear of God',      u:'fearofgod.com',     f:['Trust Badges','BNPL']},
-      {n:'Telfar',           u:'shop.telfar.net',   f:['Trust Badges','Order Discounts']},
-      {n:'Brandon Blackwood',u:'brandonblackwood.com', f:['Trust Badges','BNPL']},
+      {n:'BEIS',             u:'beistravel.com',       f:['Recommendations','Checkout Add-On','Loyalty Redemption']},
+      {n:'Victoria Beckham', u:'victoriabeckham.com',  f:['Recommendations','Checkout Add-On']},
+      {n:'Cult Gaia',        u:'cultgaia.com',         f:['Recommendations','Checkout Add-On']},
+      {n:'Fear of God',      u:'fearofgod.com',        f:['Recommendations','Checkout Add-On']},
+      {n:'Orlebar Brown',    u:'orlebarbrown.com',     f:['Recommendations']},
+      {n:'Holland Cooper',   u:'hollandcooper.com',    f:['Recommendations']},
+      {n:'Marine Layer',     u:'marinelayer.com',      f:['Recommendations']},
+      {n:'STAUD',            u:'staud.clothing',       f:['Checkout Add-On']},
+      {n:'Brandon Blackwood',u:'brandonblackwood.com', f:['Checkout Add-On']},
+      {n:'Derek Rose',       u:'derek-rose.com',       f:['Checkout Add-On']},
+      {n:'Rowing Blazers',   u:'rowingblazers.com',    f:['Checkout Add-On']},
     ],
   },
   {
     id:'watches', emoji:'⌚', name:'Watches & Timepieces', tags:['b2c','luxury'],
     brands:[
-      {n:'Bremont',        u:'bremont.com',        f:['Warranty','Trust Badges','Custom Fields']},
-      {n:'Farer',          u:'farer.com',          f:['Warranty','Trust Badges','BNPL']},
-      {n:'Baltic Watches', u:'baltic-watches.com', f:['Warranty','Trust Badges','Custom Fields']},
-      {n:'Nordgreen',      u:'nordgreen.com',      f:['Warranty','Custom Fields','BNPL','Trust Badges']},
-      {n:'Vincero',        u:'vincerowatches.com', f:['Warranty','Custom Fields','BNPL']},
+      {n:'Vincero', u:'vincerowatches.com', f:['Recommendations']},
+      {n:'Bremont', u:'bremont.com',        f:['Checkout Add-On']},
     ],
   },
   {
     id:'luxbeauty', emoji:'💎', name:'Luxury Beauty', tags:['b2c','luxury'],
     brands:[
-      {n:'Westman Atelier',       u:'westman-atelier.com',    f:['Free Gift','Trust Badges','Post-Purchase Upsell']},
-      {n:'Victoria Beckham Beauty',u:'victoriabeckhambeauty.com', f:['Free Gift','Trust Badges','Sub & Save']},
-      {n:'Chantecaille',          u:'chantecaille.com',       f:['Free Gift','Trust Badges']},
-      {n:'Violet Grey',           u:'violetgrey.com',         f:['Free Gift','Trust Badges','Loyalty Redemption']},
+      {n:'Jones Road',             u:'jonesroadbeauty.com',       f:['Post-Purchase Upsell']},
+      {n:'Victoria Beckham Beauty',u:'victoriabeckhambeauty.com', f:['Post-Purchase Upsell']},
+      {n:'Violet Grey',            u:'violetgrey.com',            f:['Recommendations']},
+    ],
+  },
+  {
+    id:'kitchen', emoji:'🍳', name:'Kitchen & Cookware', tags:['b2c'],
+    brands:[
+      {n:'Our Place', u:'fromourplace.com',    f:['Post-Purchase Upsell']},
+      {n:'Material',  u:'materialkitchen.com',  f:['Recommendations']},
     ],
   },
   {
