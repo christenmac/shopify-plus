@@ -93,6 +93,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .ft-age      { background: #fef2f2; color: #b91c1c; }
 .ft-delivery { background: #ecfeff; color: #0e7490; }
 .ft-rec      { background: #fff1f2; color: #e11d48; }
+.ft-unver    { background: #fef3c7; color: #b45309; border: 1px dashed #d97706; font-weight: 700; }
 
 .no-results { text-align: center; padding: 72px 24px; color: var(--muted); background: white; border-radius: var(--radius); border: 1px solid var(--border); }
 .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
@@ -121,6 +122,8 @@ mark { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
   <button class="filter-btn" data-filter="subscription">Subscription</button>
   <button class="filter-btn" data-filter="regulated">Regulated</button>
   <button class="filter-btn" data-filter="luxury">Luxury</button>
+  <button class="filter-btn" data-filter="verified" title="Checkout auto-verified: a third-party module was detected live">✅ Verified</button>
+  <button class="filter-btn" data-filter="unverified" title="Couldn't auto-inspect checkout (bot-blocked / no cart) — needs manual review">⚠️ Needs Review</button>
 </div>
 <div class="feat-bar-wrap">
   <button class="feat-arrow hidden" id="feat-prev">&#8592;</button>
@@ -186,20 +189,20 @@ const INDUSTRIES = [
     id:'alcohol', emoji:'🍷', name:'Alcohol & Wine', tags:['b2c','regulated'],
     brands:[
       {n:'Winc',        u:'winc.com',         f:['Age Verification','Sub & Save','Checkout Add-On']},
-      {n:'Bev',         u:'drinkbev.com',     f:['Age Verification','Sub & Save']},
-      {n:'Wine Access', u:'wineaccess.com',   f:['Age Verification','Trust Badges']},
+      {n:'Bev',         u:'drinkbev.com',     f:['Age Verification','Sub & Save'], x:1},
+      {n:'Wine Access', u:'wineaccess.com',   f:['Age Verification','Trust Badges'], x:1},
       {n:'Vinebox',     u:'getvinebox.com',   f:['Age Verification','Sub & Save','Checkout Add-On']},
     ],
   },
   {
     id:'automotive', emoji:'🚗', name:'Automotive & Parts', tags:['b2c','b2b'],
     brands:[
-      {n:'RevZilla',           u:'revzilla.com',       f:['Custom Fields','Trust Badges','Order Discounts','Post-Purchase Upsell','Loyalty Redemption']},
-      {n:'4 Wheel Parts',      u:'4wheelparts.com',    f:['Custom Fields','Order Discounts','Loyalty Redemption']},
-      {n:'AutoAnything',       u:'autoanything.com',   f:['Custom Fields','Trust Badges','Post-Purchase Upsell']},
-      {n:'Curt Manufacturing', u:'curtmfg.com',        f:['Custom Fields','Trust Badges']},
-      {n:'Rough Country',      u:'roughcountry.com',   f:['Custom Fields','Order Discounts','Post-Purchase Upsell']},
-      {n:'Dennis Kirk',        u:'denniskirk.com',     f:['Custom Fields','Trust Badges','Order Discounts']},
+      {n:'RevZilla',           u:'revzilla.com',       f:['Custom Fields','Trust Badges','Order Discounts','Post-Purchase Upsell','Loyalty Redemption'], x:1},
+      {n:'4 Wheel Parts',      u:'4wheelparts.com',    f:['Custom Fields','Order Discounts','Loyalty Redemption'], x:1},
+      {n:'AutoAnything',       u:'autoanything.com',   f:['Custom Fields','Trust Badges','Post-Purchase Upsell'], x:1},
+      {n:'Curt Manufacturing', u:'curtmfg.com',        f:['Custom Fields','Trust Badges'], x:1},
+      {n:'Rough Country',      u:'roughcountry.com',   f:['Custom Fields','Order Discounts','Post-Purchase Upsell'], x:1},
+      {n:'Dennis Kirk',        u:'denniskirk.com',     f:['Custom Fields','Trust Badges','Order Discounts'], x:1},
     ],
   },
   {
@@ -215,18 +218,18 @@ const INDUSTRIES = [
   {
     id:'b2b', emoji:'🏢', name:'B2B & Wholesale', tags:['b2b'],
     brands:[
-      {n:'Zoro Tools',      u:'zoro.com',           f:['Custom Fields','Trust Badges','Order Discounts']},
-      {n:'True Value',      u:'truevalue.com',      f:['Custom Fields','Trust Badges']},
+      {n:'Zoro Tools',      u:'zoro.com',           f:['Custom Fields','Trust Badges','Order Discounts'], x:1},
+      {n:'True Value',      u:'truevalue.com',      f:['Custom Fields','Trust Badges'], x:1},
       {n:'Tommy John',      u:'tommyjohn.com',      f:['Custom Fields','Order Discounts']},
-      {n:'Duluth Trading',  u:'duluthtrading.com',  f:['Custom Fields','Order Discounts']},
+      {n:'Duluth Trading',  u:'duluthtrading.com',  f:['Custom Fields','Order Discounts'], x:1},
     ],
   },
   {
     id:'baby', emoji:'👶', name:'Baby & Kids', tags:['b2c'],
     brands:[
-      {n:'Lovevery',        u:'lovevery.com',        f:['Sub & Save','Custom Fields','Trust Badges']},
-      {n:'Ergobaby',        u:'ergobaby.com',        f:['Custom Fields','Trust Badges','BNPL']},
-      {n:'Hanna Andersson', u:'hannaandersson.com',  f:['Custom Fields','BNPL']},
+      {n:'Lovevery',        u:'lovevery.com',        f:['Sub & Save','Custom Fields','Trust Badges'], x:1},
+      {n:'Ergobaby',        u:'ergobaby.com',        f:['Custom Fields','Trust Badges','BNPL'], x:1},
+      {n:'Hanna Andersson', u:'hannaandersson.com',  f:['Custom Fields','BNPL'], x:1},
       {n:'Posh Peanut',     u:'poshpeanut.com',      f:['Custom Fields','BNPL']},
       {n:'Little Unicorn',  u:'littleunicorn.com',   f:['Custom Fields','Trust Badges']},
       {n:'Maisonette',      u:'maisonette.com',      f:['Custom Fields','Trust Badges','BNPL']},
@@ -238,9 +241,9 @@ const INDUSTRIES = [
       {n:'Kylie Cosmetics',  u:'kyliecosmetics.com',    f:['Free Gift','Post-Purchase Upsell','Trust Badges']},
       {n:'ColourPop',        u:'colourpop.com',         f:['Free Gift','Order Discounts','Trust Badges']},
       {n:'Fenty Beauty',     u:'fentybeauty.com',       f:['Trust Badges','Post-Purchase Upsell']},
-      {n:'e.l.f. Cosmetics', u:'elfcosmetics.com',      f:['Order Discounts','BNPL']},
+      {n:'e.l.f. Cosmetics', u:'elfcosmetics.com',      f:['Order Discounts','BNPL'], x:1},
       {n:'ILIA Beauty',      u:'iliabeauty.com',        f:['Trust Badges','BNPL']},
-      {n:'Saie',             u:'saiemakeup.com',        f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Saie',             u:'saiemakeup.com',        f:['Trust Badges','Post-Purchase Upsell'], x:1},
     ],
   },
   {
@@ -250,7 +253,7 @@ const INDUSTRIES = [
       {n:'Glossier',           u:'glossier.com',          f:['Trust Badges','Post-Purchase Upsell']},
       {n:'Tatcha',             u:'tatcha.com',            f:['Free Gift','Trust Badges']},
       {n:'Rhode',              u:'rhodeskin.com',         f:['Free Gift','Post-Purchase Upsell']},
-      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['BNPL','Order Discounts']},
+      {n:'Bubble Skincare',    u:'hellobubble.com',       f:['BNPL','Order Discounts'], x:1},
       {n:'Everist',            u:'helloeverist.com',      f:['Sub & Save','Free Gift','Order Discounts']},
     ],
   },
@@ -259,30 +262,30 @@ const INDUSTRIES = [
     brands:[
       {n:"Charlotte's Web", u:'charlottesweb.com',  f:['Age Verification','Sub & Save','Trust Badges']},
       {n:'Medterra',        u:'medterracbd.com',    f:['Age Verification','Sub & Save','Trust Badges']},
-      {n:'Lazarus Naturals',u:'lazarusnaturals.com',f:['Age Verification','Sub & Save','Order Discounts']},
+      {n:'Lazarus Naturals',u:'lazarusnaturals.com',f:['Age Verification','Sub & Save','Order Discounts'], x:1},
       {n:'cbdMD',           u:'cbdmd.com',          f:['Age Verification','Sub & Save','Trust Badges']},
       {n:'Cornbread Hemp',  u:'cornbreadhemp.com',  f:['Age Verification','Sub & Save']},
-      {n:'Green Roads',     u:'greenroads.com',     f:['Age Verification','Sub & Save']},
+      {n:'Green Roads',     u:'greenroads.com',     f:['Age Verification','Sub & Save'], x:1},
       {n:'Equilibria',      u:'myeq.com',           f:['Age Verification','Sub & Save','Checkout Add-On']},
-      {n:'Verma Farms',     u:'vermafarms.com',     f:['Age Verification','Sub & Save']},
+      {n:'Verma Farms',     u:'vermafarms.com',     f:['Age Verification','Sub & Save'], x:1},
     ],
   },
   {
     id:'print', emoji:'🎨', name:'Custom Print & POD', tags:['b2c'],
     brands:[
-      {n:'Chatbooks',     u:'chatbooks.com',      f:['Custom Fields','Checkout Add-On','Post-Purchase Upsell']},
-      {n:'Minted',        u:'minted.com',         f:['Custom Fields','Checkout Add-On']},
-      {n:'Motif Photos',  u:'motifphotos.com',    f:['Custom Fields','Checkout Add-On']},
-      {n:'Pinhole Press', u:'pinholepress.com',   f:['Custom Fields','Checkout Add-On']},
+      {n:'Chatbooks',     u:'chatbooks.com',      f:['Custom Fields','Checkout Add-On','Post-Purchase Upsell'], x:1},
+      {n:'Minted',        u:'minted.com',         f:['Custom Fields','Checkout Add-On'], x:1},
+      {n:'Motif Photos',  u:'motifphotos.com',    f:['Custom Fields','Checkout Add-On'], x:1},
+      {n:'Pinhole Press', u:'pinholepress.com',   f:['Custom Fields','Checkout Add-On'], x:1},
     ],
   },
   {
     id:'education', emoji:'📚', name:'Education & Courses', tags:['b2c'],
     brands:[
-      {n:'MasterClass',   u:'masterclass.com',  f:['Post-Purchase Upsell','Checkout Add-On','BNPL']},
-      {n:'CreativeLive',  u:'creativelive.com', f:['BNPL','Order Discounts']},
-      {n:'CXL Institute', u:'cxl.com',          f:['Order Discounts','BNPL']},
-      {n:'Maven',         u:'maven.com',        f:['Order Discounts']},
+      {n:'MasterClass',   u:'masterclass.com',  f:['Post-Purchase Upsell','Checkout Add-On','BNPL'], x:1},
+      {n:'CreativeLive',  u:'creativelive.com', f:['BNPL','Order Discounts'], x:1},
+      {n:'CXL Institute', u:'cxl.com',          f:['Order Discounts','BNPL'], x:1},
+      {n:'Maven',         u:'maven.com',        f:['Order Discounts'], x:1},
     ],
   },
   {
@@ -298,12 +301,12 @@ const INDUSTRIES = [
   {
     id:'electronics', emoji:'💻', name:'Electronics & Tech', tags:['b2c','b2b'],
     brands:[
-      {n:'Drop.com',    u:'drop.com',        f:['Post-Purchase Upsell','Trust Badges','Order Discounts']},
-      {n:'Nomad Goods', u:'nomadgoods.com',  f:['Trust Badges','Post-Purchase Upsell']},
-      {n:'dbrand',      u:'dbrand.com',      f:['Custom Fields','Trust Badges']},
+      {n:'Drop.com',    u:'drop.com',        f:['Post-Purchase Upsell','Trust Badges','Order Discounts'], x:1},
+      {n:'Nomad Goods', u:'nomadgoods.com',  f:['Trust Badges','Post-Purchase Upsell'], x:1},
+      {n:'dbrand',      u:'dbrand.com',      f:['Custom Fields','Trust Badges'], x:1},
       {n:'Skullcandy',  u:'skullcandy.com',  f:['Warranty','Loyalty Redemption','BNPL']},
       {n:'Pela Case',   u:'pelacase.com',    f:['Sub & Save','Post-Purchase Upsell']},
-      {n:'Peak Design', u:'peakdesign.com',  f:['Trust Badges','Post-Purchase Upsell','BNPL']},
+      {n:'Peak Design', u:'peakdesign.com',  f:['Trust Badges','Post-Purchase Upsell','BNPL'], x:1},
     ],
   },
   {
@@ -323,12 +326,12 @@ const INDUSTRIES = [
     id:'fashion', emoji:'👟', name:'Fashion & Apparel', tags:['b2c'],
     brands:[
       {n:'Gymshark',           u:'gymshark.com',          f:['Post-Purchase Upsell','Loyalty Redemption','Trust Badges','BNPL']},
-      {n:'Vuori',              u:'vuoriclothing.com',     f:['Trust Badges','BNPL','Post-Purchase Upsell']},
-      {n:'SKIMS',              u:'skims.com',             f:['Trust Badges','Free Gift','Post-Purchase Upsell','BNPL']},
+      {n:'Vuori',              u:'vuoriclothing.com',     f:['Trust Badges','BNPL','Post-Purchase Upsell'], x:1},
+      {n:'SKIMS',              u:'skims.com',             f:['Trust Badges','Free Gift','Post-Purchase Upsell','BNPL'], x:1},
       {n:'Good American',      u:'goodamerican.com',      f:['Trust Badges','BNPL']},
-      {n:'BYLT Basics',        u:'byltbasics.com',        f:['Sub & Save','Order Discounts','Trust Badges']},
+      {n:'BYLT Basics',        u:'byltbasics.com',        f:['Sub & Save','Order Discounts','Trust Badges'], x:1},
       {n:'Taylor Stitch',      u:'taylorstitch.com',      f:['Loyalty Redemption','Trust Badges','Custom Fields']},
-      {n:'Chubbies',           u:'chubbiesshorts.com',    f:['Free Gift','Order Discounts','Trust Badges']},
+      {n:'Chubbies',           u:'chubbiesshorts.com',    f:['Free Gift','Order Discounts','Trust Badges'], x:1},
       {n:'Cuts Clothing',      u:'cutsclothing.com',      f:['Sub & Save','Trust Badges']},
       {n:'Ministry of Supply', u:'ministryofsupply.com', f:['Trust Badges','BNPL']},
       {n:'Faherty',            u:'fahertybrand.com',      f:['Loyalty Redemption','Trust Badges','BNPL']},
@@ -341,8 +344,8 @@ const INDUSTRIES = [
       {n:'Ten Thousand',u:'tenthousand.cc',  f:['Trust Badges','Post-Purchase Upsell']},
       {n:'Janji',       u:'runjanji.com',    f:['Custom Fields','Trust Badges']},
       {n:'Cotopaxi',    u:'cotopaxi.com',    f:['Trust Badges','Custom Fields']},
-      {n:'Tracksmith',  u:'tracksmith.com',  f:['Custom Fields','Trust Badges']},
-      {n:'Norda',       u:'norda.com',       f:['Trust Badges','BNPL']},
+      {n:'Tracksmith',  u:'tracksmith.com',  f:['Custom Fields','Trust Badges'], x:1},
+      {n:'Norda',       u:'norda.com',       f:['Trust Badges','BNPL'], x:1},
     ],
   },
   {
@@ -352,7 +355,7 @@ const INDUSTRIES = [
       {n:'Magic Spoon',       u:'magicspoon.com',      f:['Sub & Save','Order Discounts','Post-Purchase Upsell']},
       {n:'Chomps',            u:'chomps.com',          f:['Sub & Save','Order Discounts']},
       {n:'Brightland',        u:'brightland.co',       f:['Order Discounts','Custom Fields']},
-      {n:'Omsom',             u:'omsom.com',           f:['Order Discounts','Custom Fields']},
+      {n:'Omsom',             u:'omsom.com',           f:['Order Discounts','Custom Fields'], x:1},
       {n:'Olipop',            u:'drinkolipop.com',     f:['Sub & Save','Order Discounts']},
       {n:"Jeni's Ice Cream",  u:'jenis.com',           f:['Delivery Picker','Custom Fields','Ship & Returns']},
       {n:'Graza',             u:'graza.co',            f:['Sub & Save','Order Discounts']},
@@ -362,12 +365,12 @@ const INDUSTRIES = [
     id:'fragrance', emoji:'🌸', name:'Fragrance & Perfume', tags:['b2c','luxury'],
     brands:[
       {n:'Maison Louis Marie', u:'maisonlouismarie.com', f:['Custom Fields','Trust Badges']},
-      {n:'DS & Durga',         u:'dsanddurga.com',       f:['Custom Fields','Trust Badges']},
+      {n:'DS & Durga',         u:'dsanddurga.com',       f:['Custom Fields','Trust Badges'], x:1},
       {n:'Phlur',              u:'phlur.com',            f:['Sub & Save','Checkout Add-On']},
       {n:'Dedcool',            u:'dedcool.com',          f:['Custom Fields','Trust Badges']},
-      {n:'Commodity',          u:'commoditygoods.com',   f:['Trust Badges','Post-Purchase Upsell']},
+      {n:'Commodity',          u:'commoditygoods.com',   f:['Trust Badges','Post-Purchase Upsell'], x:1},
       {n:'Snif',               u:'snif.co',              f:['Checkout Add-On','Sub & Save']},
-      {n:'Ffern',              u:'ffern.com',            f:['Sub & Save','Custom Fields']},
+      {n:'Ffern',              u:'ffern.com',            f:['Sub & Save','Custom Fields'], x:1},
     ],
   },
   {
@@ -375,7 +378,7 @@ const INDUSTRIES = [
     brands:[
       {n:'UrbanStems',     u:'urbanstems.com',    f:['Delivery Picker','Custom Fields','Checkout Add-On','Sub & Save']},
       {n:'Venus et Fleur', u:'venusetfleur.com',  f:['Custom Fields','Checkout Add-On','Trust Badges']},
-      {n:'Enjoy Flowers',     u:'enjoyflowers.com',       f:['Sub & Save','Checkout Add-On','Order Discounts']},
+      {n:'Enjoy Flowers',     u:'enjoyflowers.com',       f:['Sub & Save','Checkout Add-On','Order Discounts'], x:1},
       {n:'The Floral Society',u:'thefloralsociety.com',   f:['Delivery Picker','Custom Fields','Trust Badges']},
       {n:'Afloral',           u:'afloral.com',            f:['Loyalty Redemption','Order Discounts','BNPL']},
       {n:'FiftyFlowers',      u:'fiftyflowers.com',       f:['Delivery Picker','Custom Fields','Order Discounts']},
@@ -388,34 +391,34 @@ const INDUSTRIES = [
       {n:'Vego Garden',        u:'vegogarden.com',         f:['Checkout Add-On','Delivery Picker','Trust Badges','BNPL']},
       {n:'The Sill',           u:'thesill.com',            f:['Checkout Add-On','Trust Badges','BNPL']},
       {n:'Botanical Interests',u:'botanicalinterests.com', f:['Order Discounts','Trust Badges']},
-      {n:'Pistils Nursery',    u:'pistilsnursery.com',     f:['Trust Badges']},
+      {n:'Pistils Nursery',    u:'pistilsnursery.com',     f:['Trust Badges'], x:1},
     ],
   },
   {
     id:'gifts', emoji:'🎁', name:'Gifts & Occasions', tags:['b2c'],
     brands:[
-      {n:'Uncommon Goods',   u:'uncommongoods.com',   f:['Custom Fields','Post-Purchase Upsell','Trust Badges']},
-      {n:'Sugarfina',        u:'sugarfina.com',       f:['Custom Fields','Free Gift']},
-      {n:'Artifact Uprising',u:'artifactuprising.com',f:['Custom Fields','Checkout Add-On']},
-      {n:'Bespoke Post',     u:'bespokepost.com',     f:['Sub & Save','Custom Fields']},
-      {n:'Mouth',            u:'mouth.com',           f:['Custom Fields','Order Discounts']},
+      {n:'Uncommon Goods',   u:'uncommongoods.com',   f:['Custom Fields','Post-Purchase Upsell','Trust Badges'], x:1},
+      {n:'Sugarfina',        u:'sugarfina.com',       f:['Custom Fields','Free Gift'], x:1},
+      {n:'Artifact Uprising',u:'artifactuprising.com',f:['Custom Fields','Checkout Add-On'], x:1},
+      {n:'Bespoke Post',     u:'bespokepost.com',     f:['Sub & Save','Custom Fields'], x:1},
+      {n:'Mouth',            u:'mouth.com',           f:['Custom Fields','Order Discounts'], x:1},
     ],
   },
   {
     id:'health', emoji:'💪', name:'Health & Supplements', tags:['b2c','subscription'],
     brands:[
-      {n:'AG1',              u:'drinkag1.com',        f:['Sub & Save','Free Gift','Post-Purchase Upsell','Checkout Add-On','HSA/FSA Pay']},
+      {n:'AG1',              u:'drinkag1.com',        f:['Sub & Save','Free Gift','Post-Purchase Upsell','Checkout Add-On','HSA/FSA Pay'], x:1},
       {n:'ProMix Nutrition', u:'promixnutrition.com', f:['Recommendations']},
       {n:'Ritual',           u:'ritual.com',          f:['Sub & Save','Free Gift','Post-Purchase Upsell']},
-      {n:'Seed',             u:'seed.com',            f:['Sub & Save','Checkout Add-On']},
+      {n:'Seed',             u:'seed.com',            f:['Sub & Save','Checkout Add-On'], x:1},
       {n:'Momentous',        u:'livemomentous.com',   f:['Sub & Save','Post-Purchase Upsell','HSA/FSA Pay']},
       {n:'Four Sigmatic',    u:'foursigmatic.com',    f:['Sub & Save','Post-Purchase Upsell']},
-      {n:'Perfect Keto',     u:'perfectketo.com',     f:['Sub & Save','Order Discounts','Post-Purchase Upsell']},
+      {n:'Perfect Keto',     u:'perfectketo.com',     f:['Sub & Save','Order Discounts','Post-Purchase Upsell'], x:1},
       {n:'Transparent Labs', u:'transparentlabs.com', f:['Sub & Save','Free Gift','Order Discounts']},
-      {n:'Thesis',           u:'takethesis.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
-      {n:'Bulletproof',      u:'bulletproof.com',     f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Thesis',           u:'takethesis.com',      f:['Sub & Save','Checkout Add-On','Custom Fields'], x:1},
+      {n:'Bulletproof',      u:'bulletproof.com',     f:['Sub & Save','Post-Purchase Upsell'], x:1},
       {n:'Bubs Naturals',    u:'bubsnaturals.com',    f:['Sub & Save','Post-Purchase Upsell']},
-      {n:'Care/of',          u:'takecareof.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Care/of',          u:'takecareof.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay'], x:1},
       {n:'Onnit',            u:'onnit.com',           f:['Sub & Save','Loyalty Redemption','Post-Purchase Upsell']},
     ],
   },
@@ -425,31 +428,31 @@ const INDUSTRIES = [
       {n:'Cozy Earth',    u:'cozyearth.com',     f:['Post-Purchase Upsell','Recommendations']},
       {n:'Parachute',     u:'parachutehome.com', f:['Recommendations','Custom Fields','BNPL']},
       {n:'Brooklinen',    u:'brooklinen.com',    f:['Custom Fields','Loyalty Redemption','Trust Badges','BNPL']},
-      {n:'Article',       u:'article.com',       f:['BNPL','Delivery Picker','Trust Badges']},
+      {n:'Article',       u:'article.com',       f:['BNPL','Delivery Picker','Trust Badges'], x:1},
       {n:'Colorfil',      u:'colorfil.com',      f:['Sub & Save','Custom Fields','Trust Badges']},
-      {n:'Ruggable',      u:'ruggable.com',      f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Ruggable',      u:'ruggable.com',      f:['Custom Fields','Trust Badges','BNPL'], x:1},
       {n:'Floyd',         u:'floydhome.com',     f:['BNPL','Delivery Picker','Trust Badges']},
     ],
   },
   {
     id:'industrial', emoji:'🏭', name:'Industrial & Manufacturing', tags:['b2b'],
     brands:[
-      {n:'Zoro Tools',        u:'zoro.com',              f:['Custom Fields','Order Discounts','Trust Badges']},
-      {n:'Grainger',          u:'grainger.com',          f:['Custom Fields','Trust Badges','Order Discounts']},
-      {n:'MSC Industrial',    u:'mscdirect.com',         f:['Custom Fields','Trust Badges']},
-      {n:'Global Industrial', u:'globalindustrial.com',  f:['Custom Fields','Trust Badges']},
+      {n:'Zoro Tools',        u:'zoro.com',              f:['Custom Fields','Order Discounts','Trust Badges'], x:1},
+      {n:'Grainger',          u:'grainger.com',          f:['Custom Fields','Trust Badges','Order Discounts'], x:1},
+      {n:'MSC Industrial',    u:'mscdirect.com',         f:['Custom Fields','Trust Badges'], x:1},
+      {n:'Global Industrial', u:'globalindustrial.com',  f:['Custom Fields','Trust Badges'], x:1},
     ],
   },
   {
     id:'jewelry', emoji:'💍', name:'Jewelry & Accessories', tags:['b2c','luxury'],
     brands:[
-      {n:'Mejuri',          u:'mejuri.com',          f:['Custom Fields','Loyalty Redemption','Trust Badges']},
+      {n:'Mejuri',          u:'mejuri.com',          f:['Custom Fields','Loyalty Redemption','Trust Badges'], x:1},
       {n:'Gorjana',         u:'gorjana.com',         f:['Custom Fields','Loyalty Redemption','BNPL']},
-      {n:'Catbird',         u:'catbirdnyc.com',      f:['Custom Fields','Trust Badges']},
-      {n:'Brilliant Earth', u:'brilliantearth.com',  f:['Custom Fields','Trust Badges','BNPL']},
+      {n:'Catbird',         u:'catbirdnyc.com',      f:['Custom Fields','Trust Badges'], x:1},
+      {n:'Brilliant Earth', u:'brilliantearth.com',  f:['Custom Fields','Trust Badges','BNPL'], x:1},
       {n:'BaubleBar',       u:'baublebar.com',       f:['Custom Fields','Post-Purchase Upsell','BNPL']},
-      {n:'Kendra Scott',    u:'kendrascott.com',     f:['Custom Fields','Loyalty Redemption','BNPL']},
-      {n:'Vrai',            u:'vrai.com',            f:['Custom Fields','Trust Badges']},
+      {n:'Kendra Scott',    u:'kendrascott.com',     f:['Custom Fields','Loyalty Redemption','BNPL'], x:1},
+      {n:'Vrai',            u:'vrai.com',            f:['Custom Fields','Trust Badges'], x:1},
       {n:'Aurate New York', u:'auratenewyork.com',   f:['Post-Purchase Upsell']},
     ],
   },
@@ -484,9 +487,9 @@ const INDUSTRIES = [
   {
     id:'mattress', emoji:'🛏️', name:'Mattress & Sleep', tags:['b2c'],
     brands:[
-      {n:'Purple',          u:'purple.com',               f:['Warranty','Delivery Picker','BNPL','Post-Purchase Upsell','Trust Badges']},
-      {n:'Leesa',           u:'leesa.com',                f:['Warranty','BNPL','Post-Purchase Upsell','Trust Badges']},
-      {n:'Helix Sleep',     u:'helixsleep.com',           f:['Warranty','Checkout Add-On','BNPL','Delivery Picker']},
+      {n:'Purple',          u:'purple.com',               f:['Warranty','Delivery Picker','BNPL','Post-Purchase Upsell','Trust Badges'], x:1},
+      {n:'Leesa',           u:'leesa.com',                f:['Warranty','BNPL','Post-Purchase Upsell','Trust Badges'], x:1},
+      {n:'Helix Sleep',     u:'helixsleep.com',           f:['Warranty','Checkout Add-On','BNPL','Delivery Picker'], x:1},
       {n:'Brooklyn Bedding',u:'brooklynbedding.com',      f:['Warranty','BNPL','Order Discounts']},
       {n:'Nest Bedding',    u:'nestbedding.com',          f:['Warranty','BNPL']},
       {n:'Bear Mattress',   u:'bearmattress.com',         f:['Warranty','BNPL','Post-Purchase Upsell']},
@@ -496,12 +499,12 @@ const INDUSTRIES = [
     id:'nonprofit', emoji:'❤️', name:'Non-profit & Cause-Driven', tags:['b2c'],
     brands:[
       {n:'TOMS',        u:'toms.com',       f:['Custom Fields','Post-Purchase Upsell','Trust Badges']},
-      {n:'Bombas',      u:'bombas.com',     f:['Custom Fields','Loyalty Redemption','Post-Purchase Upsell']},
-      {n:'Patagonia',   u:'patagonia.com',  f:['Ship & Returns','Trust Badges','Checkout Add-On']},
+      {n:'Bombas',      u:'bombas.com',     f:['Custom Fields','Loyalty Redemption','Post-Purchase Upsell'], x:1},
+      {n:'Patagonia',   u:'patagonia.com',  f:['Ship & Returns','Trust Badges','Checkout Add-On'], x:1},
       {n:'Pela Case',   u:'pelacase.com',   f:['Sub & Save','Checkout Add-On']},
       {n:'Cotopaxi',    u:'cotopaxi.com',   f:['Trust Badges','Custom Fields']},
       {n:'tentree',     u:'tentree.com',    f:['Checkout Add-On','Trust Badges']},
-      {n:'Pact Organic',u:'wearpact.com',   f:['Sub & Save','Trust Badges']},
+      {n:'Pact Organic',u:'wearpact.com',   f:['Sub & Save','Trust Badges'], x:1},
       {n:'Naadam',      u:'naadam.co',      f:['Custom Fields','Trust Badges','BNPL']},
     ],
   },
@@ -510,14 +513,14 @@ const INDUSTRIES = [
     brands:[
       {n:'Wild One',         u:'wildone.com',        f:['Custom Fields','Trust Badges']},
       {n:'Native Pet',       u:'nativepet.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
-      {n:'BarkShop',         u:'barkshop.com',       f:['Sub & Save','Custom Fields']},
-      {n:"The Farmer's Dog", u:'thefarmersdog.com',  f:['Sub & Save','Checkout Add-On','Custom Fields']},
-      {n:'Ollie',            u:'myollie.com',        f:['Sub & Save','Checkout Add-On','Free Gift']},
-      {n:'Nom Nom',          u:'nomnomnow.com',      f:['Sub & Save','Checkout Add-On','Custom Fields']},
-      {n:'Sundays for Dogs', u:'sundaysfordogs.com', f:['Sub & Save','Trust Badges']},
+      {n:'BarkShop',         u:'barkshop.com',       f:['Sub & Save','Custom Fields'], x:1},
+      {n:"The Farmer's Dog", u:'thefarmersdog.com',  f:['Sub & Save','Checkout Add-On','Custom Fields'], x:1},
+      {n:'Ollie',            u:'myollie.com',        f:['Sub & Save','Checkout Add-On','Free Gift'], x:1},
+      {n:'Nom Nom',          u:'nomnomnow.com',      f:['Sub & Save','Checkout Add-On','Custom Fields'], x:1},
+      {n:'Sundays for Dogs', u:'sundaysfordogs.com', f:['Sub & Save','Trust Badges'], x:1},
       {n:'Open Farm',        u:'openfarmpet.com',    f:['Sub & Save','Checkout Add-On']},
-      {n:'Pet Plate',        u:'petplate.com',       f:['Sub & Save','Checkout Add-On','Custom Fields']},
-      {n:'Jinx',             u:'jinx.com',           f:['Sub & Save','Post-Purchase Upsell']},
+      {n:'Pet Plate',        u:'petplate.com',       f:['Sub & Save','Checkout Add-On','Custom Fields'], x:1},
+      {n:'Jinx',             u:'jinx.com',           f:['Sub & Save','Post-Purchase Upsell'], x:1},
     ],
   },
   {
@@ -525,38 +528,38 @@ const INDUSTRIES = [
     brands:[
       {n:'Porter Road',           u:'porterroad.com',       f:['Sub & Save','Custom Fields']},
       {n:'Snake River Farms',     u:'snakeriverfarms.com',  f:['Free Gift','Order Discounts','Delivery Picker']},
-      {n:'Crowd Cow',             u:'crowdcow.com',         f:['Sub & Save','Checkout Add-On','Delivery Picker']},
-      {n:'Goldbelly',             u:'goldbelly.com',        f:['Delivery Picker','Custom Fields','Trust Badges']},
-      {n:"Rastelli's",            u:'rastellis.com',        f:['Sub & Save','Free Gift','Delivery Picker']},
+      {n:'Crowd Cow',             u:'crowdcow.com',         f:['Sub & Save','Checkout Add-On','Delivery Picker'], x:1},
+      {n:'Goldbelly',             u:'goldbelly.com',        f:['Delivery Picker','Custom Fields','Trust Badges'], x:1},
+      {n:"Rastelli's",            u:'rastellis.com',        f:['Sub & Save','Free Gift','Delivery Picker'], x:1},
       {n:'Chicago Steak Company', u:'mychicagosteak.com',   f:['Free Gift','Order Discounts','Custom Fields','Delivery Picker']},
     ],
   },
   {
     id:'sports', emoji:'🏆', name:'Sports & Equipment', tags:['b2c'],
     brands:[
-      {n:'Hydrow',   u:'hydrow.com',   f:['Checkout Add-On','Warranty','BNPL']},
+      {n:'Hydrow',   u:'hydrow.com',   f:['Checkout Add-On','Warranty','BNPL'], x:1},
       {n:'Warstic',  u:'warstic.com',  f:['Custom Fields','Warranty','Order Discounts','Trust Badges']},
     ],
   },
   {
     id:'subscriptions', emoji:'📦', name:'Subscription Boxes', tags:['b2c','subscription'],
     brands:[
-      {n:'FabFitFun',          u:'fabfitfun.com',   f:['Sub & Save','Checkout Add-On','Post-Purchase Upsell']},
-      {n:'KiwiCo',             u:'kiwico.com',      f:['Sub & Save','Checkout Add-On','Free Gift']},
-      {n:'Scentbird',          u:'scentbird.com',   f:['Sub & Save','Checkout Add-On']},
+      {n:'FabFitFun',          u:'fabfitfun.com',   f:['Sub & Save','Checkout Add-On','Post-Purchase Upsell'], x:1},
+      {n:'KiwiCo',             u:'kiwico.com',      f:['Sub & Save','Checkout Add-On','Free Gift'], x:1},
+      {n:'Scentbird',          u:'scentbird.com',   f:['Sub & Save','Checkout Add-On'], x:1},
       {n:'Winc',               u:'winc.com',        f:['Sub & Save','Checkout Add-On','Age Verification']},
-      {n:'Ipsy',               u:'ipsy.com',        f:['Sub & Save','Checkout Add-On']},
-      {n:'Bespoke Post',       u:'bespokepost.com', f:['Sub & Save','Checkout Add-On']},
+      {n:'Ipsy',               u:'ipsy.com',        f:['Sub & Save','Checkout Add-On'], x:1},
+      {n:'Bespoke Post',       u:'bespokepost.com', f:['Sub & Save','Checkout Add-On'], x:1},
     ],
   },
   {
     id:'medical', emoji:'💊', name:'Telehealth & Medical', tags:['b2c','regulated'],
     brands:[
-      {n:'Curology',       u:'curology.com',       f:['Sub & Save','Checkout Add-On','HSA/FSA Pay','Custom Fields']},
-      {n:'Apostrophe',     u:'apostrophe.com',     f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
-      {n:'Keeps',          u:'keeps.com',          f:['Sub & Save','HSA/FSA Pay']},
-      {n:'Thirty Madison', u:'thirtymadison.com',  f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
-      {n:'Wisp',           u:'hellowisp.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay']},
+      {n:'Curology',       u:'curology.com',       f:['Sub & Save','Checkout Add-On','HSA/FSA Pay','Custom Fields'], x:1},
+      {n:'Apostrophe',     u:'apostrophe.com',     f:['Sub & Save','Checkout Add-On','HSA/FSA Pay'], x:1},
+      {n:'Keeps',          u:'keeps.com',          f:['Sub & Save','HSA/FSA Pay'], x:1},
+      {n:'Thirty Madison', u:'thirtymadison.com',  f:['Sub & Save','Checkout Add-On','HSA/FSA Pay'], x:1},
+      {n:'Wisp',           u:'hellowisp.com',      f:['Sub & Save','Checkout Add-On','HSA/FSA Pay'], x:1},
       {n:'Stix',           u:'stixs.com',          f:['Sub & Save','HSA/FSA Pay']},
     ],
   },
@@ -576,8 +579,10 @@ function hl(text, q) {
 function render() {
   const q = searchQuery.toLowerCase().trim();
   const visible = INDUSTRIES.map(ind => {
-    if (activeFilter !== 'all' && !ind.tags.includes(activeFilter)) return null;
+    if (activeFilter !== 'all' && activeFilter !== 'verified' && activeFilter !== 'unverified' && !ind.tags.includes(activeFilter)) return null;
     const matched = ind.brands.filter(b => {
+      if (activeFilter === 'unverified' && !b.x) return false;
+      if (activeFilter === 'verified' && b.x) return false;
       if (activeFeat !== 'all' && !b.f.includes(activeFeat)) return false;
       return !q || b.n.toLowerCase().includes(q) || ind.name.toLowerCase().includes(q) || b.f.some(f => f.toLowerCase().includes(q));
     });
@@ -607,7 +612,7 @@ function render() {
         ${ind.matched.map(b => `
           <div class="brand-row">
             <a class="brand-name-link" href="https://${b.u}/checkout" target="_blank" rel="noopener">${hl(b.n,q)} ${EXT}</a>
-            <div class="ftags">${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
+            <div class="ftags">${b.x?`<span class="ftag ft-unver" title="Checkout couldn't be auto-verified — bot-blocked or no cart. Confirm manually.">⚠️ Needs Review</span>`:''}${b.f.map(f=>`<span class="ftag ${FEAT[f]||'ft-trust'}">${hl(f,q)}</span>`).join('')}</div>
           </div>`).join('')}
       </div>
     </div>`).join('');
