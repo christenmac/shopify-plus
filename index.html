@@ -538,13 +538,15 @@
     /* Lightbox */
     .gal-lb { display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(15,18,22,.82); backdrop-filter: blur(3px); align-items: center; justify-content: center; padding: 32px; }
     .gal-lb.open { display: flex; }
-    .gal-lb-inner { max-width: 560px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; align-items: center; }
+    .gal-lb-inner { max-width: 840px; width: 100%; max-height: 94vh; display: flex; flex-direction: column; align-items: center; }
     .gal-lb-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; color: #fff; margin-bottom: 10px; }
     .gal-lb-title { font-size: 15px; font-weight: 700; }
     .gal-lb-title span { font-weight: 500; color: #b6bcc4; font-size: 12px; margin-left: 8px; }
     .gal-lb-close { cursor: pointer; font-size: 22px; line-height: 1; color: #cbd0d6; background: none; border: none; padding: 4px 8px; }
     .gal-lb-close:hover { color: #fff; }
-    .gal-lb img { max-width: 100%; max-height: 82vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; }
+    .gal-lb-stage { width: 100%; max-height: 88vh; overflow: auto; display: flex; align-items: flex-start; justify-content: center; border-radius: 12px; }
+    .gal-lb img { max-width: 100%; max-height: 88vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; cursor: zoom-in; transition: max-width .18s, width .18s; }
+    .gal-lb.zoomed img { max-width: 220%; max-height: none; width: 220%; cursor: zoom-out; border-radius: 6px; }
     @media (max-width: 560px) { .gal-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; } }
   </style>
 </head>
@@ -997,7 +999,6 @@
     <div class="tab-bar">
       <button class="tab-btn active" onclick="switchTab('plus',this)">Shopify Plus</button>
       <button class="tab-btn" onclick="switchTab('gallery',this)">Customized Checkout</button>
-      <button class="tab-btn" onclick="switchTab('checkout',this)">Checkout Builder</button>
       <button class="tab-btn" onclick="switchTab('action',this)">Plus Action Items</button>
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
@@ -1656,13 +1657,15 @@
 </div><!-- /tab-gallery -->
 
 <!-- Lightbox -->
-<div class="gal-lb" id="gal-lb" onclick="if(event.target===this)closeGalLb()">
+<div class="gal-lb" id="gal-lb" onclick="if(event.target===this||event.target.classList.contains('gal-lb-stage'))closeGalLb()">
   <div class="gal-lb-inner">
     <div class="gal-lb-bar">
       <div class="gal-lb-title" id="gal-lb-title"></div>
       <button class="gal-lb-close" onclick="closeGalLb()" title="Close">×</button>
     </div>
-    <img id="gal-lb-img" src="" alt="">
+    <div class="gal-lb-stage">
+      <img id="gal-lb-img" src="" alt="" onclick="event.stopPropagation();toggleGalZoom()">
+    </div>
   </div>
 </div>
 
@@ -3473,11 +3476,14 @@
   }
   function setGalFilter(c) { galFilter = c; renderGallery(); }
   function openGalLb(name, cat, img) {
+    const lb = document.getElementById('gal-lb');
     document.getElementById('gal-lb-title').innerHTML = name + ' <span>' + cat + '</span>';
     document.getElementById('gal-lb-img').src = img;
-    document.getElementById('gal-lb').classList.add('open');
+    lb.classList.remove('zoomed');
+    lb.classList.add('open');
   }
-  function closeGalLb() { document.getElementById('gal-lb').classList.remove('open'); }
+  function closeGalLb() { document.getElementById('gal-lb').classList.remove('open','zoomed'); }
+  function toggleGalZoom() { document.getElementById('gal-lb').classList.toggle('zoomed'); }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGalLb(); });
 
   function set(id, val) {
