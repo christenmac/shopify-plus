@@ -496,6 +496,56 @@
       .co-print-hint { display: none !important; }
       .sav-box-x, .sav-dismiss, .sec-dismiss { display: none !important; }
     }
+
+    /* ══ Customized Checkout Gallery ══ */
+    #tab-gallery.tab-content.active { display: block !important; width: 100%; }
+    .gal-wrap { max-width: 1180px; width: 100%; margin: 0 auto; padding: 4px 20px 40px; }
+    .gal-head { text-align: center; margin-bottom: 18px; }
+    .gal-head h2 { font-size: 22px; font-weight: 800; color: var(--dark); margin: 0 0 4px; letter-spacing: -.4px; }
+    .gal-head p { font-size: 13px; color: #6b7280; margin: 0; max-width: 620px; margin: 0 auto; line-height: 1.5; }
+    .gal-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 16px 0 22px; }
+    .gal-chip {
+      font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+      padding: 6px 14px; border-radius: 999px; border: 1px solid #e5e7eb;
+      background: #fff; color: #4b5563; transition: all .15s;
+    }
+    .gal-chip:hover { border-color: var(--mid); color: var(--dark); }
+    .gal-chip.active { background: var(--dark); border-color: var(--dark); color: #fff; }
+    .gal-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 18px;
+    }
+    .gal-card {
+      border: 1px solid #ebedf0; border-radius: 12px; overflow: hidden; background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05); transition: transform .18s, box-shadow .18s;
+      cursor: pointer; display: flex; flex-direction: column;
+    }
+    .gal-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,.12); }
+    .gal-shot { position: relative; background: #f6f7f9; aspect-ratio: 1 / 1.15; overflow: hidden; }
+    .gal-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .gal-zoom {
+      position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 7px;
+      background: rgba(17,24,39,.72); color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; opacity: 0; transition: opacity .15s;
+    }
+    .gal-card:hover .gal-zoom { opacity: 1; }
+    .gal-meta { padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .gal-name { font-size: 13.5px; font-weight: 700; color: var(--dark); }
+    .gal-cat { font-size: 10.5px; font-weight: 600; color: #6b7280; background: #f3f4f6; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+    .gal-count { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 22px; }
+    .gal-source { text-align: center; font-size: 11px; color: #b6bcc4; margin-top: 6px; }
+    .gal-source a { color: #9aa0a8; }
+    /* Lightbox */
+    .gal-lb { display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(15,18,22,.82); backdrop-filter: blur(3px); align-items: center; justify-content: center; padding: 32px; }
+    .gal-lb.open { display: flex; }
+    .gal-lb-inner { max-width: 560px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; align-items: center; }
+    .gal-lb-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; color: #fff; margin-bottom: 10px; }
+    .gal-lb-title { font-size: 15px; font-weight: 700; }
+    .gal-lb-title span { font-weight: 500; color: #b6bcc4; font-size: 12px; margin-left: 8px; }
+    .gal-lb-close { cursor: pointer; font-size: 22px; line-height: 1; color: #cbd0d6; background: none; border: none; padding: 4px 8px; }
+    .gal-lb-close:hover { color: #fff; }
+    .gal-lb img { max-width: 100%; max-height: 82vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; }
+    @media (max-width: 560px) { .gal-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; } }
   </style>
 </head>
 <body>
@@ -946,7 +996,8 @@
   <div class="toolbar-left">
     <div class="tab-bar">
       <button class="tab-btn active" onclick="switchTab('plus',this)">Shopify Plus</button>
-      <button class="tab-btn" onclick="switchTab('checkout',this)">Custom Checkout</button>
+      <button class="tab-btn" onclick="switchTab('gallery',this)">Customized Checkout</button>
+      <button class="tab-btn" onclick="switchTab('checkout',this)">Checkout Builder</button>
       <button class="tab-btn" onclick="switchTab('action',this)">Plus Action Items</button>
       <button class="tab-btn" onclick="switchTab('retail',this)">Retail / POS</button>
       <button class="tab-btn" onclick="switchTab('payments',this)">Shopify Payments</button>
@@ -1589,6 +1640,31 @@
   <div class="co-print-hint" style="text-align:center;margin-top:10px;font-size:11px;color:#9ca3af;">✏ Drag blocks to reorder &nbsp;·&nbsp; Use sidebar to add/remove blocks and set brand colors</div>
 </div><!-- /co-preview-wrap -->
 </div><!-- /tab-checkout -->
+
+<!-- ══ CUSTOMIZED CHECKOUT GALLERY TAB ══ -->
+<div id="tab-gallery" class="tab-content">
+  <div class="gal-wrap">
+    <div class="gal-head">
+      <h2 contenteditable="true">Customized Checkout, in the wild</h2>
+      <p contenteditable="true">Real checkout pages from Shopify <strong>Plus</strong> brands — upsells, free gifts, subscriptions, trust badges, and post-purchase offers built right into the highest-converting page in commerce. This is what checkout extensibility unlocks.</p>
+    </div>
+    <div class="gal-filters" id="gal-filters"></div>
+    <div class="gal-grid" id="gal-grid"></div>
+    <div class="gal-count" id="gal-count"></div>
+    <div class="gal-source">Examples curated from the <a href="https://www.rebuyengine.com/lookbook/checkout-extensions" target="_blank" rel="noopener">Rebuy Checkout Extensions Lookbook</a></div>
+  </div>
+</div><!-- /tab-gallery -->
+
+<!-- Lightbox -->
+<div class="gal-lb" id="gal-lb" onclick="if(event.target===this)closeGalLb()">
+  <div class="gal-lb-inner">
+    <div class="gal-lb-bar">
+      <div class="gal-lb-title" id="gal-lb-title"></div>
+      <button class="gal-lb-close" onclick="closeGalLb()" title="Close">×</button>
+    </div>
+    <img id="gal-lb-img" src="" alt="">
+  </div>
+</div>
 
 <!-- ══ RETAIL TAB ══ -->
 <div id="tab-retail" class="tab-content">
@@ -3306,8 +3382,103 @@
     if (apiPanel)      apiPanel.style.display      = tab === 'api'      ? 'flex' : 'none';
     const actionPanel  = document.getElementById('action-panel');
     if (actionPanel)   actionPanel.style.display   = tab === 'action'   ? 'flex' : 'none';
-    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Custom Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : tab === 'advanced' ? '📊 Shopify Advanced' : tab === 'api' ? '🔌 Shopify API' : '🛍 Plus Overview';
+    if (logo) logo.textContent = tab === 'retail' ? '🏪 Retail / POS' : tab === 'checkout' ? '✏ Checkout Builder' : tab === 'gallery' ? '🖼 Customized Checkout' : tab === 'payments' ? '💳 Shopify Payments' : tab === 'shipping' ? '📦 Shopify Shipping' : tab === 'b2b' ? '🤝 Shopify B2B' : tab === 'action' ? '✅ Action Items' : tab === 'advanced' ? '📊 Shopify Advanced' : tab === 'api' ? '🔌 Shopify API' : '🛍 Plus Overview';
+    if (tab === 'gallery') renderGallery();
   }
+
+  /* ── Customized Checkout Gallery ── */
+  const GAL_DATA = [
+    {n:'BATCH',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/BATCH_desktop.png'},
+    {n:'Bask and Lather Co',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Bask__and_Lather_Co_desktop.png'},
+    {n:'BodyHealth',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/BodyHealth_com_LLC_desktop.png'},
+    {n:'Boll & Branch',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Boll_Branch_desktop.png'},
+    {n:'Bombas',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Bombas_desktop.png'},
+    {n:'Byrna',c:'Outdoors',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Byrna_desktop.png'},
+    {n:'Clean Green Store',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Clean_Green_Store_desktop.png'},
+    {n:'Comfrt',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Comfrt_desktop.png'},
+    {n:'Cornbread Hemp',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Cornbread_Hemp__desktop.png'},
+    {n:'Create Wellness',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Create_Wellness_desktop.png'},
+    {n:'DIFF Eyewear',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/DIFF_Eyewear_desktop.png'},
+    {n:'DeerRun',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/DeerRun__desktop.png'},
+    {n:'Dittvin',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Dittvin_desktop.png'},
+    {n:'Dollar Shave Club',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Dollar_Shave_Club_desktop.png'},
+    {n:'Dr. Berg',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Dr__Berg_desktop.png'},
+    {n:'Drool by Dr. Chris Brown',c:'Pets',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Drool_by_Dr__Chris_Brown_desktop.png'},
+    {n:'Eden Brothers',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Eden_Brothers_desktop.png'},
+    {n:'EllaOla',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/EllaOla_desktop.png'},
+    {n:'Feals',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Feals_desktop.png'},
+    {n:'Grand Cru Liquid Assets',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Grand_Cru_Liquid_Assets_desktop.png'},
+    {n:'Hero',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Hero_desktop.png'},
+    {n:'HexClad Cookware',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/HexClad_Cookware_desktop.png'},
+    {n:'JOVS',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/JOVS_desktop.png'},
+    {n:'Jousfit',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Jousfit_desktop.png'},
+    {n:'Just Ingredients',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Just_Ingredients_desktop.png'},
+    {n:'KOMÉ.NO',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/KOM__NO_desktop.png'},
+    {n:'Kind Patches',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Kind_Patches_desktop.png'},
+    {n:'Kopari Beauty',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Kopari_Beauty_desktop.png'},
+    {n:'Lashify',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Lashify_desktop.png'},
+    {n:'Loop Earplugs',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Loop_Earplugs_desktop.png'},
+    {n:'Loop',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Loop_United_States_desktop.png'},
+    {n:'MaryRuth Organics',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/MaryRuth_Organics_desktop.png'},
+    {n:'Nathan & Sons',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Nathan___Sons_desktop.png'},
+    {n:'Nestig',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Nestig_desktop.png'},
+    {n:'Ninja Transfers',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Ninja_Transfers_desktop.png'},
+    {n:'Opopop',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Opopop_desktop.png'},
+    {n:'Pop On Veneers',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Pop_On_Veneers_desktop.png'},
+    {n:'Posh Peanut',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Posh_Peanut_desktop.png'},
+    {n:'Riddle',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Riddle_desktop.png'},
+    {n:'Rockstar Original',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Rockstar_Original_desktop.png'},
+    {n:'SALT & STONE',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/SALT___STONE_desktop.png'},
+    {n:'SKINN',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/SKINN_desktop.png'},
+    {n:'SNOCKS',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/SNOCKS_desktop.png'},
+    {n:'Scentiment',c:'Home',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Scentiment_desktop.png'},
+    {n:'ShopZaza',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/ShopZaza_desktop.png'},
+    {n:'Six Zero',c:'Sports',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Six_Zero_US_desktop.png'},
+    {n:'Snake River Farms',c:'Food & Drink',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Snake_River_Farms_desktop.png'},
+    {n:'StopBox USA',c:'Outdoors',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/StopBox_USA_desktop.png'},
+    {n:'Tecovas',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Tecovas_desktop.png'},
+    {n:'Thrive Causemetics',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Thrive_Causemetics_desktop.png'},
+    {n:'UNTUCKit',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/UNTUCKit_desktop.png'},
+    {n:'Viome',c:'Health',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/Viome_desktop.png'},
+    {n:'WMP Eyewear',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/WMP_Eyewear_desktop.png'},
+    {n:'glamnetic',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/glamnetic_desktop.png'},
+    {n:'huha',c:'Apparel',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/huha_desktop.png'},
+    {n:'rhode',c:'Beauty',img:'https://21490690.fs1.hubspotusercontent-na1.net/hubfs/21490690/lookbook/checkout-extensions/rhode_desktop.png'},
+  ];
+  let galFilter = 'All';
+  function galCats() {
+    const order = ['All','Beauty','Apparel','Health','Food & Drink','Home','Sports','Pets','Outdoors'];
+    const present = new Set(GAL_DATA.map(d => d.c));
+    return order.filter(c => c === 'All' || present.has(c));
+  }
+  function renderGallery() {
+    const filters = document.getElementById('gal-filters');
+    const grid = document.getElementById('gal-grid');
+    const count = document.getElementById('gal-count');
+    if (!grid) return;
+    filters.innerHTML = galCats().map(c =>
+      `<button class="gal-chip${c === galFilter ? ' active' : ''}" onclick="setGalFilter('${c.replace(/'/g,"\\'")}')">${c}</button>`
+    ).join('');
+    const rows = GAL_DATA.filter(d => galFilter === 'All' || d.c === galFilter)
+                         .sort((a,b) => a.n.localeCompare(b.n));
+    grid.innerHTML = rows.map(d => `
+      <div class="gal-card" onclick="openGalLb(${JSON.stringify(d.n).replace(/"/g,'&quot;')}, ${JSON.stringify(d.c).replace(/"/g,'&quot;')}, ${JSON.stringify(d.img).replace(/"/g,'&quot;')})">
+        <div class="gal-shot">
+          <img loading="lazy" src="${d.img}" alt="${d.n} checkout" onerror="this.parentElement.parentElement.style.display='none'">
+          <div class="gal-zoom">⤢</div>
+        </div>
+        <div class="gal-meta"><span class="gal-name">${d.n}</span><span class="gal-cat">${d.c}</span></div>
+      </div>`).join('');
+    count.textContent = rows.length + (rows.length === 1 ? ' brand' : ' brands');
+  }
+  function setGalFilter(c) { galFilter = c; renderGallery(); }
+  function openGalLb(name, cat, img) {
+    document.getElementById('gal-lb-title').innerHTML = name + ' <span>' + cat + '</span>';
+    document.getElementById('gal-lb-img').src = img;
+    document.getElementById('gal-lb').classList.add('open');
+  }
+  function closeGalLb() { document.getElementById('gal-lb').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGalLb(); });
 
   function set(id, val) {
     const el = document.getElementById(id);
