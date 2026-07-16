@@ -544,10 +544,18 @@
     .gal-lb-title span { font-weight: 500; color: #b6bcc4; font-size: 12px; margin-left: 8px; }
     .gal-lb-close { cursor: pointer; font-size: 22px; line-height: 1; color: #cbd0d6; background: none; border: none; padding: 4px 8px; }
     .gal-lb-close:hover { color: #fff; }
-    .gal-lb-stage { width: 100%; max-height: 88vh; overflow: auto; display: flex; align-items: flex-start; justify-content: center; border-radius: 12px; }
-    .gal-lb img { max-width: 100%; max-height: 88vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; cursor: zoom-in; transition: max-width .18s, width .18s; }
-    .gal-lb.zoomed img { max-width: 220%; max-height: none; width: 220%; cursor: zoom-out; border-radius: 6px; }
-    @media (max-width: 560px) { .gal-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; } }
+    .gal-lb-stage { width: 100%; max-height: 84vh; overflow: auto; display: flex; align-items: flex-start; justify-content: center; border-radius: 12px; }
+    .gal-lb img { border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); background: #fff; cursor: zoom-in; display: block; }
+    .gal-lb.zoomed img { cursor: zoom-out; border-radius: 6px; }
+    .gal-zoombar { display: flex; align-items: center; gap: 10px; margin-top: 12px; background: rgba(30,34,40,.92); border: 1px solid rgba(255,255,255,.12); padding: 7px 12px; border-radius: 999px; }
+    .gal-zoombar button { cursor: pointer; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(255,255,255,.14); color: #fff; font-size: 16px; font-weight: 700; line-height: 1; display: flex; align-items: center; justify-content: center; }
+    .gal-zoombar button:hover { background: rgba(255,255,255,.28); }
+    .gal-zoombar .gal-zoom-reset { width: auto; padding: 0 12px; font-size: 11px; font-weight: 600; border-radius: 999px; }
+    .gal-zoombar input[type=range] { -webkit-appearance: none; appearance: none; width: 150px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.25); outline: none; }
+    .gal-zoombar input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+    .gal-zoombar input[type=range]::-moz-range-thumb { width: 15px; height: 15px; border: none; border-radius: 50%; background: #fff; cursor: pointer; }
+    .gal-zoom-pct { color: #fff; font-size: 12px; font-weight: 600; min-width: 42px; text-align: center; font-variant-numeric: tabular-nums; }
+    @media (max-width: 560px) { .gal-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; } .gal-zoombar input[type=range] { width: 100px; } }
   </style>
 </head>
 <body>
@@ -1664,7 +1672,14 @@
       <button class="gal-lb-close" onclick="closeGalLb()" title="Close">×</button>
     </div>
     <div class="gal-lb-stage">
-      <img id="gal-lb-img" src="" alt="" onclick="event.stopPropagation();toggleGalZoom()">
+      <img id="gal-lb-img" src="" alt="" onclick="event.stopPropagation();galZoomStep(1)">
+    </div>
+    <div class="gal-zoombar" onclick="event.stopPropagation()">
+      <button onclick="galZoomStep(-1)" title="Zoom out">−</button>
+      <input type="range" id="gal-zoom-slider" min="50" max="300" step="10" value="100" oninput="galZoomSet(this.value)">
+      <button onclick="galZoomStep(1)" title="Zoom in">+</button>
+      <span class="gal-zoom-pct" id="gal-zoom-pct">100%</span>
+      <button class="gal-zoom-reset" onclick="galZoomSet(100)" title="Reset">Reset</button>
     </div>
   </div>
 </div>
@@ -3475,16 +3490,43 @@
     count.textContent = rows.length + (rows.length === 1 ? ' brand' : ' brands');
   }
   function setGalFilter(c) { galFilter = c; renderGallery(); }
+  let galZoom = 100;
+  const GAL_ZOOM_MIN = 50, GAL_ZOOM_MAX = 300, GAL_ZOOM_STEP = 25;
+  function applyGalZoom() {
+    const img = document.getElementById('gal-lb-img');
+    const lb = document.getElementById('gal-lb');
+    galZoom = Math.max(GAL_ZOOM_MIN, Math.min(GAL_ZOOM_MAX, Math.round(galZoom)));
+    // 100% = fit-to-stage (~84vh tall); scale relative to that
+    img.style.height = (galZoom / 100 * 84) + 'vh';
+    img.style.width = 'auto';
+    img.style.maxWidth = 'none';
+    img.style.maxHeight = 'none';
+    lb.classList.toggle('zoomed', galZoom > 100);
+    const pct = document.getElementById('gal-zoom-pct');
+    const sl = document.getElementById('gal-zoom-slider');
+    if (pct) pct.textContent = galZoom + '%';
+    if (sl) sl.value = galZoom;
+  }
+  function galZoomSet(v) { galZoom = parseInt(v, 10) || 100; applyGalZoom(); }
+  function galZoomStep(dir) {
+    // clicking the image at max wraps back to fit
+    if (dir > 0 && galZoom >= GAL_ZOOM_MAX) { galZoom = 100; } else { galZoom += dir * GAL_ZOOM_STEP; }
+    applyGalZoom();
+  }
   function openGalLb(name, cat, img) {
     const lb = document.getElementById('gal-lb');
     document.getElementById('gal-lb-title').innerHTML = name + ' <span>' + cat + '</span>';
     document.getElementById('gal-lb-img').src = img;
-    lb.classList.remove('zoomed');
+    galZoom = 100; applyGalZoom();
     lb.classList.add('open');
   }
   function closeGalLb() { document.getElementById('gal-lb').classList.remove('open','zoomed'); }
-  function toggleGalZoom() { document.getElementById('gal-lb').classList.toggle('zoomed'); }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGalLb(); });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('gal-lb').classList.contains('open')) return;
+    if (e.key === 'Escape') closeGalLb();
+    else if (e.key === '+' || e.key === '=') galZoomStep(1);
+    else if (e.key === '-' || e.key === '_') galZoomStep(-1);
+  });
 
   function set(id, val) {
     const el = document.getElementById(id);
