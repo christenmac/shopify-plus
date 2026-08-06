@@ -181,6 +181,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .aud-info-secondary { font-size: 12px; color: #8c9196; white-space: nowrap; }
 
 /* ── Benchmarks table ── */
+.funnel-pill { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 50px; font-size: 10.5px; font-weight: 700; background: #eef2f7; color: #4b5563; text-transform: uppercase; letter-spacing: .4px; margin-right: 6px; white-space: nowrap; }
+.bench-chip { display: inline-flex; align-items: center; gap: 5px; background: white; border: 1px solid #c9cccf; border-radius: 8px; padding: 5px 12px; font-size: 13px; }
+.bench-toggle { font-size: 12px; padding: 5px 14px; }
+.bench-toggle.active { background: #f1f2f4; border-color: #f1f2f4; color: #202223; }
+.stand-above { color: #008060; font-weight: 700; white-space: nowrap; }
+.stand-below { color: #b45309; font-weight: 700; white-space: nowrap; }
 .bench-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
 .bench-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 700; color: #8c9196; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #e3e5e7; }
 .bench-table th:not(:first-child) { text-align: center; }
@@ -612,12 +618,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
             <div class="page-title">Audiences</div>
           </div>
           <div class="plt-tabs-row" id="plt-tabs">
-            <div class="plt-tab active" onclick="switchPlt(this,'meta')">Meta</div>
-            <div class="plt-tab" onclick="switchPlt(this,'google')">Google</div>
-            <div class="plt-tab" onclick="switchPlt(this,'pinterest')">Pinterest</div>
-            <div class="plt-tab" onclick="switchPlt(this,'tiktok')">TikTok</div>
-            <div class="plt-tab" onclick="switchPlt(this,'criteo')">Criteo</div>
-            <div class="plt-tab" onclick="switchPlt(this,'snapchat')">Snapchat</div>
+            <div class="plt-tab active" data-plt="meta" onclick="switchPlt(this,'meta')">Meta</div>
+            <div class="plt-tab" data-plt="google" onclick="switchPlt(this,'google')">Google</div>
+            <div class="plt-tab" data-plt="pinterest" onclick="switchPlt(this,'pinterest')">Pinterest</div>
+            <div class="plt-tab" data-plt="tiktok" onclick="switchPlt(this,'tiktok')">TikTok</div>
+            <div class="plt-tab" data-plt="criteo" onclick="switchPlt(this,'criteo')">Criteo</div>
+            <div class="plt-tab" data-plt="snapchat" onclick="switchPlt(this,'snapchat')">Snapchat</div>
           </div>
 
           <div class="platform-card" id="plt-card">
@@ -661,7 +667,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <div class="nav-btns" style="margin-top:20px">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
             <div class="nav-hint">Connect at least one platform to activate audiences</div>
-            <button class="p-btn p-btn-green" onclick="nextStep()">Generate audiences →</button>
+            <button class="p-btn p-btn-green" onclick="generateAndContinue()">Generate audiences →</button>
           </div>
         </div>
 
@@ -679,141 +685,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
             </div>
             <div style="display:flex;gap:8px">
               <button class="p-btn p-btn-secondary" style="font-size:12px;padding:6px 14px">Share feedback</button>
-              <button class="p-btn p-btn-secondary" style="font-size:12px;padding:6px 14px;display:inline-flex;align-items:center;gap:5px">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                View on Meta
-              </button>
+              <button class="p-btn p-btn-secondary" id="view-on-plt" style="font-size:12px;padding:6px 14px;display:inline-flex;align-items:center;gap:5px">View on Meta</button>
             </div>
           </div>
 
-          <!-- Platform tabs with connected dots -->
-          <div class="plt-tabs-row" style="margin-bottom:16px">
-            <div class="plt-tab active" style="display:inline-flex;align-items:center;gap:5px">Meta <span style="width:7px;height:7px;border-radius:50%;background:#008060;display:inline-block;flex-shrink:0"></span></div>
-            <div class="plt-tab" style="display:inline-flex;align-items:center;gap:5px">Google <span style="width:7px;height:7px;border-radius:50%;background:#008060;display:inline-block;flex-shrink:0"></span></div>
-            <div class="plt-tab">Pinterest</div>
-            <div class="plt-tab">TikTok</div>
-            <div class="plt-tab">Criteo</div>
-            <div class="plt-tab">Snapchat</div>
-          </div>
+          <!-- Platform tabs — rendered by renderScreen5() -->
+          <div class="plt-tabs-row" id="plt-tabs-5" style="margin-bottom:16px"></div>
 
-          <div class="demo-callout">Here we can see the different types of custom audiences Shopify generates based on the different stages of your customer funnel.</div>
-
-          <!-- Audiences accordion card -->
-          <div class="p-card" style="margin-bottom:16px">
-
-            <!-- Retargeting Boost -->
-            <div class="aud-acc-row" onclick="toggleAcc(this)">
-              <div class="aud-acc-header">
-                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
-                <span class="aud-acc-name">Retargeting Boost</span>
-                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              </div>
-              <div class="aud-acc-body">
-                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px">
-                  <li>People who visited your store in the last 90 days</li>
-                  <li>Use this audience to re-engage visitors who didn't purchase</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Prospecting (open by default) -->
-            <div class="aud-acc-row open" onclick="toggleAcc(this)">
-              <div class="aud-acc-header">
-                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
-                <span class="aud-acc-name">Prospecting</span>
-                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              </div>
-              <div class="aud-acc-body">
-                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
-                  <li>People in the US and Canada similar to those who bought your products or related products</li>
-                  <li>Target this audience in prospecting campaigns to reach more relevant customers</li>
-                </ul>
-                <div class="export-complete-row">
-                  <span>✓ Audience export is complete</span>
-                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" onclick="event.stopPropagation()" style="cursor:pointer"><path d="M18 6 6 18M6 6l12 12"/></svg>
-                </div>
-                <div class="demo-callout" onclick="event.stopPropagation()">Prospecting audience contains people in the US and Canada who are similar to those who bought your products or related products. In the expanded card, you can see that there are up to <strong>1.7 million people</strong> you can potentially target. Note that this audience also <strong>automatically updates every week.</strong></div>
-                <div class="aud-info-row" onclick="event.stopPropagation()">
-                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
-                  <span class="aud-info-main">Using in <span style="color:#8c9196">· No ad set — Add the audience to an ad set</span></span>
-                  <button class="p-btn p-btn-dark" style="font-size:12px;padding:5px 12px;flex-shrink:0" onclick="event.stopPropagation();goTo(6)">Select ad set</button>
-                </div>
-                <div class="aud-info-row">
-                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
-                  <span class="aud-info-main">Audience <strong>1,700,000</strong></span>
-                  <span class="aud-info-secondary">Updates weekly on Meta</span>
-                </div>
-                <div class="aud-info-row">
-                  <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  <span class="aud-info-main">Last updated <strong>Thursday at 11:52 pm</strong></span>
-                </div>
-                <div class="demo-callout" style="margin-top:12px" onclick="event.stopPropagation()">Let's go ahead and add the Prospecting audience to a Meta ad set that belongs to a broad targeting campaign for BFCM. Click <strong>Select ad set</strong> above to continue.</div>
-              </div>
-            </div>
-
-            <!-- Lookalike with Exporting badge -->
-            <div class="aud-acc-row" onclick="toggleAcc(this)">
-              <div class="aud-acc-header">
-                <img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">
-                <span class="aud-acc-name">Lookalike</span>
-                <span class="badge-exporting">Exporting</span>
-                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              </div>
-              <div class="aud-acc-body">
-                <ul style="padding-left:18px;font-size:13px;color:#4b5563">
-                  <li>Audience created by Meta using the Retargeting Boost audience as a seed</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Existing Customers Plus -->
-            <div class="aud-acc-row" onclick="toggleAcc(this)">
-              <div class="aud-acc-header">
-                <svg class="aud-detail-item-icon" viewBox="0 0 20 20" fill="#4b5563"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 9a7 7 0 1114 0H3z"/></svg>
-                <span class="aud-acc-name">Existing Customers Plus</span>
-                <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              </div>
-              <div class="aud-acc-body">
-                <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px">
-                  <li>People who bought from your store, enriched with identifiers to improve matching</li>
-                  <li>Excludes 40% more existing customers than standard ad platform lists</li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Benchmarks -->
-          <div class="p-card">
-            <div class="p-card-sec">
-              <div style="font-size:16px;font-weight:800;margin-bottom:14px">Benchmarks</div>
-              <div style="display:flex;gap:6px;margin-bottom:12px">
-                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px;background:#f1f2f4;border-color:#f1f2f4;color:#202223">Similar stores</button>
-                <button class="p-btn p-btn-secondary" style="font-size:12px;padding:5px 14px">Industries</button>
-              </div>
-              <div style="display:flex;gap:8px;margin-bottom:10px">
-                <div style="display:inline-flex;align-items:center;gap:5px;background:white;border:1px solid #c9cccf;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer">Furniture <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-                <div style="display:inline-flex;align-items:center;gap:5px;background:white;border:1px solid #c9cccf;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer">Under $1,000 <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8c9196;margin-bottom:12px">
-                <svg width="13" height="13" viewBox="0 0 20 20" fill="#8c9196"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
-                You don't have enough Meta campaign conversions over the last 30 days
-              </div>
-              <table class="bench-table">
-                <thead><tr><th>Metric</th><th>Your store</th><th>Shopify stores</th><th>Your standing</th><th></th></tr></thead>
-                <tbody>
-                  <tr><td>Average order value</td><td style="color:#8c9196">—</td><td>$583.98</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
-                  <tr><td>Click through rate</td><td style="color:#8c9196">—</td><td>1.14%</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
-                  <tr><td>Conversion rate</td><td style="color:#8c9196">—</td><td>1.62%</td><td style="color:#8c9196">—</td><td style="text-align:right;color:#c9cccf"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <!-- Audience accordion + benchmarks — rendered by renderScreen5() -->
+          <div id="screen5-body"></div>
 
           <div class="nav-btns">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
-            <div class="nav-hint">Audiences auto-refresh weekly</div>
-            <button class="p-btn p-btn-green" onclick="nextStep()">Apply in Meta →</button>
+            <div class="nav-hint">Audiences refresh on their own — every 1–7 days for retargeting, 7–14 for prospecting</div>
+            <button class="p-btn p-btn-green" id="apply-in-plt" onclick="nextStep()">Apply in Meta →</button>
           </div>
         </div>
 
@@ -1115,11 +1000,28 @@ const pltData = {
     connectText: 'Log in with Facebook to access your account',
     adAccountLabel: 'Meta ad account',
     how: ['Connect your Meta ad account','Export audiences to your Meta ad account','Use audiences in your Meta ad campaigns'],
+    reach: 'Facebook and Instagram',
+    perms: 'Requires two-factor authentication on Facebook and full control of the Meta Business Account and ad account.',
+    confirmBtn: 'Continue',
+    terms: true,
+    benchmarks: true,
     audiences: [
-      {name:'Retargeting Boost', desc:'People who visited your store in the last 90 days.', icon:'shield'},
-      {name:'Prospecting', desc:'People similar to those who bought your products or related products.', icon:'shield'},
-      {name:'Lookalike', desc:'Audience created by Meta using the Retargeting Boost audience as a seed.', icon:'shield'},
-      {name:'Existing Customers Plus', desc:'People who bought from your store, enriched with identifiers to improve matching.', icon:'person'}
+      {name:'Retargeting Boost', icon:'shield', funnel:'Retargeting',
+       desc:'People who have interacted with your brand but have not purchased from your store yet.',
+       use:'Add to your existing retargeting ad sets to expand reach.',
+       cadence:'Topped up with new potential customers every 1–7 days', size:'1,700,000'},
+      {name:'Prospecting', icon:'shield', funnel:'Prospecting',
+       desc:'People in the US and Canada similar to those who bought your products or complementary products.',
+       use:'Add to new or existing prospecting ad sets.',
+       cadence:'Refreshes every 7–14 days', size:'2,400,000'},
+      {name:'Meta Lookalike', icon:'shield', funnel:'Prospecting', badge:'Exporting',
+       desc:'Built by Meta using your Retargeting Boost audience as the seed source.',
+       use:'Broadest reach, lowest intent — good for scaling once lower-funnel is saturated.',
+       cadence:'Managed and refreshed by Meta', size:'9,100,000', sizeNote:'3% of Meta users in the US and Canada'},
+      {name:'Existing Customers Plus', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your lifetime customers in the US and Canada, enriched with extra identifiers to improve match rates.',
+       use:'Exclude from prospecting, remarket to re-engage, or add as a suggestion to Advantage+ campaigns.',
+       cadence:'Matches on average 40% more existing customers than a standard ad platform list', size:'48,200'}
     ]
   },
   google: {
@@ -1132,9 +1034,20 @@ const pltData = {
     connectText: 'Connect your Google account to get started',
     adAccountLabel: 'Google Ads account',
     how: ['Connect your Google Ads account','Export audiences to your Google Ads account','Use audiences in your Google ad campaigns'],
+    reach: 'Search, Shopping, Gmail, YouTube, and the Google Display Network',
+    perms: 'Requires admin permissions on the Google Ads account.',
+    confirmBtn: 'Continue',
+    terms: true,
+    benchmarks: false,
     audiences: [
-      {name:'Prospecting Seed', desc:'People similar to those who bought your products or are interested in similar products', icon:'shield'},
-      {name:'Existing Customers', desc:'People who bought from your store', icon:'person'}
+      {name:'Prospecting Seed', icon:'shield', funnel:'Prospecting',
+       desc:'People similar to those who bought your products or complementary products.',
+       use:'Use as a source for Performance Max campaigns to help Google target the right customers.',
+       cadence:'Refreshes every 1–7 days', size:'2,100,000'},
+      {name:'Existing Customers', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your existing customers located in the US and Canada.',
+       use:'Exclude from prospecting, remarket to re-engage, or feed as a signal to Performance Max.',
+       cadence:'Refreshed as your customer list grows', size:'34,600'}
     ]
   },
   pinterest: {
@@ -1147,11 +1060,28 @@ const pltData = {
     connectText: 'Connect your Pinterest account to get started',
     adAccountLabel: 'Pinterest ad account',
     how: ['Connect your Pinterest ad account','Export audiences to your Pinterest ad account','Use audiences in your Pinterest ad campaigns'],
+    reach: 'Pinterest',
+    perms: 'Requires admin permissions on the Pinterest ad account.',
+    confirmBtn: 'Give access',
+    terms: false,
+    benchmarks: false,
     audiences: [
-      {name:'Retargeting Boost', desc:'People who visited your store in the last 90 days.', icon:'shield'},
-      {name:'Prospecting', desc:'People similar to those who bought your products or related products.', icon:'shield'},
-      {name:'Lookalike', desc:'Audience created by Pinterest using the Retargeting Boost audience as a seed.', icon:'shield'},
-      {name:'Existing Customers', desc:'People who bought from your store', icon:'person'}
+      {name:'Retargeting Boost', icon:'shield', funnel:'Retargeting',
+       desc:'People who have interacted with your brand but have not purchased from your store yet.',
+       use:'Add to your existing retargeting ad groups to expand reach.',
+       cadence:'Topped up with new potential customers every 1–7 days', size:'980,000'},
+      {name:'Prospecting', icon:'shield', funnel:'Prospecting',
+       desc:'People in the US and Canada similar to those who bought your products or complementary products.',
+       use:'Add to new or existing prospecting ad groups.',
+       cadence:'Refreshes every 7–14 days', size:'1,450,000'},
+      {name:'Pinterest Actalike', icon:'shield', funnel:'Prospecting',
+       desc:'Built by Pinterest using your Retargeting Boost audience as the seed source.',
+       use:'Broadest reach, lowest intent — good for scaling.',
+       cadence:'Managed and refreshed by Pinterest', size:'—', sizeNote:'10% of Pinterest users in the US'},
+      {name:'Existing Customers', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your existing customers located in the US and Canada.',
+       use:'Exclude from prospecting to improve performance, or remarket to re-engage them.',
+       cadence:'Refreshed as your customer list grows', size:'34,600'}
     ]
   },
   tiktok: {
@@ -1164,10 +1094,21 @@ const pltData = {
     connectText: 'Connect your TikTok account to get started',
     adAccountLabel: 'TikTok ad account',
     how: ['Connect your TikTok ad account','Export audiences to your TikTok ad account','Use audiences in your TikTok ad campaigns'],
+    reach: 'TikTok',
+    perms: 'Requires admin permissions on the TikTok ad account.',
+    confirmBtn: 'Confirm',
+    terms: true,
+    benchmarks: false,
+    note: 'TikTok is the only platform with just two audience types — no Retargeting Boost or standard Prospecting audience.',
     audiences: [
-      {name:'Lookalike', desc:'People similar to those in the Lookalike Seed audience', icon:'shield'},
-      {name:'Lookalike Seed', desc:'People similar to those who bought your products or related products.', icon:'shield'},
-      {name:'Existing Customers', desc:'People who bought from your store', icon:'person'}
+      {name:'TikTok Narrow Lookalike', icon:'shield', funnel:'Prospecting',
+       desc:'Built by TikTok from a Shopify Audiences Lookalike Seed audience.',
+       use:'Use for prospecting reach across TikTok.',
+       cadence:'Managed and refreshed by TikTok', size:'—', sizeNote:'TikTok users in the United States'},
+      {name:'Existing Customers', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your existing customers located in the US and Canada.',
+       use:'Exclude from prospecting to improve performance, or remarket to re-engage them.',
+       cadence:'Refreshed as your customer list grows', size:'34,600'}
     ]
   },
   criteo: {
@@ -1180,11 +1121,28 @@ const pltData = {
     connectText: 'Connect your Criteo account to get started',
     adAccountLabel: 'Criteo ad account',
     how: ['Connect your Criteo ad account','Export audiences to your Criteo ad account','Use audiences in your Criteo ad campaigns'],
+    reach: 'Forbes, The Washington Post, USA Today, and more',
+    perms: 'Requires admin permissions on the Criteo ad account.',
+    confirmBtn: 'Approve',
+    terms: false,
+    benchmarks: false,
     audiences: [
-      {name:'Retargeting Boost', desc:'People who visited your store in the last 90 days.', icon:'shield'},
-      {name:'Prospecting', desc:'People similar to those who bought your products or related products.', icon:'shield'},
-      {name:'Lookalike', desc:'Audience created by Criteo using the Retargeting Boost audience as a seed.', icon:'shield'},
-      {name:'Existing Customers', desc:'People who bought from your store', icon:'person'}
+      {name:'Retargeting Boost', icon:'shield', funnel:'Retargeting',
+       desc:'People who have interacted with your brand but have not purchased from your store yet.',
+       use:'Add to your existing retargeting ad sets to expand reach.',
+       cadence:'Topped up with new potential customers every 1–7 days', size:'760,000'},
+      {name:'Prospecting', icon:'shield', funnel:'Prospecting',
+       desc:'People in the US and Canada similar to those who bought your products or complementary products.',
+       use:'Add to new or existing prospecting ad sets.',
+       cadence:'Refreshes every 7–14 days', size:'1,120,000'},
+      {name:'Criteo Lookalike', icon:'shield', funnel:'Prospecting',
+       desc:'Built by Criteo using your Retargeting Boost audience as the seed source.',
+       use:'Broadest reach, lowest intent — good for scaling.',
+       cadence:'Managed and refreshed by Criteo', size:'100,000', sizeNote:'Lookalike segment of 100,000 customers in the US and Canada'},
+      {name:'Existing Customers', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your existing customers located in the US and Canada.',
+       use:'Exclude from prospecting to improve performance, or remarket to re-engage them.',
+       cadence:'Refreshed as your customer list grows', size:'34,600'}
     ]
   },
   snapchat: {
@@ -1197,14 +1155,35 @@ const pltData = {
     connectText: 'Connect your Snapchat account to get started',
     adAccountLabel: 'Snapchat ad account',
     how: ['Connect your Snapchat ad account','Export audiences to your Snapchat ad account','Use audiences in your Snapchat ad campaigns'],
+    reach: 'Snapchat',
+    perms: 'Requires admin permissions on the Snapchat ad account.',
+    confirmBtn: 'Continue',
+    terms: true,
+    benchmarks: false,
     audiences: [
-      {name:'Retargeting Boost', desc:'People who visited your store in the last 90 days.', icon:'shield'},
-      {name:'Prospecting', desc:'People similar to those who bought your products or related products.', icon:'shield'},
-      {name:'Lookalike', desc:'Audience created by Snapchat using the Retargeting Boost audience as a seed.', icon:'shield'},
-      {name:'Existing Customers', desc:'People who bought from your store', icon:'person'}
+      {name:'Retargeting Boost', icon:'shield', funnel:'Retargeting',
+       desc:'People who have interacted with your brand but have not purchased from your store yet.',
+       use:'Add to your existing retargeting ad sets to expand reach.',
+       cadence:'Topped up with new potential customers every 1–7 days', size:'640,000'},
+      {name:'Prospecting', icon:'shield', funnel:'Prospecting',
+       desc:'People in the US and Canada similar to those who bought your products or complementary products.',
+       use:'Add to new or existing prospecting ad sets.',
+       cadence:'Refreshes every 7–14 days', size:'890,000'},
+      {name:'Snapchat Similarity Lookalike', icon:'shield', funnel:'Prospecting',
+       desc:'Built by Snapchat using your Retargeting Boost audience as the seed source.',
+       use:'Broadest reach, lowest intent — good for scaling.',
+       cadence:'Managed and refreshed by Snapchat', size:'—', sizeNote:'Customers in the US and Canada'},
+      {name:'Existing Customers', icon:'person', funnel:'Exclusion / remarketing',
+       desc:'Your existing customers located in the US and Canada.',
+       use:'Exclude from prospecting to improve performance, or remarket to re-engage them.',
+       cadence:'Refreshed as your customer list grows', size:'34,600'}
     ]
   }
 };
+
+// Which platforms the merchant has actually connected in this demo run.
+const connected = new Set();
+let activePlt = 'meta';
 
 const shieldIcon = `<img class="aud-detail-item-icon" src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="">`;
 const personIcon = `<svg class="aud-detail-item-icon" viewBox="0 0 20 20" fill="#4b5563"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 9a7 7 0 1114 0H3z"/></svg>`;
@@ -1215,6 +1194,119 @@ function renderAudiences(audiences) {
       ${a.icon === 'shield' ? shieldIcon : personIcon}
       <div><div class="aud-detail-name">${a.name}</div><div class="aud-detail-desc">${a.desc}</div></div>
     </div>`).join('');
+}
+
+// ---- Screen 5: audience accordion, rendered per connected platform ----
+function renderAccordion(key) {
+  const d = pltData[key];
+  const note = d.note ? `<div class="demo-callout">${d.note}</div>` : '';
+  const rows = d.audiences.map((a, i) => `
+    <div class="aud-acc-row${i === 0 ? ' open' : ''}" onclick="toggleAcc(this)">
+      <div class="aud-acc-header">
+        ${a.icon === 'shield' ? shieldIcon : personIcon}
+        <span class="aud-acc-name">${a.name}</span>
+        <span class="funnel-pill">${a.funnel}</span>
+        ${a.badge ? `<span class="badge-exporting">${a.badge}</span>` : ''}
+        <svg class="aud-acc-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+      <div class="aud-acc-body">
+        <ul style="padding-left:18px;font-size:13px;color:#4b5563;display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+          <li>${a.desc}</li>
+          <li>${a.use}</li>
+        </ul>
+        <div class="export-complete-row"><span>✓ Audience export is complete</span></div>
+        <div class="aud-info-row">
+          <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
+          <span class="aud-info-main">Audience <strong>${a.size}</strong></span>
+          ${a.sizeNote ? `<span class="aud-info-secondary">${a.sizeNote}</span>` : ''}
+        </div>
+        <div class="aud-info-row">
+          <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+          <span class="aud-info-main">${a.cadence}</span>
+        </div>
+        ${key === 'meta' && a.name === 'Retargeting Boost' ? `
+        <div class="aud-info-row">
+          <svg class="aud-info-row-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM3 15a7 7 0 1114 0"/></svg>
+          <span class="aud-info-main">Using in <span style="color:#8c9196">· No ad set selected</span></span>
+          <button class="p-btn p-btn-dark" style="font-size:12px;padding:5px 12px;flex-shrink:0" onclick="event.stopPropagation();goTo(6)">Select ad set</button>
+        </div>
+        <div class="demo-callout" style="margin-top:12px" onclick="event.stopPropagation()">Retargeting Boost is the only audience you can attach to an ad set from inside the app — every other type is applied on the ad platform after export. Click <strong>Select ad set</strong> to continue.</div>` : ''}
+      </div>
+    </div>`).join('');
+  return note + `<div class="p-card" style="margin-bottom:16px">${rows}</div>`;
+}
+
+function renderBenchmarks(key) {
+  if (!pltData[key].benchmarks) {
+    return `<div class="p-card"><div class="p-card-sec">
+      <div style="font-size:16px;font-weight:800;margin-bottom:8px">Benchmarks</div>
+      <div style="font-size:13px;color:#6b7280;line-height:1.6">Benchmarks are only available for Meta. Connect Meta to compare your trailing 30-day ad performance against similar stores or an industry group.</div>
+    </div></div>`;
+  }
+  const rows = [
+    ['Average order value', '$412.60', '$583.98', 'below'],
+    ['Click through rate', '1.38%', '1.14%', 'above'],
+    ['Conversion rate', '1.94%', '1.62%', 'above'],
+    ['Cost per 1,000 impressions', '$9.82', '$12.40', 'above'],
+    ['Cost per click', '$0.71', '$1.09', 'above'],
+    ['Cost per conversion', '$36.55', '$67.21', 'above']
+  ].map(([m, you, peer, stand]) => `
+    <tr><td>${m}</td><td><strong>${you}</strong></td><td>${peer}</td>
+    <td><span class="stand-${stand}">${stand === 'above' ? '▲ Above average' : '▼ Below average'}</span></td></tr>`).join('');
+  return `<div class="p-card"><div class="p-card-sec">
+    <div style="font-size:16px;font-weight:800;margin-bottom:14px">Benchmarks <span style="font-size:11px;font-weight:600;background:#f1f2f4;color:#6b7280;border-radius:4px;padding:2px 7px;vertical-align:middle">Meta only</span></div>
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      <button class="p-btn p-btn-secondary bench-toggle active" onclick="benchTab(this,'similar')">Similar stores</button>
+      <button class="p-btn p-btn-secondary bench-toggle" onclick="benchTab(this,'industry')">Industries</button>
+    </div>
+    <div id="bench-filters" style="display:flex;gap:8px;margin-bottom:12px">
+      <div class="bench-chip">Furniture</div><div class="bench-chip">Under $1,000</div>
+    </div>
+    <table class="bench-table">
+      <thead><tr><th>Metric</th><th>Your store</th><th>Similar stores</th><th>Your standing</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="font-size:12px;color:#8c9196;margin-top:10px">Trailing 30 days of Meta campaign performance.</div>
+  </div></div>`;
+}
+
+function benchTab(btn, mode) {
+  document.querySelectorAll('.bench-toggle').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('bench-filters').innerHTML = mode === 'similar'
+    ? '<div class="bench-chip">Furniture</div><div class="bench-chip">Under $1,000</div>'
+    : '<div class="bench-chip">Apparel &amp; Accessories</div><div class="bench-chip">Food &amp; Beverages</div><div class="bench-chip">Health &amp; Beauty</div>';
+}
+
+// Rebuild screen 5 for whichever platform is selected there.
+function renderScreen5(key) {
+  activePlt = key;
+  const tabs = document.getElementById('plt-tabs-5');
+  if (!tabs) return;
+  const keys = ['meta','google','pinterest','tiktok','criteo','snapchat'];
+  const labels = {meta:'Meta',google:'Google',pinterest:'Pinterest',tiktok:'TikTok',criteo:'Criteo',snapchat:'Snapchat'};
+  tabs.innerHTML = keys.map(k => `
+    <div class="plt-tab${k === key ? ' active' : ''}" onclick="renderScreen5('${k}')" style="display:inline-flex;align-items:center;gap:5px">
+      ${labels[k]}${connected.has(k) ? '<span style="width:7px;height:7px;border-radius:50%;background:#008060;display:inline-block;flex-shrink:0"></span>' : ''}
+    </div>`).join('');
+
+  const viewBtn = document.getElementById('view-on-plt');
+  if (viewBtn) viewBtn.innerHTML = pltData[key].logo.replace(/width="\d+" height="\d+"/, 'width="13" height="13"') + ' View on ' + labels[key];
+  const applyBtn = document.getElementById('apply-in-plt');
+  if (applyBtn) applyBtn.textContent = 'Apply in ' + labels[key] + ' \u2192';
+
+  const body = document.getElementById('screen5-body');
+  if (!connected.has(key)) {
+    body.innerHTML = `<div class="p-card"><div class="p-card-sec" style="text-align:center;padding:40px 24px">
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px">${labels[key]} isn't connected yet</div>
+      <div style="font-size:13px;color:#6b7280;margin-bottom:18px;line-height:1.6">${pltData[key].perms}<br>Audiences are ready to use within 24 hours of connecting.</div>
+      <button class="p-btn p-btn-dark" onclick="setPlatform('${key}')">Connect ${labels[key]}</button>
+    </div></div>`;
+    return;
+  }
+  body.innerHTML =
+    `<div class="demo-callout">Shopify generates <strong>${pltData[key].audiences.length} audience types</strong> for ${labels[key]}, one for each stage of your funnel. Each expands to show its size and how often it refreshes.</div>`
+    + renderAccordion(key) + renderBenchmarks(key);
 }
 
 const chevron = `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>`;
@@ -1246,27 +1338,31 @@ function renderRightPanel(d) {
     </div>`;
 }
 
+let pendingPlt = 'meta';
+
 function switchPlt(el, key) {
-  document.querySelectorAll('.plt-tab').forEach(t => t.classList.remove('active'));
+  // Scope to screen 4's tab row — screen 5 has its own row and must not be cleared.
+  document.querySelectorAll('#plt-tabs .plt-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
+  pendingPlt = key;
   const d = pltData[key];
+  const isDone = connected.has(key);
   document.getElementById('plt-logo').innerHTML = d.logo;
   document.getElementById('plt-title').textContent = d.title;
   document.getElementById('plt-desc').innerHTML = d.desc;
-  document.getElementById('plt-btn').textContent = 'Generate audiences';
-  document.getElementById('plt-btn').style.background = '#202223';
-  document.getElementById('plt-btn').style.borderColor = '#202223';
-  document.getElementById('plt-btn').disabled = false;
+  const btn = document.getElementById('plt-btn');
+  btn.textContent = isDone ? '✓ Audiences generated' : 'Generate audiences';
+  btn.style.background = isDone ? '#008060' : '#202223';
+  btn.style.borderColor = isDone ? '#008060' : '#202223';
+  btn.disabled = isDone;
   document.getElementById('plt-right-panel').innerHTML = renderRightPanel(d);
 }
 
 function setPlatform(key) {
   goTo(4);
   setTimeout(() => {
-    const tabs = document.querySelectorAll('.plt-tab');
-    const keys = ['meta','google','pinterest','tiktok','criteo','snapchat'];
-    const idx = keys.indexOf(key);
-    if (idx >= 0) switchPlt(tabs[idx], key);
+    const tab = document.querySelector(`#plt-tabs .plt-tab[data-plt="${key}"]`);
+    if (tab) switchPlt(tab, key);
   }, 50);
 }
 
@@ -1307,18 +1403,47 @@ function startMetaResize(e) {
     }, { passive: true });
   }
   document.addEventListener('DOMContentLoaded', initScrollHint);
-  // also init when screen 6 becomes visible
+  // also init when screen 6 becomes visible, and (re)build screen 5 on entry
   const origGoTo = window.goTo;
-  window.goTo = function(n) { origGoTo(n); if (n === 6) setTimeout(initScrollHint, 50); };
+  window.goTo = function(n) {
+    origGoTo(n);
+    if (n === 5) renderScreen5(connected.has(activePlt) ? activePlt : (connected.values().next().value || activePlt));
+    if (n === 6) setTimeout(initScrollHint, 50);
+  };
 })();
 
+// Render screen 4's Meta panel from pltData on load so the static markup in the
+// HTML is never the source of truth for audience copy.
+document.addEventListener('DOMContentLoaded', function() {
+  const metaTab = document.querySelector('#plt-tabs .plt-tab[data-plt="meta"]');
+  if (metaTab) switchPlt(metaTab, 'meta');
+});
+
+// Screen 4's primary nav button: generating audiences implies connecting the
+// platform currently open on that screen.
+function generateAndContinue() {
+  connected.add(pendingPlt);
+  toast(`${pltData[pendingPlt].title.replace('Audiences for ','')} connected — audiences ready within 24 hours`);
+  activePlt = pendingPlt;
+  goTo(5);
+}
+
 function connectPlt(btn) {
+  const key = pendingPlt;
+  connected.add(key);
   btn.textContent = '✓ Connected';
   btn.style.background = '#008060';
   btn.style.borderColor = '#008060';
   btn.disabled = true;
-  toast('Audiences will be generated within 24 hours');
-  setTimeout(() => goTo(5), 1400);
+  const main = document.getElementById('plt-btn');
+  if (main && main !== btn) {
+    main.textContent = '✓ Audiences generated';
+    main.style.background = '#008060';
+    main.style.borderColor = '#008060';
+    main.disabled = true;
+  }
+  toast(`${pltData[key].title.replace('Audiences for ','')} connected — audiences ready within 24 hours`);
+  setTimeout(() => { goTo(5); renderScreen5(key); }, 1400);
 }
 </script>
 </body>
