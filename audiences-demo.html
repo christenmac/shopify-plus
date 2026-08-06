@@ -23,7 +23,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .prog-dot { width: 30px; height: 30px; border-radius: 50%; border: 2.5px solid #e5e7eb; background: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #9ca3af; position: relative; z-index: 1; transition: all .2s; }
 .prog-step.done .prog-dot { background: #008060; border-color: #008060; color: white; }
 .prog-step.active .prog-dot { background: white; border-color: #008060; color: #008060; box-shadow: 0 0 0 4px rgba(0,128,96,.12); }
-.prog-label { font-size: 10px; font-weight: 700; color: #9ca3af; text-align: center; white-space: nowrap; }
+.prog-label { font-size: 10px; font-weight: 700; color: #9ca3af; text-align: center; white-space: nowrap; padding: 0 4px; background: #f6f6f7; position: relative; z-index: 1; }
+@media (max-width: 1100px) { .prog-label { font-size: 9px; letter-spacing: -.2px; } }
+@media (max-width: 780px) { .prog-label { display: none; } }
 .prog-step.done .prog-label, .prog-step.active .prog-label { color: #008060; }
 
 /* ── ADMIN SHELL ── */
@@ -181,6 +183,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .aud-info-secondary { font-size: 12px; color: #8c9196; white-space: nowrap; }
 
 /* ── Benchmarks table ── */
+/* ---- Screen 8: resources ---- */
+.res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+@media (max-width: 900px) { .res-grid { grid-template-columns: 1fr; } }
+.res-card { background: white; border: 1px solid #e3e5e7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.res-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #008060; margin-bottom: 8px; }
+.res-title { font-size: 15.5px; font-weight: 800; color: #202223; line-height: 1.3; margin-bottom: 10px; }
+.res-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.res-list li { font-size: 12.5px; color: #4b5563; line-height: 1.55; padding-left: 16px; position: relative; }
+.res-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: #008060; }
+.res-list li strong { color: #202223; font-weight: 700; }
+.res-link { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 9px 14px; border-radius: 8px; background: #202223; color: white; font-size: 12.5px; font-weight: 700; text-decoration: none; transition: background .15s; }
+.res-link:hover { background: #008060; }
+.res-note { background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px; padding: 14px 16px; font-size: 12.5px; color: #78350f; line-height: 1.65; }
+.res-note strong { font-weight: 800; }
 /* ---- Screen 7: ad spend calculator ---- */
 .calc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
 @media (max-width: 860px) { .calc-grid { grid-template-columns: 1fr; } }
@@ -344,6 +360,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="prog-step" onclick="goTo(7)">
       <div class="prog-dot">7</div>
       <div class="prog-label">Your Ad Spend</div>
+    </div>
+    <div class="prog-step" onclick="goTo(8)">
+      <div class="prog-dot">8</div>
+      <div class="prog-label">Go Deeper</div>
     </div>
   </div>
 
@@ -1057,6 +1077,66 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <div class="nav-btns">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
             <div class="nav-hint">Free to install for eligible Plus stores on Shopify Payments in the US and Canada</div>
+            <button class="p-btn p-btn-green" onclick="nextStep()">Go deeper →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 8: Resources / go deeper -->
+        <div class="screen" id="screen-8">
+          <div class="page-title-row">
+            <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
+            <div class="page-title">Go deeper</div>
+          </div>
+
+          <div class="demo-callout">Everything in this demo is drawn from these three sources. Send them to a merchant who wants to verify the claims or hand the setup to their marketing team.</div>
+
+          <div class="res-grid">
+
+            <div class="res-card">
+              <div class="res-kicker">Product announcement</div>
+              <div class="res-title">Shopify Audiences v2.4</div>
+              <ul class="res-list">
+                <li>Retargeting Boost performs <strong>up to 50% better</strong> than v2.3, and up to <strong>2x more orders</strong> per marketing dollar than the next-best tactic</li>
+                <li><strong>Existing Customers Plus</strong> excludes on average <strong>40% more</strong> existing customers than a standard ad platform list</li>
+                <li>Merchant results: Mac Duggal saw <strong>3.6x lower cost per purchase</strong> and <strong>2x ROAS</strong>; Nathan James cut CAC <strong>52%</strong> at 5.6x ROAS</li>
+                <li>Connects to Meta, Google, Pinterest, TikTok, Snapchat, and Criteo</li>
+              </ul>
+              <a class="res-link" target="_blank" rel="noopener" href="https://www.shopify.com/enterprise/blog/shopify-audiences?utm_campaign=shopify_audiences&amp;utm_medium=landing-page&amp;utm_source=dotcom&amp;utm_content=learn-more-shopify-audiences">Read the announcement <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+            </div>
+
+            <div class="res-card">
+              <div class="res-kicker">Help centre</div>
+              <div class="res-title">Benchmarks</div>
+              <ul class="res-list">
+                <li>Compares <strong>six metrics</strong>: AOV, click through rate, conversion rate, cost per 1,000 impressions, cost per click, and cost per acquisition</li>
+                <li>Two comparison groups — an automatic <strong>similar stores</strong> cohort, or <strong>16 industries</strong> split into AOV bands</li>
+                <li>Rolling 30-day summary plus <strong>up to 1 year</strong> of monthly trend history, shown as median with 25th and 75th percentiles</li>
+                <li>Reflects <strong>all</strong> your Meta campaigns in the period, not only the ones targeting Shopify audiences</li>
+              </ul>
+              <a class="res-link" target="_blank" rel="noopener" href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences/benchmarks?utm_campaign=shopify_audiences&amp;utm_medium=landing-page&amp;utm_source=dotcom&amp;utm_content=learn-more-benchmarks">Read the Benchmarks doc <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+            </div>
+
+            <div class="res-card">
+              <div class="res-kicker">Help centre</div>
+              <div class="res-title">Setup &amp; product docs</div>
+              <ul class="res-list">
+                <li>Eligibility: <strong>Shopify Plus</strong>, using <strong>Shopify Payments</strong>, based in the <strong>US or Canada</strong>, with Shopify Network Intelligence enabled</li>
+                <li><strong>Free to install</strong> — you pay the ad platform directly for media</li>
+                <li>Audiences are ready to use <strong>within 24 hours</strong> of connecting a platform</li>
+                <li>Privacy: lists are hashed, <strong>can't be downloaded</strong> off the ad platform, and the matching data is deleted afterward. No merchant can see another's customers.</li>
+              </ul>
+              <a class="res-link" target="_blank" rel="noopener" href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences">Read the docs <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+            </div>
+
+          </div>
+
+          <div class="res-note">
+            <strong>If Benchmarks looks empty, it isn't broken.</strong> A store needs its Meta account connected for more than 48 hours, at least <strong>20 conversions attributed to Meta ads in the last 30 days</strong>, no campaign pauses in the prior 30 days, and a large enough cohort of similar stores. Gaps in the trend history are periods where those conditions weren't met — worth setting expectations on before a merchant goes looking.
+          </div>
+
+          <div class="nav-btns">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Questions on eligibility or setup go to your Shopify Plus contact</div>
             <button class="p-btn p-btn-green" onclick="goTo(1)">↺ Restart demo</button>
           </div>
         </div>
@@ -1074,7 +1154,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <script>
 let currentStep = 1;
-const breadcrumbs = ['App Store','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences'];
+const breadcrumbs = ['App Store','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences'];
 
 function updateProgress() {
   document.querySelectorAll('.prog-step').forEach((el, i) => {
@@ -1092,7 +1172,7 @@ function showScreen(n) {
 }
 
 function goTo(n) { currentStep = n; updateProgress(); showScreen(n); }
-function nextStep() { if (currentStep < 7) goTo(currentStep + 1); }
+function nextStep() { if (currentStep < 8) goTo(currentStep + 1); }
 function prevStep() { if (currentStep > 1) goTo(currentStep - 1); }
 
 function toast(msg) {
