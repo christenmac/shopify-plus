@@ -183,7 +183,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .aud-info-secondary { font-size: 12px; color: #8c9196; white-space: nowrap; }
 
 /* ── Benchmarks table ── */
-/* ---- Screen 8: resources ---- */
+/* ---- Screen 7: budget & launch ---- */
+.launch-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+@media (max-width: 900px) { .launch-steps { grid-template-columns: 1fr; } }
+.launch-step { background: white; border: 1px solid #e3e5e7; border-radius: 12px; padding: 18px; position: relative; }
+.launch-num { width: 26px; height: 26px; border-radius: 50%; background: #008060; color: white; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 11px; }
+.launch-step-title { font-size: 14px; font-weight: 800; color: #202223; margin-bottom: 7px; line-height: 1.3; }
+.launch-step-body { font-size: 12.5px; color: #4b5563; line-height: 1.6; }
+.launch-step-body strong { color: #202223; font-weight: 700; }
+.budget-grid { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+@media (max-width: 860px) { .budget-grid { grid-template-columns: 1fr; } }
+.formula-box { background: #f6f6f7; border: 1px solid #e3e5e7; border-radius: 10px; padding: 14px 16px; font-size: 12.5px; color: #4b5563; line-height: 1.7; margin-bottom: 16px; }
+.formula-box code { background: white; border: 1px solid #e3e5e7; border-radius: 5px; padding: 2px 6px; font-size: 11.5px; color: #004c3f; font-weight: 700; }
+.budget-out { background: linear-gradient(135deg, #004c3f, #008060); border-radius: 12px; padding: 24px; color: white; text-align: center; margin-bottom: 14px; }
+.budget-out-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; opacity: .75; margin-bottom: 8px; }
+.budget-out-num { font-size: 34px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.budget-out-sub { font-size: 12.5px; opacity: .85; margin-top: 7px; }
+.budget-steps { display: flex; flex-direction: column; gap: 1px; background: #e3e5e7; border: 1px solid #e3e5e7; border-radius: 10px; overflow: hidden; }
+.budget-step-row { background: white; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; gap: 12px; }
+.budget-step-row span:first-child { color: #6b7280; }
+.budget-step-row span:last-child { font-weight: 800; color: #202223; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.budget-step-row.total { background: #f0fdf4; }
+.budget-step-row.total span { color: #004c3f; font-weight: 800; }
+.calc-select { width: 100%; border: 1px solid #c9cccf; border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; color: #202223; background: white; cursor: pointer; }
+.calc-select:focus { outline: none; border-color: #008060; box-shadow: 0 0 0 3px rgba(0,128,96,.12); }
+/* ---- Screen 9: resources ---- */
 .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
 @media (max-width: 900px) { .res-grid { grid-template-columns: 1fr; } }
 .res-card { background: white; border: 1px solid #e3e5e7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
@@ -197,7 +221,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .res-link:hover { background: #008060; }
 .res-note { background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px; padding: 14px 16px; font-size: 12.5px; color: #78350f; line-height: 1.65; }
 .res-note strong { font-weight: 800; }
-/* ---- Screen 7: ad spend calculator ---- */
+/* ---- Screen 8: ad spend calculator ---- */
 .calc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
 @media (max-width: 860px) { .calc-grid { grid-template-columns: 1fr; } }
 .calc-field { margin-bottom: 20px; }
@@ -359,10 +383,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     </div>
     <div class="prog-step" onclick="goTo(7)">
       <div class="prog-dot">7</div>
-      <div class="prog-label">Your Ad Spend</div>
+      <div class="prog-label">Budget &amp; Launch</div>
     </div>
     <div class="prog-step" onclick="goTo(8)">
       <div class="prog-dot">8</div>
+      <div class="prog-label">Your Ad Spend</div>
+    </div>
+    <div class="prog-step" onclick="goTo(9)">
+      <div class="prog-dot">9</div>
       <div class="prog-label">Go Deeper</div>
     </div>
   </div>
@@ -978,12 +1006,99 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           <div class="nav-btns">
             <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
             <div class="nav-hint" style="color:#008060;font-weight:700">🎉 Setup complete — audiences are live</div>
+            <button class="p-btn p-btn-green" onclick="nextStep()">Size the budget &amp; launch →</button>
+          </div>
+        </div>
+
+        <!-- SCREEN 7: Budget the ad set and launch -->
+        <div class="screen" id="screen-7">
+          <div class="page-title-row">
+            <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
+            <div class="page-title">Budget it and launch</div>
+          </div>
+
+          <div class="demo-callout">The audience is exported — the campaign itself is built on the ad platform, not in the Audiences app. Here is what Shopify tells merchants to do next.</div>
+
+          <div class="launch-steps">
+            <div class="launch-step">
+              <div class="launch-num">1</div>
+              <div class="launch-step-title">Create the ad set, or add to an existing one</div>
+              <div class="launch-step-body">In your ad account, either <strong>create a new ad set</strong> using the audience or <strong>add the audience to an ad set you already run</strong>. Any further filtering — age, geography, interests — happens on the ad platform, not in the Audiences app.</div>
+            </div>
+            <div class="launch-step">
+              <div class="launch-num">2</div>
+              <div class="launch-step-title">Size the budget to the audience</div>
+              <div class="launch-step-body">Spend should follow list size. Too little budget produces a weak read; overspending <strong>drives your CPM up</strong>. Shopify's guidance is to aim for <strong>2–3 impressions per person per week</strong>. Use the calculator below.</div>
+            </div>
+            <div class="launch-step">
+              <div class="launch-num">3</div>
+              <div class="launch-step-title">Let it run 1–2 weeks before judging</div>
+              <div class="launch-step-body">Give a new or edited ad set <strong>one to two weeks</strong> before evaluating performance. Reading results earlier than that gives you noise, not signal — and re-editing resets the learning.</div>
+            </div>
+          </div>
+
+          <div class="p-card">
+            <div class="p-card-sec">
+              <div style="font-size:16px;font-weight:800;margin-bottom:6px">Weekly budget calculator</div>
+              <div style="font-size:13px;color:#6b7280;margin-bottom:18px;line-height:1.6">Shopify's published formula for sizing spend against a Shopify Audiences list.</div>
+
+              <div class="budget-grid">
+                <div>
+                  <div class="calc-field">
+                    <div class="calc-label"><span>Audience</span></div>
+                    <select class="calc-select" id="bud-aud" onchange="budgetPick()"></select>
+                    <div class="calc-hint">Sizes come from the platform you connected earlier.</div>
+                  </div>
+
+                  <div class="calc-field">
+                    <div class="calc-label"><span>Audience size</span><span class="calc-value" id="bud-size-out">1,700,000</span></div>
+                    <input class="calc-input" type="number" id="bud-size" value="1700000" min="0" step="10000" oninput="budgetRun()">
+                  </div>
+
+                  <div class="calc-field" style="margin-bottom:0">
+                    <div class="calc-label"><span>Your average CPM</span><span class="calc-value" id="bud-cpm-out">$12.40</span></div>
+                    <input class="calc-input" type="number" id="bud-cpm" value="12.40" min="0.01" step="0.10" oninput="budgetRun()">
+                    <input class="calc-range" type="range" id="bud-cpm-range" value="1240" min="100" max="6000" step="10" oninput="document.getElementById('bud-cpm').value=(this.value/100).toFixed(2);budgetRun()">
+                    <div class="calc-hint">Cost per 1,000 impressions on this platform.</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="budget-out">
+                    <div class="budget-out-label">Suggested weekly budget</div>
+                    <div class="budget-out-num" id="bud-range">$33,728 – $50,592</div>
+                    <div class="budget-out-sub" id="bud-sub">for 2–3 impressions per person, per week</div>
+                  </div>
+
+                  <div class="formula-box">
+                    <code>(CPM ÷ 1000) × (audience size × 0.8) × 2 or 3 impressions = weekly budget</code><br>
+                    The 0.8 is deliberate: not everyone on the list logs in to a given platform in a given week, so Shopify sizes against 80% of it.
+                  </div>
+
+                  <div class="budget-steps">
+                    <div class="budget-step-row"><span>1 · Cost per impression (CPM ÷ 1,000)</span><span id="bud-s1">$0.0124</span></div>
+                    <div class="budget-step-row"><span>2 · Reachable audience (size × 0.8)</span><span id="bud-s2">1,360,000</span></div>
+                    <div class="budget-step-row"><span>3 · Cost for one impression each</span><span id="bud-s3">$16,864</span></div>
+                    <div class="budget-step-row total"><span>4 · × 2 to 3 impressions per week</span><span id="bud-s4">$33,728 – $50,592</span></div>
+                  </div>
+
+                  <div style="font-size:11.5px;color:#8c9196;margin-top:12px;line-height:1.6">
+                    This is one campaign's number — weigh it against what your other campaigns need. Source: Shopify Help Centre, <em>Using audiences</em>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="p-btn p-btn-secondary" onclick="prevStep()">← Back</button>
+            <div class="nav-hint">Audience size should drive spend — not the other way around</div>
             <button class="p-btn p-btn-green" onclick="nextStep()">What this means for your spend →</button>
           </div>
         </div>
 
-        <!-- SCREEN 7: Ad spend impact calculator -->
-        <div class="screen" id="screen-7">
+        <!-- SCREEN 8: Ad spend impact calculator -->
+        <div class="screen" id="screen-8">
           <div class="page-title-row">
             <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
             <div class="page-title">Get more out of your ad spend</div>
@@ -1081,8 +1196,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
           </div>
         </div>
 
-        <!-- SCREEN 8: Resources / go deeper -->
-        <div class="screen" id="screen-8">
+        <!-- SCREEN 9: Resources / go deeper -->
+        <div class="screen" id="screen-9">
           <div class="page-title-row">
             <div class="aud-app-icon"><img src="https://cdn.shopify.com/app-store/listing_images/991eeefb588852e0bfec510f1c232b66/icon/CObn6NPvxYEDEAE=.png" alt="Audiences"></div>
             <div class="page-title">Go deeper</div>
@@ -1154,7 +1269,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
 <script>
 let currentStep = 1;
-const breadcrumbs = ['App Store','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences'];
+const breadcrumbs = ['App Store','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences','Audiences'];
 
 function updateProgress() {
   document.querySelectorAll('.prog-step').forEach((el, i) => {
@@ -1172,7 +1287,7 @@ function showScreen(n) {
 }
 
 function goTo(n) { currentStep = n; updateProgress(); showScreen(n); }
-function nextStep() { if (currentStep < 8) goTo(currentStep + 1); }
+function nextStep() { if (currentStep < 9) goTo(currentStep + 1); }
 function prevStep() { if (currentStep > 1) goTo(currentStep - 1); }
 
 function toast(msg) {
@@ -1616,10 +1731,63 @@ function startMetaResize(e) {
     origGoTo(n);
     if (n === 5) renderScreen5(connected.has(activePlt) ? activePlt : (connected.values().next().value || activePlt));
     if (n === 6) setTimeout(initScrollHint, 50);
+    if (n === 7) budgetPopulate();
   };
 })();
 
-// ---- Screen 7: ad spend impact calculator ----
+// ---- Screen 7: weekly budget calculator ----
+// Shopify's published formula: (CPM/1000) * (size * 0.8) * 2..3 impressions.
+const BUDGET_REACH_FACTOR = 0.8;
+
+// Fill the audience dropdown from whichever platform the merchant connected.
+function budgetPopulate() {
+  const sel = document.getElementById('bud-aud');
+  if (!sel) return;
+  const key = connected.has(activePlt) ? activePlt : (connected.values().next().value || 'meta');
+  const list = pltData[key].audiences.filter(a => /^[\d,]+$/.test(a.size));
+  sel.innerHTML = list.map((a, i) =>
+    `<option value="${a.size.replace(/,/g, '')}"${i === 0 ? ' selected' : ''}>${a.name} — ${a.size}</option>`
+  ).join('') + '<option value="custom">Custom size…</option>';
+  if (list.length) {
+    document.getElementById('bud-size').value = list[0].size.replace(/,/g, '');
+  }
+  budgetRun();
+}
+
+function budgetPick() {
+  const v = document.getElementById('bud-aud').value;
+  if (v !== 'custom') document.getElementById('bud-size').value = v;
+  budgetRun();
+}
+
+function budgetRun() {
+  const $ = id => document.getElementById(id);
+  if (!$('bud-size')) return;
+  const size = Math.max(0, +$('bud-size').value || 0);
+  const cpm  = Math.max(0.01, +$('bud-cpm').value || 0.01);
+  const range = $('bud-cpm-range');
+  if (range) range.value = Math.min(6000, Math.max(100, Math.round(cpm * 100)));
+
+  const perImp   = cpm / 1000;
+  const reach    = size * BUDGET_REACH_FACTOR;
+  const oneEach  = perImp * reach;
+  const low      = oneEach * 2;
+  const high     = oneEach * 3;
+  const usd = n => '$' + Math.round(n).toLocaleString('en-US');
+
+  $('bud-size-out').textContent = size.toLocaleString('en-US');
+  $('bud-cpm-out').textContent  = '$' + cpm.toFixed(2);
+  $('bud-s1').textContent = '$' + perImp.toFixed(4);
+  $('bud-s2').textContent = Math.round(reach).toLocaleString('en-US');
+  $('bud-s3').textContent = usd(oneEach);
+  $('bud-s4').textContent = usd(low) + ' – ' + usd(high);
+  $('bud-range').textContent = usd(low) + ' – ' + usd(high);
+  $('bud-sub').textContent = size
+    ? `for 2–3 impressions per person, per week (${Math.round(reach).toLocaleString('en-US')} reachable)`
+    : 'Enter an audience size to size the budget';
+}
+
+// ---- Screen 8: ad spend impact calculator ----
 function fmtMoney(n) {
   if (n >= 1e9) return '$' + (n / 1e9).toFixed(n < 1e10 ? 2 : 1) + 'B';
   if (n >= 1e6) return '$' + (n / 1e6).toFixed(n < 1e7 ? 2 : 1) + 'M';
@@ -1673,6 +1841,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const metaTab = document.querySelector('#plt-tabs .plt-tab[data-plt="meta"]');
   if (metaTab) switchPlt(metaTab, 'meta');
   if (document.getElementById('calc-spend')) calcRun();
+  if (document.getElementById('bud-size')) budgetPopulate();
 });
 
 // Screen 4's primary nav button: generating audiences implies connecting the
