@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petaljet × Shopify Plus — B2B Wholesale Playbook</title>
+<style>
+  :root{
+    --ink:#261c22; --muted:#6b5c64; --line:#eae2e6;
+    --rose:#9c2f52; --rose-lt:#fbeef2;
+    --green:#1f6b4a; --green-lt:#e8f2ec;
+    --gold:#a8792f; --gold-lt:#f9f1e2;
+    --red:#b23b3b; --red-lt:#fbe9e9;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:#f6f3f4; line-height:1.5; font-size:14px;
+  }
+  .page{max-width:940px; margin:24px auto; background:var(--bg); padding:40px 44px; box-shadow:0 2px 18px rgba(0,0,0,.08); border-radius:10px;}
+  header{border-bottom:3px solid var(--rose); padding-bottom:16px; margin-bottom:22px;}
+  .eyebrow{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--rose); font-weight:700;}
+  h1{font-size:24px; margin:6px 0 4px; line-height:1.2;}
+  .sub{color:var(--muted); font-size:13px;}
+  h2{font-size:16px; margin:30px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px;}
+  h2 .num{background:var(--rose); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex:none;}
+  h3{font-size:13.5px; margin:16px 0 4px; color:var(--rose);}
+  p{margin:6px 0;}
+  .lead{background:var(--rose-lt); border-left:4px solid var(--rose); padding:12px 16px; border-radius:0 6px 6px 0; margin:0 0 4px; font-size:13.5px;}
+  .warn{background:var(--red-lt); border-left:4px solid var(--red); padding:12px 16px; border-radius:0 6px 6px 0; margin:10px 0 4px; font-size:13.5px;}
+  .good{background:var(--green-lt); border-left:4px solid var(--green); padding:12px 16px; border-radius:0 6px 6px 0; margin:10px 0 4px; font-size:13.5px;}
+  .note{background:var(--gold-lt); border-left:4px solid var(--gold); padding:12px 16px; border-radius:0 6px 6px 0; margin:10px 0 4px; font-size:13.5px;}
+  .quote{background:#faf7f8; border:1px solid var(--line); border-left:4px solid var(--muted); padding:12px 16px; border-radius:0 6px 6px 0; margin:10px 0; font-size:13.3px; font-style:italic; color:#3d3037;}
+  .quote strong{font-style:normal;}
+  table{width:100%; border-collapse:collapse; margin-top:8px; font-size:12.8px;}
+  th{background:var(--rose); color:#fff; text-align:left; padding:8px 10px; font-size:11px; letter-spacing:.04em; text-transform:uppercase;}
+  td{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:nth-child(even) td{background:#fdfbfc;}
+  td.issue{font-weight:600; width:28%;}
+  td.num{text-align:right; white-space:nowrap;}
+  tr.hi td{background:var(--green-lt) !important;}
+  tr.hi td.issue{color:var(--green);}
+  code{background:#1c1218; color:#f4cfdc; padding:12px 14px; border-radius:8px; display:block; white-space:pre; overflow-x:auto; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:12px; line-height:1.55; margin:8px 0;}
+  code .c{color:#8f7681;} code .h{color:#ff9c9c; font-weight:700;} code .v{color:#e8c887;} code .g{color:#8fdcae;}
+  .inline{background:#f4eef0; color:var(--rose); padding:1px 5px; border-radius:4px; font-family:"SF Mono",Menlo,monospace; font-size:12px;}
+  .metrics{display:flex; gap:10px; margin:14px 0; flex-wrap:wrap;}
+  .metric{flex:1; min-width:130px; background:var(--rose-lt); border-radius:8px; padding:10px 12px; text-align:center;}
+  .metric .n{font-size:19px; font-weight:800; color:var(--rose); line-height:1.15;}
+  .metric .l{font-size:11px; color:var(--muted); margin-top:3px;}
+  .metric.warnm{background:var(--red-lt);} .metric.warnm .n{color:var(--red);}
+  .metric.goodm{background:var(--green-lt);} .metric.goodm .n{color:var(--green);}
+  .cards{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:8px;}
+  .cards.two{grid-template-columns:1fr 1fr;} .cards.four{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .card{border:1px solid var(--line); border-radius:8px; padding:14px; background:#fdfcfc;}
+  .card.yes{border:2px solid var(--green); background:var(--green-lt);}
+  .card.no{border:2px solid var(--red); background:var(--red-lt);}
+  .card.plus{border:2px solid var(--green); background:var(--green-lt);}
+  .card h4{margin:2px 0 6px; font-size:14px;}
+  .card p{font-size:12.5px; margin:3px 0;}
+  .card ul{margin:6px 0 0; padding-left:16px;} .card li{margin:3px 0; font-size:12.4px;}
+  .tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:20px; margin-bottom:6px;}
+  .tag.solved{background:var(--green); color:#fff;}
+  .tag.plusonly{background:var(--green); color:#fff;}
+  .tag.no{background:var(--red); color:#fff;}
+  .pro{color:var(--green); font-weight:600;}
+  .con{color:var(--red); font-weight:600;}
+  .steps{counter-reset:s; padding-left:0; list-style:none; margin:8px 0;}
+  .steps li{counter-increment:s; position:relative; padding:5px 0 5px 30px; font-size:13px;}
+  .steps li::before{content:counter(s); position:absolute; left:0; top:5px; background:var(--rose); color:#fff; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;}
+  .math{background:#faf7f8; border:1px dashed #d9c9d0; border-radius:8px; padding:10px 14px; margin:8px 0; font-family:"SF Mono",Menlo,monospace; font-size:12.3px; line-height:1.7; color:#3d3037;}
+  .math b{color:var(--rose);}
+  .src{font-size:11.5px; color:var(--muted); font-style:italic; margin-top:4px;}
+  footer{margin-top:30px; padding-top:14px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; gap:16px;}
+  .srclist{font-size:11.8px; color:var(--muted); line-height:1.9;}
+  .srclist a{color:var(--rose);}
+  @media print{ body{background:#fff;} .page{box-shadow:none; margin:0; max-width:100%; padding:20px;} h2{page-break-after:avoid;} .card,table{page-break-inside:avoid;} }
+  @media (max-width:680px){ .cards,.cards.two,.cards.four{grid-template-columns:1fr;} .page{padding:24px 18px;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Petaljet × Shopify Plus</div>
+    <h1>B2B on Shopify Plus — Rebuilding the Wholesale Gate</h1>
+    <div class="sub">Prepared by Christen McAllister · Follow-up to Jeffrey's note on the Login&nbsp;To&nbsp;View&nbsp;Prices / legacy accounts issue · petaljet.com</div>
+  </header>
+
+  <p class="lead">You wrote that deprecating legacy accounts took away your wholesale gate, and that you need three things back: <strong>approval-gated access</strong>, <strong>automatic approval</strong>, and <strong>one-step login</strong>. This page answers all three — including the one I can't give you. It also shows something you probably don't know: <strong>your prices are readable right now, logged out</strong>, through a channel no price-hiding app has ever been able to close. That changes what "getting it back" should mean, and it's why the answer is <strong>B2B on Shopify Plus</strong> rather than another app bolted onto the storefront.</p>
+
+  <div class="metrics">
+    <div class="metric"><div class="n">$2.63M</div><div class="l">GMV, last 365 days</div></div>
+    <div class="metric goodm"><div class="n">+24%</div><div class="l">quarter over quarter</div></div>
+    <div class="metric warnm"><div class="n">863</div><div class="l">products with prices publicly readable</div></div>
+    <div class="metric warnm"><div class="n">0</div><div class="l">approved wholesale accounts on file</div></div>
+  </div>
+
+  <!-- ================= 1 ================= -->
+  <h2><span class="num">1</span> What is actually happening to your gate right now</h2>
+
+  <p>Everything in this section came from <span class="inline">petaljet.com</span> page source, logged out, no admin access. First, credit where it's due — <strong>part of your gate still works.</strong> The price element on a collection page really is empty for a logged-out visitor:</p>
+
+  <code><span class="c">// petaljet.com/collections/premium-roses — logged out</span>
+&lt;span class="money" data-price&gt;<span class="g">&lt;!-- empty --&gt;</span>&lt;/span&gt;   <span class="c">← the app is still blanking this</span></code>
+
+  <p>So the symptom you're describing isn't that the price box filled back in. It's that <strong>the price was never only in the price box.</strong> It's escaping through three other doors, and two of them were always open.</p>
+
+  <h3>Leak 1 — Shopify's own analytics object, on every page you serve</h3>
+  <p>Every Shopify storefront embeds a <span class="inline">meta</span> object for analytics. Yours carries the full price and the full variant name:</p>
+
+  <code><span class="c">// view-source on any collection page, logged out</span>
+var meta = {"products":[{
+  "id":1791250432061, "vendor":<span class="h">"F260"</span>, "handle":"3d-rose",
+  "variants":[
+    {"id":52781511803189, "price":<span class="h">9000</span>,  "public_title":<span class="h">"Ecuador 50CM - 60 Stems ($1.50 Each)"</span>},
+    {"id":52781513572661, "price":<span class="h">8976</span>,  "public_title":"Ecuador 60CM - 48 Stems ($1.87 Each)"},
+    {"id":52781513802037, "price":<span class="h">12096</span>, "public_title":"Ecuador 70CM - 72 Stems ($1.68 Each)"}
+  ]}, … ]}</code>
+
+  <div class="warn"><strong>This is injected by Shopify, not by your theme.</strong> A price-hiding app cannot remove it — the app runs inside your theme, and this object is written before your theme is. So this door was open the entire time Login To View Prices was working. Nothing about legacy accounts changed it.</div>
+
+  <h3>Leak 2 — the public products endpoint</h3>
+  <p>Every Shopify store exposes a JSON catalog. I pulled <strong>all 863 of your products with live case prices and your farm vendor codes</strong>, logged out, in a single request:</p>
+
+  <code>curl https://petaljet.com/products.json?limit=250
+
+<span class="c">→ 863 products · ~1,640 variants · 27+ farm codes (F214, F231, F260, F269…)</span>
+<span class="c">→ case prices $51.30 – $255.96 (median $116.80)</span>
+<span class="c">→ per-stem $0.59 – $4.63 (median $1.79)</span></code>
+
+  <h3>Leak 3 — you typed the price into the product name</h3>
+  <p>This is the one that matters most, and it's the only one you control. Your variant names read:</p>
+
+  <code>"3D Rose - Ecuador 50CM - <span class="h">60 Stems ($1.50 Each)</span>"</code>
+
+  <p>In a sample of 250 products, <strong>473 of 474 variants — 99.8% — have the stem count and the per-stem price typed into the variant name.</strong> A name is not a price field, so no price-hiding app touches it. It travels everywhere the product travels: search results, JSON, analytics, cart, email.</p>
+
+  <div class="warn"><strong>The honest read: the gate you're asking to get back was never really a gate.</strong> It hid the price element. It never hid the price. That's not a criticism of the app — it's the ceiling of what any theme-level app can do. <strong>An app painted on top of a D2C store cannot solve this, because the leak is underneath the paint.</strong> The only version that holds is one where wholesale pricing isn't on the public product in the first place.</div>
+
+  <!-- ================= 2 ================= -->
+  <h2><span class="num">2</span> The one thing you asked for that no plan can do</h2>
+
+  <div class="quote">"We fundamentally cannot block account creation. Shopify now automatically creates a profile the first time someone logs in using an email code."</div>
+
+  <p><strong>You're right, and it isn't coming back.</strong> There is no plan and no app that restores a hard block on signup. Shopify's documentation states it plainly: D2C visitors "can still create customer profiles through the login authentication process, even though they can't place orders."</p>
+
+  <p>But read that second half again, because it's the whole answer. <strong>You are treating "has an account" and "is approved" as the same thing. B2B on Plus splits them apart.</strong></p>
+
+  <table>
+    <thead><tr><th>&nbsp;</th><th>What you built</th><th>B2B on Shopify Plus</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="issue">The gate is…</td>
+        <td class="con">logged in = approved</td>
+        <td class="pro">assigned to a company = approved</td>
+      </tr>
+      <tr>
+        <td class="issue">A stranger with an email address gets…</td>
+        <td class="con">your wholesale price list and a working checkout</td>
+        <td class="pro">an empty account. No wholesale pricing, no ability to order.</td>
+      </tr>
+      <tr>
+        <td class="issue">Where the price lives</td>
+        <td class="con">on the public product, hidden by a script</td>
+        <td class="pro">inside a catalog only assigned companies can see. Nothing to hide, because it isn't there.</td>
+      </tr>
+      <tr>
+        <td class="issue">Who controls access</td>
+        <td class="con">Shopify's login screen</td>
+        <td class="pro">You do. Access is company membership, granted in your admin.</td>
+      </tr>
+      <tr>
+        <td class="issue">Junk profiles</td>
+        <td class="con">become customers who can buy</td>
+        <td class="pro">become inert records — with a Flow template that auto-deletes unassigned profiles on a timer</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="good"><strong>The junk account still gets created. It just stops mattering.</strong> Under B2B, wholesale pricing doesn't live on the product — it lives inside a catalog that only assigned company contacts can see. Someone who signs up with a Gmail address isn't blocked at the door; they're standing in a room with nothing in it.</div>
+
+  <!-- ================= 3 ================= -->
+  <h2><span class="num">3</span> Your three requirements on Plus, one by one</h2>
+
+  <div class="cards">
+    <div class="card yes">
+      <span class="tag solved">Solved</span>
+      <h4>1. Account creation only if approved</h4>
+      <p><strong>Delivered as approval-gated ordering, not blocked signup.</strong></p>
+      <p><strong>Company account requests:</strong> a wholesale application form on your storefront. On submit, Shopify <strong>automatically creates the company, the company location and the customer</strong> — and drops them into an <strong>"Ordering not approved"</strong> queue in your admin.</p>
+      <p>Your custom fields — resale permit number, business license, number of shops — save as metafields on the company profile. To reject, you delete the company. Every account now has a real application behind it.</p>
+    </div>
+    <div class="card yes">
+      <span class="tag solved">Solved</span>
+      <h4>2. Automatic approval</h4>
+      <p>A native Shopify Flow template does exactly this: <span class="inline">Allow ordering for companies created by company account requests</span>.</p>
+      <p>Turn it on and every submitted application is approved the moment it lands — instant pricing, no human in the loop. That's the minimal-friction experience you described, and it's faster than the Talon flow ever was.</p>
+      <p>Better than a blanket rule: branch on your own fields. Resale permit filled in → auto-approve. Blank, or a free email domain → hold for review. Pair it with <span class="inline">Send B2B access email to approved customer</span>.</p>
+    </div>
+    <div class="card no">
+      <span class="tag no">Not possible — and I won't pretend</span>
+      <h4>3. One-step login</h4>
+      <p><strong>This one you don't get back.</strong> New customer accounts is email-code only. There is no password option, on any plan.</p>
+      <p>Sessions do persist, so it's not a code on every visit. And third-party identity providers (OAuth 2.0 / OpenID Connect) are supported if you ever front the store with your own system.</p>
+      <p>What genuinely improves: <strong>each buyer at a shop gets their own login</strong> under one company, with their own permissions, instead of a whole florist sharing one set of credentials. That's usually the real pain behind "one-step login."</p>
+    </div>
+  </div>
+
+  <!-- ================= 4 ================= -->
+  <h2><span class="num">4</span> Your two business problems — and what they're costing</h2>
+
+  <h3>Problem 1: consumers placing orders they can't handle</h3>
+  <div class="quote">"Everyday consumers are placing large orders, and they do not know how to handle or process our products properly, resulting in requests for refunds and poor reviews."</div>
+
+  <p><strong>B2B ends this.</strong> Wholesale pricing moves off the public product and into a catalog assigned to approved companies. A consumer who authenticates isn't attached to a company, so a 200-stem case at $1.50 a stem <em>does not exist</em> for them. There is no version of the page where they can buy it.</p>
+
+  <p>Worth putting a number on, because this is the strongest money argument you have. Your own figures:</p>
+
+  <div class="math">
+    $2.57M online GMV ÷ $441 average order = <b>~5,823 orders a year</b><br>
+    If just <b>1%</b> are consumers who shouldn't have been able to buy → 58 orders × $441 = <b>$25,700</b><br>
+    At <b>2%</b> → 116 orders × $441 = <b>$51,400</b>
+  </div>
+
+  <p>And on perishables that's close to a total loss — the flowers shipped, they're dead, and there's nothing to restock. Add the review damage and the support hours your team spends on it. <strong>At 1%, this single problem costs more than a year of Plus.</strong> You know your real rate; the arithmetic is here so you can drop it in.</p>
+
+  <h3>Problem 2: your wholesale customers questioning your commitment</h3>
+  <div class="quote">"We no longer have a process to screen out non-wholesale customers, and therefore, our existing wholesale customers are questioning our commitment to protecting them."</div>
+
+  <p>There are two different promises buried in that sentence, and Plus is the only place both of them can be true at once.</p>
+
+  <div class="cards two">
+    <div class="card plus">
+      <span class="tag plusonly">Plus</span>
+      <h4>"Outsiders can't buy at our prices"</h4>
+      <p>Approval-gated companies, a real application on file for every account, and wholesale pricing that lives inside a catalog rather than on a public product page.</p>
+      <p>This is the promise you're currently failing — and the leaks in Section 1 are why patching the storefront was never going to deliver it.</p>
+    </div>
+    <div class="card plus">
+      <span class="tag plusonly">Plus</span>
+      <h4>"Our price is ours"</h4>
+      <p><strong>Unlimited catalogs, assigned directly to a company or a single location.</strong> Your top ten accounts each get their own pricing, and no other florist can see it.</p>
+      <p><strong class="pro">This is the one only Plus can do.</strong> It's the difference between a gate and a relationship.</p>
+    </div>
+  </div>
+
+  <div class="good"><strong>This is the argument that sits directly on top of what you wrote to me.</strong> The strongest version of "we protect you" isn't <em>"the public can't see our prices."</em> It's <em>"this price is yours, and the shop across town can't see it."</em> That's what your florists are really asking for, and it's what Plus is for.</div>
+
+  <!-- ================= 5 ================= -->
+  <h2><span class="num">5</span> Why the price is in your product names — and why Plus is what unlocks it</h2>
+
+  <p>This started as a workaround and has quietly become a constraint. With no per-unit pricing field and no volume-break structure, the per-stem figure got typed into the variant name — 1,600-odd times.</p>
+
+  <div class="metrics">
+    <div class="metric"><div class="n">863</div><div class="l">products</div></div>
+    <div class="metric"><div class="n">~1,640</div><div class="l">variants</div></div>
+    <div class="metric warnm"><div class="n">99.8%</div><div class="l">carry price + stem count in the name</div></div>
+    <div class="metric"><div class="n">27+</div><div class="l">farm codes behind them</div></div>
+  </div>
+
+  <p><strong>Two costs.</strong> The first is maintenance — every price change is a text edit on a product name, against daily-changing availability across 27 farms. The second is the one nobody notices until it bites:</p>
+
+  <div class="warn"><strong>The naming scheme only works because there is exactly one price.</strong> <span class="inline">($1.50 Each)</span> is printed in the product name, so it's true for every buyer — because every buyer pays it. The day you give your biggest florist a negotiated rate, that name is <strong>wrong on their screen</strong>, and there is no way to fix it short of duplicating the catalog. <strong>Your product data is built on never tiering your pricing.</strong></div>
+
+  <p>The migration undoes both at once. Stem count, length and farm move into metafields, and the per-stem figure is computed in the theme — <span class="inline">price ÷ stem count</span> — so it's derived instead of typed. The variant name collapses to <span class="inline">Ecuador 50CM</span>. Pricing then lives where it belongs: in catalogs, with quantity rules and volume breaks underneath, and a different catalog per company where you've negotiated one.</p>
+
+  <p class="src">Shopify's native unit pricing won't do this — I checked. It only supports measurement units (weight, volume, length); there's no "per stem." Metafields plus a line of theme logic is the route, and it's part of the build.</p>
+
+  <!-- ================= 6 ================= -->
+  <h2><span class="num">6</span> Your wholesale program on Shopify Plus</h2>
+
+  <p>What the platform gives you once B2B is running — the whole program, not a plugin on top of a retail store.</p>
+
+  <table>
+    <thead><tr><th>Capability</th><th>What it does for Petaljet</th></tr></thead>
+    <tbody>
+      <tr><td class="issue">Companies &amp; company locations</td><td>A florist is a business record, not a tagged email. Multiple buyers per shop, multiple shops per group, each with its own address, tax status and permissions. Pricing stays with the business when staff turn over.</td></tr>
+      <tr class="hi"><td class="issue">Unlimited catalogs</td><td>863 products, 27 farms, seasonal swings. Build as many price lists as your business actually has — seasonal, tier-based, event-based — without rationing them.</td></tr>
+      <tr class="hi"><td class="issue">Catalogs assigned directly to a company or location</td><td><strong class="pro">Only on Plus.</strong> Per-account pricing. Your top ten florists each get their own rates, invisible to everyone else. This is the answer to "protect us."</td></tr>
+      <tr><td class="issue">Quantity rules &amp; volume price breaks</td><td>Minimum, maximum and increment per variant, with price breaks at higher quantities. Replaces the stem count typed into 1,640 product names.</td></tr>
+      <tr><td class="issue">Company account requests</td><td>A real wholesale application, with your fields, creating a real company record. Your screening process exists again.</td></tr>
+      <tr><td class="issue">Shopify Flow automation</td><td>Auto-approve on submission, send the access email, route incomplete applications for review, delete unassigned profiles on a timer.</td></tr>
+      <tr><td class="issue">Net payment terms</td><td>Net 7 through Net 90 per company location, with reminders, ACH, and vaulted cards you charge when the invoice comes due. Florists expect terms; today you can't offer them.</td></tr>
+      <tr class="hi"><td class="issue">Deposits &amp; partial payments</td><td><strong class="pro">Only on Plus.</strong> Your FAQ takes bookings a month ahead on a perishable. Take a deposit at booking and the balance at ship, instead of capturing everything up front or nothing at all.</td></tr>
+      <tr class="hi"><td class="issue">Payment request per fulfillment</td><td><strong class="pro">Only on Plus.</strong> Orders split across 27 farms and arrive in separate boxes. Bill per shipment that actually goes out.</td></tr>
+      <tr><td class="issue">Draft-order review &amp; price locking</td><td>Send an order to draft for review before it confirms, negotiate, lock the price, reserve inventory. A second safety net on anything that looks wrong.</td></tr>
+      <tr><td class="issue">Separate B2B and D2C checkout in one store</td><td>Wholesale and retail coexist without running two businesses. Checkout Branding API and B2B-specific storefront content.</td></tr>
+      <tr><td class="issue">B2B reporting as a real channel</td><td>Orders carry the company and location, so wholesale becomes filterable — true B2B revenue, AOV and margin per account instead of an estimate.</td></tr>
+      <tr class="hi"><td class="issue">Launchpad</td><td>Scheduled, automated launches for Valentine's and Mother's Day. You're running +24% quarter over quarter — the spikes are the business.</td></tr>
+      <tr class="hi"><td class="issue">Raised Admin API limits, 9 expansion stores, unlimited staff &amp; staging</td><td>Headroom for the daily availability sync across ~1,640 perishable variants, and room to split wholesale from retail later without rebuilding.</td></tr>
+      <tr><td class="issue">Plus Shopify Payments rates, 99.99% SLA, 24/7 priority support</td><td>$2.57M of card volume already runs through Shopify Payments.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><strong>One design decision to make deliberately.</strong> The application form has to live on a publicly reachable page, so the shape is: public storefront with pricing hidden, form on it, wholesale pricing inside the catalogs. The alternative — a fully gated, wholesale-only store on the Trade theme, which hides prices from logged-out visitors natively — rules the self-serve form out. Given you want minimum friction on signup, I'd take the first. Worth ten minutes on the call.</div>
+
+  <!-- ================= 7 ================= -->
+  <h2><span class="num">7</span> What else comes with Plus</h2>
+
+  <p>B2B is the reason you'd move. These are the things you get in the same box — and two of them go straight at problems you're already living with.</p>
+
+  <h3>A checkout you actually control</h3>
+  <p>Right now your checkout is Shopify's default, and you take what it gives you. On Plus it becomes yours to build on. Shopify's documentation is explicit that <strong class="pro">checkout UI extensions and checkout branding require Shopify Plus</strong> — this is the part of the platform that is genuinely gated.</p>
+
+  <p>For a perishable business shipping from 27 farms, that's not a cosmetic upgrade:</p>
+
+  <div class="cards two">
+    <div class="card plus">
+      <h4>Ask the questions you need answered</h4>
+      <ul>
+        <li><strong>Delivery-date picker</strong> — the single most important field on a flower order, and today it isn't there</li>
+        <li><strong>Event date vs. ship date</strong>, so a wedding order can't arrive four days early</li>
+        <li><strong>PO number</strong> and buyer reference on B2B orders</li>
+        <li><strong>Farm / ship-week selection</strong> surfaced at checkout instead of in an email thread afterward</li>
+      </ul>
+    </div>
+    <div class="card plus">
+      <h4>Enforce the rules instead of emailing about them</h4>
+      <ul>
+        <li><strong>Order-cutoff validation</strong> — block a Thursday order for Friday delivery before it's placed, not after</li>
+        <li><strong>Case-minimum and increment rules</strong> carried through to checkout</li>
+        <li><strong>Hide or rename shipping and payment options</strong> by buyer, region or order value</li>
+        <li><strong>Hydration solution and care add-ons</strong> offered in-checkout on the order they belong to</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>And because B2B and D2C run as separate flows in one store, your florists can get terms, PO fields and a case-minimum checkout while a retail buyer never sees any of it. Branding is API-controlled, so checkout stops looking like a generic Shopify page and starts looking like Petaljet.</p>
+
+  <h3>Shopify Audiences — and you already qualify on all three counts</h3>
+  <p>Audiences is Plus-exclusive, requires Shopify Payments, and is US/Canada only. <strong class="pro">You're US-based and you've been on Shopify Payments since 2019 — the only box left is the plan.</strong> It's free to install; you pay your normal ad spend and nothing to Shopify.</p>
+
+  <p>It builds ad audiences from real purchase signals across millions of Shopify buyers — data no ad platform has on its own — and pushes them straight into Meta, Google, TikTok, Pinterest, Snapchat or Criteo.</p>
+
+  <div class="metrics">
+    <div class="metric goodm"><div class="n">2×</div><div class="l">retargeting conversions per marketing dollar</div></div>
+    <div class="metric goodm"><div class="n">50%</div><div class="l">lower customer acquisition cost, on average</div></div>
+    <div class="metric goodm"><div class="n">40%</div><div class="l">more existing customers correctly excluded</div></div>
+  </div>
+
+  <div class="good"><strong>Here's the part that matters for you specifically.</strong> One of the list types is an <strong>exclusion</strong> list — it stops your ads being served to the wrong people. You told me everyday consumers are placing orders they can't handle. <strong>Right now you may be paying to advertise your way into that problem.</strong> Audiences lets you point spend at buyers who look like your best florists, and away from the consumers who generate the refunds.</div>
+
+  <p class="src">Prospecting lists find net-new buyers who resemble your best customers · Retargeting Boost targets high-intent visitors who didn't convert · Existing Customers Plus suppresses people who already bought · plus built-in benchmarking against comparable Plus merchants in your category.</p>
+
+  <h3>Launchpad — for the two weeks that make your year</h3>
+  <p>Valentine's Day and Mother's Day aren't campaigns for you, they're the business. Launchpad schedules the whole event: pricing changes, catalog and collection swaps, theme changes and publishing, all set in advance and executed automatically at the minute you choose — then rolled back the same way. Nobody is manually flipping 863 products at midnight, and nothing goes live an hour late.</p>
+
+  <h3>Room to grow into</h3>
+  <table>
+    <thead><tr><th>What you get</th><th>Why it matters here</th></tr></thead>
+    <tbody>
+      <tr><td class="issue">Raised Admin API limits</td><td>You sync availability across ~1,640 perishable variants and 27 farms daily. This is the ceiling you'd hit first — and you'd hit it in season.</td></tr>
+      <tr><td class="issue">9 expansion stores</td><td>Room to split wholesale from retail, or open a second market, without rebuilding what you have.</td></tr>
+      <tr><td class="issue">Unlimited staff accounts</td><td>Every buyer-facing person gets their own login and their own permissions. No shared credentials.</td></tr>
+      <tr><td class="issue">Unlimited staging environments</td><td>Test a theme or checkout change against real data before it touches the live store — in January, not on February 12th.</td></tr>
+      <tr><td class="issue">Shopify Functions &amp; Flow</td><td>Custom discount, shipping and payment logic, and automation across companies, orders and approvals.</td></tr>
+      <tr><td class="issue">99.99% uptime SLA · 24/7 priority support</td><td>Named escalation path during peak. On a perishable, an hour of downtime in the Valentine's window isn't a deferred sale — it's a dead sale.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="src">Plan availability for checkout UI extensions and checkout branding confirmed against Shopify's developer documentation, <a href="https://shopify.dev/docs/apps/build/checkout/styling">shopify.dev/docs/apps/build/checkout/styling</a>. Audiences eligibility and list types per the Shopify Audiences product documentation.</p>
+
+  <footer>
+    <div><strong>Christen McAllister</strong> · Growth Specialist, Shopify · 929.639.5723</div>
+    <div>Prepared for Jeffrey Burkard, Petaljet · August 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify Plus — Feature Overview &amp; Benefits</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#1c2b25; --muted:#5c6b63; --line:#e2e8e2;
+    --green:#1f6b4a; --green-lt:#e8f2ec; --gold:#b7883b; --gold-lt:#f7efdf;
+    --red:#b23b3b; --red-lt:#fbe9e9; --bg:#ffffff;
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:#eef2ef; line-height:1.42; font-size:12px; -webkit-font-smoothing:antialiased;}
+  .page{max-width:940px; margin:26px auto; background:var(--bg); border-radius:14px;
+    box-shadow:0 8px 34px rgba(20,40,30,.10); padding:40px 46px 32px;}
+  header{border-bottom:2px solid var(--green); padding-bottom:15px; margin-bottom:18px;}
+  .eyebrow{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:7px;}
+  h1{font-size:25px; line-height:1.15; letter-spacing:-.01em; margin-bottom:7px;}
+  .sub{font-size:12px; color:var(--muted);}
+  h2{font-size:16px; margin:24px 0 10px; display:flex; align-items:center; gap:10px; letter-spacing:-.01em;}
+  h2 .num{flex:none; width:24px; height:24px; border-radius:50%; background:var(--green); color:#fff;
+    font-size:12.5px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  h3{font-size:13.5px; margin:18px 0 6px; color:var(--ink); padding-top:2px;}
+  .plus-tag{font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--gold);
+    background:var(--gold-lt); border-radius:20px; padding:2px 9px; margin-left:8px; vertical-align:middle;}
+  p{margin-bottom:7px;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:10.5px; background:#eef1ef;
+    border:1px solid var(--line); border-radius:3px; padding:0 4px;}
+  ul{margin:5px 0 8px 2px; padding-left:18px;}
+  li{margin-bottom:3px;}
+  a{color:var(--green); font-weight:800; font-size:13px; text-decoration:none;
+    border-bottom:1.5px solid #a9d5bd; padding-bottom:1px;}
+  a:hover{color:#14523a; border-bottom-color:var(--green);}
+  /* chips carry their own sizing — don't let the link bump blow them up */
+  .chip a{font-size:inherit; font-weight:inherit; border-bottom:none; padding-bottom:0;}
+  strong{color:var(--ink);}
+  .lead{background:var(--green-lt); border-left:4px solid var(--green); border-radius:0 8px 8px 0;
+    padding:11px 14px; margin:10px 0 4px; font-size:12px;}
+  .subbox{background:#f6faf7; border:1px solid var(--line); border-radius:9px; padding:11px 13px; margin:9px 0;}
+  .subbox .st{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--green); margin-bottom:5px;}
+  .subbox ul{margin-bottom:0;}
+  .cards{display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px; margin:10px 0 4px;}
+  .card{border:1px solid var(--line); border-radius:10px; padding:12px 13px; background:#fff;}
+  .card h4{font-size:12.5px; margin-bottom:4px; color:var(--green);}
+  .card p{font-size:11.5px; color:var(--muted); margin:0;}
+  /* link row that sits directly under a section / sub-section heading */
+  .seclinks{display:flex; flex-wrap:wrap; gap:5px 14px; align-items:baseline; margin:-3px 0 9px;}
+  .seclinks a{font-size:13px; font-weight:800;}
+  .seclinks .lbl{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted);}
+  .exlist{margin:6px 0 9px 2px;}
+  .exlist li{margin-bottom:4px;}
+  .chips{display:flex; flex-wrap:wrap; gap:5px; margin:8px 0 6px;}
+  .chip{font-size:11px; font-weight:600; background:var(--green-lt); color:var(--green);
+    border:1px solid #cfe4d7; border-radius:20px; padding:3px 10px;}
+  .chip.win{background:var(--gold-lt); color:var(--gold); border-color:#e6d3ac;}
+  table{width:100%; border-collapse:collapse; margin:9px 0 4px; font-size:12px;}
+  th{background:var(--green); color:#fff; text-align:left; padding:9px 12px; font-weight:600; font-size:12.5px;}
+  th:first-child{border-radius:7px 0 0 0;} th:last-child{border-radius:0 7px 0 0;}
+  td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:nth-child(even) td{background:#f7faf8;}
+  /* plan-comparison table: muted "current plan" column, emphasised Plus column */
+  .cmp th:nth-child(2){background:#5c6b63;}
+  .cmp td:nth-child(1){font-weight:600; width:44%;}
+  .cmp td:nth-child(2){color:var(--muted); width:28%;}
+  .cmp td:nth-child(3){width:28%;}
+  .cmp .yes{color:var(--green); font-weight:700;}
+  .cmp .no{color:var(--red); font-weight:700;}
+  .cmp .same{display:inline-block; font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--muted); background:#eef1ef; border:1px solid var(--line); border-radius:20px; padding:1px 7px; margin-left:5px;}
+  /* every row is a difference now, so emphasise the Plus column rather than shading whole rows */
+  .cmp td:nth-child(3){font-weight:700; color:#8a6427;}
+  .note{font-size:10.5px; color:var(--muted); margin-top:7px; line-height:1.4;}
+  .metrics{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:14px 0 4px;}
+  .metric{border:1px solid var(--line); border-radius:10px; padding:13px 10px; text-align:center; background:#fff;}
+  .metric .n{font-size:17px; font-weight:800; color:var(--green); letter-spacing:-.01em; line-height:1.15;}
+  .metric .l{font-size:11px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.04em;}
+  footer{margin-top:30px; padding-top:14px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); text-align:center;}
+  /* each numbered category is its own outlined card so sections read as separate blocks */
+  .sec{border:1px solid var(--line); border-radius:12px; background:#fff;
+    padding:14px 17px 12px; margin:0 0 12px; box-shadow:0 1px 2px rgba(20,40,30,.035);}
+  .sec > h2:first-child{margin:0 0 11px; padding-bottom:9px; border-bottom:1px solid var(--line);}
+  .sec > h3:first-of-type{margin-top:2px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none; margin:0; max-width:100%; padding:18px;}
+    /* keep each numbered section whole — move to next page rather than split */
+    .sec{page-break-inside:avoid; break-inside:avoid;}
+    h2,h3{page-break-after:avoid; break-after:avoid;}
+    .card,.subbox,.metric,table,.chips{page-break-inside:avoid; break-inside:avoid;}
+    .exlist{page-break-inside:avoid; break-inside:avoid;}
+    li{page-break-inside:avoid; break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Shopify Plus</div>
+    <h1>Feature Overview &amp; Benefits</h1>
+    <div class="sub">Everything included in the Shopify Plus plan — checkout, B2B, retail, automation, and enterprise infrastructure on one platform.</div>
+  </header>
+
+  <div class="lead">
+    Shopify Plus is the enterprise tier of Shopify: the same platform, unlocked. You get full control of the checkout,
+    exclusive automation and API access, native B2B and multi-store organization tools, free POS Pro, and 24/7 priority
+    support — under one consolidated contract with no per-feature add-ons.
+  </div>
+
+  <!-- Rates -->
+  <section class="sec">
+  <h2><span class="num">1</span> Plus Rates</h2>
+  <div class="metrics">
+    <div class="metric"><div class="n">2.25%<span style="font-size:12px"> + $0.30</span></div><div class="l">Online</div></div>
+    <div class="metric"><div class="n">2.3%<span style="font-size:12px"> + $0.10</span></div><div class="l">In Person</div></div>
+    <div class="metric"><div class="n">0.2%<span style="font-size:12px"> – 0.15%</span></div><div class="l">3rd-Party Gateway Fee</div></div>
+    <div class="metric"><div class="n">5%<span style="font-size:12px"> + $0.30</span></div><div class="l">Shop Pay Installments</div></div>
+    <div class="metric"><div class="n">Free</div><div class="l">POS Pro</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:6px;">If you keep a third-party payment gateway, Plus drops the
+    transaction fee to <strong>0.2% – 0.15%</strong> — down from <strong>1%</strong> on Grow. POS Pro is included at no
+    additional subscription cost.</p>
+
+  </section>
+  <!-- Checkout & Accounts -->
+  <section class="sec">
+  <h2><span class="num">2</span> Customized Checkout</h2>
+
+  <p>Full control to edit and customize every element of the checkout — the most important page in the purchase journey —
+    from branding and layout to upsells, payment options, and post-purchase flows.</p>
+  <div class="cards">
+    <div class="card">
+      <h4>Increase Conversion</h4>
+      <p>Trust badges · reviews · shipping &amp; return policies · free gifts · rewards program · bundles · discounted rates on orders above $X.</p>
+    </div>
+    <div class="card">
+      <h4>Increase AOV</h4>
+      <p>Upsells · add-ons · subscribe &amp; save · warranty protection.</p>
+    </div>
+    <div class="card">
+      <h4>Free Apps on Plus</h4>
+      <p>Free access to <strong>ReBuy</strong> and <strong>AfterSell</strong> for checkout customization.</p>
+    </div>
+  </div>
+  <div class="chips">
+    <span class="chip win">📈 6–9% conversion increase on average</span>
+    <span class="chip win">💰 9–12% AOV increase on average</span>
+  </div>
+
+  <h3>Real Plus Checkouts <span class="plus-tag">Live Examples</span></h3>
+  <p>Every one of these is a live Shopify Plus merchant — add an item to the cart and head to checkout.
+    Nothing below the payment form is stock: upsells, bundles, trust badges, shipping protection, loyalty,
+    and free-gift thresholds are all built with checkout extensions.</p>
+  <ul class="exlist">
+    <li><a href="https://german-car-accessories.com/cart" target="_blank" rel="noopener">German Car Zone ↗</a></li>
+    <li><a href="https://www.maryruthorganics.com/cart" target="_blank" rel="noopener">Mary Ruth's ↗</a></li>
+    <li><a href="https://paddlenorth.com/cart" target="_blank" rel="noopener">Paddle North ↗</a></li>
+    <li><a href="https://promixnutrition.com/cart" target="_blank" rel="noopener">Promix ↗</a></li>
+    <li><a href="https://sockwellusa.com/cart" target="_blank" rel="noopener">Sockwell ↗</a></li>
+  </ul>
+  <div class="seclinks">
+    <span class="lbl">More examples</span>
+    <a href="https://www.rebuyengine.com/lookbook/checkout-extensions" target="_blank" rel="noopener">Rebuy Checkout Extensions Lookbook ↗</a>
+  </div>
+
+  </section>
+  <!-- Storefront, Themes & Catalog -->
+  <section class="sec">
+  <h2><span class="num">3</span> Themes, Storefront &amp; Catalog Customization</h2>
+  <p>Beyond checkout, Plus unlocks the rest of the buying experience — your theme, and how much catalog
+    complexity the platform will carry without breaking.</p>
+
+  <h3>Theme &amp; Design Control</h3>
+  <ul>
+    <li><strong>Full theme code access</strong> — Liquid, sections, and app blocks; build custom templates per product line, campaign, or market</li>
+    <li><strong>Unlimited staff accounts</strong> — put your agency, freelancers, and internal devs in the theme at the same time with scoped permissions</li>
+    <li><strong>Headless when you need it</strong> — Hydrogen + Oxygen for a fully custom React storefront, backed by Plus-tier API limits so it holds up at scale</li>
+    <li><strong>Advanced coding &amp; RFP support</strong> — Plus support and the Plus partner ecosystem for custom builds and migrations</li>
+  </ul>
+
+  <h3>Catalog, SKUs &amp; Variants at Scale</h3>
+  <ul>
+    <li><strong>Up to 2,048 variants per product</strong> — deep size/color/spec matrices without splitting products or bolting on a variant app</li>
+    <li><strong>Unlimited B2B catalogs</strong> — separate price lists, quantity rules, and product visibility per company location</li>
+    <li><strong>5X API rate limits + Bulk Operations</strong> — full-catalog syncs from an ERP or PIM finish instead of throttling (see §9)</li>
+    <li><strong>Multi-store catalog splits</strong> — run distinct product lines or regional assortments on expansion stores under one org (see §6)</li>
+  </ul>
+
+  <h3>Custom Data &amp; Content Modeling</h3>
+  <p>Metafields and metaobjects let you model your own content types — size guides, ingredient panels, spec sheets, lookbooks,
+    store locators — natively, instead of paying for an app per use case. Plus raises the ceiling to
+    <strong>120 metaobject definitions</strong> and <strong>128K entries</strong>.</p>
+
+  </section>
+  <!-- Marketing -->
+  <section class="sec">
+  <h2><span class="num">4</span> Marketing &amp; Growth — Shopify Audiences</h2>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/shopify-audiences" target="_blank" rel="noopener">Overview ↗</a>
+    <a href="https://www.shopifyacademy.com/finding-new-customers-with-shopify" target="_blank" rel="noopener">Course ↗</a>
+  </div>
+  <p>Data-driven insights to enhance marketing and reduce customer acquisition costs.</p>
+  <ul>
+    <li>Up to <strong>50% reduction</strong> in customer acquisition costs</li>
+    <li>Improved ad performance &amp; enhanced retargeting</li>
+    <li>Privacy-compliant targeting</li>
+  </ul>
+  <div class="chips">
+    <span class="chip"><a href="https://www.shopify.com/case-studies/happy-hippo" target="_blank" rel="noopener" style="color:inherit;">Happy Hippo: 4X ROAS · 86% new customers ↗</a></span>
+    <span class="chip"><a href="https://www.shopify.com/case-studies/blenderbottle" target="_blank" rel="noopener" style="color:inherit;">BlenderBottle: 6X ROAS ↗</a></span>
+    <span class="chip"><a href="https://www.shopify.com/case-studies/simkhai" target="_blank" rel="noopener" style="color:inherit;">SIMKHAI: 6X ROAS · 54% lower CPA ↗</a></span>
+  </div>
+
+  </section>
+  <!-- B2B -->
+  <section class="sec">
+  <h2><span class="num">5</span> B2B &amp; Wholesale</h2>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/b2b" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <p>Run wholesale and DTC on a single platform — or a dedicated B2B-only storefront.</p>
+  <div class="subbox">
+    <div class="st">Companies &amp; Customers</div>
+    <ul>
+      <li>Company = parent org supporting up to <strong>10,000 locations</strong> &amp; <strong>10,000 customers</strong></li>
+      <li>Up to 50 contacts per location — assign <strong>ordering-only</strong> or <strong>location admin</strong> permissions</li>
+      <li>Location-specific pricing, payment terms, tax IDs &amp; exemption settings</li>
+      <li>Custom billing &amp; shipping address per location</li>
+      <li>Draft order review workflow before submission</li>
+    </ul>
+  </div>
+  <div class="subbox">
+    <div class="st">Catalogs &amp; Pricing</div>
+    <ul>
+      <li><strong>Unlimited catalogs</strong> on Plus — assign up to 25 per company location</li>
+      <li>Fixed prices, percentage discounts, or volume/tiered pricing</li>
+      <li>Quantity rules &amp; purchase restrictions per catalog</li>
+      <li>Customers always see the lowest price when multiple catalogs apply</li>
+      <li>Multi-currency support via Shopify Markets</li>
+    </ul>
+  </div>
+  <div class="subbox">
+    <div class="st">Checkout &amp; Integrations</div>
+    <ul>
+      <li>Flexible payment terms configured per company location</li>
+      <li>One-time shipping addresses at checkout</li>
+      <li>Storefront API &amp; Draft Order API for custom dev &amp; ERP integrations</li>
+      <li>Shopify Flow automation for B2B workflows &amp; order management</li>
+    </ul>
+  </div>
+  <div class="chips">
+    <span class="chip"><a href="https://www.shopify.com/case-studies/amr-hair-and-beauty" target="_blank" rel="noopener" style="color:inherit;">AMR Hair &amp; Beauty: 200% sales increase ↗</a></span>
+    <span class="chip"><a href="https://www.shopify.com/case-studies/who-is-elijah" target="_blank" rel="noopener" style="color:inherit;">WHO IS ELIJAH: 50% intl. sales increase ↗</a></span>
+    <span class="chip"><a href="https://www.shopify.com/cz/case-studies/kulani-kinis" target="_blank" rel="noopener" style="color:inherit;">Kulani Kinis: 300% B2B revenue increase ↗</a></span>
+  </div>
+
+  </section>
+  <!-- Multi-store -->
+  <section class="sec">
+  <h2><span class="num">6</span> Multi-Store &amp; Multi-Entity</h2>
+
+  <h3>Expansion Stores</h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/organization-settings/expansion-stores" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <p>Additional .myshopify.com stores under the same org &amp; contract. <strong>1 Main Store + 9 Expansion Stores.</strong></p>
+  <ul>
+    <li><strong>International</strong> — same brand in a different language, region, or currency</li>
+    <li><strong>Product Line</strong> — same brand, different products (e.g. tents → coolers)</li>
+    <li><strong>B2B</strong> — wholesale store with identical products</li>
+    <li><strong>Employee / VIP</strong> — member-only or employee swag stores</li>
+    <li><strong>Physical Retail</strong> — 100% in-store, no online transactions</li>
+  </ul>
+
+  <h3>Organization Management — Multi-Entity <span class="plus-tag">Plus Exclusive</span></h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/organization-settings" target="_blank" rel="noopener">Organization Admin Overview ↗</a>
+  </div>
+  <p>The control layer <em>above</em> your stores. Where Expansion Stores give you the storefronts,
+    <strong>Organizations</strong> is how you run them as distinct brands or legal entities — each with its own
+    <strong>Shopify Payments account, banking, and tax registration</strong> where needed — all governed centrally.</p>
+  <ul>
+    <li><strong>Separate legal entities</strong> — distinct Shopify Payments, banking &amp; tax per store where required, under one org</li>
+    <li><strong>Store switcher</strong> — jump between storefronts from the top-right menu, no re-logging in</li>
+    <li><strong>Central user management</strong> — add a person once, grant scoped access per store; no full-org access required for contractors</li>
+    <li><strong>Consolidated billing</strong> — one contract and invoice across all stores &amp; expansion stores</li>
+    <li><strong>Organization-level roles</strong> — separate org admins from store staff; keep permissions least-privilege</li>
+    <li><strong>Unified analytics</strong> — roll up performance across brands/regions in one view</li>
+    <li>Ideal for holding companies, multi-brand portfolios, and franchise / distributed retail models</li>
+  </ul>
+
+  </section>
+  <!-- Retail -->
+  <section class="sec">
+  <h2><span class="num">7</span> Retail &amp; Omnichannel — Free POS Pro</h2>
+  <div class="seclinks">
+    <a href="https://www.shopify.com/pos/features" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <ul>
+    <li>First <strong>20 locations FREE</strong> (or 200 with Shopify Payments)</li>
+    <li>Unlimited POS staff</li>
+    <li>Returns &amp; exchanges at any location</li>
+    <li>Retail inventory management + reporting</li>
+    <li>Omnichannel: trade shows · pop-ups · conferences · brick &amp; mortar</li>
+  </ul>
+
+  </section>
+  <!-- Merchandising -->
+  <section class="sec">
+  <h2><span class="num">8</span> Plus-Exclusive Campaign &amp; Catalog Tools</h2>
+
+  <h3>Launchpad <span class="plus-tag">Plus Exclusive</span></h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/create-marketing/launchpad" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <p>Manages product launches, events, promotions, and sales campaigns seamlessly.</p>
+  <ul>
+    <li>Pre-schedule theme changes, discounts, and banners</li>
+    <li>Intuitive interface for limited-time events</li>
+    <li>Publish and revert campaign assets on a precise schedule</li>
+  </ul>
+
+  <h3>Combined Listings <span class="plus-tag">Plus Exclusive</span></h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/products/combined-listings-app" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <p>Group separate products into a single enhanced listing (color, model, dimension, etc.). Up to 60 child products per listing.</p>
+  <ul>
+    <li>Distinct, descriptive URLs per variation — <strong>each variant crawled &amp; indexed for its own long-tail search intent</strong></li>
+    <li>Unique titles, descriptions, and rich media per variation</li>
+    <li>Feeds paid channels color-specific images + URLs → <strong>higher CTR</strong> than generic variant feeds</li>
+    <li>Cohesive buyer experience from a single product details page</li>
+  </ul>
+
+  </section>
+  <!-- Dev platform -->
+  <section class="sec">
+  <h2><span class="num">9</span> Developer Platform &amp; Performance</h2>
+
+  <h3>Custom Development &amp; Better Site Performance</h3>
+  <p>API rate limit increased <strong>5X</strong> — all systems and third-party apps communicate 5X faster.</p>
+  <div class="metrics" style="grid-template-columns:repeat(4,1fr)">
+    <div class="metric"><div class="n">1,000</div><div class="l">Rate Limit pts/sec</div></div>
+    <div class="metric"><div class="n">54,600</div><div class="l">Payments App pts/sec</div></div>
+    <div class="metric"><div class="n">120</div><div class="l">Metaobject Definitions</div></div>
+    <div class="metric"><div class="n">128K</div><div class="l">Metaobject Entries</div></div>
+  </div>
+
+  <h3>Exclusive API Access &amp; Endpoints</h3>
+  <div class="seclinks">
+    <a href="https://shopify.dev/docs/api/usage" target="_blank" rel="noopener">Docs ↗</a>
+  </div>
+  <p>Additional API calls and integration capabilities unavailable outside Plus.</p>
+  <ul>
+    <li><a href="https://shopify.dev/docs/api/admin-graphql" target="_blank" rel="noopener">GraphQL Admin</a> ·
+        <a href="https://shopify.dev/docs/api/admin-rest" target="_blank" rel="noopener">REST Admin</a></li>
+    <li><a href="https://shopify.dev/docs/api/admin-graphql/latest/objects/GiftCard" target="_blank" rel="noopener">GiftCard API</a> — full CRUD</li>
+    <li><a href="https://shopify.dev/docs/apps/build/b2b" target="_blank" rel="noopener">B2B Company / Catalog / Contact API</a></li>
+    <li><a href="https://shopify.dev/docs/api/multipass" target="_blank" rel="noopener">Multipass SSO API</a></li>
+    <li><a href="https://shopify.dev/docs/api/checkout-ui-extensions" target="_blank" rel="noopener">Checkout UI Extensions</a> — in checkout</li>
+    <li><a href="https://shopify.dev/docs/api/functions/reference/cart-checkout-validation" target="_blank" rel="noopener">Cart &amp; Checkout Validation Functions</a></li>
+    <li><a href="https://shopify.dev/docs/api/functions/reference/payment-customization" target="_blank" rel="noopener">Payment</a> /
+        <a href="https://shopify.dev/docs/api/functions/reference/delivery-customization" target="_blank" rel="noopener">Delivery Customization Functions</a></li>
+    <li><a href="https://shopify.dev/docs/apps/build/purchase-options/subscriptions" target="_blank" rel="noopener">Subscription APIs</a> — recurring billing, selling plans &amp; purchase options</li>
+  </ul>
+
+  </section>
+  <!-- Automation -->
+  <section class="sec">
+  <h2><span class="num">10</span> Automation — Shopify Flow</h2>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/shopify-flow" target="_blank" rel="noopener">Overview ↗</a>
+  </div>
+  <p>Shopify Flow is Shopify's native automation platform — a no-code trigger → condition → action builder that
+    eliminates repetitive ops work and scales your team without adding headcount.
+    <strong>Plus gets more extensive access to Flow than any other plan</strong> — the highest usage limits, custom
+    partner-app tasks, and the ability to automate Plus-exclusive surfaces like B2B, multi-store, and Launchpad.</p>
+  <div class="subbox">
+    <div class="st">How It Works</div>
+    <ul>
+      <li><strong>Trigger</strong> — an event occurs (e.g. an order is placed)</li>
+      <li><strong>Condition</strong> — criteria are checked (e.g. order value &gt; $500)</li>
+      <li><strong>Action</strong> — automated response fires (e.g. tag customer as VIP, notify team)</li>
+    </ul>
+  </div>
+  <div class="subbox">
+    <div class="st">What You Can Automate</div>
+    <ul>
+      <li><strong>Order Management</strong> — flag high-risk orders, cancel restricted-region orders, reward high-value customers with VIP status</li>
+      <li><strong>Inventory Control</strong> — trigger supplier reorders when stock drops, hide low-stock products, pause marketing campaigns automatically</li>
+      <li><strong>Customer Loyalty</strong> — build tiered VIP programs ($300+ → Premium VIP, $100–$299 → Silver VIP) with personalized follow-ups</li>
+      <li><strong>Product Organization</strong> — auto-tag products by description, dynamically populate collections as new inventory arrives</li>
+      <li><strong>B2B &amp; Wholesale</strong> — notify sales teams of new wholesale orders, automate wholesale customer tiering</li>
+    </ul>
+  </div>
+  <div class="subbox">
+    <div class="st">Top 5 Workflows Plus Merchants Actually Run</div>
+    <ul>
+      <li><strong>1 · High-value order → VIP tagging</strong><br>
+        <em>Order created</em> → order total is over your VIP threshold → tag the customer <code>VIP</code> and add
+        them to a segment. Drives tiered loyalty (e.g. $300+ → Premium, $100–299 → Silver) and lets Klaviyo or
+        Audiences target the tag automatically. Usually the first workflow a merchant builds.</li>
+      <li><strong>2 · Fraud &amp; risk hold on checkout</strong><br>
+        <em>Order risk analyzed</em> → risk is Medium or High → hold fulfillment, tag the order, and email or Slack
+        the ops team before anything ships. If you capture manually, only auto-capture when risk is Low. Replaces
+        manual review of every order and stops chargebacks at the door.</li>
+      <li><strong>3 · Low-stock reorder alert</strong><br>
+        <em>Inventory quantity changed</em> → variant drops to your reorder point → email the vendor a reorder
+        request, Slack the buying team, and tag the product <code>low-stock</code>.
+        <span style="color:var(--muted);">Build note: gate on both the current <em>and</em> prior quantity, or the
+        email refires on every subsequent order until restock.</span></li>
+      <li><strong>4 · Publish / unpublish on stock status</strong><br>
+        <em>Inventory quantity changed</em> → hits zero → unpublish the product (or hide it from the collection) and
+        pause the ads pointing at it; republish and notify marketing on restock. Kills the "sold out" bounce and the
+        spend behind it.</li>
+      <li><strong>5 · B2B / wholesale order routing</strong><br>
+        <em>Order created</em> → the order is attached to a B2B company or a wholesale-tagged customer → notify the
+        assigned rep, apply the company's payment terms, tag for the wholesale fulfillment queue, and tier the
+        company on cumulative spend.</li>
+    </ul>
+  </div>
+  <div class="chips">
+    <span class="chip win">✅ Most Extensive Access on Plus</span>
+    <span class="chip">Highest Usage Limits</span>
+    <span class="chip">No-Code Builder</span>
+    <span class="chip">Multi-Store Automation</span>
+  </div>
+
+  </section>
+  <!-- Security -->
+  <section class="sec">
+  <h2><span class="num">11</span> Security &amp; Risk</h2>
+  <h3>Bot Protection</h3>
+  <p>Prevent auto-checkout bots from dominating inventory during flash sales and limited drops.</p>
+  <ul>
+    <li>Block known bots from completing checkout</li>
+    <li>Slow down automated purchasing systems</li>
+    <li>Checkpoint challenges to verify human buyers</li>
+  </ul>
+  <h3>Fraud Analysis</h3>
+  <p>Sophisticated tools that automatically scan orders for potential fraud indicators.</p>
+
+  </section>
+  <!-- Operations -->
+  <section class="sec">
+  <h2><span class="num">12</span> Operations — Shipping, Delivery &amp; Tax</h2>
+
+  <h3>Shopify Shipping — Overview</h3>
+  <div class="seclinks">
+    <a href="https://www.shopify.com/shipping" target="_blank" rel="noopener">Overview ↗</a>
+    <a href="https://help.shopify.com/en/manual/fulfillment/shopify-shipping" target="_blank" rel="noopener">Docs ↗</a>
+  </div>
+  <p>Shipping is built into the Shopify admin — you buy labels at Shopify-negotiated carrier rates without a
+    third-party app, a separate carrier contract, or a monthly shipping-platform subscription. Rates, labels,
+    tracking, insurance, and claims all live in the same place as your orders.</p>
+  <h3>Shipping &amp; Delivery — Grow vs Plus</h3>
+  <table class="cmp">
+    <tr><th>Capability</th><th>Grow</th><th>Shopify Plus</th></tr>
+    <tr>
+      <td>Third-party carrier-calculated shipping — your own UPS / FedEx / USPS / Canada Post / Australia Post account, live rates at checkout</td>
+      <td>Paid monthly add-on, or switch to annual billing</td>
+      <td>Included at no extra cost</td>
+    </tr>
+    <tr>
+      <td>Third-party shipping-rate apps <span style="font-weight:400;color:var(--muted)">(all count as carrier-calculated providers)</span></td>
+      <td>Requires the same paid entitlement</td>
+      <td>Included at no extra cost</td>
+    </tr>
+    <tr>
+      <td>Custom shipping discounts via Checkout Blocks</td>
+      <td class="no">Not available</td>
+      <td>Plus exclusive</td>
+    </tr>
+    <tr>
+      <td>Delivery customization Functions — hide, reorder &amp; rename delivery options at checkout</td>
+      <td class="no">Not available</td>
+      <td>Plus exclusive</td>
+    </tr>
+    <tr>
+      <td>Duties &amp; import taxes collected at checkout</td>
+      <td class="no">Not available</td>
+      <td>Included</td>
+    </tr>
+  </table>
+  <p class="note">What Plus adds is <strong>control over how shipping is priced and presented at checkout</strong> —
+    plus carrier-calculated shipping and duties included rather than billed as add-ons.</p>
+
+  <h3>Plus-Exclusive Delivery Controls <span class="plus-tag">Plus Exclusive</span></h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/checkout-settings/checkout-blocks/custom-discounts/shipping-discount" target="_blank" rel="noopener">Custom Shipping Discounts ↗</a>
+  </div>
+  <ul>
+    <li><strong>Custom shipping discounts in Checkout Blocks</strong> <span class="plus-tag">Plus Only</span> — four
+      discount types you can create:
+      <ul style="margin-top:4px;">
+        <li><strong>Percentage shipping discounts</strong> — lower qualifying shipping options by a set percent</li>
+        <li><strong>Free shipping</strong> — a 100% discount on qualifying shipping options</li>
+        <li><strong>Fixed amount shipping discounts</strong> — subtract a set amount; if it exceeds the delivery cost, shipping is free</li>
+        <li><strong>Fixed price shipping offers</strong> — bring qualifying options down to a price you choose, applied only when the original rate is higher</li>
+      </ul>
+    </li>
+    <li><strong>Targeted by</strong> market, cart subtotal or quantity, B2B status, company, customer tag, order
+      count, collection, SKU, or shipping country / state / ZIP</li>
+    <li><strong>Automatic or code-based</strong>, combinable with product and order discounts, capped by maximum
+      uses, and scheduled with start &amp; end dates — so a free-shipping threshold can run a campaign window and
+      switch itself off</li>
+    <li><strong>Delivery customization Functions</strong> — hide express shipping for PO boxes, reorder options so
+      the profitable method sits first, or rename a method to something buyers understand ("Free 2-Day — Members")</li>
+    <li><strong>Cart &amp; checkout validation Functions</strong> — block restricted-region or over-quantity orders
+      before payment rather than cancelling and refunding after (see §9)</li>
+  </ul>
+
+  <h3>Shopify Tax</h3>
+  <div class="seclinks">
+    <a href="https://help.shopify.com/en/manual/taxes/shopify-tax/pricing" target="_blank" rel="noopener">Pricing ↗</a>
+  </div>
+  <table class="cmp">
+    <tr><th>Shopify Tax</th><th>Grow</th><th>Shopify Plus</th></tr>
+    <tr><td>Calculation fee after the free tier — US</td><td>0.35%</td><td>0.25%</td></tr>
+    <tr><td>Calculation fee — EU / UK</td><td>0.25%</td><td>0.15%</td></tr>
+  </table>
+  <p class="note">Both plans include the first $100K of US sales per year free, and both cap fees at $0.99 per order
+    and $5,000 per region per year.</p>
+  <ul style="margin-top:8px;">
+    <li>Avalara AvaTax integration for merchants with an existing compliance stack</li>
+    <li>Advanced tax reporting &amp; VAT number validation</li>
+  </ul>
+  <p class="note">Rates shown apply to stores created before 13 May 2026. Stores created on or after that date use a
+    flat 0.25% US / 0.15% Canada model against a $100K lifetime-sales threshold, with no Plus differential.
+    Shopify Tax covers calculation, not filing or remittance.</p>
+
+  </section>
+  <!-- Support -->
+  <section class="sec">
+  <h2><span class="num">13</span> Support &amp; Enablement</h2>
+  <h3>Priority Support 24/7</h3>
+  <p>Growth and technical support by phone, email, or live chat — exclusively for Plus merchants.</p>
+  <div class="chips">
+    <span class="chip">Acquisition</span>
+    <span class="chip">Retention</span>
+    <span class="chip">Conversion</span>
+    <span class="chip">Business Operations</span>
+    <span class="chip">Technical Integrations</span>
+    <span class="chip">Branding</span>
+  </div>
+  <h3>Shopify Plus Academy</h3>
+  <div class="seclinks">
+    <a href="https://www.shopifyacademy.com/page/catalog#plan_plus" target="_blank" rel="noopener">Browse the Plus course catalog ↗</a>
+  </div>
+  <ul>
+    <li><strong>In-depth courses</strong> — comprehensive learning paths</li>
+    <li><strong>Live online workshops</strong> — taught by leading industry experts</li>
+    <li><strong>Short-form lessons</strong> — practical tips in under 30 minutes</li>
+  </ul>
+  <h3>Additional Benefits</h3>
+  <div class="chips">
+    <span class="chip">Unlimited Staff Accounts</span>
+    <span class="chip">Feature Test Drives</span>
+    <span class="chip">Custom User Groups</span>
+    <span class="chip">Advanced Coding &amp; RFPs</span>
+    <span class="chip">Shopify Scripts &amp; Functions</span>
+  </div>
+
+  </section>
+  <footer>Shopify Plus &nbsp;·&nbsp; Feature Overview &amp; Benefits &nbsp;·&nbsp; Prepared by Christen McAllister &nbsp;·&nbsp; For client use only</footer>
+
+</div>
+</body>
+</html>
