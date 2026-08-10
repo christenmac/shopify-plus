@@ -77,7 +77,14 @@
   footer{margin-top:30px; padding-top:14px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; gap:16px;}
   .srclist{font-size:11.8px; color:var(--muted); line-height:1.9;}
   .srclist a{color:var(--rose);}
-  @media print{ body{background:#fff;} .page{box-shadow:none; margin:0; max-width:100%; padding:20px;} h2{page-break-after:avoid;} .card,table{page-break-inside:avoid;} }
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none; margin:0; max-width:100%; padding:20px;}
+    h2{page-break-after:avoid;} h3{page-break-after:avoid;}
+    .card,table,.math,.metrics{page-break-inside:avoid;}
+    code{white-space:pre-wrap; overflow-x:visible; word-break:break-word; page-break-inside:avoid; font-size:10.5px;}
+    .lead,.warn,.good,.note,.quote{page-break-inside:avoid;}
+  }
   @media (max-width:680px){ .cards,.cards.two,.cards.four{grid-template-columns:1fr;} .page{padding:24px 18px;} }
 </style>
 </head>
