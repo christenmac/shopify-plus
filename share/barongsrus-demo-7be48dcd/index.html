@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barongs R Us: Custom-Made Page Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root { --ink:#2a2420; --taupe:#7b6e64; --rust:#8a3a10; --cream:#ede7d9; --paper:#f7f4ee; --line:#e2dbcf; --mute:#6f665f; --green:#2f7d4f; --sp:#5a31f4; --adm:#f1f1f1; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:"Poppins",-apple-system,Arial,sans-serif; color:var(--ink); background:var(--paper); font-variant-numeric:lining-nums; font-size:14px; }
+button { font-family:inherit; cursor:pointer; }
+a { color:var(--rust); }
+
+/* demo bar */
+.demobar { background:var(--ink); color:#fff; display:flex; align-items:center; gap:18px; padding:10px 28px; position:sticky; top:0; z-index:30; }
+.demobar .lbl { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#cfc4b8; font-weight:600; }
+.tabs { display:flex; gap:6px; }
+.tabs button { background:transparent; border:1px solid #5d544d; color:#e8e1d8; border-radius:99px; padding:6px 14px; font-size:12.5px; font-weight:600; }
+.tabs button.on { background:#fff; color:var(--ink); border-color:#fff; }
+.demobar .sp { flex:1; }
+.demobar .fill { background:var(--rust); color:#fff; border:0; border-radius:99px; padding:6px 14px; font-size:12.5px; font-weight:600; }
+.demobar .clr { background:transparent; color:#cfc4b8; border:0; font-size:12px; text-decoration:underline; }
+.view { display:none; } .view.on { display:block; }
+
+/* store header */
+.hdr { background:#fff; border-bottom:1px solid var(--line); }
+.hdr .in { max-width:1240px; margin:0 auto; display:flex; align-items:center; gap:34px; padding:14px 28px; }
+.hdr img { height:40px; }
+.hdr nav { display:flex; gap:24px; font-size:13.5px; font-weight:500; }
+.hdr nav span.on { color:var(--rust); border-bottom:2px solid var(--rust); padding-bottom:3px; }
+.hdr .cart { margin-left:auto; position:relative; font-size:13.5px; font-weight:600; }
+.hdr .cart b { background:var(--rust); color:#fff; border-radius:99px; font-size:11px; padding:1px 7px; margin-left:4px; }
+.promo { background:var(--taupe); color:#fff; text-align:center; font-size:12.5px; padding:7px; letter-spacing:.3px; }
+
+/* product */
+.pdp { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:420px minmax(0,1fr) 330px; gap:30px; padding:26px 28px 60px; align-items:start; }
+.gal { position:sticky; top:64px; }
+.gal .main { border-radius:12px; overflow:hidden; background:#fff; border:1px solid var(--line); }
+.gal .main img { width:100%; display:block; }
+.gal .thumbs { display:flex; gap:8px; margin-top:10px; }
+.gal .thumbs div { width:64px; height:64px; border-radius:8px; border:1px solid var(--line); background:#fff center/cover; }
+.gal .thumbs div.on { border:2px solid var(--rust); }
+.gal .sw { margin-top:12px; font-size:12px; color:var(--mute); display:flex; align-items:center; gap:8px; }
+.gal .sw i { width:22px; height:22px; border-radius:50%; border:1px solid #bbb; display:inline-block; }
+.crumbs { font-size:12px; color:var(--mute); margin-bottom:6px; }
+h1 { font-family:"Cormorant Garamond",serif; font-size:40px; line-height:1.05; font-weight:700; }
+.sku { font-size:12px; color:var(--mute); margin:4px 0 8px; }
+.price { font-size:24px; font-weight:700; }
+.price small { font-size:13px; color:var(--mute); font-weight:500; margin-left:6px; }
+.intro { font-size:13.5px; color:var(--mute); line-height:1.55; margin:8px 0 16px; }
+
+/* steps */
+.step { background:#fff; border:1px solid var(--line); border-radius:12px; margin-bottom:12px; overflow:hidden; }
+.step .hd { display:flex; align-items:center; gap:12px; padding:14px 18px; cursor:pointer; }
+.step .num { width:28px; height:28px; border-radius:50%; background:var(--cream); color:var(--rust); font-weight:700; display:flex; align-items:center; justify-content:center; font-size:13px; flex:none; }
+.step.done .num { background:var(--green); color:#fff; }
+.step .hd h3 { font-size:15.5px; font-weight:700; }
+.step .hd .sum { font-size:12px; color:var(--mute); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+.step .hd > div:nth-child(2) { min-width:0; flex:1; }
+.step .hd .cnt { margin-left:auto; font-size:11.5px; color:var(--mute); font-weight:600; white-space:nowrap; }
+.step .bd { display:none; padding:4px 18px 18px; border-top:1px solid var(--line); }
+.step.open .bd { display:block; }
+.fld { margin-top:14px; }
+.fld > label, .fld > .l { display:flex; justify-content:space-between; font-size:12.5px; font-weight:600; margin-bottom:7px; }
+.fld > .l em { font-style:normal; font-weight:500; color:var(--mute); }
+.pills { display:flex; flex-wrap:wrap; gap:7px; }
+.pills button { background:#fff; border:1px solid #cfc6b8; border-radius:8px; padding:7px 11px; font-size:12.5px; color:var(--ink); }
+.pills button .up { color:var(--rust); font-weight:600; margin-left:4px; font-size:11.5px; }
+.pills button.on { border:2px solid var(--rust); background:#fbf4ef; padding:6px 10px; font-weight:600; }
+.cardsel { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.cardsel button { text-align:left; background:#fff; border:1px solid #cfc6b8; border-radius:10px; padding:10px 12px; }
+.cardsel button b { display:block; font-size:13px; }
+.cardsel button span { font-size:11.5px; color:var(--mute); }
+.cardsel button span.up { color:var(--rust); font-weight:600; }
+.cardsel button.on { border:2px solid var(--rust); background:#fbf4ef; padding:9px 11px; }
+.swatches { display:grid; grid-template-columns:repeat(16,1fr); gap:7px; }
+.swatches button { aspect-ratio:1; border-radius:50%; border:1px solid rgba(0,0,0,.18); position:relative; }
+.swatches button.on { outline:2px solid var(--rust); outline-offset:2px; }
+.swatches button.on:after { content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; text-shadow:0 0 3px rgba(0,0,0,.6); }
+select, input[type=text], input[type=tel], input[type=date], input[type=number] { width:100%; border:1px solid #cfc6b8; border-radius:8px; padding:9px 11px; font-family:inherit; font-size:13.5px; background:#fff; color:var(--ink); }
+input:focus, select:focus { outline:2px solid var(--rust); border-color:transparent; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.meas { display:grid; grid-template-columns:repeat(3,1fr); gap:10px 12px; }
+.meas label { font-size:12px; font-weight:600; display:block; margin-bottom:5px; }
+.unit { position:relative; } .unit span { position:absolute; right:10px; top:9px; font-size:12px; color:var(--mute); }
+.hint { font-size:12px; color:var(--mute); line-height:1.5; margin-top:12px; background:var(--paper); border-radius:8px; padding:9px 12px; }
+.hint b { color:var(--ink); }
+.nextb { margin-top:16px; background:var(--ink); color:#fff; border:0; border-radius:8px; padding:9px 16px; font-size:13px; font-weight:600; }
+.saved { display:flex; align-items:center; gap:10px; background:#eef5f0; border:1px solid #cfe3d5; border-radius:8px; padding:9px 12px; font-size:12.5px; margin-top:12px; }
+.saved button { margin-left:auto; background:#fff; border:1px solid var(--green); color:var(--green); border-radius:6px; padding:5px 10px; font-size:12px; font-weight:600; }
+
+/* summary */
+.sumbox { position:sticky; top:64px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; }
+.sumbox h4 { font-size:13px; text-transform:uppercase; letter-spacing:1.2px; color:var(--mute); margin-bottom:10px; }
+.prog { height:6px; background:var(--cream); border-radius:99px; overflow:hidden; } .prog i { display:block; height:100%; background:var(--green); width:0; transition:width .2s; }
+.progt { font-size:12px; color:var(--mute); margin:6px 0 12px; }
+.lines div { display:flex; justify-content:space-between; font-size:13px; padding:5px 0; }
+.lines div span:last-child { font-weight:600; }
+.lines .up span:last-child { color:var(--rust); }
+.tot { display:flex; justify-content:space-between; font-size:18px; font-weight:700; border-top:1px solid var(--line); padding-top:10px; margin-top:6px; }
+.qty { display:flex; align-items:center; gap:10px; margin:14px 0 10px; font-size:13px; }
+.qty input { width:60px; text-align:center; }
+.atc { width:100%; background:var(--rust); color:#fff; border:0; border-radius:8px; padding:13px; font-size:14.5px; font-weight:600; }
+.atc:disabled { background:#c9bfb4; cursor:not-allowed; }
+.spb { width:100%; background:var(--sp); color:#fff; border:0; border-radius:8px; padding:12px; font-size:14px; font-weight:700; margin-top:8px; }
+.miss { font-size:11.5px; color:var(--rust); margin-top:8px; line-height:1.45; }
+.note { font-size:11.5px; color:var(--mute); margin-top:12px; line-height:1.5; border-top:1px dashed var(--line); padding-top:10px; }
+
+/* drawer */
+.scrim { position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:40; display:none; }
+.drawer { position:fixed; top:0; right:0; bottom:0; width:420px; background:#fff; z-index:41; transform:translateX(100%); transition:transform .25s; display:flex; flex-direction:column; }
+.drawer.on { transform:none; } .scrim.on { display:block; }
+.drawer .dh { display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid var(--line); font-weight:700; font-size:16px; }
+.drawer .dh button { border:0; background:none; font-size:20px; }
+.drawer .db { flex:1; overflow:auto; padding:16px 20px; }
+.ci { display:grid; grid-template-columns:64px 1fr auto; gap:12px; padding-bottom:14px; border-bottom:1px solid var(--line); }
+.ci img { width:64px; border-radius:6px; }
+.ci b { font-size:13.5px; }
+.ci dl { font-size:11.5px; color:var(--mute); margin-top:4px; display:grid; grid-template-columns:auto 1fr; gap:1px 8px; }
+.ci dt { font-weight:600; color:var(--ink); }
+.drawer .df { padding:16px 20px; border-top:1px solid var(--line); }
+.drawer .df div { display:flex; justify-content:space-between; font-size:13px; padding:3px 0; }
+.drawer .df .disc span:last-child { color:var(--green); font-weight:600; }
+
+/* today */
+.today { max-width:1240px; margin:0 auto; padding:26px 28px 60px; display:grid; grid-template-columns:520px 1fr; gap:36px; align-items:start; }
+.today .shot { border:1px solid #cfc6b8; border-radius:12px; overflow:auto; max-height:calc(100vh - 110px); background:#fff; position:sticky; top:64px; }
+.today .shot img { width:100%; display:block; }
+.today h2, .ord h2 { font-family:"Cormorant Garamond",serif; font-size:38px; line-height:1.08; margin-bottom:8px; }
+.today p.lede, .ord p.lede { font-size:15px; color:var(--mute); line-height:1.55; }
+table.inv { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; margin-top:18px; font-size:13px; }
+table.inv th { background:var(--taupe); color:#fff; font-size:11px; letter-spacing:1px; text-transform:uppercase; text-align:left; padding:9px 12px; }
+table.inv th.s { background:var(--rust); }
+table.inv td { border-bottom:1px solid var(--line); padding:8px 12px; vertical-align:top; line-height:1.4; }
+table.inv td:first-child { font-weight:600; width:24%; }
+table.inv td.w { background:#f6f3ef; color:var(--mute); width:36%; }
+table.inv tr.g td { background:var(--cream); font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--rust); padding:6px 12px; }
+.rf { margin-top:22px; background:#fff; border:1px solid var(--line); border-left:5px solid var(--rust); border-radius:10px; padding:14px 18px; }
+.rf h5 { font-size:11.5px; text-transform:uppercase; letter-spacing:1.4px; color:var(--rust); margin-bottom:8px; }
+.rf a { display:block; font-size:13px; color:var(--ink); padding:5px 0; text-decoration:none; border-bottom:1px solid var(--line); }
+.rf a:last-child { border:0; }
+.rf a span { color:var(--rust); font-size:11.5px; font-weight:600; margin-left:6px; }
+
+/* order (admin) */
+.ord { max-width:1240px; margin:0 auto; padding:26px 28px 60px; }
+.admin { background:var(--adm); border:1px solid #d6d6d6; border-radius:12px; overflow:hidden; margin-top:16px; font-family:-apple-system,"Inter",Arial,sans-serif; }
+.admin .top { background:#1a1a1a; color:#fff; padding:10px 18px; font-size:13px; font-weight:600; display:flex; justify-content:space-between; }
+.admin .body { display:grid; grid-template-columns:1fr 360px; gap:16px; padding:16px; }
+.panel { background:#fff; border-radius:10px; box-shadow:0 1px 0 rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.05); padding:14px 16px; margin-bottom:14px; }
+.panel h6 { font-size:13.5px; font-weight:650; margin-bottom:10px; display:flex; gap:8px; align-items:center; }
+.badge { font-size:11px; font-weight:600; border-radius:6px; padding:2px 8px; background:#ffd79d; color:#5e4200; }
+.badge.g { background:#e3e3e3; color:#333; }
+.oli { display:grid; grid-template-columns:56px 1fr auto; gap:12px; }
+.oli img { width:56px; border-radius:6px; border:1px solid #e3e3e3; }
+.oli .props { display:grid; grid-template-columns:repeat(3,1fr); gap:3px 16px; font-size:12px; margin-top:8px; color:#303030; }
+.oli .props .gh { grid-column:1/-1; font-size:10.5px; text-transform:uppercase; letter-spacing:1px; color:#8a8a8a; font-weight:700; margin-top:8px; }
+.oli .props span b { color:#616161; font-weight:500; }
+.pay div { display:flex; justify-content:space-between; font-size:13px; padding:4px 0; }
+.pay .t { font-weight:650; border-top:1px solid #e3e3e3; margin-top:4px; padding-top:8px; }
+.abtn { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.abtn button { border:1px solid #c9c9c9; background:#fff; border-radius:8px; padding:7px 12px; font-size:12.5px; font-weight:600; }
+.abtn button.p { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+.tags span { display:inline-block; background:#e3e3e3; border-radius:6px; font-size:12px; padding:2px 8px; margin:0 4px 4px 0; }
+.tl { font-size:12px; color:#616161; line-height:1.6; }
+.sheet { background:#fff; border:1px solid var(--line); border-radius:12px; padding:22px 26px; margin-top:16px; display:none; }
+.sheet.on { display:block; }
+.sheet .sh { display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:12px; }
+.sheet .sh img { height:34px; }
+.sheet .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.sheet h6 { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--rust); margin-bottom:6px; }
+.sheet .row { display:flex; justify-content:space-between; font-size:12.5px; padding:3px 0; border-bottom:1px dotted var(--line); }
+.sheet .row b { font-weight:600; }
+.empty { text-align:center; padding:60px 20px; color:var(--mute); font-size:14px; }
+.empty button { margin-top:12px; }
+@media (max-width:1100px) { .pdp { grid-template-columns:1fr; } .gal,.sumbox,.today .shot { position:static; } .today { grid-template-columns:1fr; } .admin .body { grid-template-columns:1fr; } .swatches { grid-template-columns:repeat(8,1fr); } .cardsel,.meas { grid-template-columns:1fr 1fr; } }
+</style></head>
+<body>
+
+<div class="demobar">
+  <span class="lbl">Demo</span>
+  <div class="tabs">
+    <button data-v="today">Today on WooCommerce</button>
+    <button data-v="page" class="on">On Shopify: the product page</button>
+    <button data-v="order">On Shopify: the order</button>
+  </div>
+  <span class="sp"></span>
+  <button class="fill" id="fillBtn">Fill an example</button>
+  <button class="clr" id="clrBtn">Clear</button>
+</div>
+
+<!-- TODAY -->
+<section class="view" id="v-today">
+  <div class="today">
+    <div class="shot"><img src="img/cm_long.png" alt="The custom-made page on barongsrus.com today"></div>
+    <div>
+      <h2>Today: 27 fields on one long page</h2>
+      <p class="lede">The custom-made page on barongsrus.com has body-figure and measurement guides, then a form with 14 dropdown choices, 9 measurements and 4 wearer details in a single column. Upgrade prices sit inside the dropdown text, for example "Jusi ( + $30.00 )".</p>
+      <table class="inv">
+        <tr><th>Input</th><th>Today on WooCommerce</th><th class="s">On Shopify Plus (this demo)</th></tr>
+        <tr class="g"><td colspan="3">Fabric (3)</td></tr>
+        <tr><td>Fabric color</td><td class="w">Dropdown, 31 names</td><td>31 colour swatches, White shows +$15</td></tr>
+        <tr><td>Color tone</td><td class="w">Dropdown, 3</td><td>Buttons</td></tr>
+        <tr><td>Fabric type</td><td class="w">Dropdown, 9, price in the text</td><td>Cards with the upgrade price on each</td></tr>
+        <tr class="g"><td colspan="3">Style (5)</td></tr>
+        <tr><td>Collar, front, buttons, cuffs, sleeves</td><td class="w">5 dropdowns</td><td>Buttons, every choice visible at once</td></tr>
+        <tr class="g"><td colspan="3">Fit (6)</td></tr>
+        <tr><td>Neck, shoulder, arms, body type</td><td class="w">4 dropdowns</td><td>Buttons</td></tr>
+        <tr><td>Chest size, height</td><td class="w">Dropdowns, 35 and 25 options, surcharges in the text</td><td>Dropdowns, surcharge added to the price as they choose</td></tr>
+        <tr class="g"><td colspan="3">Measurements (9)</td></tr>
+        <tr><td>Neck to back length</td><td class="w">9 text boxes, one under the other</td><td>A 3 × 3 grid in inches, numbers only, with a how-to-measure note. Returning customers can reuse their last set</td></tr>
+        <tr class="g"><td colspan="3">Wearer and event (4)</td></tr>
+        <tr><td>Wearer, contact, date of use, party</td><td class="w">4 text boxes</td><td>Phone field, a date picker, and the party name tags the order</td></tr>
+        <tr class="g"><td colspan="3">The price</td></tr>
+        <tr><td>Running total</td><td class="w">Surcharges listed inside each dropdown</td><td>A live summary: base price, each upgrade, total</td></tr>
+      </table>
+      <div class="rf"><h5>Read further</h5>
+        <a href="https://help.shopify.com/en/manual/products/variants/add-variants" target="_blank">Why these are options, not variants: 3 options and 2,048 variants per product<span>Help Center</span></a>
+        <a href="https://shopify.dev/docs/storefronts/themes/architecture/templates/product#line-item-properties" target="_blank">Line item properties: custom fields on the product page<span>shopify.dev</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT PAGE -->
+<section class="view on" id="v-page">
+  <div class="promo">Wedding parties: 10% off 1–3 items, 20% off 4 or more. Applied automatically in the cart.</div>
+  <div class="hdr"><div class="in">
+    <img src="img/logo.png" alt="Barongs R Us">
+    <nav><span>Barong Tagalog</span><span>Filipiniana</span><span class="on">Custom-made</span><span>Wedding parties</span><span>Kids</span></nav>
+    <span class="cart" id="cartLink">Cart<b id="cartCount">0</b></span>
+  </div></div>
+
+  <div class="pdp">
+    <div class="gal">
+      <div class="main"><img src="img/b1002.jpg" alt="Custom Barong Tagalog 1002CM"></div>
+      <div class="thumbs"><div class="on" style="background-image:url(img/b1002.jpg)"></div><div style="background-image:url(img/b1002.jpg);background-position:top"></div><div style="background-image:url(img/b1002.jpg);background-position:bottom"></div></div>
+      <div class="sw">Selected fabric colour <i id="swPrev"></i> <span id="swName">Choose a colour</span></div>
+    </div>
+
+    <div>
+      <div class="crumbs">Home / Custom-made / Barong Tagalog</div>
+      <h1>Custom Barong Tagalog 1002CM</h1>
+      <div class="sku">SKU-BT1002CM · Made to your measurements</div>
+      <div class="price"><span id="topPrice">$119.99</span><small id="topNote">base price</small></div>
+      <p class="intro">Five short steps. Every choice and measurement saves to your order, so the workshop sees the full spec.</p>
+      <div id="steps"></div>
+    </div>
+
+    <aside class="sumbox">
+      <h4>Your barong</h4>
+      <div class="prog"><i id="progBar"></i></div>
+      <div class="progt" id="progTxt">0 of 27 answered</div>
+      <div class="lines" id="sumLines"></div>
+      <div class="tot"><span>Price</span><span id="sumTot">$119.99</span></div>
+      <div class="qty">Quantity <input type="number" id="qty" min="1" value="1"></div>
+      <button class="atc" id="atc" disabled>Add to cart</button>
+      <div class="miss" id="miss"></div>
+      <div class="note">Upgrade prices are set by a Shopify Function (cart transform) Varun builds, so the cart, checkout and order all show one price for the barong. Cart transform price updates are available on Shopify Plus.</div>
+    </aside>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="view" id="v-order">
+  <div class="ord">
+    <h2>The order: every answer in one place</h2>
+    <p class="lede">All 27 answers land on the order line, grouped the way the workshop reads them. The card is authorized, not charged, until you capture.</p>
+    <div id="ordBody"></div>
+    <div class="rf"><h5>Read further</h5>
+      <a href="https://shopify.dev/docs/api/liquid/objects/line_item#line_item-properties" target="_blank">Line item properties on the order: the data behind each answer<span>shopify.dev</span></a>
+      <a href="https://help.shopify.com/en/manual/fulfillment/managing-orders/printing-orders/shopify-order-printer" target="_blank">Shopify Order Printer: custom production sheets and packing slips<span>Help Center</span></a>
+      <a href="https://help.shopify.com/en/manual/payments/payment-authorization" target="_blank">Payment authorization: hold the card, charge when you're ready<span>Help Center</span></a>
+      <a href="https://help.shopify.com/en/manual/shopify-flow" target="_blank">Shopify Flow: tag each order with its wedding party automatically<span>Help Center</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="scrim" id="scrim"></div>
+<div class="drawer" id="drawer">
+  <div class="dh">Your cart <button id="closeD">×</button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df" id="dFoot"></div>
+</div>
+
+<script>
+const BASE=119.99;
+const COLORS={"Aqua Blue":"#7fd3d6","Baby Blue":"#a9cdea","Beige/Ecru":"#e6dcc3","Black":"#1d1d1d","Brown":"#7a5134","Burgundy":"#6d1a2a","Celadon":"#b6d3b4","Champagne":"#f1e1bf","Chocolate Brown":"#4e3122","Fuchsia Pink":"#d8358f","Gray (Dark)":"#555a5f","Gray (Light)":"#c2c5c8","Green":"#3f8f4f","Hunter Green":"#2d5a3a","Indigo":"#3b3f8f","Ivory":"#f8f3e3","Lavender":"#c5b6e0","Lilac":"#c9a2c8","Matte Gold":"#c2a25c","Mocha":"#8b6b58","Navy Blue":"#1f2c4d","Off-White":"#f3efe6","Purple":"#6a3d8f","Red":"#c62a2a","Red Wine":"#7b1f2f","Royal Blue":"#2950b5","Rust":"#a14a1d","Tan":"#c8a67c","Taupe":"#8f8073","Turquoise":"#2fb3b0","White":"#ffffff"};
+const UP={ "White":15 };
+const STEPS=[
+ {t:"Fabric",f:[
+  {k:"Fabric color",type:"swatch",o:Object.keys(COLORS),up:{"White":15}},
+  {k:"Color tone",type:"pills",o:["As shown in picture","Monochromatic","Solid"]},
+  {k:"Fabric type",type:"cards",o:[["Jusilyn","Base fabric",0],["Colored Jusilyn","Dyed Jusilyn",15],["Pina Jusilyn","Piña blend",15],["Jusi","Classic sheer",30],["Colored Jusi","Dyed Jusi",45],["Piña-Jusi","Piña blend",45],["Pina Cocoon","Textured piña",90],["Piña","Pure piña",230],["Colored Pina","Dyed piña",240]]}
+ ]},
+ {t:"Style",f:[
+  {k:"Collar",type:"pills",o:["As shown in picture","Band collar","Chinese/Mandarin collar","Henley","Traditional straight point collar","Wing (tuxedo style)"]},
+  {k:"Front",type:"pills",o:["As shown in picture","Full-hidden button","Full-open","Half-open"]},
+  {k:"Buttons",type:"pills",o:["As shown in picture","Regular buttons","Chinese buttons"]},
+  {k:"Cuffs",type:"pills",o:["Classic 1-button round cuffs","Convertible cuffs","French cuffs"]},
+  {k:"Sleeve type",type:"pills",o:["Long sleeves","Short sleeves"]}
+ ]},
+ {t:"Fit",f:[
+  {k:"Neck length",type:"pills",o:["Average","Long neck","Short neck"]},
+  {k:"Shoulder type",type:"pills",o:["Average","Broad","Narrow"]},
+  {k:"Arm length",type:"pills",o:["Average arms","Long arms","Short arms"]},
+  {k:"Body type",type:"pills",o:["Average","Pear/Oval","Slim","T-Shape","V-Build"]},
+  {k:"Chest size",type:"select",half:1,o:Array.from({length:35},(_,i)=>{const n=30+i;const u=n>=61?35:n>=57?30:n>=53?25:n>=51?20:n>=49?15:n>=47?10:0;return [n+'"',u]})},
+  {k:"Height",type:"select",half:1,o:(()=>{const a=[];for(let f=5;f<=7;f++)for(let i=0;i<12;i++){if(f==7&&i>0)break;const tot=f*12+i;const u=tot>=84?50:tot>=82?40:tot>=80?35:tot>=78?25:tot>=76?15:0;a.push([f+"'"+i+'"'+(f==7?" +":""),u])}return a})()}
+ ]},
+ {t:"Measurements",note:"In inches",f:[{k:"_meas",type:"meas",o:["Neck","Shoulder","Sleeve length","Waist","Hips","Wrist","Armhole","Bicep","Back length"]}]},
+ {t:"Wearer and event",f:[{k:"_who",type:"who"}]}
+];
+const MEAS=STEPS[3].f[0].o, WHO=["Name of wearer","Contact number","Date of use","Name of party"];
+const TOTAL=14+9+4;
+let S={}, open=0, cart=null;
+
+function money(n){return "$"+n.toFixed(2)}
+function upOf(k,v){
+  if(v==null)return 0;
+  if(k==="Fabric color")return v==="White"?15:0;
+  const f=STEPS.flatMap(s=>s.f).find(x=>x.k===k); if(!f||!Array.isArray(f.o[0]))return 0;
+  const hit=f.o.find(o=>o[0]===v); return hit?(f.type==="cards"?hit[2]:hit[1]):0;
+}
+function stepKeys(i){const s=STEPS[i]; if(s.f[0].k==="_meas")return MEAS; if(s.f[0].k==="_who")return WHO; return s.f.map(x=>x.k)}
+function answered(k){return S[k]!=null && String(S[k]).trim()!==""}
+function render(){
+  const box=document.getElementById('steps'); box.innerHTML="";
+  STEPS.forEach((s,i)=>{
+    const keys=stepKeys(i), n=keys.filter(answered).length, done=n===keys.length;
+    const d=document.createElement('div'); d.className='step'+(open===i?' open':'')+(done?' done':'');
+    const sum=keys.filter(answered).map(k=>k.startsWith("Name")||k==="Contact number"||k==="Date of use"||MEAS.includes(k)?(MEAS.includes(k)?k+" "+S[k]:S[k]):S[k]).join(" · ");
+    d.innerHTML=`<div class="hd"><div class="num">${done?"✓":i+1}</div><div><h3>${s.t}</h3><div class="sum">${sum||(s.note||"Not started")}</div></div><div class="cnt">${n} of ${keys.length}</div></div><div class="bd"></div>`;
+    d.querySelector('.hd').onclick=()=>{open=open===i?-1:i;render()};
+    const bd=d.querySelector('.bd');
+    if(open===i){
+      let row=null;
+      s.f.forEach(f=>{
+        const w=document.createElement('div'); w.className='fld';
+        if(f.type==="swatch"){
+          w.innerHTML=`<div class="l">${f.k}<em>${S[f.k]?S[f.k]+(S[f.k]==="White"?" (+$15.00)":""):"31 colours"}</em></div><div class="swatches"></div>`;
+          const g=w.querySelector('.swatches');
+          f.o.forEach(c=>{const b=document.createElement('button');b.style.background=COLORS[c];b.title=c+(c==="White"?" (+$15.00)":"");if(S[f.k]===c)b.className='on';b.onclick=()=>{S[f.k]=c;render()};g.appendChild(b)});
+        } else if(f.type==="pills"){
+          w.innerHTML=`<div class="l">${f.k}</div><div class="pills"></div>`;
+          const g=w.querySelector('.pills');
+          f.o.forEach(c=>{const b=document.createElement('button');b.textContent=c;if(S[f.k]===c)b.className='on';b.onclick=()=>{S[f.k]=c;render()};g.appendChild(b)});
+        } else if(f.type==="cards"){
+          w.innerHTML=`<div class="l">${f.k}</div><div class="cardsel"></div>`;
+          const g=w.querySelector('.cardsel');
+          f.o.forEach(([c,desc,u])=>{const b=document.createElement('button');b.innerHTML=`<b>${c}</b><span>${desc}</span> <span class="up">${u?"+"+money(u):"Included"}</span>`;if(S[f.k]===c)b.className='on';b.onclick=()=>{S[f.k]=c;render()};g.appendChild(b)});
+        } else if(f.type==="select"){
+          if(!row){row=document.createElement('div');row.className='two fld';bd.appendChild(row)}
+          w.className='';
+          w.innerHTML=`<div class="fld" style="margin-top:0"><label>${f.k}</label><select><option value="">Choose…</option>${f.o.map(([c,u])=>`<option ${S[f.k]===c?"selected":""} value='${c.replace(/'/g,"&#39;")}'>${c}${u?"  (+"+money(u)+")":""}</option>`).join("")}</select></div>`;
+          w.querySelector('select').onchange=e=>{S[f.k]=e.target.value||null;render()};
+          row.appendChild(w); return;
+        } else if(f.type==="meas"){
+          w.innerHTML=`<div class="meas">${MEAS.map(m=>`<div><label>${m}</label><div class="unit"><input type="number" step="0.25" min="0" data-k="${m}" value="${S[m]??""}" placeholder="0.0"><span>in</span></div></div>`).join("")}</div>
+          <div class="saved">Welcome back, Miguel. Use the measurements from your last order? <button id="useSaved">Use saved</button></div>
+          <div class="hint"><b>How to measure:</b> measure over a fitted shirt with a soft tape. Chest and height were picked in Fit, so these are the finer points the workshop needs.</div>`;
+          w.querySelectorAll('input').forEach(inp=>inp.oninput=e=>{S[e.target.dataset.k]=e.target.value;soft()});
+          setTimeout(()=>{const u=document.getElementById('useSaved');if(u)u.onclick=()=>{Object.assign(S,SAVED);render()}});
+        } else if(f.type==="who"){
+          w.innerHTML=`<div class="two">
+            <div><label class="l" style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Name of wearer</label><input type="text" data-k="Name of wearer" value="${S["Name of wearer"]??""}" placeholder="e.g. Miguel Santos"></div>
+            <div><label class="l" style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Contact number</label><input type="tel" data-k="Contact number" value="${S["Contact number"]??""}" placeholder="(555) 555-0123"></div>
+            <div><label class="l" style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Date of use</label><input type="date" data-k="Date of use" value="${S["Date of use"]??""}"></div>
+            <div><label class="l" style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Name of party</label><input type="text" data-k="Name of party" value="${S["Name of party"]??""}" placeholder="e.g. Santos–Reyes wedding"></div></div>
+            <div class="hint"><b>Ordering for a wedding party?</b> Use the same party name on every barong, and all of the party's orders are grouped together for the workshop.</div>`;
+          w.querySelectorAll('input').forEach(inp=>inp.oninput=e=>{S[e.target.dataset.k]=e.target.value;soft()});
+        }
+        bd.appendChild(w);
+      });
+      if(i<STEPS.length-1){const nb=document.createElement('button');nb.className='nextb';nb.textContent='Next: '+STEPS[i+1].t;nb.onclick=()=>{open=i+1;render()};bd.appendChild(nb)}
+    }
+    box.appendChild(d);
+  });
+  soft();
+}
+function price(){
+  const ups=[["Fabric color",S["Fabric color"]],["Fabric type",S["Fabric type"]],["Chest size",S["Chest size"]],["Height",S["Height"]]].map(([k,v])=>[k,v,upOf(k,v)]).filter(x=>x[2]>0);
+  return {ups,total:BASE+ups.reduce((a,x)=>a+x[2],0)};
+}
+function soft(){
+  const all=[...STEPS.slice(0,3).flatMap(s=>s.f.map(f=>f.k)),...MEAS,...WHO];
+  const n=all.filter(answered).length;
+  document.getElementById('progBar').style.width=(n/TOTAL*100)+"%";
+  document.getElementById('progTxt').textContent=n+" of "+TOTAL+" answered";
+  const {ups,total}=price();
+  document.getElementById('sumLines').innerHTML=`<div><span>Custom Barong 1002CM</span><span>${money(BASE)}</span></div>`+ups.map(([k,v,u])=>`<div class="up"><span>${k}: ${v}</span><span>+${money(u)}</span></div>`).join("");
+  document.getElementById('sumTot').textContent=money(total);
+  document.getElementById('topPrice').textContent=money(total);
+  document.getElementById('topNote').textContent=ups.length?"with your upgrades":"base price";
+  const c=S["Fabric color"]; document.getElementById('swPrev').style.background=c?COLORS[c]:"transparent"; document.getElementById('swName').textContent=c||"Choose a colour";
+  const left=STEPS.map((s,i)=>[s.t,stepKeys(i).filter(k=>!answered(k)).length]).filter(x=>x[1]);
+  document.getElementById('atc').disabled=n<TOTAL;
+  document.getElementById('miss').textContent=left.length?"Still needed: "+left.map(([t,m])=>t+" ("+m+")").join(", "):"";
+}
+const SAVED={"Neck":"15.5","Shoulder":"18","Sleeve length":"25","Waist":"34","Hips":"38","Wrist":"7","Armhole":"19","Bicep":"13","Back length":"30"};
+const EX={"Fabric color":"Beige/Ecru","Color tone":"Monochromatic","Fabric type":"Jusi","Collar":"Traditional straight point collar","Front":"Half-open","Buttons":"Chinese buttons","Cuffs":"French cuffs","Sleeve type":"Long sleeves","Neck length":"Average","Shoulder type":"Broad","Arm length":"Average arms","Body type":"V-Build","Chest size":'40"',"Height":"5'10\"",...SAVED,"Name of wearer":"Miguel Santos (groom)","Contact number":"(555) 555-0123","Date of use":"2027-06-12","Name of party":"Santos–Reyes wedding"};
+
+/* cart + order */
+function props(){return [
+ ["Fabric",["Fabric color","Color tone","Fabric type"]],["Style",["Collar","Front","Buttons","Cuffs","Sleeve type"]],["Fit",["Neck length","Shoulder type","Arm length","Body type","Chest size","Height"]],["Measurements (in)",MEAS],["Wearer and event",WHO]]}
+function fmtDate(v){if(!v)return"";const d=new Date(v+"T12:00:00");return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+function val(k){return k==="Date of use"?fmtDate(S[k]):S[k]}
+function addToCart(){
+  const q=Math.max(1,parseInt(document.getElementById('qty').value)||1), {total}=price();
+  cart={q,each:total,spec:JSON.parse(JSON.stringify(S))};
+  document.getElementById('cartCount').textContent=q;
+  const sub=total*q, rate=q>=4?.2:.1, disc=sub*rate;
+  document.getElementById('dBody').innerHTML=`<div class="ci"><img src="img/b1002.jpg"><div><b>Custom Barong Tagalog 1002CM</b><dl>${["Fabric type","Fabric color","Collar","Chest size","Height","Name of wearer","Date of use","Name of party"].map(k=>`<dt>${k}</dt><dd>${val(k)}</dd>`).join("")}<dt>+ ${TOTAL-8} more</dt><dd>saved to the order</dd></dl><div style="font-size:12px;margin-top:6px">Qty ${q}</div></div><b>${money(sub)}</b></div>`;
+  document.getElementById('dFoot').innerHTML=`<div><span>Subtotal</span><span>${money(sub)}</span></div><div class="disc"><span>${q>=4?"4 or more: 20% off":"1–3 items: 10% off"}</span><span>−${money(disc)}</span></div><div style="font-weight:700;font-size:15px;border-top:1px solid var(--line);margin-top:6px;padding-top:8px"><span>Total</span><span>${money(sub-disc)}</span></div><button class="spb" id="toOrder">Check out with Shop Pay</button><button class="atc" style="margin-top:8px;background:var(--ink)" id="toOrder2">Check out</button><div style="font-size:11px;color:var(--mute);margin-top:8px">Demo: checkout jumps to the order the workshop sees.</div>`;
+  document.getElementById('toOrder').onclick=document.getElementById('toOrder2').onclick=()=>{closeD();show('order')};
+  document.getElementById('drawer').classList.add('on');document.getElementById('scrim').classList.add('on');
+}
+function closeD(){document.getElementById('drawer').classList.remove('on');document.getElementById('scrim').classList.remove('on')}
+function renderOrder(){
+  const b=document.getElementById('ordBody');
+  if(!cart){b.innerHTML=`<div class="empty">No order yet. Fill in the product page and check out, or<br><button class="nextb" id="exOrd">Show an example order</button></div>`;document.getElementById('exOrd').onclick=()=>{S=Object.assign({},EX);addToCart();closeD();renderOrder()};return}
+  const sp=cart.spec, v=k=>k==="Date of use"?fmtDate(sp[k]):sp[k];
+  const sub=cart.each*cart.q, rate=cart.q>=4?.2:.1, disc=sub*rate, ship=12.99, tot=sub-disc+ship;
+  b.innerHTML=`<div class="admin"><div class="top"><span>Orders › #1042</span><span>Barongs R Us admin</span></div><div class="body">
+   <div><div class="panel"><h6>Unfulfilled <span class="badge">Payment authorized</span></h6>
+     <div class="oli"><img src="img/b1002.jpg"><div><b style="font-size:13.5px">Custom Barong Tagalog 1002CM</b> <span style="font-size:12px;color:#616161">× ${cart.q} · SKU-BT1002CM</span>
+      <div class="props">${props().map(([g,ks])=>`<div class="gh">${g}</div>`+ks.map(k=>`<span><b>${k.replace(" (in)","")}:</b> ${v(k)}</span>`).join("")).join("")}</div></div><b style="font-size:13.5px">${money(sub)}</b></div></div>
+     <div class="panel"><h6>Timeline</h6><div class="tl">Today · Order placed from the online store · Payment of ${money(tot)} authorized, not captured<br>Today · Shopify Flow tagged the order “${sp["Name of party"]}”</div></div></div>
+   <div><div class="panel"><h6>Payment <span class="badge">Authorized</span></h6><div class="pay"><div><span>Subtotal</span><span>${money(sub)}</span></div><div><span>${cart.q>=4?"Wedding party 20%":"Wedding party 10%"}</span><span>−${money(disc)}</span></div><div><span>Shipping (Standard)</span><span>${money(ship)}</span></div><div class="t"><span>Authorized, not charged</span><span>${money(tot)}</span></div></div>
+     <div class="abtn"><button class="p">Capture payment</button><button>Edit order</button><button id="prt">Print production sheet</button></div></div>
+     <div class="panel"><h6>Customer</h6><div class="tl">${sp["Name of wearer"]}<br>${sp["Contact number"]}<br>Measurements saved to the customer for the next order</div></div>
+     <div class="panel"><h6>Tags</h6><div class="tags"><span>${sp["Name of party"]}</span><span>Custom-made</span><span>Needed ${v("Date of use")}</span></div></div></div>
+  </div></div>
+  <div class="sheet" id="sheet"><div class="sh"><img src="img/logo.png"><div style="text-align:right;font-size:12px"><b style="font-size:15px">Production sheet · #1042</b><br>Needed by ${v("Date of use")} · ${sp["Name of party"]}</div></div>
+   <div class="grid">${props().map(([g,ks])=>`<div><h6>${g}</h6>${ks.map(k=>`<div class="row"><span>${k}</span><b>${v(k)}</b></div>`).join("")}</div>`).join("")}</div>
+   <div style="font-size:11px;color:var(--mute);margin-top:12px">Printed from the order with Shopify Order Printer. The template is yours to edit.</div></div>`;
+  document.getElementById('prt').onclick=()=>document.getElementById('sheet').classList.toggle('on');
+}
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.v===v));if(v==='order')renderOrder();scrollTo(0,0)}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+document.getElementById('atc').onclick=addToCart;
+document.getElementById('closeD').onclick=closeD;document.getElementById('scrim').onclick=closeD;
+document.getElementById('cartLink').onclick=()=>{if(cart){document.getElementById('drawer').classList.add('on');document.getElementById('scrim').classList.add('on')}};
+document.getElementById('fillBtn').onclick=()=>{S=Object.assign({},EX);open=0;render();show('page')};
+document.getElementById('clrBtn').onclick=()=>{S={};cart=null;open=0;document.getElementById('cartCount').textContent=0;render();show('page')};
+document.getElementById('qty').oninput=soft;
+render();
+/* screenshot states: #fill, #step=N, #view=X, #cart, #sheet */
+(function(){const h=location.hash.slice(1);if(!h)return;const p=Object.fromEntries(h.split('&').map(x=>x.split('=')));
+ if('fill' in p){S=Object.assign({},EX)} if(p.partial){const keys=Object.keys(EX).slice(0,+p.partial);S={};keys.forEach(k=>S[k]=EX[k])}
+ if(p.step!=null){open=+p.step} if(p.qty)document.getElementById('qty').value=p.qty; render();
+ if('cart' in p)addToCart(); if(p.view){if(p.view==='order'&&!cart){addToCart();closeD()}show(p.view)} if('sheet' in p)document.getElementById('sheet').classList.add('on');})();
+</script>
+</body></html>
