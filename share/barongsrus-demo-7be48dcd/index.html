@@ -357,7 +357,7 @@ function render(){
         } else if(f.type==="meas"){
           w.innerHTML=`<div class="meas">${MEAS.map(m=>`<div><label>${m}</label><div class="unit"><input type="number" step="0.25" min="0" data-k="${m}" value="${S[m]??""}" placeholder="0.0"><span>in</span></div></div>`).join("")}</div>
           <div class="saved">Welcome back, Miguel. Use the measurements from your last order? <button id="useSaved">Use saved</button></div>
-          <div class="hint"><b>How to measure:</b> measure over a fitted shirt with a soft tape. Chest and height were picked in Fit, so these are the finer points the workshop needs.</div>`;
+          <div class="hint"><b>Your measurement guide sits here:</b> the same neck, shoulder, sleeve and back-length guides from today's page, one tap away from each box. Chest and height were picked in Fit.</div>`;
           w.querySelectorAll('input').forEach(inp=>inp.oninput=e=>{S[e.target.dataset.k]=e.target.value;soft()});
           setTimeout(()=>{const u=document.getElementById('useSaved');if(u)u.onclick=()=>{Object.assign(S,SAVED);render()}});
         } else if(f.type==="who"){
